@@ -1,5 +1,7 @@
 # Soles
 
+![CI](https://github.com/sluukkonen/soles/workflows/Node.js%20CI/badge.svg)
+
 ## Goals
 
 - A functional JavaScript utility library, inspired by projects like [Ramda](https://github.com/ramda/ramda) and [Lodash](https://github.com/lodash/lodash).
