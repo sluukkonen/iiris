@@ -1,3 +1,6 @@
+export { arityN } from './arityN'
+export { binary } from './binary'
 export { curry } from './curry'
 export { curryN } from './curryN'
 export { identity } from './identity'
+export { unary } from './unary'
