@@ -1,13 +1,8 @@
 const Benchmark = require('benchmark')
 
-const _ = require('lodash')
+const _ = require('lodash/fp')
 const R = require('ramda')
 const S = require('./dist/index')
-
-const argv = require('yargs').option('suites', {
-  alias: 's',
-  describe: 'Filter suites to run by name',
-}).argv
 
 const benchmarks = [
   {
@@ -48,40 +43,66 @@ const benchmarks = [
       const Sadd = S.curry((a, b, c) => a + b + c)(1, 2)
       const _add = _.curry((a, b, c) => a + b + c)(1, 2)
       const Radd = R.curry((a, b, c) => a + b + c)(1, 2)
-      const add = ((a) => (b) => (c) => a + b + c)(1, 2)
+      const add = ((a, b) => (c) => a + b + c)(1, 2)
 
       return {
-        soles: () => Sadd(3) === 6,
-        lodash: () => _add(3) === 6,
-        ramda: () => Radd(3) === 6,
-        native: () => add(3) === 6,
+        soles: () => Sadd(3),
+        lodash: () => _add(3),
+        ramda: () => Radd(3),
+        native: () => add(3),
       }
     },
   },
 ]
 
+const argv = require('yargs')
+  .option('suites', {
+    alias: 's',
+    describe: 'Include only matching suites',
+  })
+  .option('libraries', {
+    alias: 'l',
+    description: 'Comma-separated list of libraries to benchmark',
+    choices: ['soles', 'lodash', 'ramda', 'native'],
+    coerce: (s) => s.split(','),
+  }).argv
+
 const suites = benchmarks
-  .map(({ name, benchmarks }) => {
+  .map(({ name, benchmarks: mkBenchmarks }) => {
     const suite = new Benchmark.Suite(name)
 
-    const _benchmarks = benchmarks()
-    const maxLength = Object.keys(_benchmarks)
-      .map((name) => name.length)
+    const benchmarks = Object.entries(mkBenchmarks())
+      .filter(([name]) => !argv.libraries || argv.libraries.includes(name))
+      .map(([name, benchmark]) => ({ name, benchmark }))
+
+    const maxLength = benchmarks
+      .map(({ name }) => name.length)
       .reduce((a, b) => Math.max(a, b))
     const padName = (name) => name.padEnd(maxLength, ' ')
 
-    Object.entries(_benchmarks).forEach(([name, fn]) => {
+    const serialize = JSON.stringify
+    const result = serialize(benchmarks[0].benchmark())
+    const mismatch = benchmarks.find(
+      ({ benchmark }) => serialize(benchmark()) !== result
+    )
+    if (mismatch) {
+      throw new Error(
+        `the results of ${mismatch.name} in ${name} do not match!`
+      )
+    }
+
+    benchmarks.forEach(({ name, benchmark }) => {
       // Assign the return value of the function to variable, so v8 doesn't just
       // optimize the benchmark into thin air.
       let value
       suite.add(padName(name), () => {
         // eslint-disable-next-line no-unused-vars
-        value = fn()
+        value = benchmark()
       })
     })
     return suite
   })
-  .filter((suite) => !argv.suites || suite.name.includes(argv.suites))
+  .filter((suite) => suite.name.includes(argv.suites || ''))
 
 const write = process.stdout.write.bind(process.stdout)
 
