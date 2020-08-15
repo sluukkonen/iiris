@@ -12,6 +12,6 @@ module.exports = {
       statements: 100,
     },
   },
-  coverageProvider: 'v8',
+  coverageProvider: 'babel',
   testEnvironment: 'node',
 }
