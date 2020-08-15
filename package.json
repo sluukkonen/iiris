@@ -12,19 +12,26 @@
   "devDependencies": {
     "@babel/core": "^7.11.1",
     "@babel/preset-env": "^7.11.0",
+    "@types/benchmark": "^1.0.33",
     "@types/jest": "^26.0.9",
+    "@types/lodash": "^4.14.159",
+    "@types/ramda": "^0.27.14",
     "babel-jest": "^26.3.0",
+    "benchmark": "^2.1.4",
     "eslint": "^7.6.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-jest": "^23.20.0",
     "eslint-plugin-prettier": "^3.1.4",
     "jest": "^26.4.0",
     "prettier": "^2.0.5",
-    "rollup": "^2.25.0",
+    "ramda": "^0.27.1",
+    "rollup": "^2.26.0",
     "typescript": "^3.9.7",
+    "yargs": "^15.4.1",
     "yarn": "^1.22.4"
   },
   "scripts": {
+    "benchmark": "NODE_ENV=production node benchmark.js",
     "build": "node generate-index.js && rollup -c",
     "lint": "eslint .",
     "test": "jest"
