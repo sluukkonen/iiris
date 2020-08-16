@@ -6,6 +6,42 @@ const S = require('../')
 
 const benchmarks = [
   {
+    name: 'arity.specialized',
+    result: 10,
+    benchmarks: () => {
+      const Sunary = S.arity(1, parseInt)
+      const _unary = _.ary(1, parseInt)
+      const Runary = _.ary(1, parseInt)
+      const unary = ((fn) => (x) => fn(x))(parseInt)
+
+      return {
+        soles: () => Sunary('10', 5),
+        lodash: () => _unary('10', 5),
+        ramda: () => Runary('10', 5),
+        native: () => unary('10', 5),
+      }
+    },
+  },
+  {
+    name: 'arity.generic',
+    result: NaN,
+    benchmarks: () => {
+      const Sunary = S.arity(4, (a, b, c, d, e) => a + b + c + d + e)
+      const _unary = _.ary(4, (a, b, c, d, e) => a + b + c + d + e)
+      const Runary = _.ary(4, (a, b, c, d, e) => a + b + c + d + e)
+      const unary = ((fn) => (a, b, c, d) => fn(a, b, c, d))(
+        (a, b, c, d, e) => a + b + c + d + e
+      )
+
+      return {
+        soles: () => Sunary(1, 2, 3, 4, 5),
+        lodash: () => _unary(1, 2, 3, 4, 5),
+        ramda: () => Runary(1, 2, 3, 4, 4),
+        native: () => unary(1, 2, 3, 4, 5),
+      }
+    },
+  },
+  {
     name: 'curry.specialized.partial',
     result: 6,
     benchmarks: () => {
@@ -122,6 +158,7 @@ const argv = require('yargs')
   }).argv
 
 const suites = benchmarks
+  .filter((suite) => suite.name.includes(argv.suites || ''))
   .map(({ name, result, benchmarks: mkBenchmarks }) => {
     const suite = new Benchmark.Suite(name)
 
@@ -134,10 +171,12 @@ const suites = benchmarks
       .reduce((a, b) => Math.max(a, b))
     const padName = (name) => name.padEnd(maxLength, ' ')
 
-    const mismatch = benchmarks.find(({ fn }) => fn() !== result)
+    const mismatch = benchmarks.find(({ fn }) => !Object.is(fn(), result))
     if (mismatch) {
       throw new Error(
-        `the result of ${mismatch.name} in ${name} do not match the expected result!`
+        `the result of ${
+          mismatch.name
+        } in ${name} doesn't match the expected result! (${mismatch.fn()} !== ${result})`
       )
     }
 
@@ -152,7 +191,6 @@ const suites = benchmarks
     })
     return suite
   })
-  .filter((suite) => suite.name.includes(argv.suites || ''))
 
 const write = process.stdout.write.bind(process.stdout)
 
