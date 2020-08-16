@@ -9,8 +9,8 @@ const benchmarks = [
     name: 'arity.specialized',
     result: undefined,
     benchmarks: () => {
-      const Sunary = S.arity(1, (a, b) => b)
-      const _unary = _.ary(1, (a, b) => b)
+      const Sunary = S.unary((a, b) => b)
+      const _unary = _.unary((a, b) => b)
       const unary = ((fn) => (x) => fn(x))((a, b) => b)
 
       return {
