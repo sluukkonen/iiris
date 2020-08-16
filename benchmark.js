@@ -6,7 +6,8 @@ const S = require('./dist/index')
 
 const benchmarks = [
   {
-    name: 'curry.partial',
+    name: 'curry.specialized.partial',
+    result: 6,
     benchmarks: () => {
       const Sadd = S.curry((a, b, c) => a + b + c)
       const _add = _.curry((a, b, c) => a + b + c)
@@ -22,7 +23,8 @@ const benchmarks = [
     },
   },
   {
-    name: 'curry.full',
+    name: 'curry.specialized.full',
+    result: 6,
     benchmarks: () => {
       const Sadd = S.curry((a, b, c) => a + b + c)
       const _add = _.curry((a, b, c) => a + b + c)
@@ -38,7 +40,8 @@ const benchmarks = [
     },
   },
   {
-    name: 'curry.last',
+    name: 'curry.specialized.last',
+    result: 6,
     benchmarks: () => {
       const Sadd = S.curry((a, b, c) => a + b + c)(1, 2)
       const _add = _.curry((a, b, c) => a + b + c)(1, 2)
@@ -54,7 +57,8 @@ const benchmarks = [
     },
   },
   {
-    name: 'curry.generic',
+    name: 'curry.generic.full',
+    result: 10,
     benchmarks: () => {
       const Sadd = S.curry((a, b, c, d) => a + b + c + d)
       const _add = _.curry((a, b, c, d) => a + b + c + d)
@@ -71,6 +75,7 @@ const benchmarks = [
   },
   {
     name: 'curry.generic.partial',
+    result: 10,
     benchmarks: () => {
       const Sadd = S.curry((a, b, c, d) => a + b + c + d)
       const _add = _.curry((a, b, c, d) => a + b + c + d)
@@ -82,6 +87,23 @@ const benchmarks = [
         lodash: () => _add(1)(2)(3)(4),
         ramda: () => Radd(1)(2)(3)(4),
         native: () => add(1)(2)(3)(4),
+      }
+    },
+  },
+  {
+    name: 'curry.generic.last',
+    result: 10,
+    benchmarks: () => {
+      const Sadd = S.curry((a, b, c, d) => a + b + c + d)(1, 2, 3)
+      const _add = _.curry((a, b, c, d) => a + b + c + d)(1, 2, 3)
+      const Radd = R.curry((a, b, c, d) => a + b + c + d)(1, 2, 3)
+      const add = ((a, b, c) => (d) => a + b + c + d)(1, 2, 3)
+
+      return {
+        soles: () => Sadd(4),
+        lodash: () => _add(4),
+        ramda: () => Radd(4),
+        native: () => add(4),
       }
     },
   },
@@ -100,36 +122,32 @@ const argv = require('yargs')
   }).argv
 
 const suites = benchmarks
-  .map(({ name, benchmarks: mkBenchmarks }) => {
+  .map(({ name, result, benchmarks: mkBenchmarks }) => {
     const suite = new Benchmark.Suite(name)
 
     const benchmarks = Object.entries(mkBenchmarks())
       .filter(([name]) => !argv.libraries || argv.libraries.includes(name))
-      .map(([name, benchmark]) => ({ name, benchmark }))
+      .map(([name, fn]) => ({ name, fn }))
 
     const maxLength = benchmarks
       .map(({ name }) => name.length)
       .reduce((a, b) => Math.max(a, b))
     const padName = (name) => name.padEnd(maxLength, ' ')
 
-    const serialize = JSON.stringify
-    const result = serialize(benchmarks[0].benchmark())
-    const mismatch = benchmarks.find(
-      ({ benchmark }) => serialize(benchmark()) !== result
-    )
+    const mismatch = benchmarks.find(({ fn }) => fn() !== result)
     if (mismatch) {
       throw new Error(
-        `the results of ${mismatch.name} in ${name} do not match!`
+        `the result of ${mismatch.name} in ${name} do not match the expected result!`
       )
     }
 
-    benchmarks.forEach(({ name, benchmark }) => {
+    benchmarks.forEach(({ name, fn }) => {
       // Assign the return value of the function to variable, so v8 doesn't just
       // optimize the benchmark into thin air.
       let value
       suite.add(padName(name), () => {
         // eslint-disable-next-line no-unused-vars
-        value = benchmark()
+        value = fn()
       })
     })
     return suite
