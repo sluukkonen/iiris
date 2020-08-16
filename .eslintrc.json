@@ -2,6 +2,6 @@
   "parserOptions": { "ecmaVersion": 2020, "sourceType": "module" },
   "env": { "jest": true, "node": true },
   "plugins": ["prettier", "jest"],
-  "extends": ["eslint:recommended", "prettier", ""],
+  "extends": ["eslint:recommended", "prettier", "plugin:jest/recommended"],
   "ignorePatterns": ["node_modules", "dist"]
 }
