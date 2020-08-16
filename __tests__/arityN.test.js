@@ -1,12 +1,12 @@
-import { arityN } from '../src'
+import { arity } from '../src'
 
-describe('arityN()', () => {
+describe('arity()', () => {
   it.each([[0], [1], [2], [3], [4]])(
     'returns a wrapped function with arity = %d',
     (n) => {
       const fn = (a1, a2, a3, a4, a5) => [a1, a2, a3, a4, a5].filter(Boolean)
 
-      const wrapped = arityN(n, fn)
+      const wrapped = arity(n, fn)
       const args = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
       const specialized = n < 4
 

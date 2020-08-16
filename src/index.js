@@ -1,4 +1,4 @@
-export { arityN } from './arityN'
+export { arity } from './arity'
 export { binary } from './binary'
 export { curry } from './curry'
 export { curryN } from './curryN'

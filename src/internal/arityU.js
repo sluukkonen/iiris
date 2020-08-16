@@ -4,7 +4,7 @@ import { arity1 } from './arity1'
 import { arity2 } from './arity2'
 import { arity3 } from './arity3'
 
-export const arityNU = (n, fn) => {
+export const arityU = (n, fn) => {
   switch (n) {
     case 0:
       return arity0(fn)
