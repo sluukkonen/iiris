@@ -11,8 +11,6 @@
   equivalent JavaScript methods.
 - Safer API. Predicates like propEq or propSatisfies should not throw.
 - Small footprint. Only support native JavaScript data types (at least for now).
-- Functions that wrap other functions (e.g. curry, unary etc.) copy the name
-  of the underlying function for better stack traces.
 - Support tree shaking.
 - Practical TypeScript typings. This kind of curried functional style is not
   supported very well in TypeScript, but let's try to include best-effort type

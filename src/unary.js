@@ -1,3 +1,3 @@
-import { copyName } from './internal/copyName'
+import { arity1 } from './internal/arity1'
 
-export const unary = (fn) => copyName((a) => fn(a), fn)
+export const unary = (fn) => arity1(fn)

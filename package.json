@@ -34,6 +34,7 @@
     "benchmark": "NODE_ENV=production node benchmark.js",
     "build": "node generate-index.js && rollup -c",
     "lint": "eslint .",
+    "repl": "node -i -e 'S = require(\".\")'",
     "test": "jest"
   }
 }

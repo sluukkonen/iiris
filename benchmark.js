@@ -53,6 +53,38 @@ const benchmarks = [
       }
     },
   },
+  {
+    name: 'curry.generic',
+    benchmarks: () => {
+      const Sadd = S.curry((a, b, c, d) => a + b + c + d)
+      const _add = _.curry((a, b, c, d) => a + b + c + d)
+      const Radd = R.curry((a, b, c, d) => a + b + c + d)
+      const add = (a, b, c, d) => a + b + c + d
+
+      return {
+        soles: () => Sadd(1, 2, 3, 4),
+        lodash: () => _add(1, 2, 3, 4),
+        ramda: () => Radd(1, 2, 3, 4),
+        native: () => add(1, 2, 3, 4),
+      }
+    },
+  },
+  {
+    name: 'curry.generic.partial',
+    benchmarks: () => {
+      const Sadd = S.curry((a, b, c, d) => a + b + c + d)
+      const _add = _.curry((a, b, c, d) => a + b + c + d)
+      const Radd = R.curry((a, b, c, d) => a + b + c + d)
+      const add = (a) => (b) => (c) => (d) => a + b + c + d
+
+      return {
+        soles: () => Sadd(1)(2)(3)(4),
+        lodash: () => _add(1)(2)(3)(4),
+        ramda: () => Radd(1)(2)(3)(4),
+        native: () => add(1)(2)(3)(4),
+      }
+    },
+  },
 ]
 
 const argv = require('yargs')

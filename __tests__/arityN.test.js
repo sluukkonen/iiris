@@ -1,23 +1,18 @@
 import { arityN } from '../src'
 
 describe('arityN()', () => {
-  it('returns a wrapped function with the specified arity', () => {
-    const fn = (a, b, c, d, e, f) => [a, b, c, d, e, f].filter(Boolean)
+  it.each([[0], [1], [2], [3], [4]])(
+    'returns a wrapped function with arity = %d',
+    (n) => {
+      const fn = (a1, a2, a3, a4, a5) => [a1, a2, a3, a4, a5].filter(Boolean)
 
-    for (const arity of [0, 1, 2, 3, 4, 5]) {
-      const wrapped = arityN(arity, fn)
-      const args = [1, 2, 3, 4, 5]
+      const wrapped = arityN(n, fn)
+      const args = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      const specialized = n < 4
 
-      expect(wrapped.length).toEqual(arity)
-      expect(wrapped.name).toEqual(fn.name)
-      expect(wrapped(...args)).toEqual(args.slice(0, arity))
+      expect(wrapped.length).toEqual(specialized ? n : 0)
+      expect(wrapped.name).toEqual(specialized ? `arity${n}` : 'arityN')
+      expect(wrapped(...args)).toEqual(args.slice(0, n))
     }
-  })
-
-  it('throws an error for unsupported arities', () => {
-    const fn = () => {}
-    expect(() => arityN(6, fn)).toThrowError(
-      'arityN: arities higher than 5 are not supported'
-    )
-  })
+  )
 })

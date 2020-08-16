@@ -7,7 +7,7 @@ describe('curry()', () => {
 
     expect(curried).toHaveLength(0)
     expect(curried.name).toBe(fn.name)
-    expect(curried()).toEqual(fn())
+    expect(curried()).toEqual([])
   })
 
   it('arity = 1', () => {
@@ -16,17 +16,20 @@ describe('curry()', () => {
 
     expect(curried).toHaveLength(1)
     expect(curried.name).toBe(fn.name)
-    expect(curried()).toEqual([undefined])
     expect(curried(1)).toEqual([1])
+    expect(curried()).toEqual([undefined])
   })
   it('arity = 2', () => {
     const fn = (a, b) => [a, b]
     const curried = curry(fn)
 
     expect(curried).toHaveLength(2)
-    expect(curried.name).toBe(fn.name)
+    expect(curried.name).toBe('curry2')
+    expect(curried(1).name).toBe('curry21')
+
     expect(curried(1, 2)).toEqual([1, 2])
     expect(curried(1)(2)).toEqual([1, 2])
+    expect(curried()()).toEqual([undefined, undefined])
   })
 
   it('arity = 3', () => {
@@ -34,16 +37,41 @@ describe('curry()', () => {
     const curried = curry(fn)
 
     expect(curried).toHaveLength(3)
-    expect(curried.name).toBe(fn.name)
+    expect(curried.name).toBe('curry3')
+    expect(curried(1).name).toBe('curry31')
+    expect(curried(1)(2).name).toBe('curry32')
 
     expect(curried(1, 2, 3)).toEqual([1, 2, 3])
     expect(curried(1)(2)(3)).toEqual([1, 2, 3])
     expect(curried(1, 2)(3)).toEqual([1, 2, 3])
     expect(curried(1)(2, 3)).toEqual([1, 2, 3])
+    expect(curried()()()).toEqual([undefined, undefined, undefined])
   })
 
   it('arity = 4', () => {
     const fn = (a, b, c, d) => [a, b, c, d]
-    expect(() => curry(fn)).toThrowError('Not implemented!')
+    const curried = curry(fn)
+
+    // Functions on the generic path do not have their length set. At least not yet.
+    expect(curried).toHaveLength(0)
+    expect(curried.name).toBe('curryN')
+    expect(curried(1).name).toBe('curryN')
+    expect(curried(1)(2).name).toBe('curryN')
+    expect(curried(1)(2)(3).name).toBe('curryN')
+
+    expect(curried(1, 2, 3, 4)).toEqual([1, 2, 3, 4])
+    expect(curried(1, 2, 3)(4)).toEqual([1, 2, 3, 4])
+    expect(curried(1, 2)(3)(4)).toEqual([1, 2, 3, 4])
+    expect(curried(1, 2)(3, 4)).toEqual([1, 2, 3, 4])
+    expect(curried(1)(2, 3, 4)).toEqual([1, 2, 3, 4])
+    expect(curried(1)(2)(3, 4)).toEqual([1, 2, 3, 4])
+    expect(curried(1)(2, 3)(4)).toEqual([1, 2, 3, 4])
+    expect(curried(1)(2)(3)(4)).toEqual([1, 2, 3, 4])
+    expect(curried()()()()).toEqual([
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+    ])
   })
 })

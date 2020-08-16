@@ -6,7 +6,7 @@ describe('binary()', () => {
     const wrapped = binary(fn)
 
     expect(wrapped).toHaveLength(2)
-    expect(wrapped.name).toEqual(fn.name)
+    expect(wrapped.name).toEqual('arity2')
     expect(wrapped(1, 2, 3)).toEqual([1, 2, undefined])
   })
 })
