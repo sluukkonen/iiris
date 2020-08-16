@@ -7,37 +7,33 @@ const S = require('../')
 const benchmarks = [
   {
     name: 'arity.specialized',
-    result: 10,
+    result: undefined,
     benchmarks: () => {
-      const Sunary = S.arity(1, parseInt)
-      const _unary = _.ary(1, parseInt)
-      const Runary = _.ary(1, parseInt)
-      const unary = ((fn) => (x) => fn(x))(parseInt)
+      const Sunary = S.arity(1, (a, b) => b)
+      const _unary = _.ary(1, (a, b) => b)
+      const unary = ((fn) => (x) => fn(x))((a, b) => b)
 
       return {
-        soles: () => Sunary('10', 5),
-        lodash: () => _unary('10', 5),
-        ramda: () => Runary('10', 5),
-        native: () => unary('10', 5),
+        soles: () => Sunary(1, 2),
+        lodash: () => _unary(1, 2),
+        native: () => unary(1, 2),
       }
     },
   },
   {
     name: 'arity.generic',
-    result: NaN,
+    result: undefined,
     benchmarks: () => {
-      const Sunary = S.arity(4, (a, b, c, d, e) => a + b + c + d + e)
-      const _unary = _.ary(4, (a, b, c, d, e) => a + b + c + d + e)
-      const Runary = _.ary(4, (a, b, c, d, e) => a + b + c + d + e)
-      const unary = ((fn) => (a, b, c, d) => fn(a, b, c, d))(
-        (a, b, c, d, e) => a + b + c + d + e
+      const Sarity4 = S.arity(4, (a, b, c, d, e) => e)
+      const _arity4 = _.ary(4, (a, b, c, d, e) => e)
+      const arity4 = ((fn) => (a, b, c, d) => fn(a, b, c, d))(
+        (a, b, c, d, e) => e
       )
 
       return {
-        soles: () => Sunary(1, 2, 3, 4, 5),
-        lodash: () => _unary(1, 2, 3, 4, 5),
-        ramda: () => Runary(1, 2, 3, 4, 4),
-        native: () => unary(1, 2, 3, 4, 5),
+        soles: () => Sarity4(1, 2, 3, 4, 5),
+        lodash: () => _arity4(1, 2, 3, 4, 5),
+        native: () => arity4(1, 2, 3, 4, 5),
       }
     },
   },
