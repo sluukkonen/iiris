@@ -1,0 +1,18 @@
+{
+  "name": "soles-benchmark",
+  "version": "1.0.0",
+  "description": "Benchmarks for soles",
+  "main": "index.js",
+  "repository": "https://github.com/sluukkonen/soles",
+  "author": "Sakumatti Luukkonen",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "@types/lodash": "^4.14.159",
+    "@types/ramda": "^0.27.14",
+    "benchmark": "^2.1.4",
+    "lodash": "^4.17.20",
+    "microtime": "^3.0.0",
+    "ramda": "^0.27.1"
+  }
+}

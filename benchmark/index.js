@@ -2,7 +2,7 @@ const Benchmark = require('benchmark')
 
 const _ = require('lodash/fp')
 const R = require('ramda')
-const S = require('./dist/index')
+const S = require('../')
 
 const benchmarks = [
   {
