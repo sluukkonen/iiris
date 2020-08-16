@@ -6,7 +6,7 @@ describe('curry()', () => {
     const curried = curry(fn)
 
     expect(curried).toHaveLength(0)
-    expect(curried.name).toBe(fn.name)
+    expect(curried.name).toBe('arity0')
     expect(curried()).toEqual([])
   })
 
@@ -15,7 +15,7 @@ describe('curry()', () => {
     const curried = curry(fn)
 
     expect(curried).toHaveLength(1)
-    expect(curried.name).toBe(fn.name)
+    expect(curried.name).toBe('arity1')
     expect(curried(1)).toEqual([1])
     expect(curried()).toEqual([undefined])
   })

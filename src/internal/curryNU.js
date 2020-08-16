@@ -1,12 +1,15 @@
 import { curry2 } from './curry2'
 import { curry3 } from './curry3'
 import { clampU } from './clampU'
+import { arity0 } from './arity0'
+import { arity1 } from './arity1'
 
 export const curryNU = (n, fn) => {
   switch (n) {
     case 0:
+      return arity0(fn)
     case 1:
-      return fn
+      return arity1(fn)
     case 2:
       return curry2(fn)
     case 3:
