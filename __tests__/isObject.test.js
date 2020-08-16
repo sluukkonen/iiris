@@ -1,4 +1,4 @@
-import { isObject } from '../src/isObject'
+import { isObject } from '../src'
 
 describe('isObject()', () => {
   it('returns if the value is a non-null object', () => {

@@ -1,4 +1,4 @@
-import { isArray } from '../src/isArray'
+import { isArray } from '../src'
 
 describe('isArray()', () => {
   it('returns if the value is an array', () => {

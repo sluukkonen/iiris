@@ -1,4 +1,4 @@
-import { isNumber } from '../src/isNumber'
+import { isNumber } from '../src'
 
 describe('isNumber()', () => {
   it('returns if the value is a number', () => {
