@@ -4,6 +4,7 @@
   "description": "A functional JavaScript utility library",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
+  "types": "index.d.ts",
   "repository": "https://github.com/sluukkonen/soles",
   "author": "Sakumatti Luukkonen <sakumatti.luukkonen@gmail.com>",
   "license": "MIT",
@@ -22,6 +23,8 @@
     "jest": "^26.4.0",
     "prettier": "^2.0.5",
     "rollup": "^2.26.3",
+    "tsd": "^0.13.1",
+    "typescript": "^3.9.7",
     "yargs": "^15.4.1",
     "yarn": "^1.22.4"
   },
@@ -30,6 +33,7 @@
     "build": "node generate-index.js && rollup -c",
     "lint": "eslint .",
     "repl": "node -i -e 'S = require(\".\")'",
-    "test": "jest"
+    "test": "jest",
+    "tsd": "tsd"
   }
 }
