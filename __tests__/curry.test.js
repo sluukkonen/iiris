@@ -2,20 +2,20 @@ import { curry } from '../src'
 
 describe('curry()', () => {
   it('arity = 0', () => {
-    const fn = () => []
+    const fn = (a) => [a]
     const curried = curry(fn)
 
-    expect(curried).toHaveLength(0)
-    expect(curried.name).toBe('arity0')
-    expect(curried()).toEqual([])
+    expect(curried).toBe(fn)
+
+    expect(curried(1)).toEqual([1])
   })
 
   it('arity = 1', () => {
     const fn = (a) => [a]
     const curried = curry(fn)
 
-    expect(curried).toHaveLength(1)
-    expect(curried.name).toBe('arity1')
+    expect(curried).toBe(fn)
+
     expect(curried(1)).toEqual([1])
     expect(curried()).toEqual([undefined])
   })
