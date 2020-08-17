@@ -53,6 +53,8 @@ export function arity<R>(n: number, fn: FnRest0<R>): FnRest0<R>
 
 export function binary<A, B, R>(fn: FnRest2<A, B, R>): Fn2<A, B, R>
 
+export function constant<T>(value: T): () => T
+
 export function curry<A, R>(fn: Fn0<R>): Fn0<R>
 export function curry<A, R>(fn: Fn1<A, R>): Fn1<A, R>
 export function curry<A, B, R>(fn: Fn2<A, B, R>): CurriedFn2<A, B, R>

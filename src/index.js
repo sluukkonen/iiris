@@ -1,5 +1,6 @@
 export { arity } from './arity'
 export { binary } from './binary'
+export { constant } from './constant'
 export { curry } from './curry'
 export { curryN } from './curryN'
 export { identity } from './identity'
