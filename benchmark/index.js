@@ -11,11 +11,13 @@ const benchmarks = [
     benchmarks: () => {
       const Sunary = S.unary((a, b) => b)
       const _unary = _.unary((a, b) => b)
+      const Runary = R.unary((a, b) => b)
       const unary = ((fn) => (x) => fn(x))((a, b) => b)
 
       return {
         soles: () => Sunary(1, 2),
         lodash: () => _unary(1, 2),
+        ramda: () => Runary(1, 2),
         native: () => unary(1, 2),
       }
     },
@@ -26,6 +28,7 @@ const benchmarks = [
     benchmarks: () => {
       const Sarity4 = S.arity(4, (a, b, c, d, e) => e)
       const _arity4 = _.ary(4, (a, b, c, d, e) => e)
+      const Rarity4 = R.nAry(4, (a, b, c, d, e) => e)
       const arity4 = ((fn) => (a, b, c, d) => fn(a, b, c, d))(
         (a, b, c, d, e) => e
       )
@@ -33,6 +36,7 @@ const benchmarks = [
       return {
         soles: () => Sarity4(1, 2, 3, 4, 5),
         lodash: () => _arity4(1, 2, 3, 4, 5),
+        ramda: () => Rarity4(1, 2, 3, 4, 5),
         native: () => arity4(1, 2, 3, 4, 5),
       }
     },
