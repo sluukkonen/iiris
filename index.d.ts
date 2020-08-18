@@ -70,8 +70,8 @@ export function curry<T1, T2, T3, T4, R>(
   fn: Fn4<T1, T2, T3, T4, R>
 ): CurriedFn4<T1, T2, T3, T4, R>
 
-export function curryN<F extends (...args: any[]) => any>(n: 0, fn: F): F
-export function curryN<F extends (...args: any[]) => any>(n: 1, fn: F): F
+export function curryN<F extends CallableFunction>(n: 0, fn: F): F
+export function curryN<F extends CallableFunction>(n: 1, fn: F): F
 export function curryN<T1, T2, R>(
   n: 2,
   fn: Fn2Rest<T1, T2, R>
