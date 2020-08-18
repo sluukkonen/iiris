@@ -14,5 +14,5 @@ it('returns if the value is a string', () => {
   expect(isString(Infinity)).toBe(false)
   expect(isString(-Infinity)).toBe(false)
   expect(isString(Symbol.for(''))).toBe(false)
-  expect(isString(() => { })).toBe(false)
+  expect(isString(() => {})).toBe(false)
 })

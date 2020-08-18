@@ -66,10 +66,5 @@ it('arity = 4', () => {
   expect(curried(1)(2)(3, 4)).toEqual([1, 2, 3, 4])
   expect(curried(1)(2, 3)(4)).toEqual([1, 2, 3, 4])
   expect(curried(1)(2)(3)(4)).toEqual([1, 2, 3, 4])
-  expect(curried()()()()).toEqual([
-    undefined,
-    undefined,
-    undefined,
-    undefined,
-  ])
+  expect(curried()()()()).toEqual([undefined, undefined, undefined, undefined])
 })

@@ -14,5 +14,5 @@ it('returns true if the value is undefined', () => {
   expect(isUndefined(Infinity)).toBe(false)
   expect(isUndefined(-Infinity)).toBe(false)
   expect(isUndefined(Symbol.for(''))).toBe(false)
-  expect(isUndefined(() => { })).toBe(false)
+  expect(isUndefined(() => {})).toBe(false)
 })

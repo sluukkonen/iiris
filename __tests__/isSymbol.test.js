@@ -14,5 +14,5 @@ it('returns if the value is a symbol', () => {
   expect(isSymbol(Infinity)).toBe(false)
   expect(isSymbol(-Infinity)).toBe(false)
   expect(isSymbol(Symbol.for(''))).toBe(true)
-  expect(isSymbol(() => { })).toBe(false)
+  expect(isSymbol(() => {})).toBe(false)
 })

@@ -14,5 +14,5 @@ it('returns if the value is null or undefined', () => {
   expect(isNil(Infinity)).toBe(false)
   expect(isNil(-Infinity)).toBe(false)
   expect(isNil(Symbol.for(''))).toBe(false)
-  expect(isNil(() => { })).toBe(false)
+  expect(isNil(() => {})).toBe(false)
 })

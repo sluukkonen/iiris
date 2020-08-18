@@ -3,5 +3,8 @@
   "env": { "jest": true, "node": true, "es6": true },
   "plugins": ["prettier", "jest"],
   "extends": ["eslint:recommended", "prettier", "plugin:jest/recommended"],
-  "ignorePatterns": ["node_modules", "dist"]
+  "ignorePatterns": ["node_modules", "dist"],
+  "rules": {
+    "prettier/prettier": "error"
+  }
 }

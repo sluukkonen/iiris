@@ -14,5 +14,5 @@ it('returns if the value is a boolean', () => {
   expect(isBoolean(Infinity)).toBe(false)
   expect(isBoolean(-Infinity)).toBe(false)
   expect(isBoolean(Symbol.for(''))).toBe(false)
-  expect(isBoolean(() => { })).toBe(false)
+  expect(isBoolean(() => {})).toBe(false)
 })

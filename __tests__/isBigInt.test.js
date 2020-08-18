@@ -14,5 +14,5 @@ it('returns if the value is a bigint', () => {
   expect(isBigInt(Infinity)).toBe(false)
   expect(isBigInt(-Infinity)).toBe(false)
   expect(isBigInt(Symbol.for(''))).toBe(false)
-  expect(isBigInt(() => { })).toBe(false)
+  expect(isBigInt(() => {})).toBe(false)
 })

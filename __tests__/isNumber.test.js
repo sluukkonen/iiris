@@ -14,5 +14,5 @@ it('returns if the value is a number', () => {
   expect(isNumber(Infinity)).toBe(true)
   expect(isNumber(-Infinity)).toBe(true)
   expect(isNumber(Symbol.for(''))).toBe(false)
-  expect(isNumber(() => { })).toBe(false)
+  expect(isNumber(() => {})).toBe(false)
 })

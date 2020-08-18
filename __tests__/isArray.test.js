@@ -14,5 +14,5 @@ it('returns if the value is an array', () => {
   expect(isArray(Infinity)).toBe(false)
   expect(isArray(-Infinity)).toBe(false)
   expect(isArray(Symbol.for(''))).toBe(false)
-  expect(isArray(() => { })).toBe(false)
+  expect(isArray(() => {})).toBe(false)
 })

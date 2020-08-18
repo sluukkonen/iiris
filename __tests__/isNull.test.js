@@ -14,5 +14,5 @@ it('returns if the value is null', () => {
   expect(isNull(Infinity)).toBe(false)
   expect(isNull(-Infinity)).toBe(false)
   expect(isNull(Symbol.for(''))).toBe(false)
-  expect(isNull(() => { })).toBe(false)
+  expect(isNull(() => {})).toBe(false)
 })
