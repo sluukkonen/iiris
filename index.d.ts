@@ -84,7 +84,10 @@ export function curryN<T1, T2, T3, T4, R>(
   n: 4,
   fn: Fn4Rest<T1, T2, T3, T4, R>
 ): CurriedFn4<T1, T2, T3, T4, R>
-export function arity<R>(n: number, fn: Fn0Rest<R>): Fn0Rest<R>
+
+export function entries<T extends object, K extends keyof T>(obj: T | null | undefined): Array<[K, T[K]]>
+
+export function fromEntries<T>(entries: readonly [PropertyKey, T][]): { [k: string]: T }
 
 export function identity<T>(value: T): T
 
@@ -107,5 +110,9 @@ export function isString(value: unknown): value is string
 export function isSymbol(value: unknown): value is Symbol
 
 export function isUndefined(value: unknown): value is undefined
+
+export function keys<T extends object>(obj: T | null | undefined): Array<keyof T>
+
+export function values<T extends object, K extends keyof T>(obj: T | null | undefined): Array<T[K]>
 
 export function unary<T, R>(fn: Fn1Rest<T, R>): Fn1<T, R>

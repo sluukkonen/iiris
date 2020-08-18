@@ -1,6 +1,12 @@
 {
   "compilerOptions": {
-    "strict": true
+    "strict": true,
+    "lib": [
+      "ESNext"
+    ]
   },
-  "include": ["index.d.ts", "index.test-d.ts"]
+  "include": [
+    "index.d.ts",
+    "index.test-d.ts"
+  ]
 }
