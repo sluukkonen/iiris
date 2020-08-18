@@ -93,6 +93,9 @@ export function fromEntries<T>(
   entries: readonly [PropertyKey, T][]
 ): { [k: string]: T }
 
+export function has(key: PropertyKey, obj: unknown): boolean
+export function has(key: PropertyKey): (obj: unknown) => boolean
+
 export function identity<T>(value: T): T
 
 export function isArray(value: unknown): value is unknown[]
