@@ -104,6 +104,8 @@ export function isBigInt(value: unknown): value is BigInt
 
 export function isBoolean(value: unknown): value is boolean
 
+export function isFunction(value: unknown): value is Function
+
 export function isNil(value: unknown): value is null | undefined
 
 export function isNull(value: unknown): value is null
