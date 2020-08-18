@@ -33,7 +33,7 @@
     "build": "node generate-index.js && rollup -c",
     "lint": "eslint .",
     "repl": "node -i -e 'S = require(\".\")'",
-    "test": "jest",
+    "test": "jest --coverage",
     "tsd": "tsd"
   }
 }
