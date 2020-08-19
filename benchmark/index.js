@@ -223,6 +223,16 @@ const benchmarks = [
       native: () => array.reduce((a, b) => a + b, 0),
     }),
   },
+  {
+    name: 'reduceRight',
+    params: [num1, num10, num100],
+    benchmarks: (array) => ({
+      soles: () => S.reduceRight((a, b) => a + b, 0, array),
+      lodash: () => _.reduceRight((a, b) => a + b, 0, array),
+      ramda: () => R.reduceRight((a, b) => a + b, 0, array),
+      native: () => array.reduceRight((a, b) => a + b, 0),
+    }),
+  },
 ]
 
 const argv = require('yargs')

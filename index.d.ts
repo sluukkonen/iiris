@@ -213,21 +213,37 @@ export function map<T, U>(
   fn: (value: T, index: number) => U
 ): (array: T[]) => U[]
 
-export function reduce<T, R>(
-  fn: (accumulator: R, value: T, index: number) => R,
-  initial: R,
+export function reduce<T, U>(
+  fn: (accumulator: U, value: T, index: number) => U,
+  initial: U,
   array: T[]
-): R
-export function reduce<T, R>(
-  fn: (accumulator: R, value: T, index: number) => R,
-  initial: R
-): (array: T[]) => R
-export function reduce<T, R>(
-  fn: (accumulator: R, value: T, index: number) => R
-): (initial: R, array: T[]) => R
-export function reduce<T, R>(
-  fn: (accumulator: R, value: T, index: number) => R
-): (initial: R) => (array: T[]) => R
+): U
+export function reduce<T, U>(
+  fn: (accumulator: U, value: T, index: number) => U,
+  initial: U
+): (array: T[]) => U
+export function reduce<T, U>(
+  fn: (accumulator: U, value: T, index: number) => U
+): (initial: U, array: T[]) => U
+export function reduce<T, U>(
+  fn: (accumulator: U, value: T, index: number) => U
+): (initial: U) => (array: T[]) => U
+
+export function reduceRight<T, U>(
+  fn: (value: T, accumulator: U, index: number) => U,
+  initial: U,
+  array: T[]
+): U
+export function reduceRight<T, U>(
+  fn: (value: T, accumulator: U, index: number) => U,
+  initial: U
+): (array: T[]) => U
+export function reduceRight<T, U>(
+  fn: (value: T, accumulator: U, index: number) => U
+): (initial: U, array: T[]) => U
+export function reduceRight<T, U>(
+  fn: (value: T, accumulator: U, index: number) => U
+): (initial: U) => (array: T[]) => U
 
 export function seq<T>(initial: T): T
 export function seq<T, R>(initial: T, fn1: Fn1<T, R>): R

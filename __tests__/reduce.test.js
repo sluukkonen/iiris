@@ -1,6 +1,6 @@
 import { reduce } from '../src'
 
-it('reduces an array to a value', () => {
+it('reduces an array from left to right', () => {
   const add = (a, b) => a + b
 
   expect(reduce(add, 0, [])).toEqual(0)
