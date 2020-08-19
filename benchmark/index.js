@@ -4,10 +4,16 @@ const _ = require('lodash/fp')
 const R = require('ramda')
 const S = require('../')
 
+const fill = (n) => new Array(n).fill()
+const snd = (a, b) => b
+
+const num1 = fill(1).map(snd)
+const num10 = fill(10).map(snd)
+const num100 = fill(100).map(snd)
+
 const benchmarks = [
   {
     name: 'arity.specialized',
-    result: undefined,
     benchmarks: () => {
       const Sunary = S.unary((a, b) => b)
       const _unary = _.unary((a, b) => b)
@@ -24,7 +30,6 @@ const benchmarks = [
   },
   {
     name: 'arity.generic',
-    result: undefined,
     benchmarks: () => {
       const Sarity4 = S.arity(4, (a, b, c, d, e) => e)
       const _arity4 = _.ary(4, (a, b, c, d, e) => e)
@@ -43,7 +48,6 @@ const benchmarks = [
   },
   {
     name: 'curry.specialized.partial',
-    result: 6,
     benchmarks: () => {
       const Sadd = S.curry((a, b, c) => a + b + c)
       const _add = _.curry((a, b, c) => a + b + c)
@@ -60,7 +64,6 @@ const benchmarks = [
   },
   {
     name: 'curry.specialized.full',
-    result: 6,
     benchmarks: () => {
       const Sadd = S.curry((a, b, c) => a + b + c)
       const _add = _.curry((a, b, c) => a + b + c)
@@ -77,7 +80,6 @@ const benchmarks = [
   },
   {
     name: 'curry.specialized.last',
-    result: 6,
     benchmarks: () => {
       const Sadd = S.curry((a, b, c) => a + b + c)(1, 2)
       const _add = _.curry((a, b, c) => a + b + c)(1, 2)
@@ -94,7 +96,6 @@ const benchmarks = [
   },
   {
     name: 'curry.generic.full',
-    result: 10,
     benchmarks: () => {
       const Sadd = S.curry((a, b, c, d) => a + b + c + d)
       const _add = _.curry((a, b, c, d) => a + b + c + d)
@@ -111,7 +112,6 @@ const benchmarks = [
   },
   {
     name: 'curry.generic.partial',
-    result: 10,
     benchmarks: () => {
       const Sadd = S.curry((a, b, c, d) => a + b + c + d)
       const _add = _.curry((a, b, c, d) => a + b + c + d)
@@ -128,7 +128,6 @@ const benchmarks = [
   },
   {
     name: 'curry.generic.last',
-    result: 10,
     benchmarks: () => {
       const Sadd = S.curry((a, b, c, d) => a + b + c + d)(1, 2, 3)
       const _add = _.curry((a, b, c, d) => a + b + c + d)(1, 2, 3)
@@ -145,7 +144,6 @@ const benchmarks = [
   },
   {
     name: 'seq',
-    result: 5,
     benchmarks: () => {
       const inc = (x) => x + 1
       const _flow = _.flow([inc, inc, inc, inc])
@@ -161,7 +159,6 @@ const benchmarks = [
   },
   {
     name: 'compose.specialized',
-    result: 4,
     benchmarks: () => {
       const inc = (x) => x + 1
       const soles = S.compose(inc, inc, inc)
@@ -179,7 +176,6 @@ const benchmarks = [
   },
   {
     name: 'compose.generic',
-    result: 5,
     benchmarks: () => {
       const inc = (x) => x + 1
       const soles = S.compose(inc, inc, inc, inc)
@@ -194,6 +190,38 @@ const benchmarks = [
         native: () => native(1),
       }
     },
+  },
+  {
+    name: 'map',
+    params: [num1, num10, num100],
+    benchmarks: (array) => {
+      return {
+        soles: () => S.map((x) => x + 1, array),
+        lodash: () => _.map((x) => x + 1, array),
+        ramda: () => R.map((x) => x + 1, array),
+        native: () => array.map((x) => x + 1),
+      }
+    },
+  },
+  {
+    name: 'filter',
+    params: [num1, num10, num100],
+    benchmarks: (array) => ({
+      soles: () => S.filter((x) => x % 2 === 0, array),
+      lodash: () => _.filter((x) => x % 2 === 0, array),
+      ramda: () => R.filter((x) => x % 2 === 0, array),
+      native: () => array.filter((x) => x % 2 === 0),
+    }),
+  },
+  {
+    name: 'reduce',
+    params: [num1, num10, num100],
+    benchmarks: (array) => ({
+      soles: () => S.reduce((a, b) => a + b, 0, array),
+      lodash: () => _.reduce((a, b) => a + b, 0, array),
+      ramda: () => R.reduce((a, b) => a + b, 0, array),
+      native: () => array.reduce((a, b) => a + b, 0),
+    }),
   },
 ]
 
@@ -211,37 +239,44 @@ const argv = require('yargs')
 
 const suites = benchmarks
   .filter((suite) => suite.name.includes(argv.suites || ''))
-  .map(({ name, result, benchmarks: mkBenchmarks }) => {
-    const suite = new Benchmark.Suite(name)
+  .flatMap(({ name, params = [undefined], benchmarks: mkBenchmarks }) => {
+    return params.map((param) => {
+      const suiteName = param != null ? `${name} (n=${_.size(param)})` : name
+      const suite = new Benchmark.Suite(suiteName)
 
-    const benchmarks = Object.entries(mkBenchmarks())
-      .filter(([name]) => !argv.libraries || argv.libraries.includes(name))
-      .map(([name, fn]) => ({ name, fn }))
+      const benchmarks = Object.entries(mkBenchmarks(param))
+        .filter(([name]) => !argv.libraries || argv.libraries.includes(name))
+        .map(([name, fn]) => ({ name, fn }))
 
-    const maxLength = benchmarks
-      .map(({ name }) => name.length)
-      .reduce((a, b) => Math.max(a, b))
-    const padName = (name) => name.padEnd(maxLength, ' ')
+      const maxLength = benchmarks
+        .map(({ name }) => name.length)
+        .reduce((a, b) => Math.max(a, b))
+      const padName = (name) => name.padEnd(maxLength, ' ')
 
-    const mismatch = benchmarks.find(({ fn }) => !Object.is(fn(), result))
-    if (mismatch) {
-      throw new Error(
-        `the result of ${
-          mismatch.name
-        } in ${name} doesn't match the expected result! (${mismatch.fn()} !== ${result})`
+      const serialize = (x) =>
+        x !== null && typeof x === 'object' ? JSON.stringify(x) : x
+      const expectedResult = serialize(benchmarks[0].fn())
+      const mismatch = benchmarks.find(
+        ({ fn }) => !Object.is(serialize(fn()), expectedResult)
       )
-    }
+      if (mismatch) {
+        throw new Error(
+          `the result of ${mismatch.name} in ${name} doesn't match the expected result!`
+        )
+      }
 
-    benchmarks.forEach(({ name, fn }) => {
-      // Assign the return value of the function to variable, so v8 doesn't just
-      // optimize the benchmark into thin air.
-      let value
-      suite.add(padName(name), () => {
-        // eslint-disable-next-line no-unused-vars
-        value = fn()
+      benchmarks.forEach(({ name, fn }) => {
+        // Assign the return value of the function to variable, so v8 doesn't just
+        // optimize the benchmark into thin air.
+        let value
+        suite.add(padName(name), () => {
+          // eslint-disable-next-line no-unused-vars
+          value = fn()
+        })
       })
+
+      return suite
     })
-    return suite
   })
 
 const write = process.stdout.write.bind(process.stdout)

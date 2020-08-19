@@ -165,6 +165,14 @@ export function entries<T extends object, K extends keyof T>(
   obj: T | null | undefined
 ): Array<[K, T[K]]>
 
+export function filter<T>(
+  predicate: (value: T, index: number) => boolean,
+  array: T[]
+): T[]
+export function filter<T>(
+  predicate: (value: T, index: number) => boolean
+): (array: T[]) => T[]
+
 export function fromEntries<T>(
   entries: Iterable<[PropertyKey, T]>
 ): { [k: string]: T }
@@ -199,6 +207,27 @@ export function isUndefined(value: unknown): value is undefined
 export function keys<T extends object>(
   obj: T | null | undefined
 ): Array<keyof T>
+
+export function map<T, U>(fn: (value: T, index: number) => U, array: T[]): U[]
+export function map<T, U>(
+  fn: (value: T, index: number) => U
+): (array: T[]) => U[]
+
+export function reduce<T, R>(
+  fn: (accumulator: R, value: T, index: number) => R,
+  initial: R,
+  array: T[]
+): R
+export function reduce<T, R>(
+  fn: (accumulator: R, value: T, index: number) => R,
+  initial: R
+): (array: T[]) => R
+export function reduce<T, R>(
+  fn: (accumulator: R, value: T, index: number) => R
+): (initial: R, array: T[]) => R
+export function reduce<T, R>(
+  fn: (accumulator: R, value: T, index: number) => R
+): (initial: R) => (array: T[]) => R
 
 export function seq<T>(initial: T): T
 export function seq<T, R>(initial: T, fn1: Fn1<T, R>): R
