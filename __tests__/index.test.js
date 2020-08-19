@@ -1,3 +1,5 @@
+/* eslint-disable import/no-commonjs */
+
 const S = require('../src')
 
 it('each function has a proper name', () => {

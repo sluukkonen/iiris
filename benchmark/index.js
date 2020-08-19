@@ -1,3 +1,5 @@
+/* eslint-disable import/no-commonjs */
+
 const Benchmark = require('benchmark')
 
 const _ = require('lodash/fp')

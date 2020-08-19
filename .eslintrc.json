@@ -2,9 +2,16 @@
   "parserOptions": { "ecmaVersion": 2020, "sourceType": "module" },
   "env": { "jest": true, "node": true, "es6": true },
   "plugins": ["prettier", "jest"],
-  "extends": ["eslint:recommended", "prettier", "plugin:jest/recommended"],
+  "extends": [
+    "eslint:recommended",
+    "prettier",
+    "plugin:jest/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings"
+  ],
   "ignorePatterns": ["node_modules", "dist"],
   "rules": {
-    "prettier/prettier": "error"
+    "prettier/prettier": "error",
+    "import/no-commonjs": "error"
   }
 }

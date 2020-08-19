@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+/* eslint-disable import/no-commonjs */
+
 const { promisify } = require('util')
 const path = require('path')
 const glob = promisify(require('glob').glob)
