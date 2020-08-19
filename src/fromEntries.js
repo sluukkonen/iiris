@@ -5,8 +5,7 @@ export const fromEntries = isFunction(Object.fromEntries)
   : /* istanbul ignore next */ function fromEntries(entries) {
       const result = {}
 
-      for (let i = 0; i < entries.length; i++) {
-        const [key, value] = entries[i]
+      for (const [key, value] of entries) {
         result[key] = value
       }
 

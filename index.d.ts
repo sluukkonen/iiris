@@ -166,7 +166,7 @@ export function entries<T extends object, K extends keyof T>(
 ): Array<[K, T[K]]>
 
 export function fromEntries<T>(
-  entries: readonly [PropertyKey, T][]
+  entries: Iterable<[PropertyKey, T]>
 ): { [k: string]: T }
 
 export function has(key: PropertyKey, obj: unknown): boolean
