@@ -143,6 +143,22 @@ const benchmarks = [
       }
     },
   },
+  {
+    name: 'seq',
+    result: 5,
+    benchmarks: () => {
+      const inc = (x) => x + 1
+      const _flow = _.flow([inc, inc, inc, inc])
+      const Rpipe = R.pipe(inc, inc, inc, inc)
+
+      return {
+        soles: () => S.seq(1, inc, inc, inc, inc),
+        lodash: () => _flow(1),
+        ramda: () => Rpipe(1),
+        native: () => inc(inc(inc(inc(1)))),
+      }
+    },
+  },
 ]
 
 const argv = require('yargs')

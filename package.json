@@ -23,13 +23,14 @@
     "jest": "^26.4.0",
     "prettier": "^2.0.5",
     "rollup": "^2.26.3",
+    "terser": "^5.2.0",
     "tsd": "^0.13.1",
     "typescript": "^3.9.7",
     "yargs": "^15.4.1",
     "yarn": "^1.22.4"
   },
   "scripts": {
-    "benchmark": "NODE_ENV=production node benchmark",
+    "benchmark": "yarn build && NODE_ENV=production node benchmark",
     "build": "node generate-index.js && rollup -c",
     "lint": "eslint .",
     "repl": "node -i -e 'S = require(\".\")'",

@@ -124,6 +124,77 @@ export function keys<T extends object>(
   obj: T | null | undefined
 ): Array<keyof T>
 
+export function seq<T>(initial: T): T
+export function seq<T, R>(initial: T, fn1: Fn1<T, R>): R
+export function seq<T1, T2, R>(
+  initial: T1,
+  fn1: Fn1<T1, T2>,
+  fn2: Fn1<T2, R>
+): R
+export function seq<T1, T2, T3, R>(
+  initial: T1,
+  fn1: Fn1<T1, T2>,
+  fn2: Fn1<T2, T3>,
+  fn3: Fn1<T3, R>
+): R
+export function seq<T1, T2, T3, T4, R>(
+  initial: T1,
+  fn1: Fn1<T1, T2>,
+  fn2: Fn1<T2, T3>,
+  fn3: Fn1<T3, T4>,
+  fn4: Fn1<T4, R>
+): R
+export function seq<T1, T2, T3, T4, T5, R>(
+  initial: T1,
+  fn1: Fn1<T1, T2>,
+  fn2: Fn1<T2, T3>,
+  fn3: Fn1<T3, T4>,
+  fn4: Fn1<T4, T5>,
+  fn5: Fn1<T5, R>
+): R
+export function seq<T1, T2, T3, T4, T5, T6, R>(
+  initial: T1,
+  fn1: Fn1<T1, T2>,
+  fn2: Fn1<T2, T3>,
+  fn3: Fn1<T3, T4>,
+  fn4: Fn1<T4, T5>,
+  fn5: Fn1<T5, T6>,
+  fn6: Fn1<T6, R>
+): R
+export function seq<T1, T2, T3, T4, T5, T6, T7, R>(
+  initial: T1,
+  fn1: Fn1<T1, T2>,
+  fn2: Fn1<T2, T3>,
+  fn3: Fn1<T3, T4>,
+  fn4: Fn1<T4, T5>,
+  fn5: Fn1<T5, T6>,
+  fn6: Fn1<T6, T7>,
+  fn7: Fn1<T7, R>
+): R
+export function seq<T1, T2, T3, T4, T5, T6, T7, T8, R>(
+  initial: T1,
+  fn1: Fn1<T1, T2>,
+  fn2: Fn1<T2, T3>,
+  fn3: Fn1<T3, T4>,
+  fn4: Fn1<T4, T5>,
+  fn5: Fn1<T5, T6>,
+  fn6: Fn1<T6, T7>,
+  fn7: Fn1<T7, T8>,
+  fn8: Fn1<T8, R>
+): R
+export function seq<T1, T2, T3, T4, T5, T6, T7, T8, T9, R>(
+  initial: T1,
+  fn1: Fn1<T1, T2>,
+  fn2: Fn1<T2, T3>,
+  fn3: Fn1<T3, T4>,
+  fn4: Fn1<T4, T5>,
+  fn5: Fn1<T5, T6>,
+  fn6: Fn1<T6, T7>,
+  fn7: Fn1<T7, T8>,
+  fn8: Fn1<T8, T9>,
+  fn9: Fn1<T9, R>
+): R
+
 export function values<T extends object, K extends keyof T>(
   obj: T | null | undefined
 ): Array<T[K]>
