@@ -1,4 +1,4 @@
-const { isNil } = require('../src/isNil')
+import { isNil } from '../src/isNil'
 
 it('returns if the value is null or undefined', () => {
   expect(isNil('')).toBe(false)

@@ -1,4 +1,4 @@
-const { isBigInt } = require('../src/isBigInt')
+import { isBigInt } from '../src/isBigInt'
 
 it('returns if the value is a bigint', () => {
   expect(isBigInt('')).toBe(false)

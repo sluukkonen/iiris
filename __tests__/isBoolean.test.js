@@ -1,4 +1,4 @@
-const { isBoolean } = require('../src/isBoolean')
+import { isBoolean } from '../src/isBoolean'
 
 it('returns if the value is a boolean', () => {
   expect(isBoolean('')).toBe(false)

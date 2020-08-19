@@ -1,4 +1,4 @@
-const { isNull } = require('../src/isNull')
+import { isNull } from '../src/isNull'
 
 it('returns if the value is null', () => {
   expect(isNull('')).toBe(false)

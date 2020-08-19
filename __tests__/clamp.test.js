@@ -1,4 +1,4 @@
-const { clamp } = require('../src')
+import { clamp } from '../src'
 
 it('clamps an ordered value to a range', () => {
   expect(clamp(0, 1, 2)).toBe(1)

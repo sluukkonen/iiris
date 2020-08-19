@@ -1,4 +1,4 @@
-const { curryN } = require('../src')
+import { curryN } from '../src'
 
 it('returns a curried function with the specified arity', () => {
   const fn = (a, b, c) => [a, b, c]
