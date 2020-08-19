@@ -233,6 +233,15 @@ const benchmarks = [
       native: () => array.reduceRight((a, b) => a + b, 0),
     }),
   },
+  {
+    name: 'clamp',
+    benchmarks: () => ({
+      soles: () => S.clamp(0, 1, 10),
+      lodash: () => _.clamp(0, 1, 10),
+      ramda: () => R.clamp(0, 1, 10),
+      native: () => Math.max(0, Math.min(1, 10)),
+    }),
+  },
 ]
 
 const argv = require('yargs')

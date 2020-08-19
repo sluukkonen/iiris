@@ -1,1 +1,1 @@
-export const minU = Math.min
+export const minU = (a, b) => (a < b ? a : b)

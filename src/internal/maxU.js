@@ -1,1 +1,1 @@
-export const maxU = Math.max
+export const maxU = (a, b) => (a > b ? a : b)

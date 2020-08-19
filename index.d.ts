@@ -41,6 +41,8 @@ export type CurriedFn4<T1, T2, T3, T4, R> = {
   (a1: T1, a2: T2, a3: T3, a4: T4): R
 }
 
+export type Ordered = number | string | Date | boolean
+
 // Ah shit, here we go again…
 
 export function arity<R>(n: 0, fn: Fn0Rest<R>): Fn0<R>
@@ -57,6 +59,11 @@ export function arity<T1, T2, T3, T4, R>(
 export function arity<R>(n: number, fn: Fn0Rest<R>): Fn0Rest<R>
 
 export function binary<T1, T2, R>(fn: Fn2Rest<T1, T2, R>): Fn2<T1, T2, R>
+
+export function clamp<T extends Ordered>(low: T, high: T, value: T): T
+export function clamp<T extends Ordered>(low: T, high: T): (value: T) => T
+export function clamp<T extends Ordered>(low: T): (high: T, value: T) => T
+export function clamp<T extends Ordered>(low: T): (high: T) => (value: T) => T
 
 export function compose<T extends any[], R>(
   fn: (...args: T) => R
@@ -208,10 +215,16 @@ export function keys<T extends object>(
   obj: T | null | undefined
 ): Array<keyof T>
 
+export function max<T extends Ordered>(value: T, other: T): T
+export function max<T extends Ordered>(value: T): (other: T) => T
+
 export function map<T, U>(fn: (value: T, index: number) => U, array: T[]): U[]
 export function map<T, U>(
   fn: (value: T, index: number) => U
 ): (array: T[]) => U[]
+
+export function min<T extends Ordered>(value: T, other: T): T
+export function min<T extends Ordered>(value: T): (other: T) => T
 
 export function reduce<T, U>(
   fn: (accumulator: U, value: T, index: number) => U,
