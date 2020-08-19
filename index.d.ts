@@ -58,6 +58,82 @@ export function arity<R>(n: number, fn: Fn0Rest<R>): Fn0Rest<R>
 
 export function binary<T1, T2, R>(fn: Fn2Rest<T1, T2, R>): Fn2<T1, T2, R>
 
+export function compose<T extends any[], R>(
+  fn: (...args: T) => R
+): (...args: T) => R
+export function compose<T extends any[], T1, R>(
+  fn1: Fn1<T1, R>,
+  fn2: (...args: T) => T1
+): (...args: T) => R
+export function compose<T extends any[], T1, T2, R>(
+  fn1: Fn1<T2, R>,
+  fn2: Fn1<T1, T2>,
+  fn3: (...args: T) => T1
+): (...args: T) => R
+export function compose<T extends any[], T1, T2, T3, R>(
+  fn1: Fn1<T3, R>,
+  fn2: Fn1<T2, T3>,
+  fn3: Fn1<T1, T2>,
+  fn4: (...args: T) => T1
+): (...args: T) => R
+export function compose<T extends any[], T1, T2, T3, T4, R>(
+  fn1: Fn1<T4, R>,
+  fn2: Fn1<T3, T4>,
+  fn3: Fn1<T2, T3>,
+  fn4: Fn1<T1, T2>,
+  fn5: (...args: T) => T1
+): (...args: T) => R
+export function compose<T extends any[], T1, T2, T3, T4, T5, R>(
+  fn1: Fn1<T5, R>,
+  fn2: Fn1<T4, T5>,
+  fn3: Fn1<T3, T4>,
+  fn4: Fn1<T2, T3>,
+  fn5: Fn1<T1, T2>,
+  fn6: (...args: T) => T1
+): (...args: T) => R
+export function compose<T extends any[], T1, T2, T3, T4, T5, T6, R>(
+  fn1: Fn1<T6, R>,
+  fn2: Fn1<T5, T6>,
+  fn3: Fn1<T4, T5>,
+  fn4: Fn1<T3, T4>,
+  fn5: Fn1<T2, T3>,
+  fn6: Fn1<T1, T2>,
+  fn7: (...args: T) => T1
+): (...args: T) => R
+export function compose<T extends any[], T1, T2, T3, T4, T5, T6, T7, R>(
+  fn1: Fn1<T7, R>,
+  fn2: Fn1<T6, T7>,
+  fn3: Fn1<T5, T6>,
+  fn4: Fn1<T4, T5>,
+  fn5: Fn1<T3, T4>,
+  fn6: Fn1<T2, T3>,
+  fn7: Fn1<T1, T2>,
+  fn8: (...args: T) => T1
+): (...args: T) => R
+export function compose<T extends any[], T1, T2, T3, T4, T5, T6, T7, T8, R>(
+  fn1: Fn1<T8, R>,
+  fn2: Fn1<T7, T8>,
+  fn3: Fn1<T6, T7>,
+  fn4: Fn1<T5, T6>,
+  fn5: Fn1<T4, T5>,
+  fn6: Fn1<T3, T4>,
+  fn7: Fn1<T2, T3>,
+  fn8: Fn1<T1, T2>,
+  fn9: (...args: T) => T1
+): (...args: T) => R
+export function compose<T extends any[], T1, T2, T3, T4, T5, T6, T7, T8, T9, R>(
+  fn1: Fn1<T9, R>,
+  fn2: Fn1<T8, T9>,
+  fn3: Fn1<T7, T8>,
+  fn4: Fn1<T6, T7>,
+  fn5: Fn1<T5, T6>,
+  fn6: Fn1<T4, T5>,
+  fn7: Fn1<T3, T4>,
+  fn8: Fn1<T2, T3>,
+  fn9: Fn1<T1, T2>,
+  fn10: (...args: T) => T1
+): (...args: T) => R
+
 export function constant<T>(value: T): () => T
 
 export function curry<R>(fn: Fn0<R>): Fn0<R>

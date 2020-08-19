@@ -159,6 +159,42 @@ const benchmarks = [
       }
     },
   },
+  {
+    name: 'compose.specialized',
+    result: 4,
+    benchmarks: () => {
+      const inc = (x) => x + 1
+      const soles = S.compose(inc, inc, inc)
+      const lodash = _.compose([inc, inc, inc])
+      const ramda = R.compose(inc, inc, inc)
+      const native = (...args) => inc(inc(inc(...args)))
+
+      return {
+        soles: () => soles(1),
+        lodash: () => lodash(1),
+        ramda: () => ramda(1),
+        native: () => native(1),
+      }
+    },
+  },
+  {
+    name: 'compose.generic',
+    result: 5,
+    benchmarks: () => {
+      const inc = (x) => x + 1
+      const soles = S.compose(inc, inc, inc, inc)
+      const lodash = _.compose([inc, inc, inc, inc])
+      const ramda = R.compose(inc, inc, inc, inc)
+      const native = (...args) => inc(inc(inc(inc(...args))))
+
+      return {
+        soles: () => soles(1),
+        lodash: () => lodash(1),
+        ramda: () => ramda(1),
+        native: () => native(1),
+      }
+    },
+  },
 ]
 
 const argv = require('yargs')
