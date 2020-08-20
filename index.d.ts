@@ -190,6 +190,20 @@ export function fromEntries<T>(
   entries: Iterable<[PropertyKey, T]>
 ): { [k: string]: T }
 
+export function gt(value: number, other: number): boolean
+export function gt(value: string, other: string): boolean
+export function gt(value: Date, other: Date): boolean
+export function gt(value: number): (other: number) => boolean
+export function gt(value: string): (other: string) => boolean
+export function gt(value: Date): (other: Date) => boolean
+
+export function gte(value: number, other: number): boolean
+export function gte(value: string, other: string): boolean
+export function gte(value: Date, other: Date): boolean
+export function gte(value: number): (other: number) => boolean
+export function gte(value: string): (other: string) => boolean
+export function gte(value: Date): (other: Date) => boolean
+
 export function has(key: PropertyKey, obj: unknown): boolean
 export function has(key: PropertyKey): (obj: unknown) => boolean
 
@@ -216,6 +230,20 @@ export function isString(value: unknown): value is string
 export function isSymbol(value: unknown): value is Symbol
 
 export function isUndefined(value: unknown): value is undefined
+
+export function lt(value: number, other: number): boolean
+export function lt(value: string, other: string): boolean
+export function lt(value: Date, other: Date): boolean
+export function lt(value: number): (other: number) => boolean
+export function lt(value: string): (other: string) => boolean
+export function lt(value: Date): (other: Date) => boolean
+
+export function lte(value: number, other: number): boolean
+export function lte(value: string, other: string): boolean
+export function lte(value: Date, other: Date): boolean
+export function lte(value: number): (other: number) => boolean
+export function lte(value: string): (other: string) => boolean
+export function lte(value: Date): (other: Date) => boolean
 
 export function keys<T extends object>(
   obj: T | null | undefined
