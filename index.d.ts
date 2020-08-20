@@ -41,6 +41,8 @@ export type CurriedFn4<T1, T2, T3, T4, R> = {
   (a1: T1, a2: T2, a3: T3, a4: T4): R
 }
 
+export type ArrayPredicate<T> = (value: T, index: number) => boolean
+
 // Ah shit, here we go again…
 
 export function arity<R>(n: 0, fn: Fn0Rest<R>): Fn0<R>
@@ -173,6 +175,12 @@ export function curryN<T1, T2, T3, T4, R>(
   n: 4,
   fn: Fn4Rest<T1, T2, T3, T4, R>
 ): CurriedFn4<T1, T2, T3, T4, R>
+
+export function drop<T>(n: number, array: T[]): T[]
+export function drop(n: number): <T>(array: T[]) => T[]
+
+export function dropWhile<T>(predicate: ArrayPredicate<T>, array: T[]): T[]
+export function dropWhile<T>(predicate: ArrayPredicate<T>): (array: T[]) => T[]
 
 export function entries<T extends object, K extends keyof T>(
   obj: T | null | undefined
@@ -370,6 +378,17 @@ export function seq<T1, T2, T3, T4, T5, T6, T7, T8, T9, R>(
   fn8: Fn1<T8, T9>,
   fn9: Fn1<T9, R>
 ): R
+
+export function slice<T>(start: number, end: number, array: T[]): T[]
+export function slice(start: number, end: number): <T>(array: T) => T[]
+export function slice(start: number): <T>(end: number, array: T) => T[]
+export function slice(start: number): (end: number) => <T>(array: T) => T[]
+
+export function take<T>(n: number, array: T[]): T[]
+export function take(n: number): <T>(array: T[]) => T[]
+
+export function takeWhile<T>(predicate: ArrayPredicate<T>, array: T[]): T[]
+export function takeWhile<T>(predicate: ArrayPredicate<T>): (array: T[]) => T[]
 
 export function values<T extends object, K extends keyof T>(
   obj: T | null | undefined
