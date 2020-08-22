@@ -255,6 +255,16 @@ const benchmarks = [
       native: () => array.reduce((x, y) => x + y, 0),
     }),
   },
+  {
+    name: 'concat',
+    params: [num1, num10, num100, num1000],
+    benchmarks: (array) => ({
+      soles: () => S.concat(array, array),
+      lodash: () => _.concat(array, array),
+      ramda: () => R.concat(array, array),
+      native: () => [...array, ...array],
+    }),
+  },
 ]
 
 const argv = require('yargs')

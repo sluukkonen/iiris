@@ -61,6 +61,9 @@ export function arity<T1, T2, T3, T4, R>(
 ): Fn4<T1, T2, T3, T4, R>
 export function arity<R>(n: number, fn: Fn0Rest<R>): Fn0Rest<R>
 
+export function append<T>(value: T, array: T[]): T[]
+export function append<T>(value: T): (array: T[]) => T[]
+
 export function binary<T1, T2, R>(fn: Fn2Rest<T1, T2, R>): Fn2<T1, T2, R>
 
 export function clamp(low: number, high: number, value: number): number
@@ -151,6 +154,9 @@ export function compose<T extends any[], T1, T2, T3, T4, T5, T6, T7, T8, T9, R>(
   fn9: Fn1<T1, T2>,
   fn10: (...args: T) => T1
 ): (...args: T) => R
+
+export function concat<T>(array: T[], other: T[]): T[]
+export function concat<T>(array: T[]): (other: T[]) => T[]
 
 export function constant<T>(value: T): () => T
 
@@ -282,7 +288,7 @@ export function max(value: string): (other: string) => string
 export function max(value: Date): (other: Date) => Date
 
 export function map<T, U>(fn: (value: T, index: number) => U, array: T[]): U[]
-export function map<T, U>(
+export function map<T, U = unknown>(
   fn: (value: T, index: number) => U
 ): (array: T[]) => U[]
 
@@ -297,6 +303,9 @@ export function multiply(multiplicand: number, multiplier: number): number
 export function multiply(multiplicand: number): (multiplier: number) => number
 
 export function noop(): void
+
+export function prepend<T>(value: T, array: T[]): T[]
+export function prepend<T>(value: T): (array: T[]) => T[]
 
 export function range(start: number, end: number): number[]
 export function range(start: number): (end: number) => number[]
