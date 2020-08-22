@@ -369,6 +369,8 @@ export function reduceRight<T, U>(
   fn: (value: T, accumulator: U, index: number) => U
 ): (initial: U) => (array: T[]) => U
 
+export function reverse<T>(array: T[]): T[]
+
 export function seq<T>(initial: T): T
 export function seq<T, R>(initial: T, fn1: Fn1<T, R>): R
 export function seq<T1, T2, R>(

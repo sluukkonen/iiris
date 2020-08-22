@@ -283,6 +283,18 @@ const benchmarks = [
       native: () => array.reduce((a, b) => (a < b ? a : b)),
     }),
   },
+  {
+    name: 'reverse',
+    params: [num1, num10, num100, num1000],
+    benchmarks: (array) => {
+      return {
+        soles: () => S.reverse(array),
+        lodash: () => _.reverse(array),
+        ramda: () => R.reverse(array),
+        native: () => array.slice().reverse(),
+      }
+    },
+  },
 ]
 
 const argv = require('yargs')
