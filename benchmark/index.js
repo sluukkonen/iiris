@@ -265,6 +265,24 @@ const benchmarks = [
       native: () => [...array, ...array],
     }),
   },
+  {
+    name: 'maximum',
+    params: [num1, num10, num100, num1000],
+    benchmarks: (array) => ({
+      soles: () => S.maximum(array),
+      lodash: () => _.max(array),
+      native: () => array.reduce((a, b) => (a > b ? a : b)),
+    }),
+  },
+  {
+    name: 'minimum',
+    params: [num1, num10, num100, num1000],
+    benchmarks: (array) => ({
+      soles: () => S.minimum(array),
+      lodash: () => _.min(array),
+      native: () => array.reduce((a, b) => (a < b ? a : b)),
+    }),
+  },
 ]
 
 const argv = require('yargs')

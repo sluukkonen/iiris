@@ -41,6 +41,7 @@ export type CurriedFn4<T1, T2, T3, T4, R> = {
   (a1: T1, a2: T2, a3: T3, a4: T4): R
 }
 
+export type Ordered = number | string | Date
 export type ArrayPredicate<T> = (value: T, index: number) => boolean
 
 // Ah shit, here we go again…
@@ -287,6 +288,16 @@ export function max(value: number): (other: number) => number
 export function max(value: string): (other: string) => string
 export function max(value: Date): (other: Date) => Date
 
+export function maximum<T extends Ordered>(array: T[]): T | undefined
+
+export function maximumBy<T, U extends Ordered>(
+  fn: (value: T) => U,
+  array: T[]
+): U | undefined
+export function maximumBy<T, U extends Ordered>(
+  fn: (value: T) => U
+): (array: T[]) => U | undefined
+
 export function map<T, U>(fn: (value: T, index: number) => U, array: T[]): U[]
 export function map<T, U = unknown>(
   fn: (value: T, index: number) => U
@@ -298,6 +309,16 @@ export function min(value: Date, other: Date): Date
 export function min(value: number): (other: number) => number
 export function min(value: string): (other: string) => string
 export function min(value: Date): (other: Date) => Date
+
+export function minimum<T extends Ordered>(array: T[]): T | undefined
+
+export function minimumBy<T, U extends Ordered>(
+  fn: (value: T) => U,
+  array: T[]
+): U | undefined
+export function minimumBy<T, U extends Ordered>(
+  fn: (value: T) => U
+): (array: T[]) => U | undefined
 
 export function multiply(multiplicand: number, multiplier: number): number
 export function multiply(multiplicand: number): (multiplier: number) => number
