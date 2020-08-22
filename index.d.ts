@@ -198,6 +198,20 @@ export function entries<T extends object, K extends keyof T>(
   obj: T | null | undefined
 ): Array<[K, T[K]]>
 
+export function find<T>(fn: ArrayPredicate<T>, array: T[]): T | undefined
+export function find<T>(fn: ArrayPredicate<T>): (array: T[]) => T | undefined
+
+export function findIndex<T>(fn: ArrayPredicate<T>, array: T[]): number
+export function findIndex<T>(fn: ArrayPredicate<T>): (array: T[]) => number
+
+export function findLast<T>(fn: ArrayPredicate<T>, array: T[]): T | undefined
+export function findLast<T>(
+  fn: ArrayPredicate<T>
+): (array: T[]) => T | undefined
+
+export function findLastIndex<T>(fn: ArrayPredicate<T>, array: T[]): number
+export function findLastIndex<T>(fn: ArrayPredicate<T>): (array: T[]) => number
+
 export function filter<T>(
   predicate: (value: T, index: number) => boolean,
   array: T[]

@@ -295,6 +295,16 @@ const benchmarks = [
       }
     },
   },
+  {
+    name: 'find',
+    params: [num1, num10, num100, num1000],
+    benchmarks: (array) => ({
+      soles: () => S.find((x) => x === 10000, array),
+      lodash: () => _.find((x) => x === 10000, array),
+      ramda: () => R.find((x) => x === 10000, array),
+      native: () => array.find((x) => x === 10000),
+    }),
+  },
 ]
 
 const argv = require('yargs')
