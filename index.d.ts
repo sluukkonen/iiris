@@ -286,6 +286,9 @@ export function isSymbol(value: unknown): value is Symbol
 
 export function isUndefined(value: unknown): value is undefined
 
+export function join(separator: string, array: unknown[]): string
+export function join(separator: string): (array: unknown[]) => string
+
 export function last<T>(array: T[]): T | undefined
 
 export function lt(value: number, other: number): boolean
