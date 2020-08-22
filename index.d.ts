@@ -238,8 +238,13 @@ export function gte(value: number): (other: number) => boolean
 export function gte(value: string): (other: string) => boolean
 export function gte(value: Date): (other: Date) => boolean
 
-export function has(key: PropertyKey, obj: unknown): boolean
-export function has(key: PropertyKey): (obj: unknown) => boolean
+export function has<P extends PropertyKey>(
+  key: P,
+  obj: unknown
+): obj is { [K in P]: unknown }
+export function has<P extends PropertyKey>(
+  key: P
+): (obj: unknown) => obj is { [K in P]: unknown }
 
 export function head<T>(array: T[]): T | undefined
 
