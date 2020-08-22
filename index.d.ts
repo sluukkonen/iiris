@@ -227,9 +227,13 @@ export function gte(value: Date): (other: Date) => boolean
 export function has(key: PropertyKey, obj: unknown): boolean
 export function has(key: PropertyKey): (obj: unknown) => boolean
 
+export function head<T>(array: T[]): T | undefined
+
 export function identity<T>(value: T): T
 
 export function inc(n: number): number
+
+export function init<T>(array: T[]): T[]
 
 export function isArray(value: unknown): value is unknown[]
 
@@ -262,6 +266,8 @@ export function isString(value: unknown): value is string
 export function isSymbol(value: unknown): value is Symbol
 
 export function isUndefined(value: unknown): value is undefined
+
+export function last<T>(array: T[]): T | undefined
 
 export function lt(value: number, other: number): boolean
 export function lt(value: string, other: string): boolean
@@ -443,6 +449,8 @@ export function sum(numbers: number[]): number
 
 export function sumBy<T>(fn: (value: T) => number, array: T[]): number
 export function sumBy<T>(fn: (value: T) => number): (array: T[]) => number
+
+export function tail<T>(array: T[]): T[]
 
 export function take<T>(n: number, array: T[]): T[]
 export function take(n: number): <T>(array: T[]) => T[]
