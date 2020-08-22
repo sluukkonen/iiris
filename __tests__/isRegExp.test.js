@@ -1,4 +1,4 @@
-const { isRegExp } = require('../src')
+import { isRegExp } from '../src'
 
 it('returns whether the value is a RegExp', () => {
   expect(isRegExp(/\s/)).toBe(true)
