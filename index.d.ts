@@ -298,6 +298,9 @@ export function multiply(multiplicand: number): (multiplier: number) => number
 
 export function noop(): void
 
+export function range(start: number, end: number): number[]
+export function range(start: number): (end: number) => number[]
+
 export function reduce<T, U>(
   fn: (accumulator: U, value: T, index: number) => U,
   initial: U,
@@ -412,6 +415,8 @@ export function take(n: number): <T>(array: T[]) => T[]
 export function takeWhile<T>(predicate: ArrayPredicate<T>, array: T[]): T[]
 export function takeWhile<T>(predicate: ArrayPredicate<T>): (array: T[]) => T[]
 
+export function times<T>(fn: (index: number) => T, n: number): T[]
+export function times<T>(fn: (index: number) => T): (n: number) => T[]
 export function values<T extends object, K extends keyof T>(
   obj: T | null | undefined
 ): Array<T[K]>
