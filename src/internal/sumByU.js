@@ -1,7 +1,7 @@
 /**
  * Sums numbers using the Kahan summation algorithm to minimize the numerical
- * error. Better algorithms exist, but I think Kahan strikes a fair balance
- * between numerical error, performance and code size.
+ * error. Both faster and more accurate algorithms exist, but I think Kahan
+ * strikes a fair balance between numerical error, performance and code size.
  *
  * @see https://en.wikipedia.org/wiki/Kahan_summation_algorithm
  */
