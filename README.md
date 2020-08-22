@@ -16,6 +16,29 @@
   supported very well in TypeScript, but let's try to include best-effort type
   declarations out-of-the-box.
 
+Practically speaking though, the TypeScript experience can be quite good. We
+provide a function that mimics the semantics of the [Pipeline Operator
+Proposal](https://github.com/tc39/proposal-pipeline-operator). This way the
+TypeScript compiler can infer types more easily.
+
+```typescript
+const result = S.seq(
+  [1, 2, 3, 4, 5],
+  S.map((x) => x + 1),         // Here `x` is inferred to be a `number`
+  S.filter((x) => x % 2 === 0) // Here as well.
+  S.reduce((x, y) => x + y, 0) // And here!
+)
+```
+
+which is equivalent to
+
+```typescript
+const result = [1, 2, 3, 4, 5]
+  |> S.map((x) => x + 1),
+  |> S.filter((x) => x % 2 === 0)
+  |> S.reduce((x, y) => x + y, 0)
+```
+
 ## Benchmark results
 
 ```
