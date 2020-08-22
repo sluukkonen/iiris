@@ -12,6 +12,7 @@ const snd = (a, b) => b
 const num1 = fill(1).map(snd)
 const num10 = fill(10).map(snd)
 const num100 = fill(100).map(snd)
+const num1000 = fill(1000).map(snd)
 
 const benchmarks = [
   {
@@ -242,6 +243,16 @@ const benchmarks = [
       lodash: () => _.clamp(0, 1, 10),
       ramda: () => R.clamp(0, 1, 10),
       native: () => Math.max(0, Math.min(1, 10)),
+    }),
+  },
+  {
+    name: 'sum',
+    params: [num1, num10, num100, num1000],
+    benchmarks: (array) => ({
+      soles: () => S.sum(array),
+      lodash: () => _.sum(array),
+      ramda: () => R.sum(array),
+      native: () => array.reduce((x, y) => x + y, 0),
     }),
   },
 ]

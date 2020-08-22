@@ -4,6 +4,6 @@ import * as S from '.'
 S.seq(
   [1, 2, 3],
   S.map((x) => x + 1),
-  S.dropWhile(S.gt(1)),
-  S.reduce((a, b) => a + b, 0)
+  S.filter((x) => x % 2 === 0),
+  S.sum
 )

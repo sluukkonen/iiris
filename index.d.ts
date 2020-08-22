@@ -409,6 +409,11 @@ export function slice(start: number, end: number): <T>(array: T) => T[]
 export function slice(start: number): <T>(end: number, array: T) => T[]
 export function slice(start: number): (end: number) => <T>(array: T) => T[]
 
+export function sum(numbers: number[]): number
+
+export function sumBy<T>(fn: (value: T) => number, array: T[]): number
+export function sumBy<T>(fn: (value: T) => number): (array: T[]) => number
+
 export function take<T>(n: number, array: T[]): T[]
 export function take(n: number): <T>(array: T[]) => T[]
 
@@ -417,6 +422,7 @@ export function takeWhile<T>(predicate: ArrayPredicate<T>): (array: T[]) => T[]
 
 export function times<T>(fn: (index: number) => T, n: number): T[]
 export function times<T>(fn: (index: number) => T): (n: number) => T[]
+
 export function values<T extends object, K extends keyof T>(
   obj: T | null | undefined
 ): Array<T[K]>
