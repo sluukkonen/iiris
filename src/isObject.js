@@ -1,1 +1,1 @@
-export const isObject = (x) => x != null && typeof x === 'object'
+export const isObject = (value) => typeof value === 'object' && value !== null

@@ -230,6 +230,10 @@ export function isBigInt(value: unknown): value is BigInt
 
 export function isBoolean(value: unknown): value is boolean
 
+export function isDate(value: unknown): value is Date
+
+export function isError(value: unknown): value is Error
+
 export function isFunction(value: unknown): value is Function
 
 export function isNil(value: unknown): value is null | undefined
@@ -238,7 +242,13 @@ export function isNull(value: unknown): value is null
 
 export function isNumber(value: unknown): value is number
 
+export function isMap(value: unknown): value is Map<unknown, unknown>
+
 export function isObject(value: unknown): value is object
+
+export function isRegExp(value: unknown): value is RegExp
+
+export function isSet(value: unknown): value is Set<unknown>
 
 export function isString(value: unknown): value is string
 
