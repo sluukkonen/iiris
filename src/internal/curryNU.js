@@ -1,5 +1,6 @@
 import { curry2 } from './curry2'
 import { curry3 } from './curry3'
+import { curry4 } from './curry4'
 import { maxU } from './maxU'
 
 export const curryNU = (n, fn) => {
@@ -11,6 +12,8 @@ export const curryNU = (n, fn) => {
       return curry2(fn)
     case 3:
       return curry3(fn)
+    case 4:
+      return curry4(fn)
     default:
       return curryNGeneric(n, fn, null)
   }

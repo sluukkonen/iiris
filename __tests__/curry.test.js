@@ -52,11 +52,11 @@ it('arity = 4', () => {
   const curried = curry(fn)
 
   // Functions on the generic path do not have their length set. At least not yet.
-  expect(curried).toHaveLength(0)
-  expect(curried.name).toBe('curryN')
-  expect(curried(1).name).toBe('curryN')
-  expect(curried(1)(2).name).toBe('curryN')
-  expect(curried(1)(2)(3).name).toBe('curryN')
+  expect(curried).toHaveLength(4)
+  expect(curried.name).toBe('curry4')
+  expect(curried(1).name).toBe('curry41')
+  expect(curried(1)(2).name).toBe('curry42')
+  expect(curried(1)(2)(3).name).toBe('curry43')
 
   expect(curried(1, 2, 3, 4)).toEqual([1, 2, 3, 4])
   expect(curried(1, 2, 3)(4)).toEqual([1, 2, 3, 4])
@@ -67,4 +67,37 @@ it('arity = 4', () => {
   expect(curried(1)(2, 3)(4)).toEqual([1, 2, 3, 4])
   expect(curried(1)(2)(3)(4)).toEqual([1, 2, 3, 4])
   expect(curried()()()()).toEqual([undefined, undefined, undefined, undefined])
+})
+
+it('arity = 5', () => {
+  const fn = (a, b, c, d, e) => [a, b, c, d, e]
+  const curried = curry(fn)
+
+  // Functions on the generic path do not have their length set. At least not yet.
+  expect(curried).toHaveLength(0)
+  expect(curried.name).toBe('curryN')
+  expect(curried(1).name).toBe('curryN')
+  expect(curried(1)(2).name).toBe('curryN')
+  expect(curried(1)(2)(3).name).toBe('curryN')
+
+  expect(curried(1, 2, 3, 4, 5)).toEqual([1, 2, 3, 4, 5])
+  expect(curried(1)(2, 3, 4, 5)).toEqual([1, 2, 3, 4, 5])
+  expect(curried(1, 2)(3, 4, 5)).toEqual([1, 2, 3, 4, 5])
+  expect(curried(1, 2, 3)(4, 5)).toEqual([1, 2, 3, 4, 5])
+  expect(curried(1, 2, 3, 4)(5)).toEqual([1, 2, 3, 4, 5])
+  expect(curried(1, 2, 3)(4)(5)).toEqual([1, 2, 3, 4, 5])
+  expect(curried(1)(2, 3, 4)(5)).toEqual([1, 2, 3, 4, 5])
+  expect(curried(1)(2)(3, 4, 5)).toEqual([1, 2, 3, 4, 5])
+  expect(curried(1)(2, 3)(4, 5)).toEqual([1, 2, 3, 4, 5])
+  expect(curried(1, 2)(3)(4, 5)).toEqual([1, 2, 3, 4, 5])
+  expect(curried(1, 2)(3, 4)(5)).toEqual([1, 2, 3, 4, 5])
+  expect(curried(1)(2)(3)(4)(5)).toEqual([1, 2, 3, 4, 5])
+
+  expect(curried()()()()()).toEqual([
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+  ])
 })
