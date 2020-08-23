@@ -161,6 +161,14 @@ export function concat<T>(array: T[]): (other: T[]) => T[]
 
 export function constant<T>(value: T): () => T
 
+export function countBy<T, K extends PropertyKey>(
+  fn: (value: T) => K,
+  array: readonly T[]
+): Record<K, number>
+export function countBy<T, K extends PropertyKey>(
+  fn: (value: T) => K
+): (array: readonly T[]) => Record<K, number>
+
 export function curry<R>(fn: Fn0<R>): Fn0<R>
 export function curry<T, R>(fn: Fn1<T, R>): Fn1<T, R>
 export function curry<T1, T2, R>(fn: Fn2<T1, T2, R>): CurriedFn2<T1, T2, R>
@@ -224,6 +232,83 @@ export function fromEntries<T>(
   entries: Iterable<[PropertyKey, T]>
 ): { [k: string]: T }
 
+export function groupBy<T, K extends PropertyKey>(
+  fn: (value: T) => K,
+  array: readonly T[]
+): Record<K, T[]>
+export function groupBy<T, K extends PropertyKey>(
+  fn: (value: T) => K
+): (array: readonly T[]) => Record<K, T[]>
+
+export function groupMap<T, K extends PropertyKey, U>(
+  keyFn: (value: T) => K,
+  mapFn: (value: T) => U,
+  array: readonly T[]
+): Record<K, U[]>
+export function groupMap<T, K extends PropertyKey, U>(
+  keyFn: (value: T) => K,
+  mapFn: (value: T) => U
+): (array: readonly T[]) => Record<K, U[]>
+export function groupMap<T, K extends PropertyKey>(
+  keyFn: (value: T) => K
+): <U>(mapFn: (value: T) => U, array: readonly T[]) => Record<K, U[]>
+export function groupMap<T, K extends PropertyKey>(
+  keyFn: (value: T) => K
+): <U>(mapFn: (value: T) => U) => (array: readonly T[]) => Record<K, U[]>
+
+export function groupMapReduce<T, K extends PropertyKey, U>(
+  keyFn: (value: T) => K,
+  mapFn: (value: T) => U,
+  reducer: (accumulator: U, value: U) => U,
+  array: readonly T[]
+): Record<K, U>
+export function groupMapReduce<T, K extends PropertyKey, U>(
+  keyFn: (value: T) => K,
+  mapFn: (value: T) => U,
+  reducer: (accumulator: U, value: U) => U
+): (array: readonly T[]) => Record<K, U>
+export function groupMapReduce<T, K extends PropertyKey, U>(
+  keyFn: (value: T) => K,
+  mapFn: (value: T) => U
+): (
+  reducer: (accumulator: U, value: U) => U,
+  array: readonly T[]
+) => Record<K, U>
+export function groupMapReduce<T, K extends PropertyKey, U>(
+  keyFn: (value: T) => K,
+  mapFn: (value: T) => U
+): (
+  reducer: (accumulator: U, value: U) => U
+) => (array: readonly T[]) => Record<K, U>
+export function groupMapReduce<T, K extends PropertyKey>(
+  keyFn: (value: T) => K
+): <U>(
+  mapFn: (value: T) => U,
+  reducer: (accumulator: U, value: U) => U,
+  array: readonly T[]
+) => Record<K, U>
+export function groupMapReduce<T, K extends PropertyKey>(
+  keyFn: (value: T) => K
+): <U>(
+  mapFn: (value: T) => U,
+  reducer: (accumulator: U, value: U) => U
+) => (array: readonly T[]) => Record<K, U>
+export function groupMapReduce<T, K extends PropertyKey>(
+  keyFn: (value: T) => K
+): <U>(
+  mapFn: (value: T) => U
+) => (
+  reducer: (accumulator: U, value: U) => U,
+  array: readonly T[]
+) => Record<K, U>
+export function groupMapReduce<T, K extends PropertyKey>(
+  keyFn: (value: T) => K
+): <U>(
+  mapFn: (value: T) => U
+) => (
+  reducer: (accumulator: U, value: U) => U
+) => (array: readonly T[]) => Record<K, U>
+
 export function gt(value: number, other: number): boolean
 export function gt(value: string, other: string): boolean
 export function gt(value: Date, other: Date): boolean
@@ -251,6 +336,14 @@ export function head<T>(array: T[]): T | undefined
 export function identity<T>(value: T): T
 
 export function inc(n: number): number
+
+export function indexBy<T, K extends PropertyKey>(
+  fn: (value: T) => K,
+  array: readonly T[]
+): Record<K, T>
+export function indexBy<T, K extends PropertyKey>(
+  fn: (value: T) => K
+): (array: readonly T[]) => Record<K, T>
 
 export function init<T>(array: T[]): T[]
 
@@ -392,6 +485,8 @@ export function reduceRight<T, U>(
 ): (initial: U) => (array: T[]) => U
 
 export function reverse<T>(array: T[]): T[]
+
+export function second<T>(first: unknown, second: T): T
 
 export function seq<T>(initial: T): T
 export function seq<T, R>(initial: T, fn1: Fn1<T, R>): R

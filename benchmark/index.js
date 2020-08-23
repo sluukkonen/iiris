@@ -305,6 +305,33 @@ const benchmarks = [
       native: () => array.find((x) => x === 10000),
     }),
   },
+  {
+    name: 'groupBy',
+    params: [num1, num10, num100, num1000],
+    benchmarks: (array) => ({
+      soles: () => S.groupBy((x) => String(x % 10), array),
+      lodash: () => _.groupBy((x) => String(x % 10), array),
+      ramda: () => R.groupBy((x) => String(x % 10), array),
+    }),
+  },
+  {
+    name: 'countBy',
+    params: [num1, num10, num100, num1000],
+    benchmarks: (array) => ({
+      soles: () => S.countBy((x) => String(x % 10), array),
+      lodash: () => _.countBy((x) => String(x % 10), array),
+      ramda: () => R.countBy((x) => String(x % 10), array),
+    }),
+  },
+  {
+    name: 'indexBy',
+    params: [num1, num10, num100, num1000],
+    benchmarks: (array) => ({
+      soles: () => S.indexBy((x) => String(x % 10), array),
+      lodash: () => _.indexBy((x) => String(x % 10), array),
+      ramda: () => R.indexBy((x) => String(x % 10), array),
+    }),
+  },
 ]
 
 const argv = require('yargs')
@@ -348,13 +375,7 @@ const suites = benchmarks
       }
 
       benchmarks.forEach(({ name, fn }) => {
-        // Assign the return value of the function to variable, so v8 doesn't just
-        // optimize the benchmark into thin air.
-        let value
-        suite.add(padName(name), () => {
-          // eslint-disable-next-line no-unused-vars
-          value = fn()
-        })
+        suite.add(padName(name), fn)
       })
 
       return suite
