@@ -446,6 +446,11 @@ export function multiply(multiplicand: number): (multiplier: number) => number
 
 export function noop(): void
 
+export function of<T>(value: T): [T]
+
+export function pair<T, U>(first: T, second: U): [T, U]
+export function pair<T>(first: T): <U>(second: U) => [T, U]
+
 export function prepend<T>(value: T, array: T[]): T[]
 export function prepend<T>(value: T): (array: T[]) => T[]
 
@@ -585,3 +590,22 @@ export function values<T extends object, K extends keyof T>(
 ): Array<T[K]>
 
 export function unary<T, R>(fn: Fn1Rest<T, R>): Fn1<T, R>
+
+export function zip<T, U>(array1: T[], array2: U[]): [T, U][]
+export function zip<T>(array1: T[]): <U>(array2: U[]) => [T, U][]
+
+export function zipWith<T, U, V>(
+  fn: (value: T, other: U) => V,
+  array1: T[],
+  array2: U[]
+): V[]
+export function zipWith<T, U, V>(
+  fn: (value: T, other: U) => V,
+  array1: T[]
+): (array2: U[]) => V[]
+export function zipWith<T, U, V>(
+  fn: (value: T, other: U) => V
+): (array1: T[], array2: U[]) => V[]
+export function zipWith<T, U, V>(
+  fn: (value: T, other: U) => V
+): (array1: T[]) => (array2: U[]) => V[]

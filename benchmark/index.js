@@ -332,6 +332,15 @@ const benchmarks = [
       ramda: () => R.indexBy((x) => String(x % 10), array),
     }),
   },
+  {
+    name: 'zip',
+    params: [num1, num10, num100, num1000],
+    benchmarks: (array) => ({
+      soles: () => S.zip(array, array),
+      lodash: () => _.zip(array, array),
+      ramda: () => R.zip(array, array),
+    }),
+  },
 ]
 
 const argv = require('yargs')
