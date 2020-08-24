@@ -228,6 +228,17 @@ export function filter<T>(
   predicate: (value: T, index: number) => boolean
 ): (array: T[]) => T[]
 
+export function flatMap<T, U>(fn: (value: T) => U[], array: T[]): U[]
+export function flatMap<T, U>(fn: (value: T) => U[]): (array: T[]) => U[]
+
+export function flatten<T extends readonly unknown[], D extends number>(
+  depth: D,
+  array: T
+): FlatArray<T, D>[]
+export function flatten<D extends number>(
+  depth: D
+): <T extends readonly unknown[]>(array: T) => FlatArray<T, D>[]
+
 export function fromEntries<T>(
   entries: Iterable<[PropertyKey, T]>
 ): { [k: string]: T }

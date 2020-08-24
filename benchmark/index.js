@@ -408,6 +408,16 @@ const benchmarks = [
       }
     },
   },
+  {
+    name: 'flatMap',
+    params: [num1, num10, num100, num1000],
+    benchmarks: (array) => ({
+      soles: () => S.flatMap((x) => [x, x], array),
+      lodash: () => _.flatMap((x) => [x, x], array),
+      ramda: () => R.chain((x) => [x, x], array),
+      native: () => array.flatMap((x) => [x, x]),
+    }),
+  },
 ]
 
 const argv = require('yargs')
