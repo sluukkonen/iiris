@@ -1,4 +1,4 @@
-import { compose } from '../src'
+import { compose } from '../src/compose'
 
 it('composes functions from right to left', () => {
   const inc = (x) => x + 1

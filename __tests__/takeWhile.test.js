@@ -1,4 +1,4 @@
-import { takeWhile } from '../src'
+import { takeWhile } from '../src/takeWhile'
 
 it('takes elements matching a predicate from the begining of array', () => {
   const lessThan3 = (x) => x < 3

@@ -1,4 +1,4 @@
-import { isArray } from '../src'
+import { isArray } from '../src/isArray'
 
 it('returns if the value is an array', () => {
   expect(isArray('')).toBe(false)

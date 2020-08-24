@@ -1,4 +1,4 @@
-import { take } from '../src'
+import { take } from '../src/take'
 
 it('takes the specified amount of elements from the beginning of an array', () => {
   expect(take(0, [1, 2, 3])).toEqual([])

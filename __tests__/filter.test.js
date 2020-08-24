@@ -1,4 +1,4 @@
-import { filter } from '../src'
+import { filter } from '../src/filter'
 
 it('returns the elements of an array that match a predicate', () => {
   const isEven = (x) => x % 2 === 0

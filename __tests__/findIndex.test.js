@@ -1,4 +1,4 @@
-import { findIndex } from '../src'
+import { findIndex } from '../src/findIndex'
 
 it('returns the index of the first element matching a predicate', () => {
   const is1 = (x) => x === 1

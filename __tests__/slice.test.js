@@ -1,4 +1,4 @@
-import { slice } from '../src'
+import { slice } from '../src/slice'
 
 it('extracts a slice from an array', () => {
   expect(slice(0, 0, [1, 2, 3])).toEqual([])

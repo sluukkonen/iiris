@@ -1,4 +1,4 @@
-import { of } from '../src'
+import { of } from '../src/of'
 
 it('creates a singleton array from the first argument', () => {
   expect(of(1)).toEqual([1])

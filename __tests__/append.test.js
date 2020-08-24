@@ -1,4 +1,4 @@
-import { append } from '../src'
+import { append } from '../src/append'
 
 it('appends a value to an array', () => {
   expect(append('a', [])).toEqual(['a'])

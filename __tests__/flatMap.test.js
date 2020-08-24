@@ -1,4 +1,4 @@
-import { flatMap } from '../src'
+import { flatMap } from '../src/flatMap'
 
 it('flatMap()', () => {
   const twice = (x) => [x, x]

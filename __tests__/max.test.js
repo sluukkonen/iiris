@@ -1,4 +1,4 @@
-import { max } from '../src'
+import { max } from '../src/max'
 
 it('returns the larger of two ordered values', () => {
   expect(max(0, 1)).toBe(1)

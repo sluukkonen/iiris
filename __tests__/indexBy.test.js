@@ -1,4 +1,4 @@
-import { indexBy } from '../src'
+import { indexBy } from '../src/indexBy'
 
 it('it groups an array to a set of arrays, based on a key function', () => {
   expect(indexBy(Math.floor, [1, 2, 3])).toEqual({

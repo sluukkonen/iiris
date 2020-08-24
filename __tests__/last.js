@@ -1,4 +1,4 @@
-import { last } from '../src'
+import { last } from '../src/last'
 
 it('returns the last element of an array', () => {
   expect(last([])).toBeUndefined()

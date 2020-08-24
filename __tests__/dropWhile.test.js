@@ -1,4 +1,4 @@
-import { dropWhile } from '../src'
+import { dropWhile } from '../src/dropWhile'
 
 it('takes elements matching a predicate from the begining of array', () => {
   const lessThan3 = (x) => x < 3

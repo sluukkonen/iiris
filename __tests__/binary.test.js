@@ -1,4 +1,4 @@
-import { binary } from '../src'
+import { binary } from '../src/binary'
 
 it('returns an binary version of a function', () => {
   const fn = (a, b, c) => [a, b, c]

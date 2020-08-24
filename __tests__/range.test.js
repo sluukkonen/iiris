@@ -1,4 +1,4 @@
-import { range } from '../src'
+import { range } from '../src/range'
 
 it('creates an array from start (inclusive) to end (exclusive)', () => {
   expect(range(0, 3)).toEqual([0, 1, 2])

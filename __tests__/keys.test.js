@@ -1,4 +1,4 @@
-import { keys } from '../src'
+import { keys } from '../src/keys'
 
 it('returns the own enumerable keys of an object', () => {
   const obj = Object.assign(Object.create({ a: 1 }), { b: 2, c: 3 })

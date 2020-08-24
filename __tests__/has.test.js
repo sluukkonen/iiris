@@ -1,4 +1,4 @@
-import { has } from '../src'
+import { has } from '../src/has'
 
 it('returns whether a property is an own property of the target object', () => {
   expect(has('a', { a: 1 })).toBe(true)

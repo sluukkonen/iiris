@@ -1,4 +1,6 @@
-import { sumBy, times, identity } from '../src'
+import { identity } from '../src/identity'
+import { sumBy } from '../src/sumBy'
+import { times } from '../src/times'
 
 it('it calculates the sum of an array according to a function', () => {
   const getA = (x) => x.a

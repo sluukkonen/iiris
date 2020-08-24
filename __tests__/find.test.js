@@ -1,4 +1,4 @@
-import { find } from '../src'
+import { find } from '../src/find'
 
 it('finds the first element matching a predicate', () => {
   const xIs1 = (foo) => foo.x === 1

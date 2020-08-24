@@ -1,4 +1,4 @@
-import { init } from '../src'
+import { init } from '../src/init'
 
 it('returns every element of the array except the last', () => {
   expect(init([])).toEqual([])

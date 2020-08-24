@@ -1,4 +1,4 @@
-import { second } from '../src'
+import { second } from '../src/second'
 
 it('returns the second argument', () => {
   expect(second(0, 1)).toBe(1)

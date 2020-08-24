@@ -1,4 +1,4 @@
-import { findLast } from '../src'
+import { findLast } from '../src/findLast'
 
 it('finds the last element matching a predicate', () => {
   const xIs1 = (foo) => foo.x === 1

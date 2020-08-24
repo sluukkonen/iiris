@@ -1,4 +1,4 @@
-import { minimum } from '../src'
+import { minimum } from '../src/minimum'
 
 it('returns the minimum value from an array', () => {
   expect(minimum([1, 2, 3])).toBe(1)

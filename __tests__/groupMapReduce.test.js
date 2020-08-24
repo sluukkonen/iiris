@@ -1,4 +1,6 @@
-import { groupMapReduce, inc, add } from '../src'
+import { add } from '../src/add'
+import { inc } from '../src/inc'
+import { groupMapReduce } from '../src/groupMapReduce'
 
 it('partitions an array with keyFn, maps each value with mapFn and combines the mapped values with reducer', () => {
   expect(groupMapReduce(Math.floor, inc, add, [])).toEqual({})

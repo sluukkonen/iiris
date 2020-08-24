@@ -1,4 +1,4 @@
-import { fromEntries } from '../src'
+import { fromEntries } from '../src/fromEntries'
 
 it('creates a new object from an iterable of entries', () => {
   expect(

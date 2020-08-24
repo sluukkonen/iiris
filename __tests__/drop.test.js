@@ -1,4 +1,4 @@
-import { drop } from '../src'
+import { drop } from '../src/drop'
 
 it('drops the specified amount of elements from the beginning of an array', () => {
   expect(drop(0, [1, 2, 3])).toEqual([1, 2, 3])

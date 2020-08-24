@@ -1,4 +1,4 @@
-import { lte } from '../src'
+import { lte } from '../src/lte'
 
 it('returns whether the second value is less than or equal to the first', () => {
   expect(lte(1, 0)).toBe(true)

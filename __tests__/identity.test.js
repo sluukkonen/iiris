@@ -1,4 +1,4 @@
-import { identity } from '../src'
+import { identity } from '../src/identity'
 
 it('returns the first argument', () => {
   expect(identity(1, 2)).toEqual(1)

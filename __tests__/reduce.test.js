@@ -1,4 +1,4 @@
-import { reduce } from '../src'
+import { reduce } from '../src/reduce'
 
 it('reduces an array from left to right', () => {
   const add = (a, b) => a + b

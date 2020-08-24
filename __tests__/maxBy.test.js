@@ -1,4 +1,4 @@
-import { maxBy } from '../src'
+import { maxBy } from '../src/maxBy'
 
 it('returns the greater of two values with respect to a function', () => {
   const getX = (foo) => foo.x

@@ -1,4 +1,4 @@
-import { subtractBy } from '../src'
+import { subtractBy } from '../src/subtractBy'
 
 it('subtractBy()', () => {
   expect(subtractBy(1, 0)).toBe(-1)

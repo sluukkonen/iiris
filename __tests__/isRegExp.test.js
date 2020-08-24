@@ -1,4 +1,4 @@
-import { isRegExp } from '../src'
+import { isRegExp } from '../src/isRegExp'
 
 it('returns whether the value is a RegExp', () => {
   expect(isRegExp(/\s/)).toBe(true)

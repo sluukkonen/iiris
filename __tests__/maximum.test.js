@@ -1,4 +1,4 @@
-import { maximum } from '../src'
+import { maximum } from '../src/maximum'
 
 it('returns the maximum value from an array', () => {
   expect(maximum([1, 2, 3])).toBe(3)

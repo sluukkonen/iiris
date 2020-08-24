@@ -1,4 +1,4 @@
-import { isString } from '../src'
+import { isString } from '../src/isString'
 
 it('returns if the value is a string', () => {
   expect(isString('')).toBe(true)

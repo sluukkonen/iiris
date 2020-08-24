@@ -1,4 +1,4 @@
-import { concat } from '../src'
+import { concat } from '../src/concat'
 
 it('concatenates two arrays together', () => {
   expect(concat([], [])).toEqual([])

@@ -1,4 +1,4 @@
-import { flatten } from '../src'
+import { flatten } from '../src/flatten'
 
 it('it flattens an array up to the maximum depth', () => {
   expect(flatten(0, [])).toEqual([])

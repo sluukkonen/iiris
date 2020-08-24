@@ -1,4 +1,4 @@
-import { curry } from '../src'
+import { curry } from '../src/curry'
 
 it('arity = 0', () => {
   const fn = (a) => [a]

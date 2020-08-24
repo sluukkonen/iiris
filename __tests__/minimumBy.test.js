@@ -1,4 +1,4 @@
-import { minimumBy } from '../src'
+import { minimumBy } from '../src/minimumBy'
 
 const square = (x) => x * x
 

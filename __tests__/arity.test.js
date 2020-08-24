@@ -1,4 +1,4 @@
-import { arity } from '../src'
+import { arity } from '../src/arity'
 
 it.each([[0], [1], [2], [3], [4]])(
   'returns a wrapped function with arity = %d',

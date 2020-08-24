@@ -1,4 +1,4 @@
-import { min } from '../src'
+import { min } from '../src/min'
 
 it('returns the smaller of two ordered values', () => {
   expect(min(0, 1)).toBe(0)

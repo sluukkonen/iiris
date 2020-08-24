@@ -1,4 +1,4 @@
-import { maximumBy } from '../src'
+import { maximumBy } from '../src/maximumBy'
 
 const square = (x) => x * x
 

@@ -1,4 +1,4 @@
-import { zip } from '../src'
+import { zip } from '../src/zip'
 
 it('zips two arrays together', () => {
   expect(zip([1, 2, 3], ['a', 'b', 'c'])).toEqual([

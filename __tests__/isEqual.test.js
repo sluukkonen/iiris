@@ -1,4 +1,4 @@
-import { isEqual } from '../src'
+import { isEqual } from '../src/isEqual'
 
 const expectIsEqual = (a, b, equals) => {
   expect(isEqual(a, b)).toBe(equals)

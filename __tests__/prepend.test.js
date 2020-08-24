@@ -1,4 +1,4 @@
-import { prepend } from '../src'
+import { prepend } from '../src/prepend'
 
 it('prepends a value to an array', () => {
   expect(prepend('a', [])).toEqual(['a'])

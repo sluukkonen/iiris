@@ -1,4 +1,4 @@
-import { reverse } from '../src'
+import { reverse } from '../src/reverse'
 
 it('reverses an array', () => {
   expect(reverse([])).toEqual([])

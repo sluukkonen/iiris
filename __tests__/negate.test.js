@@ -1,4 +1,4 @@
-import { negate } from '../src'
+import { negate } from '../src/negate'
 
 it('negates a number', () => {
   expect(negate(1)).toBe(-1)

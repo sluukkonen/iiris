@@ -1,4 +1,4 @@
-import { dec } from '../src'
+import { dec } from '../src/dec'
 
 it('decrements a number', () => {
   expect(dec(0)).toBe(-1)

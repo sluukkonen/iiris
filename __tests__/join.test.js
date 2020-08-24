@@ -1,4 +1,4 @@
-import { join } from '../src'
+import { join } from '../src/join'
 
 it('converts an array to string, separating each element with the separator', () => {
   expect(join(', ', [])).toBe('')

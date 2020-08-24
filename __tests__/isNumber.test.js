@@ -1,4 +1,4 @@
-import { isNumber } from '../src'
+import { isNumber } from '../src/isNumber'
 
 it('returns if the value is a number', () => {
   expect(isNumber('')).toBe(false)

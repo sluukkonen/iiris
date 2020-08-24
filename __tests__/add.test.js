@@ -1,4 +1,4 @@
-import { add } from '../src'
+import { add } from '../src/add'
 
 it('adds two numbers together', () => {
   expect(add(1, 2)).toEqual(3)

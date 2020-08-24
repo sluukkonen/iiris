@@ -1,4 +1,4 @@
-import { map } from '../src'
+import { map } from '../src/map'
 
 it('applies a function to each element of an array', () => {
   const inc = (x) => x + 1

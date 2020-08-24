@@ -1,4 +1,4 @@
-import { isDate } from '../src'
+import { isDate } from '../src/isDate'
 
 it('returns whether the value is a Date', () => {
   expect(isDate(new Date())).toBe(true)

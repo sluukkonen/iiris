@@ -1,4 +1,5 @@
-import { sum, range } from '../src'
+import { range } from '../src/range'
+import { sum } from '../src/sum'
 
 it('calculates the sum of a numeric array', () => {
   expect(sum(range(0, 100))).toEqual(4950)

@@ -1,4 +1,4 @@
-import { values } from '../src'
+import { values } from '../src/values'
 
 it('returns the own enumerable values of an object', () => {
   const obj = Object.assign(Object.create({ a: 1 }), { b: 2, c: 3 })

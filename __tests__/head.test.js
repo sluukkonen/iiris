@@ -1,4 +1,4 @@
-import { head } from '../src'
+import { head } from '../src/head'
 
 it('returns the first element of an array', () => {
   expect(head([])).toBeUndefined()

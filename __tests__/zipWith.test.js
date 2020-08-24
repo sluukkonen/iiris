@@ -1,4 +1,5 @@
-import { zipWith, pair } from '../src'
+import { pair } from '../src/pair'
+import { zipWith } from '../src/zipWith'
 
 it('zips two arrays together, combining the elements with the specified function', () => {
   expect(zipWith(pair, [1, 2, 3], ['a', 'b', 'c'])).toEqual([
