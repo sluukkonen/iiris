@@ -607,6 +607,10 @@ export function takeWhile<T>(predicate: ArrayPredicate<T>): (array: T[]) => T[]
 export function times<T>(fn: (index: number) => T, n: number): T[]
 export function times<T>(fn: (index: number) => T): (n: number) => T[]
 
+export function toMap<K, T>(entries: Iterable<[K, T]>): Map<K, T>
+
+export function toSet<T>(values: Iterable<T>): Set<T>
+
 export function values<T extends object, K extends keyof T>(
   obj: T | null | undefined
 ): Array<T[K]>
