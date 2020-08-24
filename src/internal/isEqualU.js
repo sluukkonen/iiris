@@ -14,8 +14,7 @@ import {
 } from './getTag'
 import { hasOwn } from './hasOwn'
 import { isSameValueZero } from './isSameValueZero'
-
-const { getPrototypeOf, prototype: objectProto } = Object
+import { getPrototypeOf, objectProto } from './builtins'
 
 export const isEqualU = (a, b, cycles) => {
   if (a === b) {
