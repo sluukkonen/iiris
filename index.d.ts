@@ -461,6 +461,8 @@ export function minimumBy<T, U extends Ordered>(
 export function multiply(multiplicand: number, multiplier: number): number
 export function multiply(multiplicand: number): (multiplier: number) => number
 
+export function negate(n: number): number
+
 export function noop(): void
 
 export function of<T>(value: T): [T]
