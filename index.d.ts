@@ -417,10 +417,10 @@ export function maximum<T extends Ordered>(array: T[]): T | undefined
 export function maximumBy<T, U extends Ordered>(
   fn: (value: T) => U,
   array: T[]
-): U | undefined
+): T | undefined
 export function maximumBy<T, U extends Ordered>(
   fn: (value: T) => U
-): (array: T[]) => U | undefined
+): (array: T[]) => T | undefined
 
 export function map<T, U>(fn: (value: T, index: number) => U, array: T[]): U[]
 export function map<T, U = unknown>(
@@ -439,10 +439,10 @@ export function minimum<T extends Ordered>(array: T[]): T | undefined
 export function minimumBy<T, U extends Ordered>(
   fn: (value: T) => U,
   array: T[]
-): U | undefined
+): T | undefined
 export function minimumBy<T, U extends Ordered>(
   fn: (value: T) => U
-): (array: T[]) => U | undefined
+): (array: T[]) => T | undefined
 
 export function multiply(multiplicand: number, multiplier: number): number
 export function multiply(multiplicand: number): (multiplier: number) => number
