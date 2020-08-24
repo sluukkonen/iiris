@@ -12,12 +12,12 @@ const path = require('path')
 const fill = (n) => new Array(n).fill()
 const snd = (a, b) => b
 
-const createObj = () => ({
-  k1: 1,
-  k2: 2,
-  k3: 3,
-  k4: 4,
-  k5: 5,
+const createObj = (i) => ({
+  k1: i,
+  k2: i,
+  k3: i,
+  k4: i,
+  k5: i,
 })
 
 const num1 = fill(1).map(snd)
@@ -25,10 +25,10 @@ const num10 = fill(10).map(snd)
 const num100 = fill(100).map(snd)
 const num1000 = fill(1000).map(snd)
 
-const obj1 = fill(1).map(createObj)
-const obj10 = fill(100).map(createObj)
-const obj100 = fill(100).map(createObj)
-const obj1000 = fill(1000).map(createObj)
+const obj1 = num1.map(createObj)
+const obj10 = num10.map(createObj)
+const obj100 = num100.map(createObj)
+const obj1000 = num1000.map(createObj)
 
 const benchmarks = [
   {
@@ -417,6 +417,81 @@ const benchmarks = [
       ramda: () => R.chain((x) => [x, x], array),
       native: () => array.flatMap((x) => [x, x]),
     }),
+  },
+  {
+    name: 'includes.primitive',
+    params: [num1, num10, num100, num1000],
+    benchmarks: (array) => {
+      const last = array.length - 1
+      return {
+        soles: () => S.includes(last, array),
+        lodash: () => _.includes(last, array),
+        ramda: () => R.includes(last, array),
+        native: () => array.includes(last),
+      }
+    },
+  },
+  {
+    name: 'includes.object',
+    params: [obj1, obj10, obj100, obj1000],
+    benchmarks: (array) => {
+      const last = createObj(array.length - 1)
+      return {
+        soles: () => S.includes(last, array),
+        lodash: () => _.findIndex((o) => _.isEqual(o, last), array) !== -1,
+        ramda: () => R.includes(last, array),
+      }
+    },
+  },
+  {
+    name: 'indexOf.primitive',
+    params: [num1, num10, num100, num1000],
+    benchmarks: (array) => {
+      const last = array.length - 1
+      return {
+        soles: () => S.indexOf(last, array),
+        lodash: () => _.indexOf(last, array),
+        ramda: () => R.indexOf(last, array),
+        native: () => array.indexOf(last),
+      }
+    },
+  },
+  {
+    name: 'indexOf.object',
+    params: [obj1, obj10, obj100, obj1000],
+    benchmarks: (array) => {
+      const last = createObj(array.length - 1)
+      return {
+        soles: () => S.indexOf(last, array),
+        lodash: () => _.findIndex((o) => _.isEqual(o, last), array),
+        ramda: () => R.indexOf(last, array),
+      }
+    },
+  },
+  {
+    name: 'lastIndexOf.primitive',
+    params: [num1, num10, num100, num1000],
+    benchmarks: (array) => {
+      const first = 1
+      return {
+        soles: () => S.lastIndexOf(first, array),
+        lodash: () => _.lastIndexOf(first, array),
+        ramda: () => R.lastIndexOf(first, array),
+        native: () => array.lastIndexOf(first),
+      }
+    },
+  },
+  {
+    name: 'lastIndexOf.object',
+    params: [obj1, obj10, obj100, obj1000],
+    benchmarks: (array) => {
+      const first = createObj(1)
+      return {
+        soles: () => S.lastIndexOf(first, array),
+        lodash: () => _.findLastIndex((o) => _.isEqual(o, first), array),
+        ramda: () => R.lastIndexOf(first, array),
+      }
+    },
   },
 ]
 

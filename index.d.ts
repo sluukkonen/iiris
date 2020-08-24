@@ -373,6 +373,9 @@ export function identity<T>(value: T): T
 
 export function inc(n: number): number
 
+export function includes<T>(value: T, array: readonly T[]): boolean
+export function includes<T>(value: T): (array: readonly T[]) => boolean
+
 export function indexBy<T, K extends PropertyKey>(
   fn: (value: T) => K,
   array: readonly T[]
@@ -380,6 +383,9 @@ export function indexBy<T, K extends PropertyKey>(
 export function indexBy<T, K extends PropertyKey>(
   fn: (value: T) => K
 ): (array: readonly T[]) => Record<K, T>
+
+export function indexOf<T>(value: T, array: readonly T[]): number
+export function indexOf<T>(value: T): (array: readonly T[]) => number
 
 export function init<T>(array: readonly T[]): T[]
 
@@ -422,6 +428,9 @@ export function join(separator: string, array: readonly unknown[]): string
 export function join(separator: string): (array: readonly unknown[]) => string
 
 export function last<T>(array: readonly T[]): T | undefined
+
+export function lastIndexOf<T>(value: T, array: readonly T[]): number
+export function lastIndexOf<T>(value: T): (array: readonly T[]) => number
 
 export function lt(value: number, other: number): boolean
 export function lt(value: string, other: string): boolean
