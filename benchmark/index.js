@@ -5,14 +5,30 @@ const Benchmark = require('benchmark')
 const _ = require('lodash/fp')
 const R = require('ramda')
 const S = require('../')
+const util = require('util')
+const fs = require('fs')
+const path = require('path')
 
 const fill = (n) => new Array(n).fill()
 const snd = (a, b) => b
+
+const createObj = () => ({
+  k1: 1,
+  k2: 2,
+  k3: 3,
+  k4: 4,
+  k5: 5,
+})
 
 const num1 = fill(1).map(snd)
 const num10 = fill(10).map(snd)
 const num100 = fill(100).map(snd)
 const num1000 = fill(1000).map(snd)
+
+const obj1 = fill(1).map(createObj)
+const obj10 = fill(100).map(createObj)
+const obj100 = fill(100).map(createObj)
+const obj1000 = fill(1000).map(createObj)
 
 const benchmarks = [
   {
@@ -340,6 +356,57 @@ const benchmarks = [
       lodash: () => _.zip(array, array),
       ramda: () => R.zip(array, array),
     }),
+  },
+  {
+    name: 'isEqual.equal-numeric-arrays',
+    params: [num1, num10, num100, num1000],
+    benchmarks: (obj) => {
+      const clone = _.clone(obj)
+      return {
+        soles: () => S.isEqual(obj, clone),
+        lodash: () => _.isEqual(obj, clone),
+        ramda: () => R.equals(obj, clone),
+        native: () => util.isDeepStrictEqual(obj, clone),
+      }
+    },
+  },
+  {
+    name: 'isEqual.equal-object-arrays',
+    params: [obj1, obj10, obj100, obj1000],
+    benchmarks: (obj) => {
+      const clone = _.clone(obj)
+      return {
+        soles: () => S.isEqual(obj, clone),
+        lodash: () => _.isEqual(obj, clone),
+        ramda: () => R.equals(obj, clone),
+        native: () => util.isDeepStrictEqual(obj, clone),
+      }
+    },
+  },
+  {
+    name: 'isEqual.primitives',
+    benchmarks: () => ({
+      soles: () => S.isEqual(1, 1),
+      lodash: () => S.isEqual(1, 1),
+      ramda: () => S.isEqual(1, 1),
+      native: () => util.isDeepStrictEqual(1, 1),
+    }),
+  },
+  {
+    name: 'isEqual.object',
+    benchmarks: () => {
+      const packageJson = fs.readFileSync(
+        path.join(__dirname, '..', 'package.json')
+      )
+      const obj1 = JSON.parse(packageJson)
+      const obj2 = JSON.parse(packageJson)
+      return {
+        soles: () => S.isEqual(obj1, obj2),
+        lodash: () => _.isEqual(obj1, obj2),
+        ramda: () => R.equals(obj1, obj2),
+        native: () => util.isDeepStrictEqual(obj1, obj2),
+      }
+    },
   },
 ]
 

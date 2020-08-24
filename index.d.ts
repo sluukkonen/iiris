@@ -355,6 +355,9 @@ export function isBoolean(value: unknown): value is boolean
 
 export function isDate(value: unknown): value is Date
 
+export function isEqual<T>(value: T, other: T): boolean
+export function isEqual<T>(value: T): (other: T) => boolean
+
 export function isError(value: unknown): value is Error
 
 export function isFunction(value: unknown): value is Function

@@ -12,6 +12,11 @@
   "ignorePatterns": ["node_modules", "dist"],
   "rules": {
     "prettier/prettier": "error",
-    "import/no-commonjs": "error"
+    "import/no-commonjs": "error",
+    "jest/no-standalone-expect": [
+      "error",
+      { "additionalTestBlockFunctions": ["itProp"] }
+    ],
+    "jest/expect-expect": [1, { "assertFunctionNames": ["expect*"] }]
   }
 }
