@@ -1,11 +1,13 @@
-import { inc, minimumBy } from '../src'
+import { minimumBy } from '../src'
+
+const square = (x) => x * x
 
 it('returns the minimum value from an array with respect to a function', () => {
-  expect(minimumBy(inc, [1, 2, 3])).toBe(2)
-  expect(minimumBy(inc, [2, 1, 3])).toBe(2)
-  expect(minimumBy(inc, [2, 3, 1])).toBe(2)
+  expect(minimumBy(square, [-1, -2, -3])).toBe(-1)
+  expect(minimumBy(square, [-2, -1, -3])).toBe(-1)
+  expect(minimumBy(square, [-2, -3, -1])).toBe(-1)
 })
 
 it('returns undefined for an empty array', () => {
-  expect(minimumBy(inc, [])).toBeUndefined()
+  expect(minimumBy(square, [])).toBeUndefined()
 })

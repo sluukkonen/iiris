@@ -1,4 +1,5 @@
-import { maximumMinimum } from './maximumMinimum'
-import { minU } from './minU'
+import { minByU } from './minByU'
+import { reduce1 } from './reduce1'
 
-export const minimumByU = (fn, array) => maximumMinimum(fn, array, minU)
+export const minimumByU = (fn, array) =>
+  array.length === 0 ? undefined : reduce1((a, b) => minByU(fn, a, b), array)
