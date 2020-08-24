@@ -1,3 +1,6 @@
+/**
+ * Note that this version of reduce1 returns undefined for an empty array.
+ */
 export const reduce1 = (fn, array) => {
   let acc = array[0]
 
