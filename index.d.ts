@@ -196,6 +196,9 @@ export function curryN<T1, T2, T3, T4, R>(
 
 export function dec(n: number): number
 
+export function divideBy(divisor: number, dividend: number): number
+export function divideBy(divisor: number): (dividend: number) => number
+
 export function drop<T>(n: number, array: T[]): T[]
 export function drop(n: number): <T>(array: T[]) => T[]
 
@@ -582,6 +585,9 @@ export function slice<T>(start: number, end: number, array: T[]): T[]
 export function slice(start: number, end: number): <T>(array: T) => T[]
 export function slice(start: number): <T>(end: number, array: T) => T[]
 export function slice(start: number): (end: number) => <T>(array: T) => T[]
+
+export function subtractBy(subtrahend: number, minuend: number): number
+export function subtractBy(subtrahend: number): (minuend: number) => number
 
 export function sum(numbers: number[]): number
 
