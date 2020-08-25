@@ -41,8 +41,12 @@ export type CurriedFn4<T1, T2, T3, T4, R> = {
   (a1: T1, a2: T2, a3: T3, a4: T4): R
 }
 
-export type Ordered = number | string | Date
+export type NonEmptyArray<T> = readonly [T, ...T[]]
+
+export type Ordered = number | string | Date | boolean
 export type ArrayPredicate<T> = (value: T, index: number) => boolean
+
+export type Comparator<T> = (value: T) => -1 | 0 | 1
 
 // Ah shit, here we go again…
 
@@ -64,6 +68,8 @@ export function arity<R>(n: number, fn: Fn0Rest<R>): Fn0Rest<R>
 
 export function append<T>(value: T, array: readonly T[]): T[]
 export function append<T>(value: T): (array: readonly T[]) => T[]
+
+export function ascend<T>(fn: (value: T) => Ordered): Comparator<T>
 
 export function binary<T1, T2, R>(fn: Fn2Rest<T1, T2, R>): Fn2<T1, T2, R>
 
@@ -195,6 +201,8 @@ export function curryN<T1, T2, T3, T4, R>(
 ): CurriedFn4<T1, T2, T3, T4, R>
 
 export function dec(n: number): number
+
+export function descend<T>(fn: (value: T) => Ordered): Comparator<T>
 
 export function divideBy(divisor: number, dividend: number): number
 export function divideBy(divisor: number): (dividend: number) => number
@@ -628,6 +636,22 @@ export function slice(
 export function slice(
   start: number
 ): (end: number) => <T>(array: readonly T[]) => T[]
+
+export function sort<T>(comparator: Comparator<T>, array: readonly T[]): T[]
+export function sort<T>(comparator: Comparator<T>): (array: readonly T[]) => T[]
+
+export function sortBy<T>(fn: (value: T) => Ordered, array: readonly T[]): T[]
+export function sortBy<T>(
+  fn: (value: T) => Ordered
+): (array: readonly T[]) => T[]
+
+export function sortWith<T>(
+  comparators: NonEmptyArray<Comparator<T>>,
+  array: readonly T[]
+): T[]
+export function sortWith<T>(
+  comparators: NonEmptyArray<Comparator<T>>
+): (array: readonly T[]) => T[]
 
 export function subtractBy(subtrahend: number, minuend: number): number
 export function subtractBy(subtrahend: number): (minuend: number) => number

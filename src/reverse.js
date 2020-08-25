@@ -1,1 +1,3 @@
-export const reverse = (array) => array.slice().reverse()
+import { cloneArray } from './internal/cloneArray'
+
+export const reverse = (array) => cloneArray(array).reverse()

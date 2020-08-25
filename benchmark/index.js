@@ -18,17 +18,22 @@ const createObj = (i) => ({
   k3: i,
   k4: i,
   k5: i,
+  kConstant: 0,
 })
 
 const num1 = fill(1).map(snd)
 const num10 = fill(10).map(snd)
 const num100 = fill(100).map(snd)
 const num1000 = fill(1000).map(snd)
+const num10000 = fill(10000).map(snd)
+const num100000 = fill(100000).map(snd)
 
 const obj1 = num1.map(createObj)
 const obj10 = num10.map(createObj)
 const obj100 = num100.map(createObj)
 const obj1000 = num1000.map(createObj)
+const obj10000 = num10000.map(createObj)
+const obj100000 = num100000.map(createObj)
 
 const benchmarks = [
   {
@@ -482,14 +487,29 @@ const benchmarks = [
     },
   },
   {
-    name: 'lastIndexOf.object',
-    params: [obj1, obj10, obj100, obj1000],
+    name: 'sortWith.object',
+    params: [obj1000, obj10000, obj100000],
     benchmarks: (array) => {
-      const first = createObj(1)
+      const shuffled = _.shuffle(array)
+      const byKConstant = (obj) => obj.kConstant
+      const byK1 = (obj) => obj.k1
       return {
-        soles: () => S.lastIndexOf(first, array),
-        lodash: () => _.findLastIndex((o) => _.isEqual(o, first), array),
-        ramda: () => R.lastIndexOf(first, array),
+        soles: () =>
+          S.sortWith(
+            [S.ascend(byKConstant), S.descend(byKConstant), S.ascend(byK1)],
+            shuffled
+          ),
+        lodash: () =>
+          _.orderBy(
+            [byKConstant, byKConstant, byK1],
+            ['asc', 'desc', 'asc'],
+            shuffled
+          ),
+        ramda: () =>
+          R.sortWith(
+            [R.ascend(byKConstant), R.descend(byKConstant), R.ascend(byK1)],
+            shuffled
+          ),
       }
     },
   },

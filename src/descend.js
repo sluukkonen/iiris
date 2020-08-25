@@ -1,0 +1,6 @@
+export const descend = (fn) =>
+  function descend1(a, b) {
+    const aa = fn(a)
+    const bb = fn(b)
+    return aa < bb ? 1 : aa > bb ? -1 : 0
+  }
