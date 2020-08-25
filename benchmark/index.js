@@ -513,6 +513,34 @@ const benchmarks = [
       }
     },
   },
+  {
+    name: 'some',
+    params: [num1, num10, num100, num1000],
+    benchmarks: (array) => ({
+      soles: () => S.some((n) => n > array.length, array),
+      lodash: () => _.some((n) => n > array.length, array),
+      ramda: () => R.any((n) => n > array.length, array),
+      native: () => array.some((n) => n > array.length),
+    }),
+  },
+  {
+    name: 'every',
+    params: [num1, num10, num100, num1000],
+    benchmarks: (array) => ({
+      soles: () => S.every((n) => n < array.length, array),
+      lodash: () => _.every((n) => n < array.length, array),
+      ramda: () => R.all((n) => n < array.length, array),
+      native: () => array.every((n) => n < array.length),
+    }),
+  },
+  {
+    name: 'none',
+    params: [num1, num10, num100, num1000],
+    benchmarks: (array) => ({
+      soles: () => S.none((n) => n > array.length, array),
+      ramda: () => R.none((n) => n > array.length, array),
+    }),
+  },
 ]
 
 const argv = require('yargs')

@@ -86,6 +86,8 @@ export function clamp(low: number): (high: number) => (value: number) => number
 export function clamp(low: string): (high: string) => (value: string) => number
 export function clamp(low: Date): (high: Date) => (value: Date) => number
 
+export function complement<T extends Fn0Rest<boolean>>(fn: T): T
+
 export function compose<T extends any[], R>(
   fn: (...args: T) => R
 ): (...args: T) => R
@@ -227,6 +229,14 @@ export function equals<T>(value: T): (other: T) => boolean
 
 export function equalsBy<T, U>(fn: Fn1<T, U>, value: T, other: T): boolean
 export function equalsBy<T, U>(fn: Fn1<T, U>, value: T): (other: T) => boolean
+
+export function every<T>(
+  predicate: ArrayPredicate<T>,
+  array: readonly T[]
+): boolean
+export function every<T>(
+  predicate: ArrayPredicate<T>
+): (array: readonly T[]) => boolean
 
 export function find<T>(
   fn: ArrayPredicate<T>,
@@ -508,6 +518,14 @@ export function multiply(multiplicand: number): (multiplier: number) => number
 
 export function negate(n: number): number
 
+export function none<T>(
+  predicate: ArrayPredicate<T>,
+  array: readonly T[]
+): boolean
+export function none<T>(
+  predicate: ArrayPredicate<T>
+): (array: readonly T[]) => boolean
+
 export function noop(): void
 
 export function of<T>(value: T): [T]
@@ -639,6 +657,14 @@ export function slice(
 export function slice(
   start: number
 ): (end: number) => <T>(array: readonly T[]) => T[]
+
+export function some<T>(
+  predicate: ArrayPredicate<T>,
+  array: readonly T[]
+): boolean
+export function some<T>(
+  predicate: ArrayPredicate<T>
+): (array: readonly T[]) => boolean
 
 export function sort<T>(comparator: Comparator<T>, array: readonly T[]): T[]
 export function sort<T>(comparator: Comparator<T>): (array: readonly T[]) => T[]
