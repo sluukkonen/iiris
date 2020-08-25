@@ -16,7 +16,7 @@ import { hasOwn } from './hasOwn'
 import { isSameValueZero } from './isSameValueZero'
 import { getPrototypeOf, objectProto } from './builtins'
 
-export const isEqualU = (a, b, cycles) => {
+export const equalsU = (a, b, cycles) => {
   if (a === b) {
     return true
   }
@@ -32,7 +32,7 @@ export const isEqualU = (a, b, cycles) => {
   // Fast path for plain objects
   const aProto = getPrototypeOf(a)
   if (getPrototypeOf(a) === objectProto) {
-    return getPrototypeOf(b) === objectProto && isEqualObject(a, b, cycles)
+    return getPrototypeOf(b) === objectProto && equalsObject(a, b, cycles)
   } else if (getPrototypeOf(b) !== aProto) {
     // If prototypes do not match, return false.
     return false
@@ -40,22 +40,22 @@ export const isEqualU = (a, b, cycles) => {
 
   // Fast path for arrays
   if (isArray(a)) {
-    return isArray(b) ? isEqualArray(a, b, cycles) : false
+    return isArray(b) ? equalsArray(a, b, cycles) : false
   }
 
   // Fast paths have failed. We need to perform a tag check.
   const tag = getTag(a)
-  return tag === getTag(b) && isEqualByTag(a, b, tag, cycles)
+  return tag === getTag(b) && equalsByTag(a, b, tag, cycles)
 }
 
-const isEqualByTag = (a, b, tag, cycles) => {
+const equalsByTag = (a, b, tag, cycles) => {
   switch (tag) {
     case objectTag:
-      return isEqualObject(a, b, cycles)
+      return equalsObject(a, b, cycles)
     case setTag:
-      return isEqualSet(a, b, cycles)
+      return equalsSet(a, b, cycles)
     case mapTag:
-      return isEqualMap(a, b, cycles)
+      return equalsMap(a, b, cycles)
     case regExpTag:
     case stringTag:
       return String(a) === String(b)
@@ -70,7 +70,7 @@ const isEqualByTag = (a, b, tag, cycles) => {
   }
 }
 
-const isEqualArray = (a, b, cycles) => {
+const equalsArray = (a, b, cycles) => {
   const length = a.length
 
   if (length !== b.length) {
@@ -90,7 +90,7 @@ const isEqualArray = (a, b, cycles) => {
   cycles.set(b, a)
 
   for (let i = 0; i < length; i++) {
-    if (!isEqualU(a[i], b[i], cycles)) {
+    if (!equalsU(a[i], b[i], cycles)) {
       return false
     }
   }
@@ -102,7 +102,7 @@ const isEqualArray = (a, b, cycles) => {
   return true
 }
 
-const isEqualObject = (a, b, cycles) => {
+const equalsObject = (a, b, cycles) => {
   const aKeys = Object.keys(a)
   const bKeys = Object.keys(b)
 
@@ -135,7 +135,7 @@ const isEqualObject = (a, b, cycles) => {
   // Keys match. Now compare the values.
   for (let i = 0; i < length; i++) {
     const key = aKeys[i]
-    if (!isEqualU(a[key], b[key], cycles)) {
+    if (!equalsU(a[key], b[key], cycles)) {
       return false
     }
   }
@@ -147,7 +147,7 @@ const isEqualObject = (a, b, cycles) => {
   return true
 }
 
-const isEqualSet = (a, b) => {
+const equalsSet = (a, b) => {
   if (a.size !== b.size) {
     return false
   }
@@ -161,7 +161,7 @@ const isEqualSet = (a, b) => {
   return true
 }
 
-const isEqualMap = (a, b, cycles) => {
+const equalsMap = (a, b, cycles) => {
   if (a.size !== b.size) {
     return false
   }
@@ -179,7 +179,7 @@ const isEqualMap = (a, b, cycles) => {
   cycles.set(b, a)
 
   for (const [key, value] of a) {
-    if (!b.has(key) || !isEqualU(value, b.get(key), cycles)) {
+    if (!b.has(key) || !equalsU(value, b.get(key), cycles)) {
       return false
     }
   }

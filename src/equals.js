@@ -1,16 +1,16 @@
 import { isObject } from './isObject'
-import { isEqualU } from './internal/isEqualU'
+import { equalsU } from './internal/equalsU'
 import { isSameValueZero } from './internal/isSameValueZero'
 
-export function isEqual(a, b) {
+export function equals(a, b) {
   // Optimize the curried isEqual(...) case.
   return arguments.length < 2
     ? !isObject(a)
-      ? function isEqual1(b) {
+      ? function equals1(b) {
           return isSameValueZero(a, b)
         }
-      : function isEqual1(b) {
-          return isEqualU(a, b)
+      : function equals1(b) {
+          return equalsU(a, b)
         }
-    : isEqualU(a, b)
+    : equalsU(a, b)
 }

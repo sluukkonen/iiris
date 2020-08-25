@@ -363,12 +363,12 @@ const benchmarks = [
     }),
   },
   {
-    name: 'isEqual.equal-numeric-arrays',
+    name: 'equals.equal-numeric-arrays',
     params: [num1, num10, num100, num1000],
     benchmarks: (obj) => {
       const clone = _.clone(obj)
       return {
-        soles: () => S.isEqual(obj, clone),
+        soles: () => S.equals(obj, clone),
         lodash: () => _.isEqual(obj, clone),
         ramda: () => R.equals(obj, clone),
         native: () => util.isDeepStrictEqual(obj, clone),
@@ -376,12 +376,12 @@ const benchmarks = [
     },
   },
   {
-    name: 'isEqual.equal-object-arrays',
+    name: 'equals.equal-object-arrays',
     params: [obj1, obj10, obj100, obj1000],
     benchmarks: (obj) => {
       const clone = _.clone(obj)
       return {
-        soles: () => S.isEqual(obj, clone),
+        soles: () => S.equals(obj, clone),
         lodash: () => _.isEqual(obj, clone),
         ramda: () => R.equals(obj, clone),
         native: () => util.isDeepStrictEqual(obj, clone),
@@ -389,16 +389,16 @@ const benchmarks = [
     },
   },
   {
-    name: 'isEqual.primitives',
+    name: 'equals.primitives',
     benchmarks: () => ({
-      soles: () => S.isEqual(1, 1),
-      lodash: () => S.isEqual(1, 1),
-      ramda: () => S.isEqual(1, 1),
+      soles: () => S.equals(1, 1),
+      lodash: () => _.isEqual(1, 1),
+      ramda: () => R.equals(1, 1),
       native: () => util.isDeepStrictEqual(1, 1),
     }),
   },
   {
-    name: 'isEqual.object',
+    name: 'equals.object',
     benchmarks: () => {
       const packageJson = fs.readFileSync(
         path.join(__dirname, '..', 'package.json')
@@ -406,7 +406,7 @@ const benchmarks = [
       const obj1 = JSON.parse(packageJson)
       const obj2 = JSON.parse(packageJson)
       return {
-        soles: () => S.isEqual(obj1, obj2),
+        soles: () => S.equals(obj1, obj2),
         lodash: () => _.isEqual(obj1, obj2),
         ramda: () => R.equals(obj1, obj2),
         native: () => util.isDeepStrictEqual(obj1, obj2),

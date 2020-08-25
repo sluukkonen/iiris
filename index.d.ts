@@ -1,7 +1,7 @@
 // Function type aliases
 
 export type Fn0<R> = () => R
-export type Fn1<T, R> = (a1: T) => R
+export type Fn1<T, R> = (value: T) => R
 export type Fn2<T1, T2, R> = (a1: T1, a2: T2) => R
 export type Fn3<T1, T2, T3, R> = (a1: T1, a2: T2, a3: T3) => R
 export type Fn4<T1, T2, T3, T4, R> = (a1: T1, a2: T2, a3: T3, a4: T4) => R
@@ -222,6 +222,12 @@ export function entries<T extends object, K extends keyof T>(
   obj: T | null | undefined
 ): Array<[K, T[K]]>
 
+export function equals<T>(value: T, other: T): boolean
+export function equals<T>(value: T): (other: T) => boolean
+
+export function equalsBy<T, U>(fn: Fn1<T, U>, value: T, other: T): boolean
+export function equalsBy<T, U>(fn: Fn1<T, U>, value: T): (other: T) => boolean
+
 export function find<T>(
   fn: ArrayPredicate<T>,
   array: readonly T[]
@@ -404,9 +410,6 @@ export function isBigInt(value: unknown): value is BigInt
 export function isBoolean(value: unknown): value is boolean
 
 export function isDate(value: unknown): value is Date
-
-export function isEqual<T>(value: T, other: T): boolean
-export function isEqual<T>(value: T): (other: T) => boolean
 
 export function isError(value: unknown): value is Error
 
