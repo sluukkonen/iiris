@@ -1,8 +1,6 @@
+import { findIndexU } from './findIndexU'
+
 export const findU = (fn, array) => {
-  for (let i = 0; i < array.length; i++) {
-    const value = array[i]
-    if (fn(value, i)) {
-      return value
-    }
-  }
+  const index = findIndexU(fn, array)
+  return index !== -1 ? array[index] : undefined
 }
