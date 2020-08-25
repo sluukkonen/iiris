@@ -15,6 +15,7 @@ it('it sorts an array with the help of an array of comparators', () => {
     { name: 'Josef', age: 34 },
     { name: 'Laura', age: 46 },
   ]
+  expect(sortWith([], people)).toEqual(people)
   expect(sortWith([byAgeAsc], people)).toEqual([
     { name: 'Sakumatti', age: 32 },
     { name: 'Tarja', age: 32 },
@@ -55,10 +56,4 @@ it('it sorts an array with the help of an array of comparators', () => {
     { name: 'Laura', age: 46 },
     { name: 'Tarja', age: 76 },
   ])
-})
-
-it('throws an error for empty comparator array', () => {
-  expect(() => sortWith([], [])).toThrowError(
-    new TypeError('sortWith: empty comparator array!')
-  )
 })

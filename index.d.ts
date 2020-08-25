@@ -41,8 +41,6 @@ export type CurriedFn4<T1, T2, T3, T4, R> = {
   (a1: T1, a2: T2, a3: T3, a4: T4): R
 }
 
-export type NonEmptyArray<T> = readonly [T, ...T[]]
-
 export type Ordered = number | string | Date | boolean
 export type ArrayPredicate<T> = (value: T, index: number) => boolean
 
@@ -675,11 +673,11 @@ export function sortBy<T>(
 ): (array: readonly T[]) => T[]
 
 export function sortWith<T>(
-  comparators: NonEmptyArray<Comparator<T>>,
+  comparators: readonly Comparator<T>[],
   array: readonly T[]
 ): T[]
 export function sortWith<T>(
-  comparators: NonEmptyArray<Comparator<T>>
+  comparators: readonly Comparator<T>[]
 ): (array: readonly T[]) => T[]
 
 export function subtractBy(subtrahend: number, minuend: number): number

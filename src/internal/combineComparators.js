@@ -1,7 +1,5 @@
 export const combineComparators = (comparators) => {
   switch (comparators.length) {
-    case 0:
-      throw new TypeError('sortWith: empty comparator array!')
     case 1:
       return comparators[0]
     case 2: {
