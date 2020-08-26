@@ -54,7 +54,9 @@ export type CurriedFunction4<T1, T2, T3, T4, R> = {
   (a1: T1, a2: T2, a3: T3, a4: T4): R
 }
 
-export type Ordered = number | string | Date | boolean
+/** A data type that can be compared with the `<` and `>` operators. */
+export type Ordered = number | BigInt | string | Date | boolean
+
 export type ArrayPredicate<T> = (value: T, index: number) => boolean
 
 export type Comparator<T> = (value: T) => -1 | 0 | 1
@@ -92,18 +94,24 @@ export function binary<T1, T2, R>(
   fn: VariadicFunction2<T1, T2, R>
 ): Function2<T1, T2, R>
 
-export function clamp(low: number, high: number, value: number): number
-export function clamp(low: string, high: string, value: string): string
-export function clamp(low: Date, high: Date, value: Date): Date
+export function clamp<T extends Ordered>(low: T, high: T, value: T): T
 export function clamp(low: number, high: number): (value: number) => number
+export function clamp(low: BigInt, high: BigInt): (value: BigInt) => BigInt
 export function clamp(low: string, high: string): (value: string) => string
 export function clamp(low: Date, high: Date): (value: Date) => Date
+export function clamp(low: boolean, high: boolean): (value: boolean) => boolean
 export function clamp(low: number): (high: number, value: number) => number
+export function clamp(low: BigInt): (high: BigInt, value: BigInt) => BigInt
 export function clamp(low: string): (high: string, value: string) => string
 export function clamp(low: Date): (high: Date, value: Date) => Date
+export function clamp(low: boolean): (high: boolean, value: boolean) => boolean
 export function clamp(low: number): (high: number) => (value: number) => number
+export function clamp(low: BigInt): (high: BigInt) => (value: BigInt) => BigInt
 export function clamp(low: string): (high: string) => (value: string) => number
 export function clamp(low: Date): (high: Date) => (value: Date) => number
+export function clamp(
+  low: boolean
+): (high: boolean) => (value: boolean) => boolean
 
 export function complement<T extends VariadicFunction0<boolean>>(fn: T): T
 
@@ -495,12 +503,12 @@ export function keys<T extends object>(
   obj: T | null | undefined
 ): Array<keyof T>
 
-export function max(value: number, other: number): number
-export function max(value: string, other: string): string
-export function max(value: Date, other: Date): Date
+export function max<T extends Ordered>(value: T, other: T): T
 export function max(value: number): (other: number) => number
+export function max(value: BigInt): (other: BigInt) => BigInt
 export function max(value: string): (other: string) => string
 export function max(value: Date): (other: Date) => Date
+export function max(value: boolean): (other: boolean) => boolean
 
 export function maximum<T extends Ordered>(array: readonly T[]): T | undefined
 
@@ -520,12 +528,12 @@ export function map<T, U = unknown>(
   fn: (value: T, index: number) => U
 ): (array: readonly T[]) => U[]
 
-export function min(value: number, other: number): number
-export function min(value: string, other: string): string
-export function min(value: Date, other: Date): Date
+export function min<T extends Ordered>(value: T, other: T): T
 export function min(value: number): (other: number) => number
+export function min(value: BigInt): (other: BigInt) => BigInt
 export function min(value: string): (other: string) => string
 export function min(value: Date): (other: Date) => Date
+export function min(value: boolean): (other: boolean) => boolean
 
 export function minimum<T extends Ordered>(array: readonly T[]): T | undefined
 
