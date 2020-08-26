@@ -1,21 +1,31 @@
 // Function type aliases
 
-export type Fn0<R> = () => R
-export type Fn1<T, R> = (value: T) => R
-export type Fn2<T1, T2, R> = (a1: T1, a2: T2) => R
-export type Fn3<T1, T2, T3, R> = (a1: T1, a2: T2, a3: T3) => R
-export type Fn4<T1, T2, T3, T4, R> = (a1: T1, a2: T2, a3: T3, a4: T4) => R
+/** A function that takes no arguments. */
+export type Function0<R> = () => R
+/** A function that takes one argument. */
+export type Function1<T, R> = (value: T) => R
+/** A function that takes two arguments. */
+export type Function2<T1, T2, R> = (a1: T1, a2: T2) => R
+/** A function that takes three arguments. */
+export type Function3<T1, T2, T3, R> = (a1: T1, a2: T2, a3: T3) => R
+/** A function that takes four arguments. */
+export type Function4<T1, T2, T3, T4, R> = (a1: T1, a2: T2, a3: T3, a4: T4) => R
 
-export type Fn0Rest<R> = (...args: any[]) => R
-export type Fn1Rest<T, R> = (a1: T, ...args: any[]) => R
-export type Fn2Rest<T1, T2, R> = (a1: T1, a2: T2, ...args: any[]) => R
-export type Fn3Rest<T1, T2, T3, R> = (
+/** A function that takes at least zero arguments. */
+export type VariadicFunction0<R> = (...args: any[]) => R
+/** A function that takes at least one argument. */
+export type VariadicFunction1<T, R> = (a1: T, ...args: any[]) => R
+/** A function that takes at least two arguments. */
+export type VariadicFunction2<T1, T2, R> = (a1: T1, a2: T2, ...args: any[]) => R
+/** A function that takes at least three arguments. */
+export type VariadicFunction3<T1, T2, T3, R> = (
   a1: T1,
   a2: T2,
   a3: T3,
   ...args: any[]
 ) => R
-export type Fn4Rest<T1, T2, T3, T4, R> = (
+/** A function that takes at least four arguments. */
+export type VariadicFunction4<T1, T2, T3, T4, R> = (
   a1: T1,
   a2: T2,
   a3: T3,
@@ -23,21 +33,24 @@ export type Fn4Rest<T1, T2, T3, T4, R> = (
   ...args: any[]
 ) => R
 
-export type CurriedFn2<T1, T2, R> = {
-  (a1: T1): Fn1<T2, R>
+/** A curried function that takes up to two arguments. */
+export type CurriedFunction2<T1, T2, R> = {
+  (a1: T1): Function1<T2, R>
   (a1: T1, a2: T2): R
 }
 
-export type CurriedFn3<T1, T2, T3, R> = {
-  (a1: T1): CurriedFn2<T2, T3, R>
-  (a1: T1, a2: T2): Fn1<T3, R>
+/** A curried function that takes up to three arguments. */
+export type CurriedFunction3<T1, T2, T3, R> = {
+  (a1: T1): CurriedFunction2<T2, T3, R>
+  (a1: T1, a2: T2): Function1<T3, R>
   (a1: T1, a2: T2, a3: T3): R
 }
 
-export type CurriedFn4<T1, T2, T3, T4, R> = {
-  (a1: T1): CurriedFn3<T2, T3, T4, R>
-  (a1: T1, a2: T2): CurriedFn2<T3, T4, R>
-  (a1: T1, a2: T2, a3: T3): Fn1<T4, R>
+/** A curried function that takes up to four arguments. */
+export type CurriedFunction4<T1, T2, T3, T4, R> = {
+  (a1: T1): CurriedFunction3<T2, T3, T4, R>
+  (a1: T1, a2: T2): CurriedFunction2<T3, T4, R>
+  (a1: T1, a2: T2, a3: T3): Function1<T4, R>
   (a1: T1, a2: T2, a3: T3, a4: T4): R
 }
 
@@ -51,25 +64,33 @@ export type Comparator<T> = (value: T) => -1 | 0 | 1
 export function add(n: number, m: number): number
 export function add(n: number): (m: number) => number
 
-export function arity<R>(n: 0, fn: Fn0Rest<R>): Fn0<R>
-export function arity<T, R>(n: 1, fn: Fn1Rest<T, R>): Fn1<T, R>
-export function arity<T1, T2, R>(n: 2, fn: Fn2Rest<T1, T2, R>): Fn2<T1, T2, R>
+export function arity<R>(n: 0, fn: VariadicFunction0<R>): Function0<R>
+export function arity<T, R>(n: 1, fn: VariadicFunction1<T, R>): Function1<T, R>
+export function arity<T1, T2, R>(
+  n: 2,
+  fn: VariadicFunction2<T1, T2, R>
+): Function2<T1, T2, R>
 export function arity<T1, T2, T3, R>(
   n: 3,
-  fn: Fn3Rest<T1, T2, T3, R>
-): Fn3<T1, T2, T3, R>
+  fn: VariadicFunction3<T1, T2, T3, R>
+): Function3<T1, T2, T3, R>
 export function arity<T1, T2, T3, T4, R>(
   n: 4,
-  fn: Fn4Rest<T1, T2, T3, T4, R>
-): Fn4<T1, T2, T3, T4, R>
-export function arity<R>(n: number, fn: Fn0Rest<R>): Fn0Rest<R>
+  fn: VariadicFunction4<T1, T2, T3, T4, R>
+): Function4<T1, T2, T3, T4, R>
+export function arity<R>(
+  n: number,
+  fn: VariadicFunction0<R>
+): VariadicFunction0<R>
 
 export function append<T>(value: T, array: readonly T[]): T[]
 export function append<T>(value: T): (array: readonly T[]) => T[]
 
 export function ascend<T>(fn: (value: T) => Ordered): Comparator<T>
 
-export function binary<T1, T2, R>(fn: Fn2Rest<T1, T2, R>): Fn2<T1, T2, R>
+export function binary<T1, T2, R>(
+  fn: VariadicFunction2<T1, T2, R>
+): Function2<T1, T2, R>
 
 export function clamp(low: number, high: number, value: number): number
 export function clamp(low: string, high: string, value: string): string
@@ -84,81 +105,81 @@ export function clamp(low: number): (high: number) => (value: number) => number
 export function clamp(low: string): (high: string) => (value: string) => number
 export function clamp(low: Date): (high: Date) => (value: Date) => number
 
-export function complement<T extends Fn0Rest<boolean>>(fn: T): T
+export function complement<T extends VariadicFunction0<boolean>>(fn: T): T
 
 export function compose<T extends any[], R>(
   fn: (...args: T) => R
 ): (...args: T) => R
 export function compose<T extends any[], T1, R>(
-  fn1: Fn1<T1, R>,
+  fn1: Function1<T1, R>,
   fn2: (...args: T) => T1
 ): (...args: T) => R
 export function compose<T extends any[], T1, T2, R>(
-  fn1: Fn1<T2, R>,
-  fn2: Fn1<T1, T2>,
+  fn1: Function1<T2, R>,
+  fn2: Function1<T1, T2>,
   fn3: (...args: T) => T1
 ): (...args: T) => R
 export function compose<T extends any[], T1, T2, T3, R>(
-  fn1: Fn1<T3, R>,
-  fn2: Fn1<T2, T3>,
-  fn3: Fn1<T1, T2>,
+  fn1: Function1<T3, R>,
+  fn2: Function1<T2, T3>,
+  fn3: Function1<T1, T2>,
   fn4: (...args: T) => T1
 ): (...args: T) => R
 export function compose<T extends any[], T1, T2, T3, T4, R>(
-  fn1: Fn1<T4, R>,
-  fn2: Fn1<T3, T4>,
-  fn3: Fn1<T2, T3>,
-  fn4: Fn1<T1, T2>,
+  fn1: Function1<T4, R>,
+  fn2: Function1<T3, T4>,
+  fn3: Function1<T2, T3>,
+  fn4: Function1<T1, T2>,
   fn5: (...args: T) => T1
 ): (...args: T) => R
 export function compose<T extends any[], T1, T2, T3, T4, T5, R>(
-  fn1: Fn1<T5, R>,
-  fn2: Fn1<T4, T5>,
-  fn3: Fn1<T3, T4>,
-  fn4: Fn1<T2, T3>,
-  fn5: Fn1<T1, T2>,
+  fn1: Function1<T5, R>,
+  fn2: Function1<T4, T5>,
+  fn3: Function1<T3, T4>,
+  fn4: Function1<T2, T3>,
+  fn5: Function1<T1, T2>,
   fn6: (...args: T) => T1
 ): (...args: T) => R
 export function compose<T extends any[], T1, T2, T3, T4, T5, T6, R>(
-  fn1: Fn1<T6, R>,
-  fn2: Fn1<T5, T6>,
-  fn3: Fn1<T4, T5>,
-  fn4: Fn1<T3, T4>,
-  fn5: Fn1<T2, T3>,
-  fn6: Fn1<T1, T2>,
+  fn1: Function1<T6, R>,
+  fn2: Function1<T5, T6>,
+  fn3: Function1<T4, T5>,
+  fn4: Function1<T3, T4>,
+  fn5: Function1<T2, T3>,
+  fn6: Function1<T1, T2>,
   fn7: (...args: T) => T1
 ): (...args: T) => R
 export function compose<T extends any[], T1, T2, T3, T4, T5, T6, T7, R>(
-  fn1: Fn1<T7, R>,
-  fn2: Fn1<T6, T7>,
-  fn3: Fn1<T5, T6>,
-  fn4: Fn1<T4, T5>,
-  fn5: Fn1<T3, T4>,
-  fn6: Fn1<T2, T3>,
-  fn7: Fn1<T1, T2>,
+  fn1: Function1<T7, R>,
+  fn2: Function1<T6, T7>,
+  fn3: Function1<T5, T6>,
+  fn4: Function1<T4, T5>,
+  fn5: Function1<T3, T4>,
+  fn6: Function1<T2, T3>,
+  fn7: Function1<T1, T2>,
   fn8: (...args: T) => T1
 ): (...args: T) => R
 export function compose<T extends any[], T1, T2, T3, T4, T5, T6, T7, T8, R>(
-  fn1: Fn1<T8, R>,
-  fn2: Fn1<T7, T8>,
-  fn3: Fn1<T6, T7>,
-  fn4: Fn1<T5, T6>,
-  fn5: Fn1<T4, T5>,
-  fn6: Fn1<T3, T4>,
-  fn7: Fn1<T2, T3>,
-  fn8: Fn1<T1, T2>,
+  fn1: Function1<T8, R>,
+  fn2: Function1<T7, T8>,
+  fn3: Function1<T6, T7>,
+  fn4: Function1<T5, T6>,
+  fn5: Function1<T4, T5>,
+  fn6: Function1<T3, T4>,
+  fn7: Function1<T2, T3>,
+  fn8: Function1<T1, T2>,
   fn9: (...args: T) => T1
 ): (...args: T) => R
 export function compose<T extends any[], T1, T2, T3, T4, T5, T6, T7, T8, T9, R>(
-  fn1: Fn1<T9, R>,
-  fn2: Fn1<T8, T9>,
-  fn3: Fn1<T7, T8>,
-  fn4: Fn1<T6, T7>,
-  fn5: Fn1<T5, T6>,
-  fn6: Fn1<T4, T5>,
-  fn7: Fn1<T3, T4>,
-  fn8: Fn1<T2, T3>,
-  fn9: Fn1<T1, T2>,
+  fn1: Function1<T9, R>,
+  fn2: Function1<T8, T9>,
+  fn3: Function1<T7, T8>,
+  fn4: Function1<T6, T7>,
+  fn5: Function1<T5, T6>,
+  fn6: Function1<T4, T5>,
+  fn7: Function1<T3, T4>,
+  fn8: Function1<T2, T3>,
+  fn9: Function1<T1, T2>,
   fn10: (...args: T) => T1
 ): (...args: T) => R
 
@@ -175,30 +196,32 @@ export function countBy<T, K extends PropertyKey>(
   fn: (value: T) => K
 ): (array: readonly T[]) => Record<K, number>
 
-export function curry<R>(fn: Fn0<R>): Fn0<R>
-export function curry<T, R>(fn: Fn1<T, R>): Fn1<T, R>
-export function curry<T1, T2, R>(fn: Fn2<T1, T2, R>): CurriedFn2<T1, T2, R>
+export function curry<R>(fn: Function0<R>): Function0<R>
+export function curry<T, R>(fn: Function1<T, R>): Function1<T, R>
+export function curry<T1, T2, R>(
+  fn: Function2<T1, T2, R>
+): CurriedFunction2<T1, T2, R>
 export function curry<T1, T2, T3, R>(
-  fn: Fn3<T1, T2, T3, R>
-): CurriedFn3<T1, T2, T3, R>
+  fn: Function3<T1, T2, T3, R>
+): CurriedFunction3<T1, T2, T3, R>
 export function curry<T1, T2, T3, T4, R>(
-  fn: Fn4<T1, T2, T3, T4, R>
-): CurriedFn4<T1, T2, T3, T4, R>
+  fn: Function4<T1, T2, T3, T4, R>
+): CurriedFunction4<T1, T2, T3, T4, R>
 
 export function curryN<F extends CallableFunction>(n: 0, fn: F): F
 export function curryN<F extends CallableFunction>(n: 1, fn: F): F
 export function curryN<T1, T2, R>(
   n: 2,
-  fn: Fn2Rest<T1, T2, R>
-): CurriedFn2<T1, T2, R>
+  fn: VariadicFunction2<T1, T2, R>
+): CurriedFunction2<T1, T2, R>
 export function curryN<T1, T2, T3, R>(
   n: 3,
-  fn: Fn3Rest<T1, T2, T3, R>
-): CurriedFn3<T1, T2, T3, R>
+  fn: VariadicFunction3<T1, T2, T3, R>
+): CurriedFunction3<T1, T2, T3, R>
 export function curryN<T1, T2, T3, T4, R>(
   n: 4,
-  fn: Fn4Rest<T1, T2, T3, T4, R>
-): CurriedFn4<T1, T2, T3, T4, R>
+  fn: VariadicFunction4<T1, T2, T3, T4, R>
+): CurriedFunction4<T1, T2, T3, T4, R>
 
 export function dec(n: number): number
 
@@ -225,8 +248,11 @@ export function entries<T extends object, K extends keyof T>(
 export function equals<T>(value: T, other: T): boolean
 export function equals<T>(value: T): (other: T) => boolean
 
-export function equalsBy<T, U>(fn: Fn1<T, U>, value: T, other: T): boolean
-export function equalsBy<T, U>(fn: Fn1<T, U>, value: T): (other: T) => boolean
+export function equalsBy<T, U>(fn: Function1<T, U>, value: T, other: T): boolean
+export function equalsBy<T, U>(
+  fn: Function1<T, U>,
+  value: T
+): (other: T) => boolean
 
 export function every<T>(
   predicate: ArrayPredicate<T>,
@@ -574,74 +600,74 @@ export function reverse<T>(array: readonly T[]): T[]
 export function second<T>(first: unknown, second: T): T
 
 export function seq<T>(initial: T): T
-export function seq<T, R>(initial: T, fn1: Fn1<T, R>): R
+export function seq<T, R>(initial: T, fn1: Function1<T, R>): R
 export function seq<T1, T2, R>(
   initial: T1,
-  fn1: Fn1<T1, T2>,
-  fn2: Fn1<T2, R>
+  fn1: Function1<T1, T2>,
+  fn2: Function1<T2, R>
 ): R
 export function seq<T1, T2, T3, R>(
   initial: T1,
-  fn1: Fn1<T1, T2>,
-  fn2: Fn1<T2, T3>,
-  fn3: Fn1<T3, R>
+  fn1: Function1<T1, T2>,
+  fn2: Function1<T2, T3>,
+  fn3: Function1<T3, R>
 ): R
 export function seq<T1, T2, T3, T4, R>(
   initial: T1,
-  fn1: Fn1<T1, T2>,
-  fn2: Fn1<T2, T3>,
-  fn3: Fn1<T3, T4>,
-  fn4: Fn1<T4, R>
+  fn1: Function1<T1, T2>,
+  fn2: Function1<T2, T3>,
+  fn3: Function1<T3, T4>,
+  fn4: Function1<T4, R>
 ): R
 export function seq<T1, T2, T3, T4, T5, R>(
   initial: T1,
-  fn1: Fn1<T1, T2>,
-  fn2: Fn1<T2, T3>,
-  fn3: Fn1<T3, T4>,
-  fn4: Fn1<T4, T5>,
-  fn5: Fn1<T5, R>
+  fn1: Function1<T1, T2>,
+  fn2: Function1<T2, T3>,
+  fn3: Function1<T3, T4>,
+  fn4: Function1<T4, T5>,
+  fn5: Function1<T5, R>
 ): R
 export function seq<T1, T2, T3, T4, T5, T6, R>(
   initial: T1,
-  fn1: Fn1<T1, T2>,
-  fn2: Fn1<T2, T3>,
-  fn3: Fn1<T3, T4>,
-  fn4: Fn1<T4, T5>,
-  fn5: Fn1<T5, T6>,
-  fn6: Fn1<T6, R>
+  fn1: Function1<T1, T2>,
+  fn2: Function1<T2, T3>,
+  fn3: Function1<T3, T4>,
+  fn4: Function1<T4, T5>,
+  fn5: Function1<T5, T6>,
+  fn6: Function1<T6, R>
 ): R
 export function seq<T1, T2, T3, T4, T5, T6, T7, R>(
   initial: T1,
-  fn1: Fn1<T1, T2>,
-  fn2: Fn1<T2, T3>,
-  fn3: Fn1<T3, T4>,
-  fn4: Fn1<T4, T5>,
-  fn5: Fn1<T5, T6>,
-  fn6: Fn1<T6, T7>,
-  fn7: Fn1<T7, R>
+  fn1: Function1<T1, T2>,
+  fn2: Function1<T2, T3>,
+  fn3: Function1<T3, T4>,
+  fn4: Function1<T4, T5>,
+  fn5: Function1<T5, T6>,
+  fn6: Function1<T6, T7>,
+  fn7: Function1<T7, R>
 ): R
 export function seq<T1, T2, T3, T4, T5, T6, T7, T8, R>(
   initial: T1,
-  fn1: Fn1<T1, T2>,
-  fn2: Fn1<T2, T3>,
-  fn3: Fn1<T3, T4>,
-  fn4: Fn1<T4, T5>,
-  fn5: Fn1<T5, T6>,
-  fn6: Fn1<T6, T7>,
-  fn7: Fn1<T7, T8>,
-  fn8: Fn1<T8, R>
+  fn1: Function1<T1, T2>,
+  fn2: Function1<T2, T3>,
+  fn3: Function1<T3, T4>,
+  fn4: Function1<T4, T5>,
+  fn5: Function1<T5, T6>,
+  fn6: Function1<T6, T7>,
+  fn7: Function1<T7, T8>,
+  fn8: Function1<T8, R>
 ): R
 export function seq<T1, T2, T3, T4, T5, T6, T7, T8, T9, R>(
   initial: T1,
-  fn1: Fn1<T1, T2>,
-  fn2: Fn1<T2, T3>,
-  fn3: Fn1<T3, T4>,
-  fn4: Fn1<T4, T5>,
-  fn5: Fn1<T5, T6>,
-  fn6: Fn1<T6, T7>,
-  fn7: Fn1<T7, T8>,
-  fn8: Fn1<T8, T9>,
-  fn9: Fn1<T9, R>
+  fn1: Function1<T1, T2>,
+  fn2: Function1<T2, T3>,
+  fn3: Function1<T3, T4>,
+  fn4: Function1<T4, T5>,
+  fn5: Function1<T5, T6>,
+  fn6: Function1<T6, T7>,
+  fn7: Function1<T7, T8>,
+  fn8: Function1<T8, T9>,
+  fn9: Function1<T9, R>
 ): R
 
 export function slice<T>(start: number, end: number, array: readonly T[]): T[]
@@ -714,7 +740,7 @@ export function values<T extends object, K extends keyof T>(
   obj: T | null | undefined
 ): Array<T[K]>
 
-export function unary<T, R>(fn: Fn1Rest<T, R>): Fn1<T, R>
+export function unary<T, R>(fn: VariadicFunction1<T, R>): Function1<T, R>
 
 export function zip<T, U>(array1: readonly T[], array2: readonly U[]): [T, U][]
 export function zip<T>(
