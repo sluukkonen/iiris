@@ -307,9 +307,12 @@ export function filter<T>(
   predicate: (value: T, index: number) => boolean
 ): (array: readonly T[]) => T[]
 
-export function flatMap<T, U>(fn: (value: T) => U[], array: readonly T[]): U[]
 export function flatMap<T, U>(
-  fn: (value: T) => U[]
+  fn: (value: T, index: number) => U[],
+  array: readonly T[]
+): U[]
+export function flatMap<T, U>(
+  fn: (value: T, index: number) => U[]
 ): (array: readonly T[]) => U[]
 
 export function flatten<T extends readonly unknown[], D extends number>(
