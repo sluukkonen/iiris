@@ -394,10 +394,10 @@ export function groupMap<T, K extends PropertyKey, U>(
 ): (array: readonly T[]) => Record<K, U[]>
 export function groupMap<T, K extends PropertyKey>(
   keyFn: (value: T) => K
-): <U>(mapFn: (value: T) => U, array: readonly T[]) => Record<K, U[]>
-export function groupMap<T, K extends PropertyKey>(
-  keyFn: (value: T) => K
-): <U>(mapFn: (value: T) => U) => (array: readonly T[]) => Record<K, U[]>
+): {
+  <U>(mapFn: (value: T) => U, array: readonly T[]): Record<K, U[]>
+  <U>(mapFn: (value: T) => U): (array: readonly T[]) => Record<K, U[]>
+}
 
 export function groupMapReduce<T, K extends PropertyKey, U>(
   keyFn: (value: T) => K,
@@ -413,44 +413,33 @@ export function groupMapReduce<T, K extends PropertyKey, U>(
 export function groupMapReduce<T, K extends PropertyKey, U>(
   keyFn: (value: T) => K,
   mapFn: (value: T) => U
-): (
-  reducer: (accumulator: U, value: U) => U,
-  array: readonly T[]
-) => Record<K, U>
-export function groupMapReduce<T, K extends PropertyKey, U>(
-  keyFn: (value: T) => K,
-  mapFn: (value: T) => U
-): (
-  reducer: (accumulator: U, value: U) => U
-) => (array: readonly T[]) => Record<K, U>
+): {
+  (reducer: (accumulator: U, value: U) => U, array: readonly T[]): Record<K, U>
+  (reducer: (accumulator: U, value: U) => U): (
+    array: readonly T[]
+  ) => Record<K, U>
+}
 export function groupMapReduce<T, K extends PropertyKey>(
   keyFn: (value: T) => K
-): <U>(
-  mapFn: (value: T) => U,
-  reducer: (accumulator: U, value: U) => U,
-  array: readonly T[]
-) => Record<K, U>
-export function groupMapReduce<T, K extends PropertyKey>(
-  keyFn: (value: T) => K
-): <U>(
-  mapFn: (value: T) => U,
-  reducer: (accumulator: U, value: U) => U
-) => (array: readonly T[]) => Record<K, U>
-export function groupMapReduce<T, K extends PropertyKey>(
-  keyFn: (value: T) => K
-): <U>(
-  mapFn: (value: T) => U
-) => (
-  reducer: (accumulator: U, value: U) => U,
-  array: readonly T[]
-) => Record<K, U>
-export function groupMapReduce<T, K extends PropertyKey>(
-  keyFn: (value: T) => K
-): <U>(
-  mapFn: (value: T) => U
-) => (
-  reducer: (accumulator: U, value: U) => U
-) => (array: readonly T[]) => Record<K, U>
+): {
+  <U>(
+    mapFn: (value: T) => U,
+    reducer: (accumulator: U, value: U) => U,
+    array: readonly T[]
+  ): Record<K, U>
+  <U>(mapFn: (value: T) => U, reducer: (accumulator: U, value: U) => U): (
+    array: readonly T[]
+  ) => Record<K, U>
+  <U>(mapFn: (value: T) => U): {
+    (reducer: (accumulator: U, value: U) => U, array: readonly T[]): Record<
+      K,
+      U
+    >
+    (reducer: (accumulator: U, value: U) => U): (
+      array: readonly T[]
+    ) => Record<K, U>
+  }
+}
 
 export function get<K extends string, T extends NullableHasKey<K>>(
   key: K,
@@ -713,10 +702,10 @@ export function reduce<T, U>(
 ): (array: readonly T[]) => U
 export function reduce<T, U>(
   fn: (accumulator: U, value: T, index: number) => U
-): (initial: U, array: readonly T[]) => U
-export function reduce<T, U>(
-  fn: (accumulator: U, value: T, index: number) => U
-): (initial: U) => (array: readonly T[]) => U
+): {
+  (initial: U, array: readonly T[]): U
+  (initial: U): (array: readonly T[]) => U
+}
 
 export function reduceRight<T, U>(
   fn: (value: T, accumulator: U, index: number) => U,
@@ -729,10 +718,10 @@ export function reduceRight<T, U>(
 ): (array: readonly T[]) => U
 export function reduceRight<T, U>(
   fn: (value: T, accumulator: U, index: number) => U
-): (initial: U, array: readonly T[]) => U
-export function reduceRight<T, U>(
-  fn: (value: T, accumulator: U, index: number) => U
-): (initial: U) => (array: readonly T[]) => U
+): {
+  (initial: U, array: readonly T[]): U
+  (initial: U): (array: readonly T[]) => U
+}
 
 export function reverse<T>(array: readonly T[]): T[]
 
@@ -929,7 +918,7 @@ export function zipWith<T, U, V>(
 ): (array2: readonly U[]) => V[]
 export function zipWith<T, U, V>(
   fn: (value: T, other: U) => V
-): (array1: readonly T[], array2: readonly U[]) => V[]
-export function zipWith<T, U, V>(
-  fn: (value: T, other: U) => V
-): (array1: readonly T[]) => (array2: readonly U[]) => V[]
+): {
+  (array1: readonly T[], array2: readonly U[]): V[]
+  (array1: readonly T[]): (array2: readonly U[]) => V[]
+}
