@@ -22,7 +22,7 @@ Proposal](https://github.com/tc39/proposal-pipeline-operator). This way the
 TypeScript compiler can infer types more easily.
 
 ```typescript
-const result = S.seq(
+const result = S.pipe(
   [1, 2, 3, 4, 5],
   S.map((x) => x + 1),         // Here `x` is inferred to be a `number`
   S.filter((x) => x % 2 === 0) // Here as well.

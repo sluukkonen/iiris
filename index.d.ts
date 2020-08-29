@@ -727,27 +727,27 @@ export function reverse<T>(array: readonly T[]): T[]
 
 export function second<T>(first: unknown, second: T): T
 
-export function seq<T>(initial: T): T
-export function seq<T, R>(initial: T, fn1: Function1<T, R>): R
-export function seq<T1, T2, R>(
+export function pipe<T>(initial: T): T
+export function pipe<T, R>(initial: T, fn1: Function1<T, R>): R
+export function pipe<T1, T2, R>(
   initial: T1,
   fn1: Function1<T1, T2>,
   fn2: Function1<T2, R>
 ): R
-export function seq<T1, T2, T3, R>(
+export function pipe<T1, T2, T3, R>(
   initial: T1,
   fn1: Function1<T1, T2>,
   fn2: Function1<T2, T3>,
   fn3: Function1<T3, R>
 ): R
-export function seq<T1, T2, T3, T4, R>(
+export function pipe<T1, T2, T3, T4, R>(
   initial: T1,
   fn1: Function1<T1, T2>,
   fn2: Function1<T2, T3>,
   fn3: Function1<T3, T4>,
   fn4: Function1<T4, R>
 ): R
-export function seq<T1, T2, T3, T4, T5, R>(
+export function pipe<T1, T2, T3, T4, T5, R>(
   initial: T1,
   fn1: Function1<T1, T2>,
   fn2: Function1<T2, T3>,
@@ -755,7 +755,7 @@ export function seq<T1, T2, T3, T4, T5, R>(
   fn4: Function1<T4, T5>,
   fn5: Function1<T5, R>
 ): R
-export function seq<T1, T2, T3, T4, T5, T6, R>(
+export function pipe<T1, T2, T3, T4, T5, T6, R>(
   initial: T1,
   fn1: Function1<T1, T2>,
   fn2: Function1<T2, T3>,
@@ -764,7 +764,7 @@ export function seq<T1, T2, T3, T4, T5, T6, R>(
   fn5: Function1<T5, T6>,
   fn6: Function1<T6, R>
 ): R
-export function seq<T1, T2, T3, T4, T5, T6, T7, R>(
+export function pipe<T1, T2, T3, T4, T5, T6, T7, R>(
   initial: T1,
   fn1: Function1<T1, T2>,
   fn2: Function1<T2, T3>,
@@ -774,7 +774,7 @@ export function seq<T1, T2, T3, T4, T5, T6, T7, R>(
   fn6: Function1<T6, T7>,
   fn7: Function1<T7, R>
 ): R
-export function seq<T1, T2, T3, T4, T5, T6, T7, T8, R>(
+export function pipe<T1, T2, T3, T4, T5, T6, T7, T8, R>(
   initial: T1,
   fn1: Function1<T1, T2>,
   fn2: Function1<T2, T3>,
@@ -785,7 +785,7 @@ export function seq<T1, T2, T3, T4, T5, T6, T7, T8, R>(
   fn7: Function1<T7, T8>,
   fn8: Function1<T8, R>
 ): R
-export function seq<T1, T2, T3, T4, T5, T6, T7, T8, T9, R>(
+export function pipe<T1, T2, T3, T4, T5, T6, T7, T8, T9, R>(
   initial: T1,
   fn1: Function1<T1, T2>,
   fn2: Function1<T2, T3>,

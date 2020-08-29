@@ -1,4 +1,4 @@
-export function seq(initial) {
+export function pipe(initial) {
   switch (arguments.length) {
     case 0:
     case 1:
