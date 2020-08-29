@@ -21,13 +21,11 @@ export const equalsU = (a, b, cycles) => {
     return true
   }
 
-  // If either one is not an object, we can bail out early.
+  // If either one is not an object, we can bail out early if both values are
+  // not NaN.
   if (!isObject(a) || !isObject(b)) {
-    // Return true if both are NaN.
     return a !== a && b !== b
   }
-
-  // We now know that both values are objects.
 
   // Fast path for plain objects
   const aProto = getPrototypeOf(a)
@@ -166,6 +164,14 @@ const equalsMap = (a, b, cycles) => {
     return false
   }
 
+  // As an optimization, try to find a key mismatch before starting to compare
+  // the equality of the values.
+  for (const key of a.keys()) {
+    if (!b.has(key)) {
+      return false
+    }
+  }
+
   if (cycles) {
     const cycle = cycles.get(a)
     if (cycle && cycles.get(b)) {
@@ -179,7 +185,7 @@ const equalsMap = (a, b, cycles) => {
   cycles.set(b, a)
 
   for (const [key, value] of a) {
-    if (!b.has(key) || !equalsU(value, b.get(key), cycles)) {
+    if (!equalsU(value, b.get(key), cycles)) {
       return false
     }
   }
