@@ -286,6 +286,9 @@ export function divideBy(divisor: number): (dividend: number) => number
 export function drop<T>(n: number, array: readonly T[]): T[]
 export function drop(n: number): <T>(array: readonly T[]) => T[]
 
+export function dropLast<T>(n: number, array: readonly T[]): T[]
+export function dropLast(n: number): <T>(array: readonly T[]) => T[]
+
 export function dropWhile<T>(
   predicate: ArrayPredicate<T>,
   array: readonly T[]
@@ -884,6 +887,9 @@ export function tail<T>(array: readonly T[]): T[]
 export function take<T>(n: number, array: readonly T[]): T[]
 export function take(n: number): <T>(array: readonly T[]) => T[]
 
+export function takeLast<T>(n: number, array: readonly T[]): T[]
+export function takeLast<T>(n: number): (array: readonly T[]) => T[]
+
 export function takeWhile<T>(
   predicate: ArrayPredicate<T>,
   array: readonly T[]
@@ -891,6 +897,8 @@ export function takeWhile<T>(
 export function takeWhile<T>(
   predicate: ArrayPredicate<T>
 ): (array: readonly T[]) => T[]
+
+export function tap<T>(fn: (value: T) => void): (value: T) => T
 
 export function times<T>(fn: (index: number) => T, n: number): T[]
 export function times<T>(fn: (index: number) => T): (n: number) => T[]
