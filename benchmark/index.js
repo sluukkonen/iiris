@@ -21,6 +21,8 @@ const createObj = (i) => ({
   kConstant: 0,
 })
 
+const obj = createObj(1)
+
 const num1 = fill(1).map(snd)
 const num10 = fill(10).map(snd)
 const num100 = fill(100).map(snd)
@@ -539,6 +541,91 @@ const benchmarks = [
     benchmarks: (array) => ({
       soles: () => S.none((n) => n > array.length, array),
       ramda: () => R.none((n) => n > array.length, array),
+    }),
+  },
+  {
+    name: 'get.object',
+    benchmarks: () => ({
+      soles: () => S.get('k1', obj),
+      ramda: () => R.prop('k1', obj),
+      lodash: () => _.get('k1', obj),
+      native: () => obj?.k1,
+    }),
+  },
+  {
+    name: 'get.array',
+    benchmarks: () => ({
+      soles: () => S.get(0, num100),
+      ramda: () => R.prop(0, num100),
+      lodash: () => _.get(0, num100),
+      native: () => num100?.[0],
+    }),
+  },
+  {
+    name: 'get.curried',
+    benchmarks: () => {
+      const Shead = S.get(0)
+      const _head = _.get(0)
+      const Rhead = R.prop(0)
+      const head = (array) => array?.[0]
+
+      return {
+        soles: () => Shead(num100),
+        lodash: () => _head(num100),
+        ramda: () => Rhead(num100),
+        native: () => head(num100),
+      }
+    },
+  },
+  {
+    name: 'getOr.object',
+    benchmarks: () => ({
+      soles: () => S.getOr(0, 'kDoesNotExist', obj),
+      ramda: () => R.propOr(0, 'KDoesNotExist', obj),
+      lodash: () => _.getOr(0, 'kDoesNotExist', obj),
+      native: () => obj?.kDoesNotExist ?? 0,
+    }),
+  },
+  {
+    name: 'getOr.array',
+    benchmarks: () => ({
+      soles: () => S.getOr(0, 150, num100),
+      ramda: () => R.propOr(0, 150, num100),
+      lodash: () => _.getOr(0, 150, num100),
+      native: () => num100?.[150] ?? 0,
+    }),
+  },
+  {
+    name: 'set.object',
+    benchmarks: () => ({
+      soles: () => S.set('k1', 0, obj),
+      ramda: () => R.assoc('k1', 0, obj),
+      lodash: () => _.set('k1', 0, obj),
+      native: () => ({ ...obj, k1: 0 }),
+    }),
+  },
+  {
+    name: 'set.array',
+    benchmarks: () => ({
+      soles: () => S.set(0, 0, num1),
+      ramda: () => R.update(0, 0, num1),
+      lodash: () => _.set(0, 0, num1),
+    }),
+  },
+  {
+    name: 'modify.object',
+    benchmarks: () => ({
+      soles: () => S.modify('k1', (x) => x + 1, obj),
+      lodash: () => _.update('k1', (x) => x + 1, obj),
+      native: () => ({ ...obj, k1: obj.k1 + 1 }),
+    }),
+  },
+  {
+    name: 'modify.array',
+    benchmarks: () => ({
+      soles: () => S.modify(0, (x) => x + 1, num1),
+      ramda: () => R.adjust(0, (x) => x + 1, num1),
+      lodash: () => _.update(0, (x) => x + 1, num1),
     }),
   },
 ]

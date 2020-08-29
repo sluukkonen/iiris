@@ -1,3 +1,3 @@
-import { cloneArray } from './internal/cloneArray'
+import { copyArray } from './internal/copyArray'
 
-export const reverse = (array) => cloneArray(array).reverse()
+export const reverse = (array) => copyArray(array).reverse()

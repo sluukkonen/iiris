@@ -61,6 +61,51 @@ export type ArrayPredicate<T> = (value: T, index: number) => boolean
 
 export type Comparator<T> = (value: T) => -1 | 0 | 1
 
+// Internal helper types
+
+/** Removes undefined from T */
+type Defined<T> = T extends undefined ? never : T
+
+type HasKey<K extends string, V = unknown> = { [P in K]?: V }
+
+type Expand<T> = T extends infer U ? U : never
+
+type NullableHasKey<K extends string, V = unknown> =
+  | HasKey<K, V>
+  | null
+  | undefined
+
+type NullableArray<T = unknown> = readonly T[] | null | undefined
+
+type NullableObject = object | null | undefined
+
+type Gets<K extends string, T extends NullableHasKey<K>> = Expand<
+  T extends null | undefined ? NonNullable<T>[K] | undefined : NonNullable<T>[K]
+>
+
+type Getter<K extends string> = <T extends NullableHasKey<K>>(
+  object: T
+) => Gets<K, T>
+
+type ArrayGets<T extends NullableArray> = NonNullable<T>[number] | undefined
+
+type ArrayGetter = <T extends NullableArray>(array: T) => ArrayGets<T>
+
+type GetsOr<K extends string, T extends NullableHasKey<K>> = Defined<
+  NonNullable<T>[K]
+>
+
+type Sets<T extends NullableObject, K extends string, V> = T extends
+  | null
+  | undefined
+  ? Assign<NonNullable<T>, K, V> | { [P in K]: V }
+  : Assign<NonNullable<T>, K, V>
+
+type Assign<T extends object, K extends string, V> = {
+  [P in keyof T]: P extends K ? V : T[P]
+} &
+  { [P in K]: V }
+
 // Ah shit, here we go again…
 
 export function add(n: number, m: number): number
@@ -404,6 +449,49 @@ export function groupMapReduce<T, K extends PropertyKey>(
   reducer: (accumulator: U, value: U) => U
 ) => (array: readonly T[]) => Record<K, U>
 
+export function get<K extends string, T extends NullableHasKey<K>>(
+  key: K,
+  object: T
+): Gets<K, T>
+export function get<T extends NullableArray>(
+  index: number,
+  array: T
+): ArrayGets<T>
+export function get<K extends string>(key: K): Getter<K>
+export function get(index: number): ArrayGetter
+
+export function getOr<K extends string, T extends NullableHasKey<K>>(
+  defaultValue: Defined<NonNullable<T>[K]>,
+  key: K,
+  object: T
+): GetsOr<K, T>
+export function getOr<T>(
+  defaultValue: T,
+  index: number,
+  array: NullableArray<T>
+): T
+export function getOr<D, K extends string>(
+  defaultValue: D,
+  key: K
+): <T extends NullableHasKey<K, D>>(object: T) => GetsOr<K, T>
+export function getOr<T>(
+  defaultValue: T,
+  index: number
+): (array: NullableArray<T>) => T
+export function getOr<D>(
+  defaultValue: D
+): {
+  <K extends string, T extends NullableHasKey<K, D>>(key: K, object: T): GetsOr<
+    K,
+    T
+  >
+  (index: number, array: NullableArray<D>): D
+  <K extends string>(key: K): <T extends NullableHasKey<K, D>>(
+    object: T
+  ) => GetsOr<K, T>
+  (index: number): (array: NullableArray<D>) => D
+}
+
 export function gt(value: number, other: number): boolean
 export function gt(value: string, other: string): boolean
 export function gt(value: Date, other: Date): boolean
@@ -548,6 +636,43 @@ export function minimumBy<T, U extends Ordered>(
   fn: (value: T) => U
 ): (array: readonly T[]) => T | undefined
 
+export function modify<K extends string, V, T extends NullableHasKey<K>>(
+  key: K,
+  fn: Function1<NonNullable<T>[K], V>,
+  object: T
+): Sets<T, K, V>
+export function modify<K extends string, V1, V2>(
+  key: K,
+  fn: Function1<V1, V2>
+): <T extends NullableHasKey<K, V1>>(object: T) => Sets<T, K, V2>
+export function modify<K extends string>(
+  key: K
+): {
+  <V, T extends NullableHasKey<K>>(
+    fn: Function1<NonNullable<T>[K], V>,
+    object: T
+  ): Sets<T, K, V>
+  <V1, V2>(fn: Function1<V1, V2>): <T extends NullableHasKey<K, V1>>(
+    object: T
+  ) => Sets<T, K, V2>
+}
+
+export function modify<T>(
+  index: number,
+  fn: Function1<T, T>,
+  array: NullableArray<T>
+): T[]
+export function modify<T>(
+  index: number,
+  fn: Function1<T, T>
+): (array: NullableArray<T>) => T[]
+export function modify(
+  index: number
+): {
+  <T>(fn: Function1<T, T>, array: NullableArray<T>): T[]
+  <T>(fn: Function1<T, T>): (array: NullableArray<T>) => T[]
+}
+
 export function multiply(multiplicand: number, multiplier: number): number
 export function multiply(multiplicand: number): (multiplier: number) => number
 
@@ -680,6 +805,33 @@ export function seq<T1, T2, T3, T4, T5, T6, T7, T8, T9, R>(
   fn8: Function1<T8, T9>,
   fn9: Function1<T9, R>
 ): R
+
+export function set<K extends string, V, T extends NullableObject>(
+  key: K,
+  value: V,
+  object: T
+): Sets<T, K, V>
+export function set<T>(index: number, value: T, array: NullableArray<T>): T[]
+export function set<K extends string, V>(
+  key: K,
+  value: V
+): <T extends NullableObject>(object: T) => Sets<T, K, V>
+export function set<T>(
+  index: number,
+  value: T
+): (array: NullableArray<T>) => T[]
+export function set<K extends string>(
+  key: K
+): {
+  <V, T extends NullableObject>(value: V, object: T): Sets<T, K, V>
+  <V>(value: V): <T extends NullableObject>(object: T) => Sets<T, K, V>
+}
+export function set(
+  index: number
+): {
+  <T>(value: T, array: NullableArray<T>): T[]
+  <T>(value: T): (array: NullableArray<T>) => T[]
+}
 
 export function slice<T>(start: number, end: number, array: readonly T[]): T[]
 export function slice(

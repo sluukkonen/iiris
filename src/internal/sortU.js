@@ -1,3 +1,3 @@
-import { cloneArray } from './cloneArray'
+import { copyArray } from './copyArray'
 
-export const sortU = (comparator, array) => cloneArray(array).sort(comparator)
+export const sortU = (comparator, array) => copyArray(array).sort(comparator)
