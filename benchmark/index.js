@@ -628,6 +628,36 @@ const benchmarks = [
       lodash: () => _.update(0, (x) => x + 1, num1),
     }),
   },
+  {
+    name: 'uniq.primitive.different',
+    params: [num1, num10, num100, num1000],
+    benchmarks: (array) => ({
+      soles: () => S.uniq(array),
+      ramda: () => R.uniq(array),
+      lodash: () => _.uniq(array),
+    }),
+  },
+  {
+    name: 'uniq.primitive.similar',
+    params: [num1, num10, num100, num1000],
+    benchmarks: (array) => {
+      const oneToTen = array.map((n) => n % 10)
+      return {
+        soles: () => S.uniq(oneToTen),
+        ramda: () => R.uniq(oneToTen),
+        lodash: () => _.uniq(oneToTen),
+      }
+    },
+  },
+  {
+    name: 'uniq.object',
+    params: [obj1, obj10, obj100, obj1000],
+    benchmarks: (array) => ({
+      soles: () => S.uniq(array),
+      ramda: () => R.uniq(array),
+      lodash: () => _.uniqWith(_.isEqual, array),
+    }),
+  },
 ]
 
 const argv = require('yargs')

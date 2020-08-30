@@ -929,6 +929,11 @@ export function values<T extends object, K extends keyof T>(
 
 export function unary<T, R>(fn: VariadicFunction1<T, R>): Function1<T, R>
 
+export function uniq<T>(array: readonly T[]): T[]
+
+export function uniqBy<T, U>(fn: (value: T) => U, array: T[]): T[]
+export function uniqBy<T, U>(fn: (value: T) => U): (array: T[]) => T[]
+
 export function zip<T, U>(array1: readonly T[], array2: readonly U[]): [T, U][]
 export function zip<T>(
   array1: readonly T[]
