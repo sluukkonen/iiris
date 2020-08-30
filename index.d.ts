@@ -289,6 +289,14 @@ export function drop(n: number): <T>(array: readonly T[]) => T[]
 export function dropLast<T>(n: number, array: readonly T[]): T[]
 export function dropLast(n: number): <T>(array: readonly T[]) => T[]
 
+export function dropLastWhile<T>(
+  predicate: ArrayPredicate<T>,
+  array: readonly T[]
+): T[]
+export function dropLastWhile<T>(
+  predicate: ArrayPredicate<T>
+): (array: readonly T[]) => T[]
+
 export function dropWhile<T>(
   predicate: ArrayPredicate<T>,
   array: readonly T[]
@@ -878,6 +886,14 @@ export function take(n: number): <T>(array: readonly T[]) => T[]
 
 export function takeLast<T>(n: number, array: readonly T[]): T[]
 export function takeLast<T>(n: number): (array: readonly T[]) => T[]
+
+export function takeLastWhile<T>(
+  predicate: ArrayPredicate<T>,
+  array: readonly T[]
+): T[]
+export function takeLastWhile<T>(
+  predicate: ArrayPredicate<T>
+): (array: readonly T[]) => T[]
 
 export function takeWhile<T>(
   predicate: ArrayPredicate<T>,

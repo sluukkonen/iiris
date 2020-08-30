@@ -1,10 +1,13 @@
 import { sliceU } from './sliceU'
 
-export const takeDropWhile = (array, fn, take) => {
+export const takeDropWhile = (array, fn, take, last) => {
   const length = array.length
-  let i = 0
+  let i = last ? length : -1
 
-  while (i < length && fn(array[i], i)) i++
+  // eslint-disable-next-line no-empty
+  while ((last ? i-- : ++i < length) && fn(array[i], i)) {}
 
-  return take ? sliceU(0, i, array) : sliceU(i, length, array)
+  return take
+    ? sliceU(last ? i + 1 : 0, last ? length : i, array)
+    : sliceU(last ? 0 : i, last ? i + 1 : length, array)
 }
