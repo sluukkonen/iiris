@@ -27,27 +27,31 @@ expectType<number>(S.getOr(0, 'age')(maybeUser))
 expectType<number>(S.getOr(0)('age', maybeUser))
 expectType<number>(S.getOr(0)('age')(maybeUser))
 
-// Invalid default value
+// Default value is different type
 
-expectError(S.getOr(true, 'name', user))
-expectError(S.getOr(true, 'name')(user))
-expectError(S.getOr(true)('name', user))
-expectError(S.getOr(true)('name')(user))
+// Name is not optional, so default value is never chosen.
+expectType<string>(S.getOr(true, 'name', user))
+expectType<string>(S.getOr(true, 'name')(user))
+expectType<string>(S.getOr(true)('name', user))
+expectType<string>(S.getOr(true)('name')(user))
 
-expectError(S.getOr(true, 'age', user))
-expectError(S.getOr(true, 'age')(user))
-expectError(S.getOr(true)('age', user))
-expectError(S.getOr(true)('age')(user))
+// Age is not optional, so default value is chosen if it is missing.
+expectType<number | boolean>(S.getOr(true, 'age', user))
+expectType<number | boolean>(S.getOr(true, 'age')(user))
+expectType<number | boolean>(S.getOr(true)('age', user))
+expectType<number | boolean>(S.getOr(true)('age')(user))
 
-expectError(S.getOr(true, 'name', maybeUser))
-expectError(S.getOr(true, 'name')(maybeUser))
-expectError(S.getOr(true)('name', maybeUser))
-expectError(S.getOr(true)('name')(maybeUser))
+// Object may be missing, so we may hit the default value in this case.
+expectType<string | boolean>(S.getOr(true, 'name', maybeUser))
+expectType<string | boolean>(S.getOr(true, 'name')(maybeUser))
+expectType<string | boolean>(S.getOr(true)('name', maybeUser))
+expectType<string | boolean>(S.getOr(true)('name')(maybeUser))
 
-expectError(S.getOr(true, 'age', maybeUser))
-expectError(S.getOr(true, 'age')(maybeUser))
-expectError(S.getOr(true)('age', maybeUser))
-expectError(S.getOr(true)('age')(maybeUser))
+// Ditto.
+expectType<number | boolean>(S.getOr(true, 'age', maybeUser))
+expectType<number | boolean>(S.getOr(true, 'age')(maybeUser))
+expectType<number | boolean>(S.getOr(true)('age', maybeUser))
+expectType<number | boolean>(S.getOr(true)('age')(maybeUser))
 
 /// Arrays
 
@@ -69,9 +73,9 @@ expectType<User>(S.getOr(user, 0)(null))
 expectType<User>(S.getOr(user)(0, null))
 expectType<User>(S.getOr(user)(0)(null))
 
-// Invalid default value
+// Default value is different type
 
-expectError(S.getOr(true, 0, users))
-expectError(S.getOr(true, 0)(users))
-expectError(S.getOr(true)(0, users))
-expectError(S.getOr(true)(0)(users))
+expectType<User | true>(S.getOr(true, 0, users))
+expectType<User | boolean>(S.getOr(true, 0)(users))
+expectType<User | boolean>(S.getOr(true)(0, users))
+expectType<User | boolean>(S.getOr(true)(0)(users))

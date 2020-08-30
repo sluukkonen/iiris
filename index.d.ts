@@ -104,8 +104,12 @@ type ArrayGets<T extends NullableArray> = NonNullable<T>[number] | undefined
 
 type ArrayGetter = <T extends NullableArray>(array: T) => ArrayGets<T>
 
-type GetsOr<K extends string, T extends NullableHasKey<K>> = Defined<
-  NonNullable<T>[K]
+type GetsOr<D, K extends string, T extends NullableHasKey<K>> = Expand<
+  T extends null | undefined
+    ? Defined<NonNullable<T>[K]> | D
+    : undefined extends NonNullable<T>[K]
+    ? Defined<NonNullable<T>[K]> | D
+    : NonNullable<T>[K]
 >
 
 type Sets<T extends NullableObject, K extends string, V> = T extends
@@ -481,36 +485,37 @@ export function get<T extends NullableArray>(
 export function get<K extends string>(key: K): Getter<K>
 export function get(index: number): ArrayGetter
 
-export function getOr<K extends string, T extends NullableHasKey<K>>(
-  defaultValue: Defined<NonNullable<T>[K]>,
+export function getOr<D, K extends string, T extends NullableHasKey<K>>(
+  defaultValue: D,
   key: K,
   object: T
-): GetsOr<K, T>
-export function getOr<T>(
-  defaultValue: T,
+): GetsOr<D, K, T>
+export function getOr<D, T>(
+  defaultValue: D,
   index: number,
   array: NullableArray<T>
-): T
+): T | D
 export function getOr<D, K extends string>(
   defaultValue: D,
   key: K
-): <T extends NullableHasKey<K, D>>(object: T) => GetsOr<K, T>
-export function getOr<T>(
-  defaultValue: T,
+): <T extends NullableHasKey<K>>(object: T) => GetsOr<D, K, T>
+export function getOr<D>(
+  defaultValue: D,
   index: number
-): (array: NullableArray<T>) => T
+): <T>(array: NullableArray<T>) => T | D
 export function getOr<D>(
   defaultValue: D
 ): {
-  <K extends string, T extends NullableHasKey<K, D>>(key: K, object: T): GetsOr<
+  <K extends string, T extends NullableHasKey<K>>(key: K, object: T): GetsOr<
+    D,
     K,
     T
   >
-  (index: number, array: NullableArray<D>): D
-  <K extends string>(key: K): <T extends NullableHasKey<K, D>>(
+  <T>(index: number, array: NullableArray<T>): T | D
+  <K extends string>(key: K): <T extends NullableHasKey<K>>(
     object: T
-  ) => GetsOr<K, T>
-  (index: number): (array: NullableArray<D>) => D
+  ) => GetsOr<D, K, T>
+  (index: number): <T>(array: NullableArray<T>) => T | D
 }
 
 export function gt(value: number, other: number): boolean
