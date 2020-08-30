@@ -122,7 +122,9 @@ type Assign<T extends object, K extends string, V> = {
 // Ah shit, here we go again…
 
 export function add(n: number, m: number): number
+export function add(n: BigInt, m: BigInt): BigInt
 export function add(n: number): (m: number) => number
+export function add(n: BigInt): (m: BigInt) => BigInt
 
 export function arity<R>(n: 0, fn: VariadicFunction0<R>): Function0<R>
 export function arity<T, R>(n: 1, fn: VariadicFunction1<T, R>): Function1<T, R>
@@ -290,11 +292,14 @@ export function curryN<T1, T2, T3, T4, R>(
 ): CurriedFunction4<T1, T2, T3, T4, R>
 
 export function dec(n: number): number
+export function dec(n: BigInt): BigInt
 
 export function descend<T>(fn: (value: T) => Ordered): Comparator<T>
 
 export function divideBy(divisor: number, dividend: number): number
+export function divideBy(divisor: BigInt, dividend: BigInt): BigInt
 export function divideBy(divisor: number): (dividend: number) => number
+export function divideBy(divisor: BigInt): (dividend: BigInt) => BigInt
 
 export function drop<T>(n: number, array: readonly T[]): T[]
 export function drop(n: number): <T>(array: readonly T[]) => T[]
@@ -535,6 +540,7 @@ export function head<T>(array: readonly T[]): T | undefined
 export function identity<T>(value: T): T
 
 export function inc(n: number): number
+export function inc(n: BigInt): BigInt
 
 export function includes<T>(value: T, array: readonly T[]): boolean
 export function includes<T>(value: T): (array: readonly T[]) => boolean
@@ -685,9 +691,12 @@ export function modify(
 }
 
 export function multiply(multiplicand: number, multiplier: number): number
+export function multiply(multiplicand: BigInt, multiplier: BigInt): BigInt
 export function multiply(multiplicand: number): (multiplier: number) => number
+export function multiply(multiplicand: BigInt): (multiplier: BigInt) => number
 
 export function negate(n: number): number
+export function negate(n: BigInt): BigInt
 
 export function none<T>(
   predicate: ArrayPredicate<T>,
@@ -881,7 +890,9 @@ export function sortWith<T>(
 ): (array: readonly T[]) => T[]
 
 export function subtractBy(subtrahend: number, minuend: number): number
+export function subtractBy(subtrahend: BigInt, minuend: BigInt): BigInt
 export function subtractBy(subtrahend: number): (minuend: number) => number
+export function subtractBy(subtrahend: BigInt): (minuend: BigInt) => BigInt
 
 export function sum(numbers: readonly number[]): number
 
