@@ -72,7 +72,7 @@ export type RightReducer<T, R> = (
   array: T[]
 ) => R
 
-export type Comparator<T> = (value: T) => -1 | 0 | 1
+export type Comparator<T> = (value: T) => number
 
 // Internal helper types
 
