@@ -1,3 +1,3 @@
-import { takeDropWhile } from './takeOrDropWhile'
+import { takeDropWhile } from './takeDropWhile'
 
-export const takeWhileU = (fn, array) => takeDropWhile(array, fn, true, false)
+export const takeWhileU = (fn, array) => takeDropWhile(fn, array, true, false)

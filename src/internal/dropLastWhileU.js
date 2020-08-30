@@ -1,4 +1,4 @@
-import { takeDropWhile } from './takeOrDropWhile'
+import { takeDropWhile } from './takeDropWhile'
 
 export const dropLastWhileU = (fn, array) =>
-  takeDropWhile(array, fn, false, true)
+  takeDropWhile(fn, array, false, true)

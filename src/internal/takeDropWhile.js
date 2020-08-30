@@ -1,6 +1,6 @@
 import { sliceU } from './sliceU'
 
-export const takeDropWhile = (array, fn, take, last) => {
+export const takeDropWhile = (fn, array, take, last) => {
   const length = array.length
   let i = last ? length : -1
 
