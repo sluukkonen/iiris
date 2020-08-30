@@ -5,7 +5,7 @@ export const takeDropWhile = (array, fn, take, last) => {
   let i = last ? length : -1
 
   // eslint-disable-next-line no-empty
-  while ((last ? i-- : ++i < length) && fn(array[i], i)) {}
+  while ((last ? i-- : ++i < length) && fn(array[i], i, array)) {}
 
   return take
     ? sliceU(last ? i + 1 : 0, last ? length : i, array)

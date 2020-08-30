@@ -57,7 +57,20 @@ export type CurriedFunction4<T1, T2, T3, T4, R> = {
 /** A data type that can be compared with the `<` and `>` operators. */
 export type Ordered = number | BigInt | string | Date | boolean
 
-export type ArrayPredicate<T> = (value: T, index: number) => boolean
+export type ArrayCallback<T, R> = (value: T, index: number, array: T[]) => R
+export type ArrayPredicate<T> = ArrayCallback<T, boolean>
+export type LeftReducer<T, R> = (
+  accumulator: R,
+  value: T,
+  index: number,
+  array: T[]
+) => R
+export type RightReducer<T, R> = (
+  value: T,
+  accumulator: R,
+  index: number,
+  array: T[]
+) => R
 
 export type Comparator<T> = (value: T) => -1 | 0 | 1
 
@@ -327,48 +340,51 @@ export function every<T>(
 ): (array: readonly T[]) => boolean
 
 export function find<T>(
-  fn: ArrayPredicate<T>,
+  predicate: ArrayPredicate<T>,
   array: readonly T[]
 ): T | undefined
 export function find<T>(
-  fn: ArrayPredicate<T>
+  predicate: ArrayPredicate<T>
 ): (array: readonly T[]) => T | undefined
 
-export function findIndex<T>(fn: ArrayPredicate<T>, array: readonly T[]): number
 export function findIndex<T>(
-  fn: ArrayPredicate<T>
+  predicate: ArrayPredicate<T>,
+  array: readonly T[]
+): number
+export function findIndex<T>(
+  predicate: ArrayPredicate<T>
 ): (array: readonly T[]) => number
 
 export function findLast<T>(
-  fn: ArrayPredicate<T>,
+  predicate: ArrayPredicate<T>,
   array: readonly T[]
 ): T | undefined
 export function findLast<T>(
-  fn: ArrayPredicate<T>
+  predicate: ArrayPredicate<T>
 ): (array: readonly T[]) => T | undefined
 
 export function findLastIndex<T>(
-  fn: ArrayPredicate<T>,
+  predicate: ArrayPredicate<T>,
   array: readonly T[]
 ): number
 export function findLastIndex<T>(
-  fn: ArrayPredicate<T>
+  predicate: ArrayPredicate<T>
 ): (array: readonly T[]) => number
 
 export function filter<T>(
-  predicate: (value: T, index: number) => boolean,
+  predicate: ArrayPredicate<T>,
   array: readonly T[]
 ): T[]
 export function filter<T>(
-  predicate: (value: T, index: number) => boolean
+  predicate: ArrayPredicate<T>
 ): (array: readonly T[]) => T[]
 
 export function flatMap<T, U>(
-  fn: (value: T, index: number) => U[],
+  fn: ArrayCallback<T, U[]>,
   array: readonly T[]
 ): U[]
 export function flatMap<T, U>(
-  fn: (value: T, index: number) => U[]
+  fn: ArrayCallback<T, U[]>
 ): (array: readonly T[]) => U[]
 
 export function flatten<T extends readonly unknown[], D extends number>(
@@ -506,13 +522,13 @@ export function gte(value: number): (other: number) => boolean
 export function gte(value: string): (other: string) => boolean
 export function gte(value: Date): (other: Date) => boolean
 
-export function has<P extends PropertyKey>(
-  key: P,
+export function has<K extends string>(
+  key: K,
   obj: unknown
-): obj is { [K in P]: unknown }
-export function has<P extends PropertyKey>(
-  key: P
-): (obj: unknown) => obj is { [K in P]: unknown }
+): obj is { [P in K]: unknown }
+export function has<K extends string>(
+  key: K
+): (obj: unknown) => obj is { [P in K]: unknown }
 
 export function head<T>(array: readonly T[]): T | undefined
 
@@ -611,13 +627,8 @@ export function maximumBy<T, U extends Ordered>(
   fn: (value: T) => U
 ): (array: readonly T[]) => T | undefined
 
-export function map<T, U>(
-  fn: (value: T, index: number) => U,
-  array: readonly T[]
-): U[]
-export function map<T, U = unknown>(
-  fn: (value: T, index: number) => U
-): (array: readonly T[]) => U[]
+export function map<T, U>(fn: ArrayCallback<T, U>, array: readonly T[]): U[]
+export function map<T, U>(fn: ArrayCallback<T, U>): (array: readonly T[]) => U[]
 
 export function min<T extends Ordered>(value: T, other: T): T
 export function min(value: number): (other: number) => number
@@ -699,36 +710,36 @@ export function prepend<T>(value: T): (array: readonly T[]) => T[]
 export function range(start: number, end: number): number[]
 export function range(start: number): (end: number) => number[]
 
-export function reduce<T, U>(
-  fn: (accumulator: U, value: T, index: number) => U,
-  initial: U,
+export function reduce<T, R>(
+  reducer: LeftReducer<T, R>,
+  initial: R,
   array: readonly T[]
-): U
-export function reduce<T, U>(
-  fn: (accumulator: U, value: T, index: number) => U,
-  initial: U
-): (array: readonly T[]) => U
-export function reduce<T, U>(
-  fn: (accumulator: U, value: T, index: number) => U
+): R
+export function reduce<T, R>(
+  reducer: LeftReducer<T, R>,
+  initial: R
+): (array: readonly T[]) => R
+export function reduce<T, R>(
+  reducer: LeftReducer<T, R>
 ): {
-  (initial: U, array: readonly T[]): U
-  (initial: U): (array: readonly T[]) => U
+  (initial: R, array: readonly T[]): R
+  (initial: R): (array: readonly T[]) => R
 }
 
-export function reduceRight<T, U>(
-  fn: (value: T, accumulator: U, index: number) => U,
-  initial: U,
+export function reduceRight<T, R>(
+  reducer: RightReducer<T, R>,
+  initial: R,
   array: readonly T[]
-): U
-export function reduceRight<T, U>(
-  fn: (value: T, accumulator: U, index: number) => U,
-  initial: U
-): (array: readonly T[]) => U
-export function reduceRight<T, U>(
-  fn: (value: T, accumulator: U, index: number) => U
+): R
+export function reduceRight<T, R>(
+  reducer: RightReducer<T, R>,
+  initial: R
+): (array: readonly T[]) => R
+export function reduceRight<T, R>(
+  reducer: RightReducer<T, R>
 ): {
-  (initial: U, array: readonly T[]): U
-  (initial: U): (array: readonly T[]) => U
+  (initial: R, array: readonly T[]): R
+  (initial: R): (array: readonly T[]) => R
 }
 
 export function reverse<T>(array: readonly T[]): T[]
@@ -840,10 +851,10 @@ export function slice(
 ): <T>(array: readonly T[]) => T[]
 export function slice(
   start: number
-): <T>(end: number, array: readonly T[]) => T[]
-export function slice(
-  start: number
-): (end: number) => <T>(array: readonly T[]) => T[]
+): {
+  <T>(end: number, array: readonly T[]): T[]
+  (end: number): <T>(array: readonly T[]) => T[]
+}
 
 export function some<T>(
   predicate: ArrayPredicate<T>,

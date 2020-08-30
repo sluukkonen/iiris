@@ -11,12 +11,13 @@ it('reduces an array from left to right', () => {
 
 it('passes the array index in the third argument', () => {
   const fn = jest.fn((a, b) => a + b)
+  const array = [1, 2, 3]
 
-  reduce(fn, 0, [1, 2, 3])
+  reduce(fn, 0, array)
 
   expect(fn.mock.calls).toEqual([
-    [0, 1, 0],
-    [1, 2, 1],
-    [3, 3, 2],
+    [0, 1, 0, array],
+    [1, 2, 1, array],
+    [3, 3, 2, array],
   ])
 })

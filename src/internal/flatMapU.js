@@ -2,7 +2,7 @@ export const flatMapU = (fn, array) => {
   const result = []
 
   for (let i = 0; i < array.length; i++) {
-    const other = fn(array[i], i)
+    const other = fn(array[i], i, array)
     pushToArray(other, result)
   }
 

@@ -11,11 +11,13 @@ it('returns the elements of an array that match a predicate', () => {
 
 it('passes the array index in the second argument', () => {
   const fn = jest.fn()
-  filter(fn, ['a', 'b', 'c'])
+  const array = ['a', 'b', 'c']
+
+  filter(fn, array)
 
   expect(fn.mock.calls).toEqual([
-    ['a', 0],
-    ['b', 1],
-    ['c', 2],
+    ['a', 0, array],
+    ['b', 1, array],
+    ['c', 2, array],
   ])
 })
