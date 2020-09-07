@@ -1,6 +1,6 @@
 import { sortBy } from '../src/sortBy'
 
-it('it sorts an array by mapping each value to an Ordered value', () => {
+it('sorts an array by mapping each value to an Ordered value', () => {
   const age = (x) => x.age
   const name = (x) => x.name
 
