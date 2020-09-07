@@ -2,7 +2,7 @@ import { ascend } from '../src/ascend'
 import { descend } from '../src/descend'
 import { sortWith } from '../src/sortWith'
 
-it('it sorts an array with the help of an array of comparators', () => {
+it('sorts an array with the help of an array of comparators', () => {
   const byAgeAsc = ascend((x) => x.age)
   const byNameDesc = descend((x) => x.name)
   const nullCmp = () => 0

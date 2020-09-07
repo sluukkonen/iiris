@@ -1,6 +1,6 @@
 import { flatten } from '../src/flatten'
 
-it('it flattens an array up to the maximum depth', () => {
+it('flattens an array up to the maximum depth', () => {
   expect(flatten(0, [])).toEqual([])
   expect(flatten(1, [])).toEqual([])
   expect(flatten(2, [])).toEqual([])
