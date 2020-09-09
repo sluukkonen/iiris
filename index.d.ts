@@ -729,6 +729,22 @@ export function noop(): void
 
 export function of<T>(value: T): [T]
 
+export function omit<T extends object, K extends keyof T>(
+  keys: readonly K[],
+  object: T
+): Omit<T, K>
+export function omit<K extends string>(
+  keys: readonly K[]
+): <T>(object: T) => Omit<T, Extract<keyof T, K>>
+
+export function omitBy<T extends U, U extends object>(
+  predicate: (value: T[keyof T], key: keyof T) => boolean,
+  object: T
+): U
+export function omitBy<K extends string, V>(
+  predicate: (value: V, key: K) => boolean
+): <T extends Record<K, V>>(object: T) => T
+
 export function pair<T, U>(first: T, second: U): [T, U]
 export function pair<T>(first: T): <U>(second: U) => [T, U]
 
@@ -773,6 +789,22 @@ export function reduceRight<T, R>(
 export function reverse<T>(array: readonly T[]): T[]
 
 export function second<T>(first: unknown, second: T): T
+
+export function pick<T extends object, K extends keyof T>(
+  keys: readonly K[],
+  object: T
+): Pick<T, K>
+export function pick<K extends string>(
+  keys: readonly K[]
+): <T>(object: T) => Pick<T, Extract<keyof T, K>>
+
+export function pickBy<T extends U, U extends object>(
+  predicate: (value: T[keyof T], key: keyof T) => boolean,
+  object: T
+): U
+export function pickBy<K extends string, V>(
+  predicate: (value: V, key: K) => boolean
+): <T extends Record<K, V>>(object: T) => T
 
 export function pipe<T>(initial: T): T
 export function pipe<T, R>(initial: T, fn1: Function1<T, R>): R
