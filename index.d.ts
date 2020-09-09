@@ -72,6 +72,12 @@ export type RightReducer<T, R> = (
   array: T[]
 ) => R
 
+export type ObjectCallback<T extends object, K extends keyof T, U> = (
+  value: T[K],
+  key: K,
+  object: T
+) => U
+
 export type Comparator<T> = (value: T) => number
 
 // Internal helper types
@@ -640,6 +646,14 @@ export function maximumBy<T, U extends Ordered>(
 
 export function map<T, U>(fn: ArrayCallback<T, U>, array: readonly T[]): U[]
 export function map<T, U>(fn: ArrayCallback<T, U>): (array: readonly T[]) => U[]
+
+export function mapValues<T extends object, K extends keyof T, U>(
+  fn: ObjectCallback<T, K, U>,
+  object: T
+): Record<K, U>
+export function mapValues<T extends object, K extends keyof T, U>(
+  fn: ObjectCallback<T, K, U>
+): (object: T) => Record<K, U>
 
 export function min<T extends Ordered>(value: T, other: T): T
 export function min(value: number): (other: number) => number

@@ -658,6 +658,14 @@ const benchmarks = [
       lodash: () => _.uniqWith(_.isEqual, array),
     }),
   },
+  {
+    name: 'mapValues',
+    benchmarks: () => ({
+      soles: () => S.mapValues((x) => x + 1, obj),
+      ramda: () => R.map((x) => x + 1, obj),
+      lodash: () => _.mapValues((x) => x + 1, obj),
+    }),
+  },
 ]
 
 const argv = require('yargs')
