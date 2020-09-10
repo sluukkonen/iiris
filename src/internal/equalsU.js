@@ -14,7 +14,7 @@ import {
 } from './getTag'
 import { hasOwn } from './hasOwn'
 import { isSameValueZero } from './isSameValueZero'
-import { getPrototypeOf, objectProto } from './builtins'
+import { getPrototypeOf, objectKeys, objectProto } from './builtins'
 
 export const equalsU = (a, b, cycles) => {
   if (a === b) {
@@ -101,8 +101,8 @@ const equalsArray = (a, b, cycles) => {
 }
 
 const equalsObject = (a, b, cycles) => {
-  const aKeys = Object.keys(a)
-  const bKeys = Object.keys(b)
+  const aKeys = objectKeys(a)
+  const bKeys = objectKeys(b)
 
   const length = aKeys.length
 

@@ -1,7 +1,8 @@
+import { objectFromEntries } from './internal/builtins'
 import { isFunction } from './isFunction'
 
-export const fromEntries = isFunction(Object.fromEntries)
-  ? /* istanbul ignore next */ Object.fromEntries
+export const fromEntries = isFunction(objectFromEntries)
+  ? /* istanbul ignore next */ objectFromEntries
   : /* istanbul ignore next */ function fromEntries(entries) {
       const result = {}
 
