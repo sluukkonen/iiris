@@ -410,6 +410,11 @@ export function flatten<D extends number>(
   depth: D
 ): <T extends readonly unknown[]>(array: T) => FlatArray<T, D>[]
 
+export function forEach<T>(fn: ArrayCallback<T, void>, array: readonly T[]): T[]
+export function forEach<T>(
+  fn: ArrayCallback<T, void>
+): (array: readonly T[]) => T[]
+
 export function fromEntries<T>(
   entries: Iterable<[PropertyKey, T]>
 ): { [k: string]: T }
