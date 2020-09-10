@@ -5,6 +5,7 @@
 ## Goals
 
 - A functional JavaScript utility library, inspired by projects like [Ramda](https://github.com/ramda/ramda) and [Lodash](https://github.com/lodash/lodash).
+- Only target reasonably current JavaScript environments (Node 10+)
 - No mutation of input data
 - Automatically curried, data-last API
 - Performance on par with native JavaScript methods. Libraries like Ramda or Lodash are sometimes 10 or even 100 times slower than
