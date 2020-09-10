@@ -14,5 +14,5 @@ it('returns if the value is a non-null object', () => {
   expect(isObject(Infinity)).toBe(false)
   expect(isObject(-Infinity)).toBe(false)
   expect(isObject(Symbol.for(''))).toBe(false)
-  expect(isObject(() => {})).toBe(false)
+  expect(isObject(() => {})).toBe(true)
 })
