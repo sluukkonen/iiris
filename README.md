@@ -8,14 +8,14 @@
 - Only target reasonably current JavaScript environments (Node 10+)
 - No mutation of input data
 - Automatically curried, data-last API
-- Performance on par with native JavaScript methods. Libraries like Ramda or Lodash are sometimes 10 or even 100 times slower than
+- Performance should on par with native JavaScript methods, if possible. Libraries like Ramda or Lodash are sometimes 10 or even 100 times slower than
   equivalent native JavaScript methods. 
 - Safer API. Predicates like propEq or propSatisfies should not throw.
 - Small footprint. Only support native JavaScript data types (at least for now).
 - Support tree shaking.
 - Unified API for manipulating arrays and objects 
 - Practical TypeScript typings. This kind of curried functional style is not
-  supported very well in TypeScript, but let's try to include best-effort type
+  supported perfectly in TypeScript, but let's try to include best-effort type
   declarations out-of-the-box.
 
 Practically speaking though, the TypeScript experience can be quite good. We
