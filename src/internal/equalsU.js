@@ -29,7 +29,7 @@ export const equalsU = (a, b, cycles) => {
 
   // Fast path for plain objects
   const aProto = getPrototypeOf(a)
-  if (getPrototypeOf(a) === objectProto) {
+  if (aProto === objectProto) {
     return getPrototypeOf(b) === objectProto && equalsObject(a, b, cycles)
   } else if (getPrototypeOf(b) !== aProto) {
     // If prototypes do not match, return false.
