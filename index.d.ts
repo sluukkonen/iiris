@@ -574,6 +574,9 @@ export function indexOf<T>(value: T): (array: readonly T[]) => number
 
 export function init<T>(array: readonly T[]): T[]
 
+export function intersperse<T>(separator: T, array: readonly T[]): T[]
+export function intersperse<T>(separator: T): (array: readonly T[]) => T[]
+
 export function isArray(value: unknown): value is unknown[]
 
 export function isBigInt(value: unknown): value is BigInt
