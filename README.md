@@ -7,11 +7,12 @@
 - A functional JavaScript utility library, inspired by projects like [Ramda](https://github.com/ramda/ramda) and [Lodash](https://github.com/lodash/lodash).
 - No mutation of input data
 - Automatically curried, data-last API
-- Good performance. Ramda is sometimes 10 or even 100 times slower than
-  equivalent JavaScript methods.
+- Performance on par with native JavaScript methods. Libraries like Ramda or Lodash are sometimes 10 or even 100 times slower than
+  equivalent native JavaScript methods. 
 - Safer API. Predicates like propEq or propSatisfies should not throw.
 - Small footprint. Only support native JavaScript data types (at least for now).
 - Support tree shaking.
+- Unified API for manipulating arrays and objects 
 - Practical TypeScript typings. This kind of curried functional style is not
   supported very well in TypeScript, but let's try to include best-effort type
   declarations out-of-the-box.
