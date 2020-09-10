@@ -655,6 +655,14 @@ export function maximumBy<T, U extends Ordered>(
 export function map<T, U>(fn: ArrayCallback<T, U>, array: readonly T[]): U[]
 export function map<T, U>(fn: ArrayCallback<T, U>): (array: readonly T[]) => U[]
 
+export function mapMaybe<T, U>(
+  fn: ArrayCallback<T, U | undefined>,
+  array: readonly T[]
+): U[]
+export function mapMaybe<T, U>(
+  fn: ArrayCallback<T, U | undefined>
+): (array: readonly T[]) => U[]
+
 export function mapValues<T extends object, K extends keyof T, U>(
   fn: ObjectCallback<T, K, U>,
   object: T
