@@ -1,11 +1,11 @@
-import { isUndefined } from '../isUndefined'
+import { isDefined } from '../isDefined'
 
 export const mapMaybeU = (fn, array) => {
   const result = []
 
   for (let i = 0; i < array.length; i++) {
     const value = fn(array[i], i, array)
-    if (!isUndefined(value)) {
+    if (isDefined(value)) {
       result.push(value)
     }
   }

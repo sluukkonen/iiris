@@ -572,6 +572,8 @@ export function isBoolean(value: unknown): value is boolean
 
 export function isDate(value: unknown): value is Date
 
+export function isDefined<T>(value: T | undefined): value is T
+
 export function isError(value: unknown): value is Error
 
 export function isFunction(value: unknown): value is Function
