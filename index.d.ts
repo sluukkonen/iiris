@@ -55,7 +55,20 @@ export type CurriedFunction4<T1, T2, T3, T4, R> = {
 }
 
 /** A data type that can be compared with the `<` and `>` operators. */
-export type Ordered = number | BigInt | string | Date | boolean
+export type Ordered = number | bigint | string | Date | boolean
+
+export type Numeric = number | bigint
+
+/** A helper type that widens primitive literal types. */
+export type Widen<T> = T extends number
+  ? number
+  : T extends bigint
+  ? bigint
+  : T extends string
+  ? string
+  : T extends boolean
+  ? boolean
+  : T
 
 export type ArrayCallback<T, R> = (value: T, index: number, array: T[]) => R
 export type ArrayPredicate<T> = ArrayCallback<T, boolean>
@@ -131,10 +144,8 @@ type Assign<T extends object, K extends string, V> = {
 
 // Ah shit, here we go again…
 
-export function add(n: number, m: number): number
-export function add(n: BigInt, m: BigInt): BigInt
-export function add(n: number): (m: number) => number
-export function add(n: BigInt): (m: BigInt) => BigInt
+export function add<T extends Numeric>(n: Widen<T>, m: Widen<T>): Widen<T>
+export function add<T extends Numeric>(n: Widen<T>): (m: Widen<T>) => Widen<T>
 
 export function arity<R>(n: 0, fn: VariadicFunction0<R>): Function0<R>
 export function arity<T, R>(n: 1, fn: VariadicFunction1<T, R>): Function1<T, R>
@@ -164,24 +175,21 @@ export function binary<T1, T2, R>(
   fn: VariadicFunction2<T1, T2, R>
 ): Function2<T1, T2, R>
 
-export function clamp<T extends Ordered>(low: T, high: T, value: T): T
-export function clamp(low: number, high: number): (value: number) => number
-export function clamp(low: BigInt, high: BigInt): (value: BigInt) => BigInt
-export function clamp(low: string, high: string): (value: string) => string
-export function clamp(low: Date, high: Date): (value: Date) => Date
-export function clamp(low: boolean, high: boolean): (value: boolean) => boolean
-export function clamp(low: number): (high: number, value: number) => number
-export function clamp(low: BigInt): (high: BigInt, value: BigInt) => BigInt
-export function clamp(low: string): (high: string, value: string) => string
-export function clamp(low: Date): (high: Date, value: Date) => Date
-export function clamp(low: boolean): (high: boolean, value: boolean) => boolean
-export function clamp(low: number): (high: number) => (value: number) => number
-export function clamp(low: BigInt): (high: BigInt) => (value: BigInt) => BigInt
-export function clamp(low: string): (high: string) => (value: string) => number
-export function clamp(low: Date): (high: Date) => (value: Date) => number
-export function clamp(
-  low: boolean
-): (high: boolean) => (value: boolean) => boolean
+export function clamp<T extends Ordered>(
+  low: Widen<T>,
+  high: Widen<T>,
+  value: Widen<T>
+): Widen<T>
+export function clamp<T extends Ordered>(
+  low: Widen<T>,
+  high: Widen<T>
+): (value: Widen<T>) => Widen<T>
+export function clamp<T extends Ordered>(
+  low: Widen<T>
+): (high: Widen<T>, value: Widen<T>) => Widen<T>
+export function clamp<T extends Ordered>(
+  low: Widen<T>
+): (high: Widen<T>) => (value: Widen<T>) => Widen<T>
 
 export function complement<T extends VariadicFunction0<boolean>>(fn: T): T
 
@@ -301,15 +309,17 @@ export function curryN<T1, T2, T3, T4, R>(
   fn: VariadicFunction4<T1, T2, T3, T4, R>
 ): CurriedFunction4<T1, T2, T3, T4, R>
 
-export function dec(n: number): number
-export function dec(n: BigInt): BigInt
+export function dec<T extends Numeric>(n: Widen<T>): Widen<T>
 
 export function descend<T>(fn: (value: T) => Ordered): Comparator<T>
 
-export function divideBy(divisor: number, dividend: number): number
-export function divideBy(divisor: BigInt, dividend: BigInt): BigInt
-export function divideBy(divisor: number): (dividend: number) => number
-export function divideBy(divisor: BigInt): (dividend: BigInt) => BigInt
+export function divideBy<T extends Numeric>(
+  divisor: Widen<T>,
+  dividend: Widen<T>
+): Widen<T>
+export function divideBy<T extends Numeric>(
+  divisor: Widen<T>
+): (dividend: Widen<T>) => Widen<T>
 
 export function drop<T>(n: number, array: readonly T[]): T[]
 export function drop(n: number): <T>(array: readonly T[]) => T[]
@@ -529,19 +539,18 @@ export function getOr<D>(
   (index: number): <T>(array: NullableArray<T>) => T | D
 }
 
-export function gt(value: number, other: number): boolean
-export function gt(value: string, other: string): boolean
-export function gt(value: Date, other: Date): boolean
-export function gt(value: number): (other: number) => boolean
-export function gt(value: string): (other: string) => boolean
-export function gt(value: Date): (other: Date) => boolean
+export function gt<T extends Ordered>(value: Widen<T>, other: Widen<T>): boolean
+export function gt<T extends Ordered>(
+  value: Widen<T>
+): (other: Widen<T>) => boolean
 
-export function gte(value: number, other: number): boolean
-export function gte(value: string, other: string): boolean
-export function gte(value: Date, other: Date): boolean
-export function gte(value: number): (other: number) => boolean
-export function gte(value: string): (other: string) => boolean
-export function gte(value: Date): (other: Date) => boolean
+export function gte<T extends Ordered>(
+  value: Widen<T>,
+  other: Widen<T>
+): boolean
+export function gte<T extends Ordered>(
+  value: Widen<T>
+): (other: Widen<T>) => boolean
 
 export function has<K extends string>(
   key: K,
@@ -555,8 +564,7 @@ export function head<T>(array: readonly T[]): T | undefined
 
 export function identity<T>(value: T): T
 
-export function inc(n: number): number
-export function inc(n: BigInt): BigInt
+export function inc<T extends Numeric>(n: Widen<T>): Widen<T>
 
 export function includes<T>(value: T, array: readonly T[]): boolean
 export function includes<T>(value: T): (array: readonly T[]) => boolean
@@ -617,39 +625,39 @@ export function last<T>(array: readonly T[]): T | undefined
 export function lastIndexOf<T>(value: T, array: readonly T[]): number
 export function lastIndexOf<T>(value: T): (array: readonly T[]) => number
 
-export function lt(value: number, other: number): boolean
-export function lt(value: string, other: string): boolean
-export function lt(value: Date, other: Date): boolean
-export function lt(value: number): (other: number) => boolean
-export function lt(value: string): (other: string) => boolean
-export function lt(value: Date): (other: Date) => boolean
+export function lt<T extends Ordered>(value: Widen<T>, other: Widen<T>): boolean
+export function lt<T extends Ordered>(
+  value: Widen<T>
+): (other: Widen<T>) => boolean
 
-export function lte(value: number, other: number): boolean
-export function lte(value: string, other: string): boolean
-export function lte(value: Date, other: Date): boolean
-export function lte(value: number): (other: number) => boolean
-export function lte(value: string): (other: string) => boolean
-export function lte(value: Date): (other: Date) => boolean
+export function lte<T extends Ordered>(
+  value: Widen<T>,
+  other: Widen<T>
+): boolean
+export function lte<T extends Ordered>(
+  value: Widen<T>
+): (other: Widen<T>) => boolean
 
 export function keys<T extends object>(
   obj: T | null | undefined
 ): Array<keyof T>
 
-export function max<T extends Ordered>(value: T, other: T): T
-export function max(value: number): (other: number) => number
-export function max(value: BigInt): (other: BigInt) => BigInt
-export function max(value: string): (other: string) => string
-export function max(value: Date): (other: Date) => Date
-export function max(value: boolean): (other: boolean) => boolean
+export function max<T extends Ordered>(
+  value: Widen<T>,
+  other: Widen<T>
+): Widen<T>
+export function max<T extends Ordered>(
+  value: Widen<T>
+): (other: Widen<T>) => Widen<T>
 
 export function maximum<T extends Ordered>(array: readonly T[]): T | undefined
 
-export function maximumBy<T, U extends Ordered>(
-  fn: (value: T) => U,
+export function maximumBy<T>(
+  fn: (value: T) => Ordered,
   array: readonly T[]
 ): T | undefined
-export function maximumBy<T, U extends Ordered>(
-  fn: (value: T) => U
+export function maximumBy<T>(
+  fn: (value: T) => Ordered
 ): (array: readonly T[]) => T | undefined
 
 export function map<T, U>(fn: ArrayCallback<T, U>, array: readonly T[]): U[]
@@ -671,21 +679,22 @@ export function mapValues<T extends object, K extends keyof T, U>(
   fn: ObjectCallback<T, K, U>
 ): (object: T) => Record<K, U>
 
-export function min<T extends Ordered>(value: T, other: T): T
-export function min(value: number): (other: number) => number
-export function min(value: BigInt): (other: BigInt) => BigInt
-export function min(value: string): (other: string) => string
-export function min(value: Date): (other: Date) => Date
-export function min(value: boolean): (other: boolean) => boolean
+export function min<T extends Ordered>(
+  value: Widen<T>,
+  other: Widen<T>
+): Widen<T>
+export function min<T extends Ordered>(
+  value: Widen<T>
+): (other: Widen<T>) => Widen<T>
 
 export function minimum<T extends Ordered>(array: readonly T[]): T | undefined
 
-export function minimumBy<T, U extends Ordered>(
-  fn: (value: T) => U,
+export function minimumBy<T>(
+  fn: (value: T) => Ordered,
   array: readonly T[]
 ): T | undefined
-export function minimumBy<T, U extends Ordered>(
-  fn: (value: T) => U
+export function minimumBy<T>(
+  fn: (value: T) => Ordered
 ): (array: readonly T[]) => T | undefined
 
 export function modify<K extends string, V, T extends NullableHasKey<K>>(
@@ -725,13 +734,15 @@ export function modify(
   <T>(fn: Function1<T, T>): (array: NullableArray<T>) => T[]
 }
 
-export function multiply(multiplicand: number, multiplier: number): number
-export function multiply(multiplicand: BigInt, multiplier: BigInt): BigInt
-export function multiply(multiplicand: number): (multiplier: number) => number
-export function multiply(multiplicand: BigInt): (multiplier: BigInt) => number
+export function multiply<T extends Ordered>(
+  multiplicand: Widen<T>,
+  multiplier: Widen<T>
+): Widen<T>
+export function multiply<T extends Ordered>(
+  multiplicand: Widen<T>
+): (multiplier: Widen<T>) => Widen<T>
 
-export function negate(n: number): number
-export function negate(n: BigInt): BigInt
+export function negate<T extends Numeric>(n: Widen<T>): Widen<T>
 
 export function none<T>(
   predicate: ArrayPredicate<T>,
@@ -956,10 +967,13 @@ export function sortWith<T>(
   comparators: readonly Comparator<T>[]
 ): (array: readonly T[]) => T[]
 
-export function subtractBy(subtrahend: number, minuend: number): number
-export function subtractBy(subtrahend: BigInt, minuend: BigInt): BigInt
-export function subtractBy(subtrahend: number): (minuend: number) => number
-export function subtractBy(subtrahend: BigInt): (minuend: BigInt) => BigInt
+export function subtractBy<T extends Numeric>(
+  subtrahend: Widen<T>,
+  minuend: Widen<T>
+): Widen<T>
+export function subtractBy<T extends Numeric>(
+  subtrahend: Widen<T>
+): (minuend: Widen<T>) => Widen<T>
 
 export function sum(numbers: readonly number[]): number
 
