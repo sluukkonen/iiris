@@ -70,8 +70,6 @@ export type Widen<T> = T extends number
   ? boolean
   : T
 
-export type Range<T> = [low: T, high: T]
-
 export type ArrayCallback<T, R> = (value: T, index: number, array: T[]) => R
 export type ArrayPredicate<T> = ArrayCallback<T, boolean>
 export type LeftReducer<T, R> = (
@@ -178,11 +176,11 @@ export function binary<T1, T2, R>(
 ): Function2<T1, T2, R>
 
 export function clamp<T extends Ordered>(
-  range: Range<Widen<T>>,
+  range: [low: T, high: T],
   value: Widen<T>
 ): Widen<T>
 export function clamp<T extends Ordered>(
-  range: Range<Widen<T>>
+  range: [low: T, high: T]
 ): (value: Widen<T>) => Widen<T>
 
 export function complement<T extends VariadicFunction0<boolean>>(fn: T): T
