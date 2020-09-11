@@ -37,7 +37,7 @@
     "benchmark": "yarn build && NODE_ENV=production node benchmark",
     "build": "node generate-index.js && rollup -c",
     "lint": "eslint .",
-    "repl": "node -i -e 'S = require(\".\")'",
+    "repl": "yarn build && node -i -e 'S = require(\".\")'",
     "test": "jest --coverage",
     "tsd": "tsd"
   }
