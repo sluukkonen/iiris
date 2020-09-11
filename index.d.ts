@@ -175,12 +175,9 @@ export function binary<T1, T2, R>(
   fn: VariadicFunction2<T1, T2, R>
 ): Function2<T1, T2, R>
 
+export function clamp<T extends Ordered>(range: [T, T], value: T): Widen<T>
 export function clamp<T extends Ordered>(
-  range: [low: T, high: T],
-  value: T
-): Widen<T>
-export function clamp<T extends Ordered>(
-  range: [low: T, high: T]
+  range: [T, T]
 ): (value: Widen<T>) => Widen<T>
 
 export function complement<T extends VariadicFunction0<boolean>>(fn: T): T
