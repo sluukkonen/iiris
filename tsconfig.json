@@ -1,7 +1,10 @@
 {
   "compilerOptions": {
+    "allowJs": true,
+    "lib": ["ESNext"],
     "strict": true,
-    "lib": ["ESNext"]
+    "outDir": "./dist"
   },
-  "include": ["**/*.ts"]
+  "include": ["src/**/*", "__tests__/**/*"],
+  "exclude": ["node_modules", "dist"]
 }
