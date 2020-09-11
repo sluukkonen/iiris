@@ -1,4 +1,3 @@
-import { timesU } from '../src/internal/timesU'
 import { repeat } from '../src/repeat'
 
 it('repeats the value n times', () => {
