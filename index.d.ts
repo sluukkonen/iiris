@@ -813,6 +813,9 @@ export function reduceRight<T, R>(
   (initial: R): (array: readonly T[]) => R
 }
 
+export function repeat<T>(value: T, n: number): T[]
+export function repeat<T>(value: T): (n: number) => T[]
+
 export function reverse<T>(array: readonly T[]): T[]
 
 export function second<T>(first: unknown, second: T): T
