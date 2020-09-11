@@ -262,7 +262,7 @@ const benchmarks = [
   {
     name: 'clamp',
     benchmarks: () => ({
-      soles: () => S.clamp(0, 1, 10),
+      soles: () => S.clamp([0, 1], 10),
       lodash: () => _.clamp(0, 1, 10),
       ramda: () => R.clamp(0, 1, 10),
       native: () => Math.max(0, Math.min(1, 10)),
