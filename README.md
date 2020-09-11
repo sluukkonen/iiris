@@ -11,7 +11,7 @@
 - Performance should on par with native JavaScript methods, if possible. Libraries like Ramda or Lodash are sometimes 10 or even 100 times slower than
   equivalent native JavaScript methods. 
 - Safer API. Predicates like propEq or propSatisfies should not throw.
-- Small footprint. Only support native JavaScript data types (at least for now).
+- Small footprint. Only support native JavaScript data types. No support for transducers or Fantasy Land data types.
 - Support tree shaking.
 - Unified API for manipulating arrays and objects 
 - Practical TypeScript typings. This kind of curried functional style is not
