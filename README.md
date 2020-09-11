@@ -12,7 +12,7 @@
   equivalent native JavaScript methods. 
 - Safer API. Predicates like propEq or propSatisfies should not throw.
 - Small footprint. Only support native JavaScript data types. No support for transducers or Fantasy Land data types.
-- Support tree shaking.
+- Good tree shaking support
 - Unified API for manipulating arrays and objects 
 - Practical TypeScript typings. This kind of curried functional style is not
   supported perfectly in TypeScript, but let's try to include best-effort type
