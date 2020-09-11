@@ -10,7 +10,7 @@
 - Automatically curried, data-last API
 - Performance should on par with native JavaScript methods, if possible.
 - Safer API. Predicates like propEq or propSatisfies should not throw.
-- Small footprint. Only support native JavaScript data types. No support for transducers or Fantasy Land data types.
+- Small footprint. Only support native JavaScript data types. No support for transducers, lenses or Fantasy Land data types.
 - Good tree shaking support
 - Unified API for manipulating arrays and objects 
 - Practical TypeScript typings. This kind of curried functional style is not
