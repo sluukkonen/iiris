@@ -144,8 +144,8 @@ type Assign<T extends object, K extends string, V> = {
 
 // Ah shit, here we go again…
 
-export function add<T extends Numeric>(n: Widen<T>, m: Widen<T>): Widen<T>
-export function add<T extends Numeric>(n: Widen<T>): (m: Widen<T>) => Widen<T>
+export function add<T extends Numeric>(n: T, m: T): Widen<T>
+export function add<T extends Numeric>(n: T): (m: Widen<T>) => Widen<T>
 
 export function arity<R>(n: 0, fn: VariadicFunction0<R>): Function0<R>
 export function arity<T, R>(n: 1, fn: VariadicFunction1<T, R>): Function1<T, R>
@@ -177,7 +177,7 @@ export function binary<T1, T2, R>(
 
 export function clamp<T extends Ordered>(
   range: [low: T, high: T],
-  value: Widen<T>
+  value: T
 ): Widen<T>
 export function clamp<T extends Ordered>(
   range: [low: T, high: T]
@@ -301,16 +301,13 @@ export function curryN<T1, T2, T3, T4, R>(
   fn: VariadicFunction4<T1, T2, T3, T4, R>
 ): CurriedFunction4<T1, T2, T3, T4, R>
 
-export function dec<T extends Numeric>(n: Widen<T>): Widen<T>
+export function dec<T extends Numeric>(n: T): Widen<T>
 
 export function descend<T>(fn: (value: T) => Ordered): Comparator<T>
 
+export function divideBy<T extends Numeric>(divisor: T, dividend: T): Widen<T>
 export function divideBy<T extends Numeric>(
-  divisor: Widen<T>,
-  dividend: Widen<T>
-): Widen<T>
-export function divideBy<T extends Numeric>(
-  divisor: Widen<T>
+  divisor: T
 ): (dividend: Widen<T>) => Widen<T>
 
 export function drop<T>(n: number, array: readonly T[]): T[]
@@ -531,18 +528,11 @@ export function getOr<D>(
   (index: number): <T>(array: NullableArray<T>) => T | D
 }
 
-export function gt<T extends Ordered>(value: Widen<T>, other: Widen<T>): boolean
-export function gt<T extends Ordered>(
-  value: Widen<T>
-): (other: Widen<T>) => boolean
+export function gt<T extends Ordered>(value: T, other: T): boolean
+export function gt<T extends Ordered>(value: T): (other: Widen<T>) => boolean
 
-export function gte<T extends Ordered>(
-  value: Widen<T>,
-  other: Widen<T>
-): boolean
-export function gte<T extends Ordered>(
-  value: Widen<T>
-): (other: Widen<T>) => boolean
+export function gte<T extends Ordered>(value: T, other: T): boolean
+export function gte<T extends Ordered>(value: T): (other: Widen<T>) => boolean
 
 export function has<K extends string>(
   key: K,
@@ -556,7 +546,7 @@ export function head<T>(array: readonly T[]): T | undefined
 
 export function identity<T>(value: T): T
 
-export function inc<T extends Numeric>(n: Widen<T>): Widen<T>
+export function inc<T extends Numeric>(n: T): Widen<T>
 
 export function includes<T>(value: T, array: readonly T[]): boolean
 export function includes<T>(value: T): (array: readonly T[]) => boolean
@@ -617,30 +607,18 @@ export function last<T>(array: readonly T[]): T | undefined
 export function lastIndexOf<T>(value: T, array: readonly T[]): number
 export function lastIndexOf<T>(value: T): (array: readonly T[]) => number
 
-export function lt<T extends Ordered>(value: Widen<T>, other: Widen<T>): boolean
-export function lt<T extends Ordered>(
-  value: Widen<T>
-): (other: Widen<T>) => boolean
+export function lt<T extends Ordered>(value: T, other: T): boolean
+export function lt<T extends Ordered>(value: T): (other: Widen<T>) => boolean
 
-export function lte<T extends Ordered>(
-  value: Widen<T>,
-  other: Widen<T>
-): boolean
-export function lte<T extends Ordered>(
-  value: Widen<T>
-): (other: Widen<T>) => boolean
+export function lte<T extends Ordered>(value: T, other: T): boolean
+export function lte<T extends Ordered>(value: T): (other: Widen<T>) => boolean
 
 export function keys<T extends object>(
   obj: T | null | undefined
 ): Array<keyof T>
 
-export function max<T extends Ordered>(
-  value: Widen<T>,
-  other: Widen<T>
-): Widen<T>
-export function max<T extends Ordered>(
-  value: Widen<T>
-): (other: Widen<T>) => Widen<T>
+export function max<T extends Ordered>(value: T, other: T): Widen<T>
+export function max<T extends Ordered>(value: T): (other: Widen<T>) => Widen<T>
 
 export function maximum<T extends Ordered>(array: readonly T[]): T | undefined
 
@@ -671,13 +649,8 @@ export function mapValues<T extends object, K extends keyof T, U>(
   fn: ObjectCallback<T, K, U>
 ): (object: T) => Record<K, U>
 
-export function min<T extends Ordered>(
-  value: Widen<T>,
-  other: Widen<T>
-): Widen<T>
-export function min<T extends Ordered>(
-  value: Widen<T>
-): (other: Widen<T>) => Widen<T>
+export function min<T extends Ordered>(value: T, other: T): Widen<T>
+export function min<T extends Ordered>(value: T): (other: Widen<T>) => Widen<T>
 
 export function minimum<T extends Ordered>(array: readonly T[]): T | undefined
 
@@ -727,14 +700,14 @@ export function modify(
 }
 
 export function multiply<T extends Ordered>(
-  multiplicand: Widen<T>,
-  multiplier: Widen<T>
+  multiplicand: T,
+  multiplier: T
 ): Widen<T>
 export function multiply<T extends Ordered>(
-  multiplicand: Widen<T>
+  multiplicand: T
 ): (multiplier: Widen<T>) => Widen<T>
 
-export function negate<T extends Numeric>(n: Widen<T>): Widen<T>
+export function negate<T extends Numeric>(n: T): Widen<T>
 
 export function none<T>(
   predicate: ArrayPredicate<T>,
@@ -963,11 +936,11 @@ export function sortWith<T>(
 ): (array: readonly T[]) => T[]
 
 export function subtractBy<T extends Numeric>(
-  subtrahend: Widen<T>,
-  minuend: Widen<T>
+  subtrahend: T,
+  minuend: T
 ): Widen<T>
 export function subtractBy<T extends Numeric>(
-  subtrahend: Widen<T>
+  subtrahend: T
 ): (minuend: Widen<T>) => Widen<T>
 
 export function sum(numbers: readonly number[]): number
