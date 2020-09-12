@@ -4,15 +4,14 @@
 
 ## Goals
 
-- A functional JavaScript utility library, inspired by projects like [Ramda](https://github.com/ramda/ramda) and [Lodash](https://github.com/lodash/lodash).
-- Only target reasonably current JavaScript environments (Node 10+)
+- A functional JavaScript utility library, inspired by projects like [Ramda](https://github.com/ramda/ramda) and [Lodash](https://github.com/lodash/lodash)
 - No mutation of input data
 - Automatically curried, data-last API
-- Performance should on par with native JavaScript methods, if possible.
-- Safer API. Predicates like propEq or propSatisfies should not throw.
+- Target reasonably current JavaScript environments (Node 10+)
+- Performance on par with native JavaScript methods
 - Small footprint. Only support native JavaScript data types. No support for transducers, lenses or Fantasy Land data types.
 - Good tree shaking support
-- Unified API for manipulating arrays and objects 
+- Unified API for manipulating arrays and objects
 - Practical TypeScript typings. This kind of curried functional style is not
   supported perfectly in TypeScript, but let's try to include best-effort type
   declarations out-of-the-box.
