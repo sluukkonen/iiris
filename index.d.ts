@@ -70,19 +70,23 @@ export type Widen<T> = T extends number
   ? boolean
   : T
 
-export type ArrayCallback<T, R> = (value: T, index: number, array: T[]) => R
+export type ArrayCallback<T, R> = (
+  value: T,
+  index: number,
+  array: readonly T[]
+) => R
 export type ArrayPredicate<T> = ArrayCallback<T, boolean>
 export type LeftReducer<T, R> = (
   accumulator: R,
   value: T,
   index: number,
-  array: T[]
+  array: readonly T[]
 ) => R
 export type RightReducer<T, R> = (
   value: T,
   accumulator: R,
   index: number,
-  array: T[]
+  array: readonly T[]
 ) => R
 
 export type ObjectCallback<T extends object, K extends keyof T, U> = (
@@ -990,8 +994,8 @@ export function unary<T, R>(fn: VariadicFunction1<T, R>): Function1<T, R>
 
 export function uniq<T>(array: readonly T[]): T[]
 
-export function uniqBy<T, U>(fn: (value: T) => U, array: T[]): T[]
-export function uniqBy<T, U>(fn: (value: T) => U): (array: T[]) => T[]
+export function uniqBy<T, U>(fn: (value: T) => U, array: readonly T[]): T[]
+export function uniqBy<T, U>(fn: (value: T) => U): (array: readonly T[]) => T[]
 
 export function zip<T, U>(array1: readonly T[], array2: readonly U[]): [T, U][]
 export function zip<T>(
