@@ -75,6 +75,11 @@ export type ArrayCallback<T, R> = (
   index: number,
   array: readonly T[]
 ) => R
+export type ArrayGuard<T, U extends T> = (
+  value: T,
+  index: number,
+  array: readonly T[]
+) => value is U
 export type ArrayPredicate<T> = ArrayCallback<T, boolean>
 export type LeftReducer<T, R> = (
   accumulator: R,
@@ -383,10 +388,17 @@ export function findLastIndex<T>(
   predicate: ArrayPredicate<T>
 ): (array: readonly T[]) => number
 
+export function filter<T, U extends T>(
+  guard: ArrayGuard<T, U>,
+  array: readonly T[]
+): U[]
 export function filter<T>(
   predicate: ArrayPredicate<T>,
   array: readonly T[]
 ): T[]
+export function filter<T, U extends T>(
+  guard: ArrayGuard<T, U>
+): (array: readonly T[]) => U[]
 export function filter<T>(
   predicate: ArrayPredicate<T>
 ): (array: readonly T[]) => T[]
