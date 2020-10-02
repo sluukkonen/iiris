@@ -1,5 +1,6 @@
-const object = Object
-const number = Number
+export const object = Object
+export const number = Number
+export const string = String
 
 export const objectProto = object.prototype
 

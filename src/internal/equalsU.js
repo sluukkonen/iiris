@@ -14,7 +14,7 @@ import {
 } from './getTag'
 import { hasOwn } from './hasOwn'
 import { isSameValueZero } from './isSameValueZero'
-import { getPrototypeOf, objectKeys, objectProto } from './builtins'
+import { string, getPrototypeOf, objectKeys, objectProto } from './builtins'
 
 export const equalsU = (a, b, cycles) => {
   if (a === b) {
@@ -56,7 +56,7 @@ const equalsByTag = (a, b, tag, cycles) => {
       return equalsMap(a, b, cycles)
     case regExpTag:
     case stringTag:
-      return String(a) === String(b)
+      return string(a) === string(b)
     case dateTag:
     case numberTag:
     case booleanTag:
