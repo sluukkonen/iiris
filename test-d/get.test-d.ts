@@ -1,5 +1,5 @@
 import * as S from '..'
-import { User, user, maybeUser, users } from './index.test-d'
+import { User, user, maybeUser, users, maybeUsers } from './index.test-d'
 import { expectType, expectError } from 'tsd'
 
 // Normal field

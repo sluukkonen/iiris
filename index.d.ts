@@ -752,6 +752,14 @@ export function omitBy<K extends string, V>(
 export function pair<T, U>(first: T, second: U): [T, U]
 export function pair<T>(first: T): <U>(second: U) => [T, U]
 
+export function partition<T>(
+  predicate: ArrayPredicate<T>,
+  array: readonly T[]
+): [T[], T[]]
+export function partition<T>(
+  predicate: ArrayPredicate<T>
+): (array: readonly T[]) => [T[], T[]]
+
 export function prepend<T>(value: T, array: readonly T[]): T[]
 export function prepend<T>(value: T): (array: readonly T[]) => T[]
 
