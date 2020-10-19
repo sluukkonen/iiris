@@ -1,1 +1,2 @@
 version = 1
+merge.notify_on_conflict = false
