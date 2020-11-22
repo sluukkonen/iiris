@@ -556,6 +556,39 @@ export function head<T>(array: readonly T[]): T | undefined
 
 export function identity<T>(value: T): T
 
+export function ifElse<T, U extends T, R1, R2>(
+  guard: (value: T) => value is U,
+  ifTrue: (value: U) => R1,
+  ifFalse: (value: Exclude<T, U>) => R2,
+  value: T
+): R1 | R2
+export function ifElse<T, U extends T, R1, R2>(
+  guard: (value: T) => value is U,
+  ifTrue: (value: U) => R1,
+  ifFalse: (value: Exclude<T, U>) => R2
+): (value: T) => R1 | R2
+export function ifElse<T, U extends T, R1>(
+  guard: (value: T) => value is U,
+  ifTrue: (value: U) => R1
+): {
+  <R2>(ifFalse: (value: T) => R2, value: T): R1 | R2
+  <R2>(ifFalse: (value: Exclude<T, U>) => R2): (value: T) => R1 | R2
+}
+export function ifElse<T, U extends T>(
+  guard: (value: T) => value is U
+): {
+  <R1, R2>(ifTrue: (value: U) => R1, ifFalse: (value: T) => R2, value: T):
+    | R1
+    | R2
+  <R1, R2>(ifTrue: (value: U) => R1, ifFalse: (value: T) => R2): (
+    value: T
+  ) => R1 | R2
+  <R1>(ifTrue: (value: U) => R1): {
+    <R2>(ifFalse: (value: T) => R2, value: T): R1 | R2
+    <R2>(ifFalse: (value: T) => R2): (value: T) => R1 | R2
+  }
+}
+
 export function ifElse<T, R1, R2>(
   predicate: (value: T) => boolean,
   ifTrue: (value: T) => R1,
@@ -610,39 +643,43 @@ export function init<T>(array: readonly T[]): T[]
 export function intersperse<T>(separator: T, array: readonly T[]): T[]
 export function intersperse<T>(separator: T): (array: readonly T[]) => T[]
 
-export function isArray(value: unknown): value is unknown[]
+export function isArray<T>(
+  value: T | readonly unknown[]
+): value is readonly unknown[]
 
-export function isBigInt(value: unknown): value is BigInt
+export function isBigInt<T>(value: T | bigint): value is bigint
 
-export function isBoolean(value: unknown): value is boolean
+export function isBoolean<T>(value: T | boolean): value is boolean
 
-export function isDate(value: unknown): value is Date
+export function isDate<T>(value: T | Date): value is Date
 
 export function isDefined<T>(value: T | undefined): value is T
 
-export function isError(value: unknown): value is Error
+export function isError<T>(value: T | Error): value is Error
 
-export function isFunction(value: unknown): value is Function
+export function isFunction<T>(value: T | Function): value is Function
 
-export function isNil(value: unknown): value is null | undefined
+export function isNil<T>(value: T | null | undefined): value is null | undefined
 
-export function isNull(value: unknown): value is null
+export function isNull<T>(value: T | null): value is null
 
-export function isNumber(value: unknown): value is number
+export function isNumber<T>(value: T | number): value is number
 
-export function isMap(value: unknown): value is Map<unknown, unknown>
+export function isMap<T>(
+  value: T | Map<unknown, unknown>
+): value is Map<unknown, unknown>
 
-export function isObject(value: unknown): value is object
+export function isObject<T>(value: T | object): value is object
 
-export function isRegExp(value: unknown): value is RegExp
+export function isRegExp<T>(value: T | RegExp): value is RegExp
 
-export function isSet(value: unknown): value is Set<unknown>
+export function isSet<T>(value: T | Set<unknown>): value is Set<unknown>
 
-export function isString(value: unknown): value is string
+export function isString<T>(value: T | string): value is string
 
-export function isSymbol(value: unknown): value is Symbol
+export function isSymbol<T>(value: T | Symbol): value is Symbol
 
-export function isUndefined(value: unknown): value is undefined
+export function isUndefined<T>(value: T | undefined): value is undefined
 
 export function join(separator: string, array: readonly unknown[]): string
 export function join(separator: string): (array: readonly unknown[]) => string
@@ -1055,6 +1092,22 @@ export function uniq<T>(array: readonly T[]): T[]
 export function uniqBy<T, U>(fn: (value: T) => U, array: readonly T[]): T[]
 export function uniqBy<T, U>(fn: (value: T) => U): (array: readonly T[]) => T[]
 
+export function unless<T, U extends T, R>(
+  guard: (value: T) => value is U,
+  ifEalse: (value: Exclude<T, U>) => R,
+  value: T
+): U | R
+export function unless<T, U extends T, R>(
+  guard: (value: T) => value is U,
+  ifFalse: (value: Exclude<T, U>) => R
+): (value: T) => U | R
+export function unless<T, U extends T>(
+  guard: (value: T) => value is U
+): {
+  <R>(ifFalse: (value: Exclude<T, U>) => R, value: T): U | R
+  <R>(ifFalse: (value: Exclude<T, U>) => R): (value: T) => U | R
+}
+
 export function unless<T, R>(
   predicate: (value: T) => boolean,
   ifFalse: (value: T) => R,
@@ -1069,6 +1122,22 @@ export function unless<T>(
 ): {
   <R>(ifFalse: (value: T) => R, value: T): T | R
   <R>(ifFalse: (value: T) => R): (value: T) => T | R
+}
+
+export function when<T, U extends T, R>(
+  guard: (value: T) => value is U,
+  ifTrue: (value: U) => R,
+  value: T
+): Exclude<T, U> | R
+export function when<T, U extends T, R>(
+  guard: (value: T) => value is U,
+  ifTrue: (value: U) => R
+): (value: T) => Exclude<T, U> | R
+export function when<T, U extends T>(
+  guard: (value: T) => value is U
+): {
+  <R>(ifTrue: (value: U) => R, value: T): Exclude<T, U> | R
+  <R>(ifTrue: (value: T) => R): (value: T) => Exclude<T, U> | R
 }
 
 export function when<T, R>(
