@@ -1,5 +1,3 @@
-import { expectType } from 'tsd'
-
 export interface User {
   name: string
   age?: number

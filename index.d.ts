@@ -556,6 +556,39 @@ export function head<T>(array: readonly T[]): T | undefined
 
 export function identity<T>(value: T): T
 
+export function ifElse<T, R1, R2>(
+  predicate: (value: T) => boolean,
+  ifTrue: (value: T) => R1,
+  ifFalse: (value: T) => R2,
+  value: T
+): R1 | R2
+export function ifElse<T, R1, R2>(
+  predicate: (value: T) => boolean,
+  ifTrue: (value: T) => R1,
+  ifFalse: (value: T) => R2
+): (value: T) => R1 | R2
+export function ifElse<T, R1>(
+  predicate: (value: T) => boolean,
+  ifTrue: (value: T) => R1
+): {
+  <R2>(ifFalse: (value: T) => R2, value: T): R1 | R2
+  <R2>(ifFalse: (value: T) => R2): (value: T) => R1 | R2
+}
+export function ifElse<T>(
+  predicate: (value: T) => boolean
+): {
+  <R1, R2>(ifTrue: (value: T) => R1, ifFalse: (value: T) => R2, value: T):
+    | R1
+    | R2
+  <R1, R2>(ifTrue: (value: T) => R1, ifFalse: (value: T) => R2): (
+    value: T
+  ) => R1 | R2
+  <R1>(ifTrue: (value: T) => R1): {
+    <R2>(ifFalse: (value: T) => R2, value: T): R1 | R2
+    <R2>(ifFalse: (value: T) => R2): (value: T) => R1 | R2
+  }
+}
+
 export function inc<T extends Numeric>(n: T): Widen<T>
 
 export function includes<T>(value: T, array: readonly T[]): boolean
@@ -1021,6 +1054,38 @@ export function uniq<T>(array: readonly T[]): T[]
 
 export function uniqBy<T, U>(fn: (value: T) => U, array: readonly T[]): T[]
 export function uniqBy<T, U>(fn: (value: T) => U): (array: readonly T[]) => T[]
+
+export function unless<T, R>(
+  predicate: (value: T) => boolean,
+  ifFalse: (value: T) => R,
+  value: T
+): T | R
+export function unless<T, R>(
+  predicate: (value: T) => boolean,
+  ifFalse: (value: T) => R
+): (value: T) => T | R
+export function unless<T>(
+  predicate: (value: T) => boolean
+): {
+  <R>(ifFalse: (value: T) => R, value: T): T | R
+  <R>(ifFalse: (value: T) => R): (value: T) => T | R
+}
+
+export function when<T, R>(
+  predicate: (value: T) => boolean,
+  ifTrue: (value: T) => R,
+  value: T
+): T | R
+export function when<T, R>(
+  predicate: (value: T) => boolean,
+  ifTrue: (value: T) => R
+): (value: T) => T | R
+export function when<T>(
+  predicate: (value: T) => boolean
+): {
+  <R>(ifTrue: (value: T) => R, value: T): T | R
+  <R>(ifTrue: (value: T) => R): (value: T) => T | R
+}
 
 export function zip<T, U>(array1: readonly T[], array2: readonly U[]): [T, U][]
 export function zip<T>(
