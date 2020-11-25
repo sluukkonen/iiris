@@ -14,7 +14,7 @@
   "private": false,
   "sideEffects": false,
   "devDependencies": {
-    "@babel/core": "^7.12.8",
+    "@babel/core": "^7.12.9",
     "@babel/preset-env": "^7.12.7",
     "@types/benchmark": "^2.1.0",
     "@types/jest": "^26.0.15",
