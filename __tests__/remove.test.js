@@ -21,6 +21,7 @@ describe('arrays', () => {
   it('removes the element at an index if index is within bounds', () => {
     const arr = [1, 2, 3]
 
+    expect(remove(-5, arr)).toEqual([1, 2, 3])
     expect(remove(-4, arr)).toEqual([1, 2, 3])
     expect(remove(-3, arr)).toEqual([2, 3])
     expect(remove(-2, arr)).toEqual([1, 3])
@@ -29,6 +30,7 @@ describe('arrays', () => {
     expect(remove(1, arr)).toEqual([1, 3])
     expect(remove(2, arr)).toEqual([1, 2])
     expect(remove(3, arr)).toEqual(arr)
+    expect(remove(4, arr)).toEqual(arr)
   })
 
   it('returns an empty array if the target is not an array', () => {

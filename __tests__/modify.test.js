@@ -35,6 +35,7 @@ describe('arrays', () => {
     const arr = [1, 2, 3]
     const inc = (x) => x + 1
 
+    expect(modify(-5, inc, arr)).toEqual([NaN, undefined, 1, 2, 3])
     expect(modify(-4, inc, arr)).toEqual([NaN, 1, 2, 3])
     expect(modify(-3, inc, arr)).toEqual([2, 2, 3])
     expect(modify(-2, inc, arr)).toEqual([1, 3, 3])
@@ -43,12 +44,14 @@ describe('arrays', () => {
     expect(modify(1, inc, arr)).toEqual([1, 3, 3])
     expect(modify(2, inc, arr)).toEqual([1, 2, 4])
     expect(modify(3, inc, arr)).toEqual([1, 2, 3, NaN])
+    expect(modify(4, inc, arr)).toEqual([1, 2, 3, undefined, NaN])
   })
 
   it('removes the element if value is undefined and index is within bounds', () => {
     const arr = [1, 2, 3]
     const noop = () => {}
 
+    expect(modify(-5, noop, arr)).toEqual([1, 2, 3])
     expect(modify(-4, noop, arr)).toEqual([1, 2, 3])
     expect(modify(-3, noop, arr)).toEqual([2, 3])
     expect(modify(-2, noop, arr)).toEqual([1, 3])
@@ -57,6 +60,7 @@ describe('arrays', () => {
     expect(modify(1, noop, arr)).toEqual([1, 3])
     expect(modify(2, noop, arr)).toEqual([1, 2])
     expect(modify(3, noop, arr)).toEqual([1, 2, 3])
+    expect(modify(4, noop, arr)).toEqual([1, 2, 3])
   })
 
   it('returns a fresh array if the target is not an array', () => {

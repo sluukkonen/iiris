@@ -30,23 +30,31 @@ describe('arrays', () => {
   it('sets the element at an index to the specified value', () => {
     const arr = [1, 2, 3]
 
-    expect(set(0, 4, arr)).toEqual([4, 2, 3])
-    expect(set(1, 4, arr)).toEqual([1, 4, 3])
-    expect(set(2, 4, arr)).toEqual([1, 2, 4])
-    expect(set(3, 4, arr)).toEqual([1, 2, 3, 4])
+    expect(set(-5, 999, arr)).toEqual([999, undefined, 1, 2, 3])
+    expect(set(-4, 999, arr)).toEqual([999, 1, 2, 3])
+    expect(set(-3, 999, arr)).toEqual([999, 2, 3])
+    expect(set(-2, 999, arr)).toEqual([1, 999, 3])
+    expect(set(-1, 999, arr)).toEqual([1, 2, 999])
+    expect(set(0, 999, arr)).toEqual([999, 2, 3])
+    expect(set(1, 999, arr)).toEqual([1, 999, 3])
+    expect(set(2, 999, arr)).toEqual([1, 2, 999])
+    expect(set(3, 999, arr)).toEqual([1, 2, 3, 999])
+    expect(set(4, 999, arr)).toEqual([1, 2, 3, undefined, 999])
   })
 
   it('removes the element if value is undefined', () => {
     const arr = [1, 2, 3]
 
-    expect(set(-4, 999, arr)).toEqual([999, 1, 2, 3])
-    expect(set(-3, 999, arr)).toEqual([999, 2, 3])
-    expect(set(-2, 999, arr)).toEqual([1, 999, 3])
-    expect(set(-1, 999, arr)).toEqual([1, 2, 999])
+    expect(set(-5, undefined, arr)).toEqual([1, 2, 3])
+    expect(set(-4, undefined, arr)).toEqual([1, 2, 3])
+    expect(set(-3, undefined, arr)).toEqual([2, 3])
+    expect(set(-2, undefined, arr)).toEqual([1, 3])
+    expect(set(-1, undefined, arr)).toEqual([1, 2])
     expect(set(0, undefined, arr)).toEqual([2, 3])
     expect(set(1, undefined, arr)).toEqual([1, 3])
     expect(set(2, undefined, arr)).toEqual([1, 2])
     expect(set(3, undefined, arr)).toEqual([1, 2, 3])
+    expect(set(4, undefined, arr)).toEqual([1, 2, 3])
   })
 
   it('returns a fresh array if the target is not an array', () => {
