@@ -39,6 +39,10 @@ describe('arrays', () => {
   it('removes the element if value is undefined', () => {
     const arr = [1, 2, 3]
 
+    expect(set(-4, 999, arr)).toEqual([999, 1, 2, 3])
+    expect(set(-3, 999, arr)).toEqual([999, 2, 3])
+    expect(set(-2, 999, arr)).toEqual([1, 999, 3])
+    expect(set(-1, 999, arr)).toEqual([1, 2, 999])
     expect(set(0, undefined, arr)).toEqual([2, 3])
     expect(set(1, undefined, arr)).toEqual([1, 3])
     expect(set(2, undefined, arr)).toEqual([1, 2])

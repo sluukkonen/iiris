@@ -3,7 +3,8 @@ import { getU } from './internal/getU'
 import { isObject } from './isObject'
 import { isArray } from './isArray'
 import { throwInvalidKeyError } from './internal/throwInvalidKeyError'
-import { isArrayIndex } from './internal/isArrayIndex'
+import { getIndex } from './internal/getIndex'
+import { numberIsInteger } from './internal/builtins'
 
 export function get(key, target) {
   return arguments.length < 2
@@ -11,9 +12,9 @@ export function get(key, target) {
       ? function get1(object) {
           return isObject(object) ? object[key] : undefined
         }
-      : isArrayIndex(key)
+      : numberIsInteger(key)
       ? function get1(array) {
-          return isArray(array) ? array[key] : undefined
+          return isArray(array) ? array[getIndex(key, array)] : undefined
         }
       : throwInvalidKeyError(key)
     : getU(key, target)

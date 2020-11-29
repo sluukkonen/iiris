@@ -1,5 +1,5 @@
 import { isString } from '../isString'
-import { isArrayIndex } from './isArrayIndex'
+import { numberIsInteger } from './builtins'
 import { modifyArray } from './modifyArray'
 import { modifyObject } from './modifyObject'
 import { throwInvalidKeyError } from './throwInvalidKeyError'
@@ -7,6 +7,6 @@ import { throwInvalidKeyError } from './throwInvalidKeyError'
 export const modifyU = (key, fn, target) =>
   isString(key)
     ? modifyObject(key, fn, target)
-    : isArrayIndex(key)
+    : numberIsInteger(key)
     ? modifyArray(key, fn, target)
     : throwInvalidKeyError(key)

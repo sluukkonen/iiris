@@ -35,16 +35,24 @@ describe('arrays', () => {
     const arr = [1, 2, 3]
     const inc = (x) => x + 1
 
+    expect(modify(-4, inc, arr)).toEqual([NaN, 1, 2, 3])
+    expect(modify(-3, inc, arr)).toEqual([2, 2, 3])
+    expect(modify(-2, inc, arr)).toEqual([1, 3, 3])
+    expect(modify(-1, inc, arr)).toEqual([1, 2, 4])
     expect(modify(0, inc, arr)).toEqual([2, 2, 3])
     expect(modify(1, inc, arr)).toEqual([1, 3, 3])
     expect(modify(2, inc, arr)).toEqual([1, 2, 4])
     expect(modify(3, inc, arr)).toEqual([1, 2, 3, NaN])
   })
 
-  it('removes the element if value is undefined', () => {
+  it('removes the element if value is undefined and index is within bounds', () => {
     const arr = [1, 2, 3]
     const noop = () => {}
 
+    expect(modify(-4, noop, arr)).toEqual([1, 2, 3])
+    expect(modify(-3, noop, arr)).toEqual([2, 3])
+    expect(modify(-2, noop, arr)).toEqual([1, 3])
+    expect(modify(-1, noop, arr)).toEqual([1, 2])
     expect(modify(0, noop, arr)).toEqual([2, 3])
     expect(modify(1, noop, arr)).toEqual([1, 3])
     expect(modify(2, noop, arr)).toEqual([1, 2])
@@ -65,6 +73,6 @@ it('throws an exception if key is not a string or an integer', () => {
   const zero = () => 0
 
   expect(() => modify(true, zero, [])).toThrowError(TypeError)
-  expect(() => modify(-1, zero, [])).toThrowError(TypeError)
+  expect(() => modify(-1.5, zero, [])).toThrowError(TypeError)
   expect(() => modify(1.5, zero, [])).toThrowError(TypeError)
 })

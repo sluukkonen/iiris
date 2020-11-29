@@ -1,6 +1,4 @@
-import { constant } from '../constant'
+import { noop } from '../noop'
 import { modifyU } from './modifyU'
 
-export const removeU = (key, object) => modifyU(key, constantUndefined, object)
-
-const constantUndefined = constant(undefined)
+export const removeU = (key, object) => modifyU(key, noop, object)
