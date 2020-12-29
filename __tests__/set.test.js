@@ -19,10 +19,10 @@ describe('objects', () => {
     expect(set('d', undefined, obj)).toEqual(obj)
   })
 
-  it('returns a fresh object if the target is not an object', () => {
-    expect(set('a', 1, null)).toEqual({ a: 1 })
-    expect(set('a', 1, undefined)).toEqual({ a: 1 })
-    expect(set('a', 1, '')).toEqual({ a: 1 })
+  it('throws an error if the target is not an object', () => {
+    expect(() => set('a', 1, null)).toThrowError(TypeError)
+    expect(() => set('a', 1, undefined)).toThrowError(TypeError)
+    expect(() => set('a', 1, '')).toThrowError(TypeError)
   })
 })
 
@@ -30,38 +30,30 @@ describe('arrays', () => {
   it('sets the element at an index to the specified value', () => {
     const arr = [1, 2, 3]
 
-    expect(set(-5, 999, arr)).toEqual([999, undefined, 1, 2, 3])
-    expect(set(-4, 999, arr)).toEqual([999, 1, 2, 3])
     expect(set(-3, 999, arr)).toEqual([999, 2, 3])
     expect(set(-2, 999, arr)).toEqual([1, 999, 3])
     expect(set(-1, 999, arr)).toEqual([1, 2, 999])
     expect(set(0, 999, arr)).toEqual([999, 2, 3])
     expect(set(1, 999, arr)).toEqual([1, 999, 3])
     expect(set(2, 999, arr)).toEqual([1, 2, 999])
-    expect(set(3, 999, arr)).toEqual([1, 2, 3, 999])
-    expect(set(4, 999, arr)).toEqual([1, 2, 3, undefined, 999])
   })
 
-  it('removes the element if value is undefined', () => {
+  it('removes the element if the new value is undefined', () => {
     const arr = [1, 2, 3]
 
-    expect(set(-5, undefined, arr)).toEqual([1, 2, 3])
-    expect(set(-4, undefined, arr)).toEqual([1, 2, 3])
     expect(set(-3, undefined, arr)).toEqual([2, 3])
     expect(set(-2, undefined, arr)).toEqual([1, 3])
     expect(set(-1, undefined, arr)).toEqual([1, 2])
     expect(set(0, undefined, arr)).toEqual([2, 3])
     expect(set(1, undefined, arr)).toEqual([1, 3])
     expect(set(2, undefined, arr)).toEqual([1, 2])
-    expect(set(3, undefined, arr)).toEqual([1, 2, 3])
-    expect(set(4, undefined, arr)).toEqual([1, 2, 3])
   })
 
-  it('returns a fresh array if the target is not an array', () => {
-    expect(set(0, 1, null)).toEqual([1])
-    expect(set(0, 1, undefined)).toEqual([1])
-    expect(set(0, 1, {})).toEqual([1])
-    expect(set(0, 1, '')).toEqual([1])
+  it('throws an error if the target is not an array', () => {
+    expect(() => set(0, 1, null)).toThrowError(TypeError)
+    expect(() => set(0, 1, undefined)).toThrowError(TypeError)
+    expect(() => set(0, 1, {})).toThrowError(TypeError)
+    expect(() => set(0, 1, '')).toThrowError(TypeError)
   })
 })
 

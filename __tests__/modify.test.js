@@ -21,12 +21,12 @@ describe('objects', () => {
     expect(modify('d', noop, obj)).toEqual(obj)
   })
 
-  it('returns a fresh object if the target is not an object', () => {
+  it('throws an error if the target is not an object', () => {
     const one = () => 1
 
-    expect(modify('a', one, null)).toEqual({ a: 1 })
-    expect(modify('a', one, undefined)).toEqual({ a: 1 })
-    expect(modify('a', one, '')).toEqual({ a: 1 })
+    expect(() => modify('a', one, null)).toThrowError(TypeError)
+    expect(() => modify('a', one, undefined)).toThrowError(TypeError)
+    expect(() => modify('a', one, '')).toThrowError(TypeError)
   })
 })
 
@@ -35,41 +35,43 @@ describe('arrays', () => {
     const arr = [1, 2, 3]
     const inc = (x) => x + 1
 
-    expect(modify(-5, inc, arr)).toEqual([NaN, undefined, 1, 2, 3])
-    expect(modify(-4, inc, arr)).toEqual([NaN, 1, 2, 3])
     expect(modify(-3, inc, arr)).toEqual([2, 2, 3])
     expect(modify(-2, inc, arr)).toEqual([1, 3, 3])
     expect(modify(-1, inc, arr)).toEqual([1, 2, 4])
     expect(modify(0, inc, arr)).toEqual([2, 2, 3])
     expect(modify(1, inc, arr)).toEqual([1, 3, 3])
     expect(modify(2, inc, arr)).toEqual([1, 2, 4])
-    expect(modify(3, inc, arr)).toEqual([1, 2, 3, NaN])
-    expect(modify(4, inc, arr)).toEqual([1, 2, 3, undefined, NaN])
   })
 
   it('removes the element if value is undefined and index is within bounds', () => {
     const arr = [1, 2, 3]
     const noop = () => {}
 
-    expect(modify(-5, noop, arr)).toEqual([1, 2, 3])
-    expect(modify(-4, noop, arr)).toEqual([1, 2, 3])
     expect(modify(-3, noop, arr)).toEqual([2, 3])
     expect(modify(-2, noop, arr)).toEqual([1, 3])
     expect(modify(-1, noop, arr)).toEqual([1, 2])
     expect(modify(0, noop, arr)).toEqual([2, 3])
     expect(modify(1, noop, arr)).toEqual([1, 3])
     expect(modify(2, noop, arr)).toEqual([1, 2])
-    expect(modify(3, noop, arr)).toEqual([1, 2, 3])
-    expect(modify(4, noop, arr)).toEqual([1, 2, 3])
   })
 
-  it('returns a fresh array if the target is not an array', () => {
+  it('throws an error if array index is out of bounds', () => {
+    const arr = [1, 2, 3]
+    const noop = () => {}
+
+    expect(() => modify(-5, noop, arr)).toThrowError(RangeError)
+    expect(() => modify(-4, noop, arr)).toThrowError(RangeError)
+    expect(() => modify(3, noop, arr)).toThrowError(RangeError)
+    expect(() => modify(4, noop, arr)).toThrowError(RangeError)
+  })
+
+  it('throws an error if the target is not an array', () => {
     const one = () => 1
 
-    expect(modify(0, one, null)).toEqual([1])
-    expect(modify(1, one, undefined)).toEqual([undefined, 1])
-    expect(modify(0, one, {})).toEqual([1])
-    expect(modify(1, one, '')).toEqual([undefined, 1])
+    expect(() => modify(0, one, null)).toThrowError(TypeError)
+    expect(() => modify(1, one, undefined)).toThrowError(TypeError)
+    expect(() => modify(0, one, {})).toThrowError(TypeError)
+    expect(() => modify(1, one, '')).toThrowError(TypeError)
   })
 })
 
