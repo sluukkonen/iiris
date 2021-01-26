@@ -1,1 +1,1 @@
-export const head = (array) => array[0]
+export const head = (array) => (array.length > 0 ? array[0] : undefined)
