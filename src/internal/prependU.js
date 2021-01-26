@@ -1,3 +1,1 @@
-import { concatU } from './concatU'
-
-export const prependU = (value, array) => concatU([value], array)
+export const prependU = (value, array) => [value, ...array]
