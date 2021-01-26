@@ -1161,6 +1161,14 @@ export function zip<T>(
   array1: readonly T[]
 ): <U>(array2: readonly U[]) => [T, U][]
 
+export function zipObject<K extends string, T>(
+  keys: readonly K[],
+  values: readonly T[]
+): Record<K, T>
+export function zipObject<K extends string>(
+  keys: readonly K[]
+): <T>(values: readonly T[]) => Record<K, T>
+
 export function zipWith<T, U, V>(
   fn: (value: T, other: U) => V,
   array1: readonly T[],
