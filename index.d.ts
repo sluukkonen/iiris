@@ -140,9 +140,11 @@ type GetsOr<T extends NullableHasKey<K>, K extends string, D> = Expand<
     : Get<T, K>
 >
 
-type Sets<T extends object, K extends string, V> = undefined extends V
-  ? Omit<T, K>
-  : { [P in keyof T]: P extends K ? V : T[P] } & { [P in K]: V }
+type Sets<T extends object, K extends string, V> = [V] extends [undefined]
+  ? [undefined] extends [V]
+    ? Omit<T, K>
+    : Omit<T, K> & { [P in K]: V }
+  : Omit<T, K> & { [P in K]: V }
 
 type Modifiable<K extends string, V> = undefined extends V
   ? { [P in K]?: V }
@@ -799,7 +801,7 @@ export function none<T>(
   predicate: ArrayPredicate<T>
 ): (array: readonly T[]) => boolean
 
-export function noop(): void
+export function noop(): undefined
 
 export function of<T>(value: T): [T]
 

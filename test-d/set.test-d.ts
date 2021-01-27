@@ -17,6 +17,12 @@ expectAssignable<User>(S.set('age', 0)(user))
 expectAssignable<User>(S.set('age')(0, user))
 expectAssignable<User>(S.set('age')(0)(user))
 
+// Removing fields
+expectType<Omit<User, 'age'>>(S.set('age', undefined, user))
+expectType<Omit<User, 'age'>>(S.set('age', undefined)(user))
+expectType<Omit<User, 'age'>>(S.set('age')(undefined, user))
+expectType<Omit<User, 'age'>>(S.set('age')(undefined)(user))
+
 // Adding a new field
 expectType<User & { new: true }>(S.set('new', true, user))
 expectType<User & { new: boolean }>(S.set('new', true)(user))
