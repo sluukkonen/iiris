@@ -57,8 +57,6 @@ export type CurriedFunction4<T1, T2, T3, T4, R> = {
 /** A data type that can be compared with the `<` and `>` operators. */
 export type Ordered = number | bigint | string | Date | boolean
 
-export type Numeric = number | bigint
-
 /** A helper type that widens primitive literal types. */
 export type Widen<T> = T extends number
   ? number
@@ -152,8 +150,8 @@ type Modifiable<K extends string, V> = undefined extends V
 
 // Ah shit, here we go again…
 
-export function add<T extends Numeric>(n: T, m: T): Widen<T>
-export function add<T extends Numeric>(n: T): (m: Widen<T>) => Widen<T>
+export function add(n: number, m: number): number
+export function add(n: number): (m: number) => number
 
 export function arity<R>(n: 0, fn: VariadicFunction0<R>): Function0<R>
 export function arity<T, R>(n: 1, fn: VariadicFunction1<T, R>): Function1<T, R>
@@ -306,14 +304,12 @@ export function curryN<T1, T2, T3, T4, R>(
   fn: VariadicFunction4<T1, T2, T3, T4, R>
 ): CurriedFunction4<T1, T2, T3, T4, R>
 
-export function dec<T extends Numeric>(n: T): Widen<T>
+export function dec(n: number): number
 
 export function descend<T>(fn: (value: T) => Ordered): Comparator<T>
 
-export function divideBy<T extends Numeric>(divisor: T, dividend: T): Widen<T>
-export function divideBy<T extends Numeric>(
-  divisor: T
-): (dividend: Widen<T>) => Widen<T>
+export function divideBy(divisor: number, dividend: number): number
+export function divideBy(divisor: number): (dividend: number) => number
 
 export function drop<T>(n: number, array: readonly T[]): T[]
 export function drop(n: number): <T>(array: readonly T[]) => T[]
@@ -624,7 +620,7 @@ export function ifElse<T>(
   }
 }
 
-export function inc<T extends Numeric>(n: T): Widen<T>
+export function inc(n: number): number
 
 export function includes<T>(value: T, array: readonly T[]): boolean
 export function includes<T>(value: T): (array: readonly T[]) => boolean
@@ -783,15 +779,10 @@ export function modify(
   <T>(fn: Function1<T, T>): (array: readonly T[]) => T[]
 }
 
-export function multiply<T extends Numeric>(
-  multiplicand: T,
-  multiplier: T
-): Widen<T>
-export function multiply<T extends Numeric>(
-  multiplicand: T
-): (multiplier: Widen<T>) => Widen<T>
+export function multiply(multiplicand: number, multiplier: number): number
+export function multiply(multiplicand: number): (multiplier: number) => number
 
-export function negate<T extends Numeric>(n: T): Widen<T>
+export function negate(n: number): number
 
 export function none<T>(
   predicate: ArrayPredicate<T>,
@@ -1035,13 +1026,8 @@ export function sortWith<T>(
   comparators: readonly Comparator<T>[]
 ): (array: readonly T[]) => T[]
 
-export function subtractBy<T extends Numeric>(
-  subtrahend: T,
-  minuend: T
-): Widen<T>
-export function subtractBy<T extends Numeric>(
-  subtrahend: T
-): (minuend: Widen<T>) => Widen<T>
+export function subtractBy(subtrahend: number, minuend: number): number
+export function subtractBy(subtrahend: number): (minuend: number) => number
 
 export function sum(numbers: readonly number[]): number
 
