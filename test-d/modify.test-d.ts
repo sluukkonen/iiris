@@ -1,6 +1,6 @@
 import { expectAssignable, expectError, expectType } from 'tsd'
 import * as S from '..'
-import { maybeUser, User, user, users } from './index.test-d'
+import { User, user, users } from './index.test-d'
 
 /// Objects
 
@@ -54,16 +54,16 @@ expectType<User>(S.modify('age')((a?: number) => a)(user))
 // Changing the type of a field
 
 expectAssignable<{ name: string; age: string }>(
-  S.modify('age', (a) => 'too old', user)
+  S.modify('age', () => 'too old', user)
 )
 expectAssignable<{ name: string; age: string }>(
-  S.modify('age', (a) => 'too old')(user)
+  S.modify('age', () => 'too old')(user)
 )
 expectAssignable<{ name: string; age: string }>(
-  S.modify('age')((a) => 'too old', user)
+  S.modify('age')(() => 'too old', user)
 )
 expectAssignable<{ name: string; age: string }>(
-  S.modify('age')((a) => 'too old')(user)
+  S.modify('age')(() => 'too old')(user)
 )
 
 // Wrong type of function

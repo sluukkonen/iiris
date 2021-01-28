@@ -1,6 +1,6 @@
 import * as S from '..'
 import { User, user, maybeUser, users, maybeUsers } from './index.test-d'
-import { expectError, expectType } from 'tsd'
+import { expectType } from 'tsd'
 
 /// Objects
 

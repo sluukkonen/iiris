@@ -1,4 +1,4 @@
-import { expectAssignable, expectError, expectType } from 'tsd'
+import { expectError, expectType } from 'tsd'
 
 import * as S from '..'
 import { User, user, users } from './index.test-d'

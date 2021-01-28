@@ -2,8 +2,10 @@
   "compilerOptions": {
     "allowJs": true,
     "lib": ["ESNext"],
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "outDir": "./dist",
     "strict": true,
-    "outDir": "./dist"
   },
   "include": ["src/**/*", "__tests__/**/*", "test-d/**/*"],
   "exclude": ["node_modules", "dist"]

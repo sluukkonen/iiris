@@ -981,18 +981,19 @@ export function set<K extends string, V, T extends object>(
   value: V,
   object: T
 ): Sets<T, K, V>
-export function set<T>(index: number, value: T, array: readonly T[]): T[]
 export function set<K extends string, V>(
   key: K,
   value: V
 ): <T extends object>(object: T) => Sets<T, K, V>
-export function set<T>(index: number, value: T): (array: readonly T[]) => T[]
 export function set<K extends string>(
   key: K
 ): {
   <V, T extends object>(value: V, object: T): Sets<T, K, V>
   <V>(value: V): <T extends object>(object: T) => Sets<T, K, V>
 }
+
+export function set<T>(index: number, value: T, array: readonly T[]): T[]
+export function set<T>(index: number, value: T): (array: readonly T[]) => T[]
 export function set(
   index: number
 ): {
