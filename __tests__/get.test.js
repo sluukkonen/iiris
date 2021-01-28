@@ -30,7 +30,6 @@ describe('arrays', () => {
   it('retrieves an element from an array', () => {
     const arr = [1, 2, 3]
 
-    expect(get(-5, arr)).toBe(undefined)
     expect(get(-4, arr)).toBe(undefined)
     expect(get(-3, arr)).toBe(1)
     expect(get(-2, arr)).toBe(2)
@@ -39,9 +38,7 @@ describe('arrays', () => {
     expect(get(1, arr)).toBe(2)
     expect(get(2, arr)).toBe(3)
     expect(get(3, arr)).toBe(undefined)
-    expect(get(4, arr)).toBe(undefined)
 
-    expect(get(-5)(arr)).toBe(undefined)
     expect(get(-4)(arr)).toBe(undefined)
     expect(get(-3)(arr)).toBe(1)
     expect(get(-2)(arr)).toBe(2)
@@ -50,7 +47,6 @@ describe('arrays', () => {
     expect(get(1)(arr)).toBe(2)
     expect(get(2)(arr)).toBe(3)
     expect(get(3)(arr)).toBe(undefined)
-    expect(get(4)(arr)).toBe(undefined)
   })
 
   it('returns undefined if the target is not an array', () => {

@@ -47,22 +47,14 @@ describe('arrays', () => {
     const arr = [1, 2, 3]
     const noop = () => {}
 
+    expect(modify(-4, noop, arr)).toEqual([1, 2, 3])
     expect(modify(-3, noop, arr)).toEqual([2, 3])
     expect(modify(-2, noop, arr)).toEqual([1, 3])
     expect(modify(-1, noop, arr)).toEqual([1, 2])
     expect(modify(0, noop, arr)).toEqual([2, 3])
     expect(modify(1, noop, arr)).toEqual([1, 3])
     expect(modify(2, noop, arr)).toEqual([1, 2])
-  })
-
-  it('throws an error if array index is out of bounds', () => {
-    const arr = [1, 2, 3]
-    const noop = () => {}
-
-    expect(() => modify(-5, noop, arr)).toThrowError(RangeError)
-    expect(() => modify(-4, noop, arr)).toThrowError(RangeError)
-    expect(() => modify(3, noop, arr)).toThrowError(RangeError)
-    expect(() => modify(4, noop, arr)).toThrowError(RangeError)
+    expect(modify(3, noop, arr)).toEqual([1, 2, 3])
   })
 
   it('throws an error if the target is not an array', () => {

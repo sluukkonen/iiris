@@ -4,8 +4,11 @@ import { getIndex } from './getIndex'
 
 export const getOrArray = (defaultValue, idx, array) => {
   if (isArray(array)) {
-    const maybeValue = array[getIndex(idx, array)]
-    return isUndefined(maybeValue) ? defaultValue : maybeValue
+    const index = getIndex(idx, array)
+    if (index >= 0 && index < array.length) {
+      const maybeValue = array[index]
+      return isUndefined(maybeValue) ? defaultValue : maybeValue
+    }
   }
 
   return defaultValue

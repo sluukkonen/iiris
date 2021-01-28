@@ -14,7 +14,12 @@ export function get(key, target) {
         }
       : numberIsInteger(key)
       ? function get1(array) {
-          return isArray(array) ? array[getIndex(key, array)] : undefined
+          if (isArray(array)) {
+            const index = getIndex(key, array)
+            if (index >= 0 && index < array.length) {
+              return array[index]
+            }
+          }
         }
       : throwInvalidKeyError(key)
     : getU(key, target)
