@@ -29,38 +29,22 @@ expectAssignable<User>(
 )
 
 // Removing a field
-expectType<Omit<User, 'age'>>(S.modify('age', S.noop, user))
-expectType<Omit<User, 'age'>>(S.modify('age', S.noop)(user))
-expectType<Omit<User, 'age'>>(S.modify('age')(S.noop, user))
-expectType<Omit<User, 'age'>>(S.modify('age')(S.noop)(user))
+expectType<User>(S.modify('age', S.noop, user))
+expectType<User>(S.modify('age', S.noop)(user))
+expectType<User>(S.modify('age')(S.noop, user))
+expectType<User>(S.modify('age')(S.noop)(user))
 
 // Mapping identity function over mandatory field
-expectType<Omit<User, 'name'> & { name: string }>(
-  S.modify('name', S.identity, user)
-)
-expectType<Omit<User, 'name'> & { name: string }>(
-  S.modify('name', (a: string) => a)(user)
-)
-expectType<Omit<User, 'name'> & { name: string }>(
-  S.modify('name')(S.identity, user)
-)
-expectType<Omit<User, 'name'> & { name: string }>(
-  S.modify('name')((a: string) => a)(user)
-)
+expectType<User>(S.modify('name', S.identity, user))
+expectType<User>(S.modify('name', (a: string) => a)(user))
+expectType<User>(S.modify('name')(S.identity, user))
+expectType<User>(S.modify('name')((a: string) => a)(user))
 
 // Mapping identity function over optional field
-expectType<Omit<User, 'age'> & { age: number | undefined }>(
-  S.modify('age', S.identity, user)
-)
-expectType<Omit<User, 'age'> & { age: number | undefined }>(
-  S.modify('age', (a?: number) => a)(user)
-)
-expectType<Omit<User, 'age'> & { age: number | undefined }>(
-  S.modify('age')(S.identity, user)
-)
-expectType<Omit<User, 'age'> & { age: number | undefined }>(
-  S.modify('age')((a?: number) => a)(user)
-)
+expectType<User>(S.modify('age', S.identity, user))
+expectType<User>(S.modify('age', (a?: number) => a)(user))
+expectType<User>(S.modify('age')(S.identity, user))
+expectType<User>(S.modify('age')((a?: number) => a)(user))
 
 // Adding a new field
 // expectType<User & { new: boolean }>(S.modify('new', T, user))

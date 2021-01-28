@@ -116,6 +116,13 @@ type NullableHasKey<K extends string, V = unknown> =
 
 type NullableArray<T = unknown> = readonly T[] | null | undefined
 
+/** Return true if T is `undefined` */
+type IsUndefined<T> = [T] extends [undefined]
+  ? [undefined] extends [T]
+    ? true
+    : false
+  : false
+
 export type Get<T extends HasKey<K>, K extends string> = NonNullable<T>[K]
 
 type Gets<T extends NullableHasKey<K>, K extends string> = Expand<
@@ -138,11 +145,14 @@ type GetsOr<T extends NullableHasKey<K>, K extends string, D> = Expand<
     : Get<T, K>
 >
 
-type Sets<T extends object, K extends string, V> = [V] extends [undefined]
-  ? [undefined] extends [V]
+/** A helper type that sets the key K to value T in object T. */
+type Sets<T extends object, K extends string, V> = K extends keyof T
+  ? V extends T[K]
+    ? T
+    : true extends IsUndefined<V>
     ? Omit<T, K>
     : Omit<T, K> & { [P in K]: V }
-  : Omit<T, K> & { [P in K]: V }
+  : T & { [P in K]: V }
 
 type Modifiable<K extends string, V> = undefined extends V
   ? { [P in K]?: V }
@@ -744,21 +754,21 @@ export function minimumBy<T>(
 
 export function modify<K extends string, V, T extends { [P in K]?: unknown }>(
   key: K,
-  fn: Function1<T[K], V>,
+  fn: (value: T[K]) => V,
   object: T
 ): Sets<T, K, V>
 export function modify<K extends string, V1, V2>(
   key: K,
-  fn: Function1<V1, V2>
+  fn: (value: V1) => V2
 ): <T extends Modifiable<K, V1>>(object: T) => Sets<T, K, V2>
 export function modify<K extends string>(
   key: K
 ): {
   <V, T extends { [P in K]?: unknown }>(
-    fn: Function1<T[K], V>,
+    fn: (value: T[K]) => V,
     object: T
   ): Sets<T, K, V>
-  <V1, V2>(fn: Function1<V1, V2>): <T extends Modifiable<K, V1>>(
+  <V1, V2>(fn: (value: V1) => V2): <T extends Modifiable<K, V1>>(
     object: T
   ) => Sets<T, K, V2>
 }
