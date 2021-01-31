@@ -6,7 +6,7 @@ import { User, user, users } from './index.test-d'
 /// Objects
 
 // Normal field
-expect<User>(S.set('name', '', user))
+expectType<User>(S.set('name', '', user))
 expectType<User>(S.set('name', '')(user))
 expectType<User>(S.set('name')('', user))
 expectType<User>(S.set('name')('')(user))
