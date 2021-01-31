@@ -1,4 +1,4 @@
-import { expectAssignable, expectError, expectType } from 'tsd'
+import { expectError, expectType } from 'tsd'
 import * as S from '..'
 import { User, user, users } from './index.test-d'
 
@@ -7,22 +7,18 @@ import { User, user, users } from './index.test-d'
 const toUpper = (s: string) => s.toUpperCase()
 
 // Normal field
-expectAssignable<User>(S.modify('name', (n) => n.toUpperCase(), user))
-expectAssignable<User>(S.modify('name', toUpper)(user))
-expectAssignable<User>(S.modify('name')((n) => n.toUpperCase(), user))
-expectAssignable<User>(S.modify('name')(toUpper)(user))
+expectType<User>(S.modify('name', (n) => n.toUpperCase(), user))
+expectType<User>(S.modify('name', toUpper)(user))
+expectType<User>(S.modify('name')((n) => n.toUpperCase(), user))
+expectType<User>(S.modify('name')(toUpper)(user))
 
 // Optional field
-expectAssignable<User>(
-  S.modify('age', (a) => (a === undefined ? 0 : a + 1), user)
-)
-expectAssignable<User>(
+expectType<User>(S.modify('age', (a) => (a === undefined ? 0 : a + 1), user))
+expectType<User>(
   S.modify('age', (a: number | undefined) => (a === undefined ? 0 : +1))(user)
 )
-expectAssignable<User>(
-  S.modify('age')((a) => (a === undefined ? 0 : a + 1), user)
-)
-expectAssignable<User>(
+expectType<User>(S.modify('age')((a) => (a === undefined ? 0 : a + 1), user))
+expectType<User>(
   S.modify('age')((a: number | undefined) => (a === undefined ? 0 : a + 1))(
     user
   )
@@ -53,16 +49,16 @@ expectType<User>(S.modify('age')((a?: number) => a)(user))
 // expectType<User & { new: boolean }>(S.modify('new')(T)(user))
 // Changing the type of a field
 
-expectAssignable<{ name: string; age: string }>(
+expectType<Pick<User, 'name'> & { age: string }>(
   S.modify('age', () => 'too old', user)
 )
-expectAssignable<{ name: string; age: string }>(
+expectType<Pick<User, 'name'> & { age: string }>(
   S.modify('age', () => 'too old')(user)
 )
-expectAssignable<{ name: string; age: string }>(
+expectType<Pick<User, 'name'> & { age: string }>(
   S.modify('age')(() => 'too old', user)
 )
-expectAssignable<{ name: string; age: string }>(
+expectType<Pick<User, 'name'> & { age: string }>(
   S.modify('age')(() => 'too old')(user)
 )
 
