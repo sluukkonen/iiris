@@ -707,6 +707,22 @@ export function keys<T extends object>(
   obj: T | null | undefined
 ): Array<keyof T>
 
+export function maybe<T, R>(
+  defaultValue: R,
+  fn: (value: T) => R,
+  maybeValue: T | undefined
+): R
+export function maybe<T, R>(
+  defaultValue: R,
+  fn: (value: T) => R
+): (maybeValue: T | undefined) => R
+export function maybe<R>(
+  defaultValue: R
+): {
+  <T>(fn: (value: T) => R, maybeValue: T | undefined): R
+  <T>(fn: (value: T) => R): (maybeValue: T | undefined) => R
+}
+
 export function max<T extends Ordered>(value: T, other: T): Widen<T>
 export function max<T extends Ordered>(value: T): (other: Widen<T>) => Widen<T>
 
