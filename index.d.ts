@@ -114,6 +114,8 @@ type NullableHasKey<K extends string, V = unknown> =
   | null
   | undefined
 
+type NullableObject = object | null | undefined
+
 type NullableArray<T = unknown> = readonly T[] | null | undefined
 
 /** Return true if T is `undefined` */
@@ -504,7 +506,7 @@ export function groupMapReduce<T, K extends PropertyKey>(
 
 export function get<
   K extends keyof NonNullable<T> & string,
-  T extends object | null | undefined
+  T extends NullableObject
 >(key: K, object: T): Gets<T, K>
 export function get<T extends NullableArray>(
   index: number,
@@ -516,7 +518,7 @@ export function get(index: number): ArrayGetter
 export function getOr<
   D,
   K extends keyof NonNullable<T> & string,
-  T extends object | null | undefined
+  T extends NullableObject
 >(defaultValue: D, key: K, object: T): GetsOr<T, K, D>
 export function getOr<D, T>(
   defaultValue: D,
