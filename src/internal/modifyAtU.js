@@ -2,7 +2,7 @@ import { isUndefined } from '../isUndefined'
 import { copyArray } from './copyArray'
 import { getIndex } from './getIndex'
 
-export const modifyArray = (idx, fn, array) => {
+export const modifyAtU = (idx, fn, array) => {
   const result = copyArray(array)
   const index = getIndex(idx, array)
 

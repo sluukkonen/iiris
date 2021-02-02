@@ -168,13 +168,7 @@ type Gets<T extends NullableHasKey<K>, K extends string> = Expand<
   T extends null | undefined ? Get<T, K> | undefined : Get<T, K>
 >
 
-type Getter<K extends string> = <T extends NullableHasKey<K>>(
-  object: T
-) => Gets<T, K>
-
 type ArrayGets<T extends NullableArray> = NonNullable<T>[number] | undefined
-
-type ArrayGetter = <T extends NullableArray>(array: T) => ArrayGets<T>
 
 type GetsOr<T extends NullableHasKey<K>, K extends string, D> = Expand<
   T extends null | undefined
@@ -243,6 +237,78 @@ export function append<T>(value: T): (array: readonly T[]) => T[]
  * @see sortWith
  */
 export function ascend<T>(fn: (value: T) => Ordered): Comparator<T>
+
+/**
+ * Safe array getter. Tries to retrieve the `array` element at `index`.
+ *
+ * Returns `undefined` if the `array` doesn't contain an element at `index` or
+ * if the `array` is missing.
+ *
+ * @example
+ *
+ * ```typescript
+ * S.at(0, [1, 2, 3])
+ * // => 1
+ *
+ * S.at(0, [])
+ * // => undefined
+ *
+ * S.at(0, undefined)
+ * // => undefined
+ * ```
+ *
+ * @see atOr
+ * @see prop
+ */
+export function at<T extends NullableArray>(
+  index: number,
+  array: T
+): ArrayGets<T>
+export function at(
+  index: number
+): <T extends NullableArray>(array: T) => ArrayGets<T>
+
+/**
+ * Safe array getter with a default value. Tries to retrieve the `array` element at `index`.
+ *
+ * Returns `defaultValue` if the `array` doesn't contain an element at `index` or
+ * if the `array` is missing.
+ *
+ * @example
+ *
+ * ```typescript
+ * S.atOr(999, 0, [1, 2, 3])
+ * // => 1
+ *
+ * S.atOr(999, 0, [])
+ * // => 999
+ *
+ * S.atOr(999, 0, undefined)
+ * // => 999
+ * ```
+ *
+ * @see at
+ * @see propOr
+ */
+export function atOr<T>(
+  defaultValue: T,
+  index: number,
+  array: NullableArray<T>
+): T
+export function atOr<T>(
+  defaultValue: T,
+  index: number
+): (array: NullableArray<T>) => T
+export function atOr<T>(
+  defaultValue: T,
+  index: number
+): <T>(array: NullableArray<T>) => T
+export function atOr<T>(
+  defaultValue: T
+): {
+  (index: number, array: NullableArray<T>): T
+  (index: number): (array: NullableArray<T>) => T
+}
 
 /**
  * Create a version of `fn` that accepts two arguments.
@@ -1105,50 +1171,6 @@ export function groupMapReduce<T, K extends PropertyKey>(
   }
 }
 
-export function get<
-  K extends keyof NonNullable<T> & string,
-  T extends NullableObject
->(key: K, object: T): Gets<T, K>
-export function get<T extends NullableArray>(
-  index: number,
-  array: T
-): ArrayGets<T>
-export function get<K extends string>(key: K): Getter<K>
-export function get(index: number): ArrayGetter
-
-export function getOr<
-  D,
-  K extends keyof NonNullable<T> & string,
-  T extends NullableObject
->(defaultValue: D, key: K, object: T): GetsOr<T, K, D>
-export function getOr<D, T>(
-  defaultValue: D,
-  index: number,
-  array: NullableArray<T>
-): T | D
-export function getOr<D, K extends string>(
-  defaultValue: D,
-  key: K
-): <T extends NullableHasKey<K>>(object: T) => GetsOr<T, K, D>
-export function getOr<D>(
-  defaultValue: D,
-  index: number
-): <T>(array: NullableArray<T>) => T | D
-export function getOr<D>(
-  defaultValue: D
-): {
-  <K extends string, T extends NullableHasKey<K>>(key: K, object: T): GetsOr<
-    T,
-    K,
-    D
-  >
-  <T>(index: number, array: NullableArray<T>): T | D
-  <K extends string>(key: K): <T extends NullableHasKey<K>>(
-    object: T
-  ) => GetsOr<T, K, D>
-  (index: number): <T>(array: NullableArray<T>) => T | D
-}
-
 /**
  * Check if the `second` argument is greater than the `first`.
  *
@@ -1827,16 +1849,57 @@ export function minimumBy<T>(
   fn: (value: T) => Ordered
 ): (array: readonly T[]) => T | undefined
 
-export function modify<K extends keyof T & string, V, T extends object>(
+/**
+ * Returns a copy of `array` where `fn` has been applied to the element at
+ * `index`.
+ *
+ * Removes the element if `fn` returns `undefined`.
+ *
+ * @example
+ *
+ * ```typescript
+ * S.modifyAt(0, S.inc, [1, 2, 3])
+ * // => [2, 2, 3]
+ *
+ * S.modifyAt(-1, S.inc, [1, 2, 3])
+ * // => [1, 2, 4]
+ *
+ * S.modifyAt(0, S.noop, [1, 2, 3])
+ * // => [2, 3]
+ *
+ * S.modifyAt(999, S.inc, [1, 2, 3])
+ * // => [1, 2, 3]
+ * ```
+ *
+ * @see setAt
+ * @see removeAt
+ */
+export function modifyAt<T>(
+  index: number,
+  fn: Function1<T, T>,
+  array: readonly T[]
+): T[]
+export function modifyAt<T>(
+  index: number,
+  fn: Function1<T, T>
+): (array: readonly T[]) => T[]
+export function modifyAt(
+  index: number
+): {
+  <T>(fn: Function1<T, T>, array: readonly T[]): T[]
+  <T>(fn: Function1<T, T>): (array: readonly T[]) => T[]
+}
+
+export function modifyProp<K extends keyof T & string, V, T extends object>(
   key: K,
   fn: (value: T[K]) => V,
   object: T
 ): Sets<T, K, V>
-export function modify<K extends string, V1, V2>(
+export function modifyProp<K extends string, V1, V2>(
   key: K,
   fn: (value: V1) => V2
 ): <T extends Modifiable<K, V1>>(object: T) => Sets<T, K, V2>
-export function modify<K extends string>(
+export function modifyProp<K extends string>(
   key: K
 ): {
   <V, T extends { [P in K]?: unknown }>(
@@ -1846,22 +1909,6 @@ export function modify<K extends string>(
   <V1, V2>(fn: (value: V1) => V2): <T extends Modifiable<K, V1>>(
     object: T
   ) => Sets<T, K, V2>
-}
-
-export function modify<T>(
-  index: number,
-  fn: Function1<T, T>,
-  array: readonly T[]
-): T[]
-export function modify<T>(
-  index: number,
-  fn: Function1<T, T>
-): (array: readonly T[]) => T[]
-export function modify(
-  index: number
-): {
-  <T>(fn: Function1<T, T>, array: readonly T[]): T[]
-  <T>(fn: Function1<T, T>): (array: readonly T[]) => T[]
 }
 
 /**
@@ -2012,6 +2059,81 @@ export function partition<T>(
 export function prepend<T>(value: T, array: readonly T[]): T[]
 export function prepend<T>(value: T): (array: readonly T[]) => T[]
 
+/**
+ * Safe object getter. Tries to retrieve the property `key` from `object`.
+ *
+ * Returns `undefined` if the `object` doesn't contain `key` or if the `object`
+ * is missing.
+ *
+ * @example
+ *
+ * ```typescript
+ * S.prop('a', { a: 1, b: 2, c: 3 })
+ * // => 1
+ *
+ * S.prop('a', {})
+ * // => undefined
+ *
+ * S.prop('a', undefined)
+ * // => undefined
+ * ```
+ *
+ * @see propOr
+ * @see at
+ */
+export function prop<
+  K extends keyof NonNullable<T> & string,
+  T extends NullableObject
+>(key: K, object: T): Gets<T, K>
+export function prop<K extends string>(
+  key: K
+): <T extends NullableHasKey<K>>(object: T) => Gets<T, K>
+
+/**
+ * Safe object getter with a default value. Tries to retrieve the property
+ * `key` from `object`.
+ *
+ * Returns `defaultValue` if the `object` doesn't contain `key` or if the
+ * `object` is missing.
+ *
+ * @example
+ *
+ * ```typescript
+ * S.propOr(999, 'a', { a: 1, b: 2, c: 3 })
+ * // => 1
+ *
+ * S.propOr(999, 'a', {})
+ * // => 999
+ *
+ * S.propOr(999, 'a', undefined)
+ * // => 999
+ * ```
+ *
+ * @see prop
+ * @see atOr
+ */
+export function propOr<
+  V extends Get<T, K>,
+  K extends keyof NonNullable<T> & string,
+  T extends NullableObject
+>(defaultValue: V, key: K, object: T): GetsOr<T, K, V>
+export function propOr<V, K extends string>(
+  defaultValue: V,
+  key: K
+): <T extends NullableHasKey<K, V>>(object: T) => GetsOr<T, K, V>
+export function propOr<V>(
+  defaultValue: V
+): {
+  <K extends string, T extends NullableHasKey<K, V>>(key: K, object: T): GetsOr<
+    T,
+    K,
+    V
+  >
+  <K extends string>(key: K): <T extends NullableHasKey<K, V>>(
+    object: T
+  ) => GetsOr<T, K, V>
+}
+
 export function range(start: number, end: number): number[]
 export function range(start: number): (end: number) => number[]
 
@@ -2079,16 +2201,35 @@ export function reduceRight<T, R>(
   (initial: R): (array: readonly T[]) => R
 }
 
-export function remove<K extends keyof T & string, T extends object>(
+/**
+ * Returns a copy of `array` where the element at `index` has been removed.
+ *
+ * @example
+ *
+ * ```typescript
+ * S.removeAt(0, [1, 2, 3])
+ * // => [2, 3]
+ *
+ * S.removeAt(-1, [1, 2, 3])
+ * // => [1, 2]
+ *
+ * S.removeAt(999, [1, 2, 3])
+ * // => [1, 2, 3]
+ * ```
+ *
+ * @see modifyAt
+ * @see setAt
+ */
+export function removeAt<T>(index: number, array: readonly T[]): T[]
+export function removeAt(index: number): <T>(array: readonly T[]) => T[]
+
+export function removeProp<K extends keyof T & string, T extends object>(
   key: K,
   object: T
 ): Omit<T, K>
-export function remove<K extends string>(
+export function removeProp<K extends string>(
   key: K
 ): <T extends HasKey<K>>(object: T) => Omit<T, K>
-
-export function remove<T>(index: number, array: readonly T[]): T[]
-export function remove(index: number): <T>(array: readonly T[]) => T[]
 
 /**
  * Repeat the given `value` `n` times.
@@ -2224,29 +2365,60 @@ export function pipe<T1, T2, T3, T4, T5, T6, T7, T8, T9, R>(
   fn9: Function1<T9, R>
 ): R
 
-export function set<K extends string, V, T extends object>(
+/**
+ * Returns a copy of `array` where the element at `index` has been replaced with `value`.
+ *
+ * Removes the element if `value` is `undefined`.
+ *
+ * @example
+ *
+ * ```typescript
+ * S.setAt(0, 999, [1, 2, 3])
+ * // => [999, 2, 3]
+ *
+ * S.setAt(-1, 999, [1, 2, 3])
+ * // => [1, 2, 999]
+ *
+ * S.setAt(999, 999, [1, 2, 3])
+ * // => [1, 2, 3]
+ *
+ * S.setAt(0, undefined, [1, 2, 3])
+ * // => [2, 3]
+ * ```
+ *
+ * @see modifyAt
+ * @see removeAt
+ */
+export function setAt<T>(
+  index: number,
+  value: T | undefined,
+  array: readonly T[]
+): T[]
+export function setAt<T>(
+  index: number,
+  value: T | undefined
+): (array: readonly T[]) => T[]
+export function setAt(
+  index: number
+): {
+  <T>(value: T | undefined, array: readonly T[]): T[]
+  <T>(value: T | undefined): (array: readonly T[]) => T[]
+}
+
+export function setProp<K extends string, V, T extends object>(
   key: K,
   value: V,
   object: T
 ): Sets<T, K, V>
-export function set<K extends string, V>(
+export function setProp<K extends string, V>(
   key: K,
   value: V
 ): <T extends object>(object: T) => Sets<T, K, V>
-export function set<K extends string>(
+export function setProp<K extends string>(
   key: K
 ): {
   <V, T extends object>(value: V, object: T): Sets<T, K, V>
   <V>(value: V): <T extends object>(object: T) => Sets<T, K, V>
-}
-
-export function set<T>(index: number, value: T, array: readonly T[]): T[]
-export function set<T>(index: number, value: T): (array: readonly T[]) => T[]
-export function set(
-  index: number
-): {
-  <T>(value: T, array: readonly T[]): T[]
-  <T>(value: T): (array: readonly T[]) => T[]
 }
 
 export function slice<T>(start: number, end: number, array: readonly T[]): T[]

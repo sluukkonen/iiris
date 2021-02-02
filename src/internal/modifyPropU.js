@@ -1,9 +1,9 @@
 import { isUndefined } from '../isUndefined'
 import { copyObject } from './copyObject'
 
-export const modifyObject = (key, fn, object) => {
+export const modifyPropU = (key, fn, object) => {
   const result = copyObject(object)
-  const value = fn(result[key])
+  const value = fn(object[key])
 
   if (isUndefined(value)) {
     delete result[key]

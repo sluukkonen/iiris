@@ -4,11 +4,11 @@ import { expectType } from 'tsd'
 
 expectType<User>(S.omit([], user))
 
-expectType<{ name: string }>(S.omit(['age'], user))
-expectType<{ name: string }>(S.omit(['age'])(user))
+expectType<Omit<User, 'age'>>(S.omit(['age'], user))
+expectType<Omit<User, 'age'>>(S.omit(['age'])(user))
 
-expectType<{ age?: number }>(S.omit(['name'], user))
-expectType<{ age?: number }>(S.omit(['name'])(user))
+expectType<Omit<User, 'name'>>(S.omit(['name'], user))
+expectType<Omit<User, 'name'>>(S.omit(['name'])(user))
 
-expectType<{}>(S.omit(['age', 'name'], user))
-expectType<{}>(S.omit(['age', 'name'])(user))
+expectType<Omit<User, 'name' | 'age'>>(S.omit(['age', 'name'], user))
+expectType<Omit<User, 'name' | 'age'>>(S.omit(['age', 'name'])(user))
