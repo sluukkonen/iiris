@@ -502,10 +502,10 @@ export function groupMapReduce<T, K extends PropertyKey>(
   }
 }
 
-export function get<K extends string, T extends NullableHasKey<K>>(
-  key: K,
-  object: T
-): Gets<T, K>
+export function get<
+  K extends keyof NonNullable<T> & string,
+  T extends object | null | undefined
+>(key: K, object: T): Gets<T, K>
 export function get<T extends NullableArray>(
   index: number,
   array: T
@@ -513,11 +513,11 @@ export function get<T extends NullableArray>(
 export function get<K extends string>(key: K): Getter<K>
 export function get(index: number): ArrayGetter
 
-export function getOr<D, K extends string, T extends NullableHasKey<K>>(
-  defaultValue: D,
-  key: K,
-  object: T
-): GetsOr<T, K, D>
+export function getOr<
+  D,
+  K extends keyof NonNullable<T> & string,
+  T extends object | null | undefined
+>(defaultValue: D, key: K, object: T): GetsOr<T, K, D>
 export function getOr<D, T>(
   defaultValue: D,
   index: number,
@@ -768,7 +768,7 @@ export function minimumBy<T>(
   fn: (value: T) => Ordered
 ): (array: readonly T[]) => T | undefined
 
-export function modify<K extends string, V, T extends { [P in K]?: unknown }>(
+export function modify<K extends keyof T & string, V, T extends object>(
   key: K,
   fn: (value: T[K]) => V,
   object: T
@@ -887,7 +887,7 @@ export function reduceRight<T, R>(
   (initial: R): (array: readonly T[]) => R
 }
 
-export function remove<K extends string, T extends HasKey<K>>(
+export function remove<K extends keyof T & string, T extends object>(
   key: K,
   object: T
 ): Omit<T, K>
