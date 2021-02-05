@@ -1534,6 +1534,24 @@ export function map<T, U>(fn: (value: T) => U, array: readonly T[]): U[]
 export function map<T, U>(fn: (value: T) => U): (array: readonly T[]) => U[]
 
 /**
+ * Like {@link map}, but `fn` also receives the element index.
+ *
+ * @example
+ *
+ * ```typescript
+ * S.mapIndexed((i, c) => `${i}-${c}`, ['a', 'b', 'c'])
+ * // => ['0-a', '1-b', '2-c']
+ * ```
+ */
+export function mapIndexed<T, U>(
+  fn: (index: number, value: T) => U,
+  array: readonly T[]
+): U[]
+export function mapIndexed<T, U>(
+  fn: (index: number, value: T) => U
+): (array: readonly T[]) => U[]
+
+/**
  * Return an array containing the results of applying `fn` to each element in
  * the original `array`, discarding any `undefined` values.
  *
