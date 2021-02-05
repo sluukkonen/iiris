@@ -6,7 +6,8 @@ export const pickOmitBy = (predicate, object, pick) => {
   for (const key in object) {
     if (hasOwn(object, key)) {
       const value = object[key]
-      if (pick ? predicate(value, key) : !predicate(value, key)) {
+      const bool = predicate(value, key)
+      if (pick ? bool : !bool) {
         result[key] = value
       }
     }

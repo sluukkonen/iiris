@@ -15,12 +15,12 @@ export const arityU = (n, fn) => {
     case 3:
       return arity3(fn)
     default:
-      return function arityN() {
-        const args = new Array(minU(arguments.length, n))
+      return function arityN(...origArgs) {
+        const args = new Array(minU(origArgs.length, n))
         for (let i = 0; i < args.length; i++) {
-          args[i] = arguments[i]
+          args[i] = origArgs[i]
         }
-        return fn.apply(null, args)
+        return fn(...args)
       }
   }
 }

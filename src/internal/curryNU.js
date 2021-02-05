@@ -30,7 +30,5 @@ const curryNGeneric = (left, fn, _args) =>
       args[i + n - left] = arguments[i]
     }
 
-    return stillLeft > 0
-      ? curryNGeneric(stillLeft, fn, args)
-      : fn.apply(null, args)
+    return stillLeft > 0 ? curryNGeneric(stillLeft, fn, args) : fn(...args)
   }
