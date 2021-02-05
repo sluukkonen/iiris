@@ -963,42 +963,35 @@ export function groupMap<T, K extends PropertyKey>(
 export function groupMapReduce<T, K extends PropertyKey, U>(
   keyFn: (value: T) => K,
   mapFn: (value: T) => U,
-  reducer: (accumulator: U, value: U) => U,
+  reducer: LeftReducer<U, U>,
   array: readonly T[]
 ): Record<K, U>
 export function groupMapReduce<T, K extends PropertyKey, U>(
   keyFn: (value: T) => K,
   mapFn: (value: T) => U,
-  reducer: (accumulator: U, value: U) => U
+  reducer: LeftReducer<U, U>
 ): (array: readonly T[]) => Record<K, U>
 export function groupMapReduce<T, K extends PropertyKey, U>(
   keyFn: (value: T) => K,
   mapFn: (value: T) => U
 ): {
-  (reducer: (accumulator: U, value: U) => U, array: readonly T[]): Record<K, U>
-  (reducer: (accumulator: U, value: U) => U): (
-    array: readonly T[]
-  ) => Record<K, U>
+  (reducer: LeftReducer<U, U>, array: readonly T[]): Record<K, U>
+  (reducer: LeftReducer<U, U>): (array: readonly T[]) => Record<K, U>
 }
 export function groupMapReduce<T, K extends PropertyKey>(
   keyFn: (value: T) => K
 ): {
   <U>(
     mapFn: (value: T) => U,
-    reducer: (accumulator: U, value: U) => U,
+    reducer: LeftReducer<U, U>,
     array: readonly T[]
   ): Record<K, U>
-  <U>(mapFn: (value: T) => U, reducer: (accumulator: U, value: U) => U): (
+  <U>(mapFn: (value: T) => U, reducer: LeftReducer<U, U>): (
     array: readonly T[]
   ) => Record<K, U>
   <U>(mapFn: (value: T) => U): {
-    (reducer: (accumulator: U, value: U) => U, array: readonly T[]): Record<
-      K,
-      U
-    >
-    (reducer: (accumulator: U, value: U) => U): (
-      array: readonly T[]
-    ) => Record<K, U>
+    (reducer: LeftReducer<U, U>, array: readonly T[]): Record<K, U>
+    (reducer: LeftReducer<U, U>): (array: readonly T[]) => Record<K, U>
   }
 }
 
