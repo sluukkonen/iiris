@@ -4,7 +4,7 @@ export const partitionU = (predicate, array) => {
 
   for (let i = 0; i < array.length; i++) {
     const value = array[i]
-    const target = predicate(value, i, array) ? trues : falses
+    const target = predicate(value) ? trues : falses
     target.push(value)
   }
 

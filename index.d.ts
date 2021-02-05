@@ -11,6 +11,12 @@ export type Function3<T1, T2, T3, R> = (a1: T1, a2: T2, a3: T3) => R
 /** A function that takes four arguments. */
 export type Function4<T1, T2, T3, T4, R> = (a1: T1, a2: T2, a3: T3, a4: T4) => R
 
+/** A function that returns a boolean. */
+export type Predicate<T> = (value: T) => boolean
+
+/** A function that tests if `value` is of type `U`. */
+export type Guard<T, U extends T> = (value: T) => value is U
+
 /** A function that takes zero or more arguments. */
 export type VariadicFunction0<R> = (...args: unknown[]) => R
 /** A function that takes one or more arguments. */
@@ -72,43 +78,8 @@ export type Widen<T> = T extends number
   ? boolean
   : T
 
-export type ArrayCallback<T, R> = (
-  value: T,
-  index: number,
-  array: readonly T[]
-) => R
-export type ArrayGuard<T, U extends T> = (
-  value: T,
-  index: number,
-  array: readonly T[]
-) => value is U
-export type ArrayPredicate<T> = ArrayCallback<T, boolean>
-export type LeftReducer<T, R> = (
-  /** The accumulated value so far. */
-  accumulator: R,
-  /** The current element of the array. */
-  value: T,
-  /** The index of the current element. */
-  index: number,
-  /** The array. */
-  array: readonly T[]
-) => R
-export type RightReducer<T, R> = (
-  /** The current element of the array. */
-  value: T,
-  /** The accumulated value so far. */
-  accumulator: R,
-  /** The index of the current element. */
-  index: number,
-  /** The array. */
-  array: readonly T[]
-) => R
-
-export type ObjectCallback<T extends object, K extends keyof T, U> = (
-  value: T[K],
-  key: K,
-  object: T
-) => U
+export type LeftReducer<T, R> = (accumulator: T, value: R) => R
+export type RightReducer<T, R> = (value: R, accumulator: T) => R
 
 /**
  * A Comparator is a function that determines the ordering between two values.
@@ -611,11 +582,11 @@ export function dropLast(n: number): <T>(array: readonly T[]) => T[]
  * ```
  */
 export function dropLastWhile<T>(
-  predicate: ArrayPredicate<T>,
+  predicate: Predicate<T>,
   array: readonly T[]
 ): T[]
 export function dropLastWhile<T>(
-  predicate: ArrayPredicate<T>
+  predicate: Predicate<T>
 ): (array: readonly T[]) => T[]
 
 /**
@@ -628,12 +599,9 @@ export function dropLastWhile<T>(
  * // => [2, 3]
  * ```
  */
+export function dropWhile<T>(predicate: Predicate<T>, array: readonly T[]): T[]
 export function dropWhile<T>(
-  predicate: ArrayPredicate<T>,
-  array: readonly T[]
-): T[]
-export function dropWhile<T>(
-  predicate: ArrayPredicate<T>
+  predicate: Predicate<T>
 ): (array: readonly T[]) => T[]
 
 /**
@@ -707,12 +675,9 @@ export function equalsBy<T, U>(
  * // => false
  * ```
  */
+export function every<T>(predicate: Predicate<T>, array: readonly T[]): boolean
 export function every<T>(
-  predicate: ArrayPredicate<T>,
-  array: readonly T[]
-): boolean
-export function every<T>(
-  predicate: ArrayPredicate<T>
+  predicate: Predicate<T>
 ): (array: readonly T[]) => boolean
 
 /**
@@ -731,11 +696,11 @@ export function every<T>(
  * ```
  */
 export function find<T>(
-  predicate: ArrayPredicate<T>,
+  predicate: Predicate<T>,
   array: readonly T[]
 ): T | undefined
 export function find<T>(
-  predicate: ArrayPredicate<T>
+  predicate: Predicate<T>
 ): (array: readonly T[]) => T | undefined
 
 /**
@@ -755,11 +720,11 @@ export function find<T>(
  * ```
  */
 export function findIndex<T>(
-  predicate: ArrayPredicate<T>,
+  predicate: Predicate<T>,
   array: readonly T[]
 ): number
 export function findIndex<T>(
-  predicate: ArrayPredicate<T>
+  predicate: Predicate<T>
 ): (array: readonly T[]) => number
 
 /**
@@ -778,11 +743,11 @@ export function findIndex<T>(
  * ```
  */
 export function findLast<T>(
-  predicate: ArrayPredicate<T>,
+  predicate: Predicate<T>,
   array: readonly T[]
 ): T | undefined
 export function findLast<T>(
-  predicate: ArrayPredicate<T>
+  predicate: Predicate<T>
 ): (array: readonly T[]) => T | undefined
 
 /**
@@ -802,11 +767,11 @@ export function findLast<T>(
  * ```
  */
 export function findLastIndex<T>(
-  predicate: ArrayPredicate<T>,
+  predicate: Predicate<T>,
   array: readonly T[]
 ): number
 export function findLastIndex<T>(
-  predicate: ArrayPredicate<T>
+  predicate: Predicate<T>
 ): (array: readonly T[]) => number
 
 /**
@@ -825,19 +790,15 @@ export function findLastIndex<T>(
  * ```
  */
 export function filter<T, U extends T>(
-  guard: ArrayGuard<T, U>,
+  guard: Guard<T, U>,
   array: readonly T[]
 ): U[]
-export function filter<T>(
-  predicate: ArrayPredicate<T>,
-  array: readonly T[]
-): T[]
 export function filter<T, U extends T>(
-  guard: ArrayGuard<T, U>
+  guard: Guard<T, U>
 ): (array: readonly T[]) => U[]
-export function filter<T>(
-  predicate: ArrayPredicate<T>
-): (array: readonly T[]) => T[]
+
+export function filter<T>(predicate: Predicate<T>, array: readonly T[]): T[]
+export function filter<T>(predicate: Predicate<T>): (array: readonly T[]) => T[]
 
 /**
  * Monadic bind.
@@ -852,12 +813,9 @@ export function filter<T>(
  * // => [1, 1, 2, 2, 3, 3]
  * ```
  */
+export function flatMap<T, U>(fn: (value: T) => U[], array: readonly T[]): U[]
 export function flatMap<T, U>(
-  fn: ArrayCallback<T, U[]>,
-  array: readonly T[]
-): U[]
-export function flatMap<T, U>(
-  fn: ArrayCallback<T, U[]>
+  fn: (value: T) => U[]
 ): (array: readonly T[]) => U[]
 
 /**
@@ -910,10 +868,8 @@ export function flip<T, U, R>(fn: Function2<T, U, R>): Function2<U, T, R>
  * // => [1, 2, 3]
  * ```
  */
-export function forEach<T>(fn: ArrayCallback<T, void>, array: readonly T[]): T[]
-export function forEach<T>(
-  fn: ArrayCallback<T, void>
-): (array: readonly T[]) => T[]
+export function forEach<T>(fn: (value: T) => void, array: readonly T[]): T[]
+export function forEach<T>(fn: (value: T) => void): (array: readonly T[]) => T[]
 
 /**
  * Create an object from an array of `[key, value]` pairs.
@@ -1164,25 +1120,25 @@ export function head<T>(array: readonly T[]): T | undefined
 export function identity<T>(value: T): T
 
 export function ifElse<T, U extends T, R1, R2>(
-  guard: (value: T) => value is U,
+  guard: Guard<T, U>,
   ifTrue: (value: U) => R1,
   ifFalse: (value: Exclude<T, U>) => R2,
   value: T
 ): R1 | R2
 export function ifElse<T, U extends T, R1, R2>(
-  guard: (value: T) => value is U,
+  guard: Guard<T, U>,
   ifTrue: (value: U) => R1,
   ifFalse: (value: Exclude<T, U>) => R2
 ): (value: T) => R1 | R2
 export function ifElse<T, U extends T, R1>(
-  guard: (value: T) => value is U,
+  guard: Guard<T, U>,
   ifTrue: (value: U) => R1
 ): {
   <R2>(ifFalse: (value: T) => R2, value: T): R1 | R2
   <R2>(ifFalse: (value: Exclude<T, U>) => R2): (value: T) => R1 | R2
 }
 export function ifElse<T, U extends T>(
-  guard: (value: T) => value is U
+  guard: Guard<T, U>
 ): {
   <R1, R2>(ifTrue: (value: U) => R1, ifFalse: (value: T) => R2, value: T):
     | R1
@@ -1565,8 +1521,8 @@ export function maximumBy<T>(
  * // => [2, 3, 4]
  * ```
  */
-export function map<T, U>(fn: ArrayCallback<T, U>, array: readonly T[]): U[]
-export function map<T, U>(fn: ArrayCallback<T, U>): (array: readonly T[]) => U[]
+export function map<T, U>(fn: (value: T) => U, array: readonly T[]): U[]
+export function map<T, U>(fn: (value: T) => U): (array: readonly T[]) => U[]
 
 /**
  * Return an array containing the results of applying `fn` to each element in
@@ -1586,11 +1542,11 @@ export function map<T, U>(fn: ArrayCallback<T, U>): (array: readonly T[]) => U[]
  * ```
  */
 export function mapMaybe<T, U>(
-  fn: ArrayCallback<T, U | undefined>,
+  fn: (value: T) => U | undefined,
   array: readonly T[]
 ): U[]
 export function mapMaybe<T, U>(
-  fn: ArrayCallback<T, U | undefined>
+  fn: (value: T) => U | undefined
 ): (array: readonly T[]) => U[]
 
 /**
@@ -1604,13 +1560,13 @@ export function mapMaybe<T, U>(
  * // => {a: 2, b: 3, c: 4}
  * ```
  */
-export function mapValues<T extends object, K extends keyof T, U>(
-  fn: ObjectCallback<T, K, U>,
+export function mapValues<T extends object, U>(
+  fn: (value: T[keyof T]) => U,
   object: T
-): Record<K, U>
-export function mapValues<T extends object, K extends keyof T, U>(
-  fn: ObjectCallback<T, K, U>
-): (object: T) => Record<K, U>
+): Record<keyof T, U>
+export function mapValues<V, U>(
+  fn: (value: V) => U
+): <T extends Record<string, V>>(object: T) => Record<keyof T, U>
 
 /**
  * Return the smaller of two values.
@@ -1740,12 +1696,9 @@ export function negate(n: number): number
  * // false
  * ```
  */
+export function none<T>(predicate: Predicate<T>, array: readonly T[]): boolean
 export function none<T>(
-  predicate: ArrayPredicate<T>,
-  array: readonly T[]
-): boolean
-export function none<T>(
-  predicate: ArrayPredicate<T>
+  predicate: Predicate<T>
 ): (array: readonly T[]) => boolean
 
 /** Flip the value of a boolean. */
@@ -1816,11 +1769,11 @@ export function pair<T>(first: T): <U>(second: U) => [T, U]
  * ```
  */
 export function partition<T>(
-  predicate: ArrayPredicate<T>,
+  predicate: Predicate<T>,
   array: readonly T[]
 ): [T[], T[]]
 export function partition<T>(
-  predicate: ArrayPredicate<T>
+  predicate: Predicate<T>
 ): (array: readonly T[]) => [T[], T[]]
 
 /**
@@ -2100,12 +2053,9 @@ export function slice(
  * // false
  * ```
  */
+export function some<T>(predicate: Predicate<T>, array: readonly T[]): boolean
 export function some<T>(
-  predicate: ArrayPredicate<T>,
-  array: readonly T[]
-): boolean
-export function some<T>(
-  predicate: ArrayPredicate<T>
+  predicate: Predicate<T>
 ): (array: readonly T[]) => boolean
 
 /**
@@ -2277,19 +2227,16 @@ export function takeLast<T>(n: number, array: readonly T[]): T[]
 export function takeLast<T>(n: number): (array: readonly T[]) => T[]
 
 export function takeLastWhile<T>(
-  predicate: ArrayPredicate<T>,
+  predicate: Predicate<T>,
   array: readonly T[]
 ): T[]
 export function takeLastWhile<T>(
-  predicate: ArrayPredicate<T>
+  predicate: Predicate<T>
 ): (array: readonly T[]) => T[]
 
+export function takeWhile<T>(predicate: Predicate<T>, array: readonly T[]): T[]
 export function takeWhile<T>(
-  predicate: ArrayPredicate<T>,
-  array: readonly T[]
-): T[]
-export function takeWhile<T>(
-  predicate: ArrayPredicate<T>
+  predicate: Predicate<T>
 ): (array: readonly T[]) => T[]
 
 /**
@@ -2404,16 +2351,16 @@ export function uniqBy<T, U>(fn: (value: T) => U): (array: readonly T[]) => T[]
  * ```
  */
 export function unless<T, U extends T, R>(
-  guard: (value: T) => value is U,
+  guard: Guard<T, U>,
   ifElse: (value: Exclude<T, U>) => R,
   value: T
 ): U | R
 export function unless<T, U extends T, R>(
-  guard: (value: T) => value is U,
+  guard: Guard<T, U>,
   ifFalse: (value: Exclude<T, U>) => R
 ): (value: T) => U | R
 export function unless<T, U extends T>(
-  guard: (value: T) => value is U
+  guard: Guard<T, U>
 ): {
   <R>(ifFalse: (value: Exclude<T, U>) => R, value: T): U | R
   <R>(ifFalse: (value: Exclude<T, U>) => R): (value: T) => U | R
@@ -2452,16 +2399,16 @@ export function unless<T>(
  * ```
  */
 export function when<T, U extends T, R>(
-  guard: (value: T) => value is U,
+  guard: Guard<T, U>,
   ifTrue: (value: U) => R,
   value: T
 ): Exclude<T, U> | R
 export function when<T, U extends T, R>(
-  guard: (value: T) => value is U,
+  guard: Guard<T, U>,
   ifTrue: (value: U) => R
 ): (value: T) => Exclude<T, U> | R
 export function when<T, U extends T>(
-  guard: (value: T) => value is U
+  guard: Guard<T, U>
 ): {
   <R>(ifTrue: (value: U) => R, value: T): Exclude<T, U> | R
   <R>(ifTrue: (value: T) => R): (value: T) => Exclude<T, U> | R

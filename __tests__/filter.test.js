@@ -8,16 +8,3 @@ it('returns the elements of an array that match a predicate', () => {
   expect(filter(isEven, [1, 2])).toEqual([2])
   expect(filter(isEven, [1, 2, 3])).toEqual([2])
 })
-
-it('passes the array index in the second argument', () => {
-  const fn = jest.fn()
-  const array = ['a', 'b', 'c']
-
-  filter(fn, array)
-
-  expect(fn.mock.calls).toEqual([
-    ['a', 0, array],
-    ['b', 1, array],
-    ['c', 2, array],
-  ])
-})

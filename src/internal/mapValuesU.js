@@ -5,8 +5,9 @@ export const mapValuesU = (fn, object) => {
 
   for (const key in object) {
     if (hasOwn(object, key)) {
-      result[key] = fn(object[key], key, object)
+      result[key] = fn(object[key])
     }
   }
+
   return result
 }
