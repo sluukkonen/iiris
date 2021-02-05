@@ -1,5 +1,5 @@
 import { getTag, regExpTag } from './internal/getTag'
-import { isObject } from './isObject'
+import { isObjectLike } from './internal/isObjectLike'
 
 export const isRegExp = (value) =>
-  isObject(value) && getTag(value) === regExpTag
+  isObjectLike(value) && getTag(value) === regExpTag

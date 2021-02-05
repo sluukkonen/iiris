@@ -1,5 +1,4 @@
 import { isArray } from '../isArray'
-import { isObject } from '../isObject'
 import {
   booleanTag,
   dateTag,
@@ -15,6 +14,7 @@ import {
 import { hasOwn } from './hasOwn'
 import { isSameValueZero } from './isSameValueZero'
 import { string, getPrototypeOf, objectKeys, objectProto } from './builtins'
+import { isObjectLike } from './isObjectLike'
 
 export const equalsU = (a, b, cycles) => {
   if (a === b) {
@@ -23,7 +23,7 @@ export const equalsU = (a, b, cycles) => {
 
   // If either one is not an object, we can bail out early if both values are
   // not NaN.
-  if (!isObject(a) || !isObject(b)) {
+  if (!isObjectLike(a) || !isObjectLike(b)) {
     return a !== a && b !== b
   }
 

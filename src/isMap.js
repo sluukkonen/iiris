@@ -1,4 +1,4 @@
 import { getTag, mapTag } from './internal/getTag'
-import { isObject } from './isObject'
+import { isObjectLike } from './internal/isObjectLike'
 
-export const isMap = (value) => isObject(value) && getTag(value) === mapTag
+export const isMap = (value) => isObjectLike(value) && getTag(value) === mapTag

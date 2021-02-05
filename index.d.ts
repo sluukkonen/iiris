@@ -625,12 +625,13 @@ export function entries<T extends NullableObject, K extends keyof T>(
 /**
  * Check if two values are deeply equal.
  *
- * - Primitive values are compared with {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness#same-value-zero_equality | SameValueZero.}
+ * - Primitive values are compared with [SameValueZero](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness#same-value-zero_equality).
  * - Objects with different prototypes are not equal.
  * - Only the own enumerable keys of objects are considered.
  * - The order of object keys does not matter.
- * - Sets and Map keys are compared with {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness#same-value-zero_equality | SameValueZero.}
+ * - Sets and Map keys are compared with [SameValueZero](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness#same-value-zero_equality).
  * - Error objects are equal if their `name` and `error` properties are equal.
+ * - Functions and are compared with `===`.
  * - Supports cyclic references.
  * - Does not support WeakMaps, WeakSets or typed arrays.
  */

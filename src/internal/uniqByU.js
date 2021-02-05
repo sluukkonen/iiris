@@ -1,6 +1,6 @@
-import { isObject } from '../isObject'
 import { equalsU } from './equalsU'
 import { indexOfBy } from './indexOfBy'
+import { isObjectLike } from './isObjectLike'
 
 export const uniqByU = (fn, array) => {
   const length = array.length
@@ -12,7 +12,7 @@ export const uniqByU = (fn, array) => {
     const value = array[i]
     const mapped = fn(value)
 
-    if (isObject(mapped)) {
+    if (isObjectLike(mapped)) {
       if (indexOfBy(equalsU, mapped, objects) === -1) {
         objects.push(mapped)
         result.push(value)

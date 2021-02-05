@@ -1,4 +1,5 @@
 import { dateTag, getTag } from './internal/getTag'
-import { isObject } from './isObject'
+import { isObjectLike } from './internal/isObjectLike'
 
-export const isDate = (value) => isObject(value) && getTag(value) === dateTag
+export const isDate = (value) =>
+  isObjectLike(value) && getTag(value) === dateTag

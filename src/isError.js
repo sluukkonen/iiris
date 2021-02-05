@@ -1,4 +1,5 @@
 import { errorTag, getTag } from './internal/getTag'
-import { isObject } from './isObject'
+import { isObjectLike } from './internal/isObjectLike'
 
-export const isError = (value) => isObject(value) && getTag(value) === errorTag
+export const isError = (value) =>
+  isObjectLike(value) && getTag(value) === errorTag

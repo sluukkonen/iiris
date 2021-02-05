@@ -1,4 +1,4 @@
 import { getTag, setTag } from './internal/getTag'
-import { isObject } from './isObject'
+import { isObjectLike } from './internal/isObjectLike'
 
-export const isSet = (value) => isObject(value) && getTag(value) === setTag
+export const isSet = (value) => isObjectLike(value) && getTag(value) === setTag
