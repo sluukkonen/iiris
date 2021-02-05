@@ -21,8 +21,8 @@ it('throws an error if called without any arguments', () => {
 it('returns functions with the name `compose1`', () => {
   const inc = (x) => x + 1
   expect(compose(inc).name).toBe('inc')
-  expect(compose(inc, inc).name).toBe('compose1')
-  expect(compose(inc, inc, inc).name).toBe('compose1')
-  expect(compose(inc, inc, inc, inc).name).toBe('compose1')
-  expect(compose(inc, inc, inc, inc, inc).name).toBe('compose1')
+  expect(compose(inc, inc).name).toBe('compose2')
+  expect(compose(inc, inc, inc).name).toBe('compose3')
+  expect(compose(inc, inc, inc, inc).name).toBe('composeN')
+  expect(compose(inc, inc, inc, inc, inc).name).toBe('composeN')
 })

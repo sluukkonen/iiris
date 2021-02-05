@@ -1,34 +1,28 @@
-export function compose(fn1) {
-  switch (arguments.length) {
+export function compose(...fns) {
+  switch (fns.length) {
     case 0:
       throw new TypeError('compose: empty argument list!')
     case 1:
-      return fn1
+      return fns[0]
     case 2: {
-      const fn2 = arguments[1]
-      return function compose1() {
-        return fn1(fn2.apply(this, arguments))
+      const [fn1, fn2] = fns
+      return function compose2(...args) {
+        return fn1(fn2(...args))
       }
     }
     case 3: {
-      const fn2 = arguments[1]
-      const fn3 = arguments[2]
-      return function compose1() {
-        return fn1(fn2(fn3.apply(this, arguments)))
+      const [fn1, fn2, fn3] = fns
+      return function compose3(...args) {
+        return fn1(fn2(fn3(...args)))
       }
     }
     default: {
-      const length = arguments.length
-      const fns = new Array(length)
-      for (let i = 0; i < length; i++) {
-        fns[i] = arguments[i]
-      }
+      return function composeN(...args) {
+        let i = fns.length - 1
+        let fn = fns[i]
+        let acc = fn(...args)
 
-      return function compose1() {
-        let fn = fns[length - 1]
-        let acc = fn.apply(this, arguments)
-
-        for (let i = length - 2; i >= 0; i--) {
+        while (i--) {
           fn = fns[i]
           acc = fn(acc)
         }
