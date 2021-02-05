@@ -8,9 +8,7 @@ it('creates an array with the specified function', () => {
 })
 
 it('throws an error if n is negative', () => {
-  expect(() => times(identity, -1)).toThrowError(
-    new RangeError('Invalid array length')
-  )
+  expect(times(identity, -1)).toEqual([])
 })
 
 it('throws an error if n is not an integer', () => {
