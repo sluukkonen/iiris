@@ -136,7 +136,7 @@ type GetsOr<T extends NullableHasKey<K>, K extends string, D> = Expand<
     : Get<T, K>
 >
 
-/** A helper type that sets the key K to value T in object T. */
+/** A helper type that sets the key K to value V in object T. */
 type Sets<T extends object, K extends string, V> = K extends keyof T
   ? V extends T[K]
     ? T
@@ -407,6 +407,21 @@ export function concat<T>(array: readonly T[]): (other: readonly T[]) => T[]
  * ```
  */
 export function constant<T>(value: T): () => T
+
+/**
+ * Count the number of elements in the `array` the satisfy the `predicate`.
+ *
+ * @example
+ *
+ * ```typescript
+ * S.count((n) => n > 1, [1, 2, 3])
+ * // => 2
+ * ```
+ */
+export function count<T>(predicate: Predicate<T>, array: readonly T[]): number
+export function count<T>(
+  predicate: Predicate<T>
+): (array: readonly T[]) => number
 
 /**
  * Apply `keyFn` to each element in the `array` and return an object of counts
