@@ -1,17 +1,10 @@
-export function pipe(initial) {
-  switch (arguments.length) {
-    case 0:
-    case 1:
-      return initial
-    default: {
-      let acc = initial
+export function pipe(initial, ...fns) {
+  let acc = initial
 
-      for (let i = 1; i < arguments.length; i++) {
-        const fn = arguments[i]
-        acc = fn(acc)
-      }
-
-      return acc
-    }
+  for (let i = 0; i < fns.length; i++) {
+    const fn = fns[i]
+    acc = fn(acc)
   }
+
+  return acc
 }
