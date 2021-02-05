@@ -429,6 +429,21 @@ export function flatten<D extends number>(
   depth: D
 ): <T extends readonly unknown[]>(array: T) => FlatArray<T, D>[]
 
+/**
+ * Flip the arguments of a binary function.
+ *
+ * @example
+ *
+ * ```typescript
+ * const fn = (...args) => args
+ * const flipped = S.flip(fn)
+ *
+ * flipped(1, 2, 3)
+ * // => [2, 1, 3]
+ * ```
+ */
+export function flip<T, U, R>(fn: Function2<T, U, R>): Function2<U, T, R>
+
 export function forEach<T>(fn: ArrayCallback<T, void>, array: readonly T[]): T[]
 export function forEach<T>(
   fn: ArrayCallback<T, void>
