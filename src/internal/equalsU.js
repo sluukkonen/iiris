@@ -15,6 +15,7 @@ import { hasOwn } from './hasOwn'
 import { isSameValueZero } from './isSameValueZero'
 import { string, getPrototypeOf, objectKeys, objectProto } from './builtins'
 import { isObjectLike } from './isObjectLike'
+import { isBoolean } from '../isBoolean'
 
 export const equalsU = (a, b, cycles) => {
   if (a === b) {
@@ -28,12 +29,8 @@ export const equalsU = (a, b, cycles) => {
   }
 
   // Fast path for plain objects
-  const aProto = getPrototypeOf(a)
-  if (aProto === objectProto) {
-    return getPrototypeOf(b) === objectProto && equalsObject(a, b, cycles)
-  } else if (getPrototypeOf(b) !== aProto) {
-    // If prototypes do not match, return false.
-    return false
+  if (getPrototypeOf(a) === objectProto && getPrototypeOf(b) === objectProto) {
+    return equalsObject(a, b, cycles)
   }
 
   // Fast path for arrays
@@ -73,19 +70,12 @@ const equalsArray = (a, b, cycles) => {
 
   if (length !== b.length) {
     return false
+  } else if (length === 0) {
+    return true
   }
 
-  if (cycles) {
-    const cycle = cycles.get(a)
-    if (cycle && cycles.get(b)) {
-      return cycle === b
-    }
-  } else {
-    cycles = new Map()
-  }
-
-  cycles.set(a, b)
-  cycles.set(b, a)
+  cycles = checkCycles(a, b, cycles)
+  if (isBoolean(cycles)) return cycles
 
   for (let i = 0; i < length; i++) {
     if (!equalsU(a[i], b[i], cycles)) {
@@ -93,9 +83,7 @@ const equalsArray = (a, b, cycles) => {
     }
   }
 
-  // Clear cycle map.
-  cycles.delete(a)
-  cycles.delete(b)
+  clearCycles(a, b, cycles)
 
   return true
 }
@@ -108,6 +96,8 @@ const equalsObject = (a, b, cycles) => {
 
   if (length !== bKeys.length) {
     return false
+  } else if (length === 0) {
+    return true
   }
 
   // As an optimization, try to find a key mismatch before starting to compare
@@ -118,17 +108,8 @@ const equalsObject = (a, b, cycles) => {
     }
   }
 
-  if (cycles) {
-    const cycle = cycles.get(a)
-    if (cycle && cycles.get(b)) {
-      return cycle === b
-    }
-  } else {
-    cycles = new Map()
-  }
-
-  cycles.set(a, b)
-  cycles.set(b, a)
+  cycles = checkCycles(a, b, cycles)
+  if (isBoolean(cycles)) return cycles
 
   // Keys match. Now compare the values.
   for (let i = 0; i < length; i++) {
@@ -138,16 +119,17 @@ const equalsObject = (a, b, cycles) => {
     }
   }
 
-  // Clear cycle map.
-  cycles.delete(a)
-  cycles.delete(b)
+  clearCycles(a, b, cycles)
 
   return true
 }
 
 const equalsSet = (a, b) => {
-  if (a.size !== b.size) {
+  const size = a.size
+  if (size !== b.size) {
     return false
+  } else if (size === 0) {
+    return true
   }
 
   for (const value of a) {
@@ -160,8 +142,11 @@ const equalsSet = (a, b) => {
 }
 
 const equalsMap = (a, b, cycles) => {
-  if (a.size !== b.size) {
+  const size = a.size
+  if (size !== b.size) {
     return false
+  } else if (size === 0) {
+    return true
   }
 
   // As an optimization, try to find a key mismatch before starting to compare
@@ -172,6 +157,22 @@ const equalsMap = (a, b, cycles) => {
     }
   }
 
+  cycles = checkCycles(a, b, cycles)
+  if (isBoolean(cycles)) return cycles
+
+  for (const [key, value] of a) {
+    if (!equalsU(value, b.get(key), cycles)) {
+      return false
+    }
+  }
+
+  clearCycles(a, b, cycles)
+
+  return true
+}
+
+// FIXME: This function is pretty weird. Clean it up at some point.
+const checkCycles = (a, b, cycles) => {
   if (cycles) {
     const cycle = cycles.get(a)
     if (cycle && cycles.get(b)) {
@@ -184,14 +185,10 @@ const equalsMap = (a, b, cycles) => {
   cycles.set(a, b)
   cycles.set(b, a)
 
-  for (const [key, value] of a) {
-    if (!equalsU(value, b.get(key), cycles)) {
-      return false
-    }
-  }
+  return cycles
+}
 
+const clearCycles = (a, b, cycles) => {
   cycles.delete(a)
   cycles.delete(b)
-
-  return true
 }

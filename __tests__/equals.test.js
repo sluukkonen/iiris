@@ -63,8 +63,12 @@ it('regular expressions', () => {
 
 it('arrays', () => {
   // Equal arrays
+  expectEquals([], [], true)
+  expectEquals([1], [1], true)
   expectEquals([1, 2, 3], [1, 2, 3], true)
   // Differing lengths
+  expectEquals([], [1], false)
+  expectEquals([1], [], false)
   expectEquals([1, 2], [1, 2, 3], false)
   expectEquals([1, 2, 3], [1, 2], false)
   // Differing contents
@@ -105,12 +109,13 @@ it('objects', () => {
   expectEquals(new A('a'), new A('a'), true)
   expectEquals(new A('a'), new A('b'), false)
   // Different prototypes
-  expectEquals({}, Object.create(null), false)
-  expectEquals(new (class {})(), new (class {})(), false)
+  expectEquals({}, Object.create(null), true)
+  expectEquals(new (class {})(), new (class {})(), true)
 })
 
 it('maps', () => {
   // Equal maps
+  expectEquals(new Map(), new Map(), true)
   expectEquals(
     new Map([
       ['a', 1],
@@ -168,6 +173,7 @@ it('maps', () => {
 
 it('sets', () => {
   // Equal sets
+  expectEquals(new Set(), new Set(), true)
   expectEquals(new Set([1, 2, 3]), new Set([1, 2, 3]), true)
   // Different order
   expectEquals(new Set([1, 2, 3]), new Set([3, 2, 1]), true)

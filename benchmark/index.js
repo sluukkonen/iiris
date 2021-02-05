@@ -368,7 +368,7 @@ const benchmarks = [
     name: 'equals.equal-numeric-arrays',
     params: [num1, num10, num100, num1000],
     benchmarks: (obj) => {
-      const clone = _.clone(obj)
+      const clone = _.cloneDeep(obj)
       return {
         soles: () => S.equals(obj, clone),
         lodash: () => _.isEqual(obj, clone),
@@ -381,7 +381,7 @@ const benchmarks = [
     name: 'equals.equal-object-arrays',
     params: [obj1, obj10, obj100, obj1000],
     benchmarks: (obj) => {
-      const clone = _.clone(obj)
+      const clone = _.cloneDeep(obj)
       return {
         soles: () => S.equals(obj, clone),
         lodash: () => _.isEqual(obj, clone),
@@ -398,6 +398,19 @@ const benchmarks = [
       ramda: () => R.equals(1, 1),
       native: () => util.isDeepStrictEqual(1, 1),
     }),
+  },
+  {
+    name: 'equals.empty-object',
+    benchmarks: () => {
+      const obj = {}
+      const clone = {}
+      return {
+        soles: () => S.equals(obj, clone),
+        lodash: () => _.isEqual(obj, clone),
+        ramda: () => R.equals(obj, clone),
+        native: () => util.isDeepStrictEqual(obj, clone),
+      }
+    },
   },
   {
     name: 'equals.object',
