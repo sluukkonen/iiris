@@ -287,6 +287,23 @@ export function clamp<T extends Ordered>(
   interval: [T, T]
 ): (value: Widen<T>) => Widen<T>
 
+/**
+ * Create a version of a predicate `fn` that flips the return value.
+ *
+ * @example
+ *
+ * ```typescript
+ * const isZero = (v) => v === 0
+ * const notZero = S.complement(isZero)
+ *
+ * notZero(0)
+ * // => false
+ *
+ * notZero(1)
+ * // => true
+ * ```
+ *
+ */
 export function complement<T extends VariadicFunction0<boolean>>(fn: T): T
 
 /**
@@ -1759,7 +1776,22 @@ export function none<T>(
   predicate: Predicate<T>
 ): (array: readonly T[]) => boolean
 
-/** Flip the value of a boolean. */
+/**
+ * Logical not. Flip the value of a boolean argument
+ *
+ * @example
+ *
+ * ```typescript
+ * S.not(true)
+ * // => false
+ *
+ * S.not(false)
+ * // => true
+ * ```
+ *
+ * @see complement
+ *
+ */
 export function not(bool: boolean): boolean
 
 /**
