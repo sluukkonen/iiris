@@ -569,6 +569,35 @@ export function dec(n: number): number
 export function descend<T>(fn: (value: T) => Ordered): Comparator<T>
 
 /**
+ * Calculate the [set
+ * difference](https://en.wikipedia.org/wiki/Complement_(set_theory)#Relative_complement)
+ * between the `first` array and the `second` array. Uses {@link equals} for
+ * determining equality.
+ *
+ * The relative order between elements is preserved.
+ *
+ * If you want to maximise performance and don't care about the ordering, it is
+ * usually best to put the _smaller_ array first.
+ *
+ * @example
+ *
+ * ```typescript
+ * S.difference([1, 2, 3], [4, 5, 6])
+ * // => [1, 2, 3]
+ *
+ * S.difference([1, 2, 3], [1, 2, 3])
+ * // => []
+ * ```
+ *
+ * @see union
+ * @see intersection
+ */
+export function difference<T>(first: readonly T[], second: readonly T[]): T[]
+export function difference<T>(
+  first: readonly T[]
+): (second: readonly T[]) => T[]
+
+/**
  * Divide `dividend` by the `divisor`.
  *
  * @example
@@ -1290,6 +1319,35 @@ export function indexOf<T>(value: T): (array: readonly T[]) => number
  * ```
  */
 export function init<T>(array: readonly T[]): T[]
+
+/**
+ * Calculate the [set
+ * intersection](https://en.wikipedia.org/wiki/Intersection_(set_theory))
+ * between the `first` array and the `second` array. Uses {@link equals} for
+ * determining equality.
+ *
+ * The relative order of between elements is preserved.
+ *
+ * If you want to maximise performance and don't care about the ordering, it is
+ * usually best to put the _smaller_ array first.
+ *
+ * @example
+ *
+ * ```typescript
+ * S.intersection([1, 2, 3], [4, 5, 6])
+ * // => []
+ *
+ * S.intersection([1, 2, 3], [1, 2, 3])
+ * // => [1, 2, 3]
+ * ```
+ *
+ * @see union
+ * @see difference
+ */
+export function intersection<T>(first: readonly T[], second: readonly T[]): T[]
+export function intersection<T>(
+  first: readonly T[]
+): (second: readonly T[]) => T[]
 
 export function intersperse<T>(separator: T, array: readonly T[]): T[]
 export function intersperse<T>(separator: T): (array: readonly T[]) => T[]
@@ -2389,10 +2447,36 @@ export function values<T extends NullableObject, K extends keyof T>(
 export function unary<T, R>(fn: VariadicFunction1<T, R>): Function1<T, R>
 
 /**
+ * Calculate the [set union](https://en.wikipedia.org/wiki/Union_(set_theory))
+ * between the `first` array and the `second` array. Uses {@link equals} for
+ * determining equality.
+ *
+ * The order of the elements is preserved.
+ *
+ * If you want to maximise performance and don't care about the ordering, it is
+ * usually best to put the _larger_ array first.
+ *
+ * @example
+ *
+ * ```typescript
+ * S.union([1, 2, 3], [4, 5, 6])
+ * // => [1, 2, 3, 4, 5, 6]
+ *
+ * S.union([1, 2, 3], [1, 2, 3])
+ * // => [1, 2, 3]
+ * ```
+ *
+ * @see intersection
+ * @see difference
+ */
+export function union<T>(first: readonly T[], second: readonly T[]): T[]
+export function union<T>(first: readonly T[]): (second: readonly T[]) => T[]
+
+/**
  * Remove duplicate values from `array`. Uses {@link equals}. for determining
  * equality.
  *
- * Preserves the original order of elements.
+ * The relative order between elements is preserved.
  *
  * @example
  *
@@ -2409,7 +2493,7 @@ export function uniq<T>(array: readonly T[]): T[]
  * Like {@link uniq}, but `fn` is applied to each element before determining
  * their equality.
  *
- * Preserves the original order of elements.
+ * The relative order between elements is preserved.
  *
  * @example
  *

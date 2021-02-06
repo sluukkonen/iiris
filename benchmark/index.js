@@ -613,6 +613,86 @@ const benchmarks = [
       lodash: () => _.mapValues((x) => x + 1, obj),
     }),
   },
+  {
+    name: 'union.primitive',
+    params: [
+      [num10, num1],
+      [num100, num10],
+      [num1000, num100],
+      [num10000, num1000],
+    ],
+    benchmarks: ([arr1, arr2]) => ({
+      soles: () => S.union(arr1, arr2),
+      ramda: () => R.union(arr1, arr2),
+      lodash: () => _.union(arr1, arr2),
+    }),
+  },
+  {
+    name: 'union.object',
+    params: [
+      [obj10, obj1],
+      [obj100, obj10],
+    ],
+    benchmarks: ([arr1, arr2]) => ({
+      soles: () => S.union(arr1, arr2),
+      ramda: () => R.union(arr1, arr2),
+      lodash: () => _.unionWith(_.isEqual, arr1, arr2),
+    }),
+  },
+  {
+    name: 'intersection.primitive',
+    params: [
+      [num1, num10],
+      [num10, num100],
+      [num100, num1000],
+      [num1000, num10000],
+    ],
+    benchmarks: ([arr1, arr2]) => ({
+      soles: () => S.intersection(arr1, arr2),
+      ramda: () => R.intersection(arr1, arr2),
+      lodash: () => _.intersection(arr1, arr2),
+    }),
+  },
+  {
+    name: 'intersection.object',
+    params: [
+      [obj1, obj10],
+      [obj10, obj100],
+      [obj100, obj1000],
+    ],
+    benchmarks: ([arr1, arr2]) => ({
+      soles: () => S.intersection(arr1, arr2),
+      ramda: () => R.intersection(arr1, arr2),
+      lodash: () => _.intersectionWith(_.isEqual, arr1, arr2),
+    }),
+  },
+  {
+    name: 'difference.primitive',
+    params: [
+      [num1, num10],
+      [num10, num100],
+      [num100, num1000],
+      [num1000, num10000],
+    ],
+    benchmarks: ([arr1, arr2]) => ({
+      soles: () => S.difference(arr1, arr2),
+      ramda: () => R.difference(arr1, arr2),
+      lodash: () => _.difference(arr1, arr2),
+    }),
+  },
+  {
+    name: 'difference.object',
+    params: [
+      [obj1, obj10],
+      [obj10, obj100],
+      [obj100, obj1000],
+    ],
+    benchmarks: ([arr1, arr2]) => ({
+      soles: () => S.difference(arr1, arr2),
+      ramda: () => R.difference(arr1, arr2),
+      lodash: () => _.differenceWith(_.isEqual, arr1, arr2),
+    }),
+  },
 ]
 
 const argv = require('yargs')
@@ -656,7 +736,13 @@ const suites = benchmarks
       }
 
       benchmarks.forEach(({ name, fn }) => {
-        suite.add(padName(name), fn)
+        // As a side-effect, write the result of each run into a variable, so v8
+        // doesn't optimize the benchmark into the ether.
+        let blackhole
+        suite.add(padName(name), () => {
+          // eslint-disable-next-line no-unused-vars
+          blackhole = fn()
+        })
       })
 
       return suite
