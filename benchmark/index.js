@@ -702,51 +702,61 @@ const argv = require('yargs')
   })
   .option('libraries', {
     alias: 'l',
-    description: 'Comma-separated list of libraries to benchmark',
+    type: 'array',
+    description: 'List of libraries to benchmark',
     choices: ['soles', 'lodash', 'ramda', 'native'],
-    coerce: (s) => s.split(','),
+  })
+  .option('sizes', {
+    alias: 'n',
+    description: 'List of benchmark sizes to run',
+    type: 'array',
+    default: [],
+    coerce: (s) => s.map(Number),
   }).argv
 
 const suites = benchmarks
   .filter((suite) => suite.name.includes(argv.suites || ''))
   .flatMap(({ name, params = [undefined], benchmarks: mkBenchmarks }) => {
-    return params.map((param) => {
-      const suiteName = param != null ? `${name} (n=${_.size(param)})` : name
-      const suite = new Benchmark.Suite(suiteName)
+    return params
+      .map((param) => ({ param, size: _.size(param) }))
+      .filter(({ size }) => !argv.sizes.length || argv.sizes.includes(size))
+      .map(({ param, size }) => {
+        const suiteName = param != null ? `${name} (n=${size})` : name
+        const suite = new Benchmark.Suite(suiteName)
 
-      const benchmarks = Object.entries(mkBenchmarks(param))
-        .filter(([name]) => !argv.libraries || argv.libraries.includes(name))
-        .map(([name, fn]) => ({ name, fn }))
+        const benchmarks = Object.entries(mkBenchmarks(param))
+          .filter(([name]) => !argv.libraries || argv.libraries.includes(name))
+          .map(([name, fn]) => ({ name, fn }))
 
-      const maxLength = benchmarks
-        .map(({ name }) => name.length)
-        .reduce((a, b) => Math.max(a, b))
-      const padName = (name) => name.padEnd(maxLength, ' ')
+        const maxLength = benchmarks
+          .map(({ name }) => name.length)
+          .reduce((a, b) => Math.max(a, b))
+        const padName = (name) => name.padEnd(maxLength, ' ')
 
-      const serialize = (x) =>
-        x !== null && typeof x === 'object' ? JSON.stringify(x) : x
-      const expectedResult = serialize(benchmarks[0].fn())
-      const mismatch = benchmarks.find(
-        ({ fn }) => !Object.is(serialize(fn()), expectedResult)
-      )
-      if (mismatch) {
-        throw new Error(
-          `the result of ${mismatch.name} in ${name} doesn't match the expected result!`
+        const serialize = (x) =>
+          x !== null && typeof x === 'object' ? JSON.stringify(x) : x
+        const expectedResult = serialize(benchmarks[0].fn())
+        const mismatch = benchmarks.find(
+          ({ fn }) => !Object.is(serialize(fn()), expectedResult)
         )
-      }
+        if (mismatch) {
+          throw new Error(
+            `the result of ${mismatch.name} in ${name} doesn't match the expected result!`
+          )
+        }
 
-      benchmarks.forEach(({ name, fn }) => {
-        // As a side-effect, write the result of each run into a variable, so v8
-        // doesn't optimize the benchmark into the ether.
-        let blackhole
-        suite.add(padName(name), () => {
-          // eslint-disable-next-line no-unused-vars
-          blackhole = fn()
+        benchmarks.forEach(({ name, fn }) => {
+          // As a side-effect, write the result of each run into a variable, so v8
+          // doesn't optimize the benchmark into the ether.
+          let blackhole
+          suite.add(padName(name), () => {
+            // eslint-disable-next-line no-unused-vars
+            blackhole = fn()
+          })
         })
-      })
 
-      return suite
-    })
+        return suite
+      })
   })
 
 const write = process.stdout.write.bind(process.stdout)
