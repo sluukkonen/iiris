@@ -1577,6 +1577,27 @@ export function mapMaybe<T, U>(
 ): (array: readonly T[]) => U[]
 
 /**
+ * Return an object containing the results of applying `fn` to each key of
+ * the original `object`.
+ *
+ * If multiple keys map to the same new key, the latest value is selected.
+ *
+ * @example
+ *
+ * ```typescript
+ * S.mapKeys((k) => k.toUpperCase(), { a: 1, b: 2, c: 3 })
+ * // => { A: 1, B: 2, C: 3 }
+ * ```
+ */
+export function mapKeys<T extends object, K extends PropertyKey>(
+  fn: (key: keyof T) => K,
+  object: T
+): Record<K, T[keyof T]>
+export function mapKeys<T extends object, K extends PropertyKey>(
+  fn: (value: keyof T) => K
+): (object: T) => Record<K, T[keyof T]>
+
+/**
  * Return an object containing the results of applying `fn` to each value of
  * the original `object`.
  *
@@ -1587,13 +1608,13 @@ export function mapMaybe<T, U>(
  * // => {a: 2, b: 3, c: 4}
  * ```
  */
-export function mapValues<T extends object, U>(
-  fn: (value: T[keyof T]) => U,
+export function mapValues<T extends object, V>(
+  fn: (value: T[keyof T]) => V,
   object: T
-): Record<keyof T, U>
-export function mapValues<V, U>(
-  fn: (value: V) => U
-): <T extends Record<string, V>>(object: T) => Record<keyof T, U>
+): Record<keyof T, V>
+export function mapValues<T extends object, V>(
+  fn: (value: T[keyof T]) => V
+): (object: T) => Record<keyof T, V>
 
 /**
  * Return the smaller of two values.
@@ -1955,9 +1976,9 @@ export function pickBy<T extends object>(
   predicate: (value: T[keyof T], key: keyof T) => boolean,
   object: T
 ): Partial<T>
-export function pickBy<K extends string, V>(
-  predicate: (value: V, key: K) => boolean
-): <T extends HasKey<K, V>>(object: T) => Partial<T>
+export function pickBy<T extends object>(
+  predicate: (value: T[keyof T], key: keyof T) => boolean
+): (object: T) => Partial<T>
 
 export function pipe<T>(initial: T): T
 export function pipe<T, R>(initial: T, fn1: Function1<T, R>): R
