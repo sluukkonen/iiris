@@ -165,44 +165,6 @@ export function add(n: number, m: number): number
 export function add(n: number): (m: number) => number
 
 /**
- * Create a version of `fn` that accepts `n` arguments.
- *
- * @example
- *
- * ```typescript
- * const fn = (...args) => args
- * const wrapped = S.arity(2, fn)
- *
- * fn(1, 2, 3)
- * // => [1, 2, 3]
- *
- * wrapped(1, 2, 3)
- * // => [1, 2]
- * ```
- *
- * @see unary
- * @see binary
- */
-export function arity<R>(n: 0, fn: VariadicFunction0<R>): Function0<R>
-export function arity<T, R>(n: 1, fn: VariadicFunction1<T, R>): Function1<T, R>
-export function arity<T1, T2, R>(
-  n: 2,
-  fn: VariadicFunction2<T1, T2, R>
-): Function2<T1, T2, R>
-export function arity<T1, T2, T3, R>(
-  n: 3,
-  fn: VariadicFunction3<T1, T2, T3, R>
-): Function3<T1, T2, T3, R>
-export function arity<T1, T2, T3, T4, R>(
-  n: 4,
-  fn: VariadicFunction4<T1, T2, T3, T4, R>
-): Function4<T1, T2, T3, T4, R>
-export function arity<R>(
-  n: number,
-  fn: VariadicFunction0<R>
-): VariadicFunction0<R>
-
-/**
  * Append a new element to the end of an array.
  *
  * @example
@@ -251,7 +213,6 @@ export function ascend<T>(fn: (value: T) => Ordered): Comparator<T>
  * ```
  *
  * @see unary
- * @see arity
  */
 export function binary<T1, T2, R>(
   fn: VariadicFunction2<T1, T2, R>
@@ -2343,7 +2304,6 @@ export function values<T extends NullableObject, K extends keyof T>(
  * ```
  *
  * @see binary
- * @see arity
  */
 export function unary<T, R>(fn: VariadicFunction1<T, R>): Function1<T, R>
 

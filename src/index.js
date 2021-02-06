@@ -1,6 +1,5 @@
 export { add } from './add'
 export { append } from './append'
-export { arity } from './arity'
 export { ascend } from './ascend'
 export { binary } from './binary'
 export { clamp } from './clamp'

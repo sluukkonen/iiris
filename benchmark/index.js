@@ -55,24 +55,6 @@ const benchmarks = [
     },
   },
   {
-    name: 'arity.generic',
-    benchmarks: () => {
-      const Sarity4 = S.arity(4, (a, b, c, d, e) => e)
-      const _arity4 = _.ary(4, (a, b, c, d, e) => e)
-      const Rarity4 = R.nAry(4, (a, b, c, d, e) => e)
-      const arity4 = ((fn) => (a, b, c, d) => fn(a, b, c, d))(
-        (a, b, c, d, e) => e
-      )
-
-      return {
-        soles: () => Sarity4(1, 2, 3, 4, 5),
-        lodash: () => _arity4(1, 2, 3, 4, 5),
-        ramda: () => Rarity4(1, 2, 3, 4, 5),
-        native: () => arity4(1, 2, 3, 4, 5),
-      }
-    },
-  },
-  {
     name: 'curry.specialized.partial',
     benchmarks: () => {
       const Sadd = S.curry((a, b, c) => a + b + c)
