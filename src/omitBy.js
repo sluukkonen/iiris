@@ -1,4 +1,4 @@
-import { curry2 } from './internal/curry2'
+import { curry2 } from './curry2'
 import { omitByU } from './internal/omitByU'
 import { setName } from './internal/setName'
 

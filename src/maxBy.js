@@ -1,4 +1,4 @@
-import { curry3 } from './internal/curry3'
+import { curry3 } from './curry3'
 import { maxByU } from './internal/maxByU'
 import { setName } from './internal/setName'
 

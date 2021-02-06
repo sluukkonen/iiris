@@ -39,7 +39,7 @@ const obj100000 = num100000.map(createObj)
 
 const benchmarks = [
   {
-    name: 'arity.specialized',
+    name: 'unary',
     benchmarks: () => {
       const Sunary = S.unary((a, b) => b)
       const _unary = _.unary((a, b) => b)
@@ -55,9 +55,9 @@ const benchmarks = [
     },
   },
   {
-    name: 'curry.specialized.partial',
+    name: 'curry.partial',
     benchmarks: () => {
-      const Sadd = S.curry((a, b, c) => a + b + c)
+      const Sadd = S.curry3((a, b, c) => a + b + c)
       const _add = _.curry((a, b, c) => a + b + c)
       const Radd = R.curry((a, b, c) => a + b + c)
       const add = (a) => (b) => (c) => a + b + c
@@ -71,9 +71,9 @@ const benchmarks = [
     },
   },
   {
-    name: 'curry.specialized.full',
+    name: 'curry.full',
     benchmarks: () => {
-      const Sadd = S.curry((a, b, c) => a + b + c)
+      const Sadd = S.curry3((a, b, c) => a + b + c)
       const _add = _.curry((a, b, c) => a + b + c)
       const Radd = R.curry((a, b, c) => a + b + c)
       const add = (a, b, c) => a + b + c
@@ -87,9 +87,9 @@ const benchmarks = [
     },
   },
   {
-    name: 'curry.specialized.last',
+    name: 'curry.last',
     benchmarks: () => {
-      const Sadd = S.curry((a, b, c) => a + b + c)(1, 2)
+      const Sadd = S.curry3((a, b, c) => a + b + c)(1, 2)
       const _add = _.curry((a, b, c) => a + b + c)(1, 2)
       const Radd = R.curry((a, b, c) => a + b + c)(1, 2)
       const add = ((a, b) => (c) => a + b + c)(1, 2)
@@ -99,54 +99,6 @@ const benchmarks = [
         lodash: () => _add(3),
         ramda: () => Radd(3),
         native: () => add(3),
-      }
-    },
-  },
-  {
-    name: 'curry.generic.full',
-    benchmarks: () => {
-      const Sadd = S.curry((a, b, c, d) => a + b + c + d)
-      const _add = _.curry((a, b, c, d) => a + b + c + d)
-      const Radd = R.curry((a, b, c, d) => a + b + c + d)
-      const add = (a, b, c, d) => a + b + c + d
-
-      return {
-        soles: () => Sadd(1, 2, 3, 4),
-        lodash: () => _add(1, 2, 3, 4),
-        ramda: () => Radd(1, 2, 3, 4),
-        native: () => add(1, 2, 3, 4),
-      }
-    },
-  },
-  {
-    name: 'curry.generic.partial',
-    benchmarks: () => {
-      const Sadd = S.curry((a, b, c, d) => a + b + c + d)
-      const _add = _.curry((a, b, c, d) => a + b + c + d)
-      const Radd = R.curry((a, b, c, d) => a + b + c + d)
-      const add = (a) => (b) => (c) => (d) => a + b + c + d
-
-      return {
-        soles: () => Sadd(1)(2)(3)(4),
-        lodash: () => _add(1)(2)(3)(4),
-        ramda: () => Radd(1)(2)(3)(4),
-        native: () => add(1)(2)(3)(4),
-      }
-    },
-  },
-  {
-    name: 'curry.generic.last',
-    benchmarks: () => {
-      const Sadd = S.curry((a, b, c, d) => a + b + c + d)(1, 2, 3)
-      const _add = _.curry((a, b, c, d) => a + b + c + d)(1, 2, 3)
-      const Radd = R.curry((a, b, c, d) => a + b + c + d)(1, 2, 3)
-      const add = ((a, b, c) => (d) => a + b + c + d)(1, 2, 3)
-
-      return {
-        soles: () => Sadd(4),
-        lodash: () => _add(4),
-        ramda: () => Radd(4),
-        native: () => add(4),
       }
     },
   },

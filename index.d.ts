@@ -1,5 +1,16 @@
 // Function type aliases
 
+/** An empty tuple. */
+type Tuple0 = []
+/** A tuple with 1 element. */
+type Tuple1 = [unknown]
+/** A tuple with 2 elements. */
+type Tuple2 = [unknown, unknown]
+/** A tuple with 3 elements. */
+type Tuple3 = [unknown, unknown, unknown]
+/** A tuple with 4 elements. */
+type Tuple4 = [unknown, unknown, unknown, unknown]
+
 /** A function that takes no arguments. */
 export type Function0<R> = () => R
 /** A function that takes one argument. */
@@ -43,25 +54,59 @@ export type VariadicFunction4<T1, T2, T3, T4, R> = (
   ...args: unknown[]
 ) => R
 
-/** A curried function that takes up to two arguments. */
-export type CurriedFunction2<T1, T2, R> = {
-  (a1: T1): Function1<T2, R>
-  (a1: T1, a2: T2): R
+/** Drop the first element of a tuple. */
+type Drop1<T extends unknown[]> = T extends [unknown, ...infer U] ? U : never
+/** Drop the first two elements of a tuple. */
+type Drop2<T extends unknown[]> = T extends [unknown, unknown, ...infer U]
+  ? U
+  : never
+/** Drop the first three elements of a tuple. */
+type Drop3<T extends unknown[]> = T extends [
+  unknown,
+  unknown,
+  unknown,
+  ...infer U
+]
+  ? U
+  : never
+
+/** Drop the last element from a tuple. */
+type DropLast1<T extends unknown[]> = T extends [...infer U, unknown]
+  ? U
+  : never
+/** Drop the last two elements of a tuple. */
+type DropLast2<T extends unknown[]> = T extends [...infer U, unknown, unknown]
+  ? U
+  : never
+/** Drop the last three elements of a tuple. */
+type DropLast3<T extends unknown[]> = T extends [
+  ...infer U,
+  unknown,
+  unknown,
+  unknown
+]
+  ? U
+  : never
+
+/** A curried function of two arguments. */
+export type CurriedFunction2<T extends unknown[], R> = {
+  (...args: T): R
+  (...args: DropLast1<T>): (...args: Drop1<T>) => R
 }
 
-/** A curried function that takes up to three arguments. */
-export type CurriedFunction3<T1, T2, T3, R> = {
-  (a1: T1): CurriedFunction2<T2, T3, R>
-  (a1: T1, a2: T2): Function1<T3, R>
-  (a1: T1, a2: T2, a3: T3): R
+/** A curried function of three arguments. */
+type CurriedFunction3<T extends unknown[], R> = {
+  (...args: T): R
+  (...args: DropLast1<T>): (...args: Drop2<T>) => R
+  (...args: DropLast2<T>): CurriedFunction2<Drop1<T>, R>
 }
 
-/** A curried function that takes up to four arguments. */
-export type CurriedFunction4<T1, T2, T3, T4, R> = {
-  (a1: T1): CurriedFunction3<T2, T3, T4, R>
-  (a1: T1, a2: T2): CurriedFunction2<T3, T4, R>
-  (a1: T1, a2: T2, a3: T3): Function1<T4, R>
-  (a1: T1, a2: T2, a3: T3, a4: T4): R
+/** A curried function of four arguments. */
+type CurriedFunction4<T extends unknown[], R> = {
+  (...args: T): R
+  (...args: DropLast1<T>): (...args: Drop3<T>) => R
+  (...args: DropLast2<T>): CurriedFunction2<Drop2<T>, R>
+  (...args: DropLast3<T>): CurriedFunction3<Drop1<T>, R>
 }
 
 /** A data type that can be compared with the `<` and `>` operators. */
@@ -410,66 +455,70 @@ export function countBy<T, K extends PropertyKey>(
 ): (array: readonly T[]) => Record<K, number>
 
 /**
- * Create a curried version of `fn`. The arity of the curried function is
- * determined by the original function's `length` attribute.
+ * Create a curried version of a `fn` taking two arguments.
  *
  * @example
  *
  * ```typescript
- *  const add = S.curry((a, b) => a + b)
+ *  const add = S.curry2((a, b) => a + b)
  *
  *  add(1)(2)
  *  // => 3
  *
  *  add(1, 2)
+ *  // => 3
+ * ```
+ *
+ * @see curry3
+ * @see curry4
+ */
+export function curry2<T extends Tuple2, R>(
+  fn: (...args: T) => R
+): CurriedFunction2<T, R>
+
+/**
+ * Create a curried version of a `fn` taking three arguments.
+ *
+ * @example
+ *
+ * ```typescript
+ *  const add = S.curry3((a, b, c) => a + b + c)
+ *
+ *  add(1)(2)(3)
+ *  // => 6
+ *
+ *  add(1, 2, 3)
  *  // => 6
  * ```
  *
- * @see curryN
+ * @see curry2
+ * @see curry4
  */
-export function curry<R>(fn: Function0<R>): Function0<R>
-export function curry<T, R>(fn: Function1<T, R>): Function1<T, R>
-export function curry<T1, T2, R>(
-  fn: Function2<T1, T2, R>
-): CurriedFunction2<T1, T2, R>
-export function curry<T1, T2, T3, R>(
-  fn: Function3<T1, T2, T3, R>
-): CurriedFunction3<T1, T2, T3, R>
-export function curry<T1, T2, T3, T4, R>(
-  fn: Function4<T1, T2, T3, T4, R>
-): CurriedFunction4<T1, T2, T3, T4, R>
+export function curry3<T extends Tuple3, R>(
+  fn: (...args: T) => R
+): CurriedFunction3<T, R>
 
 /**
- * Create a curried version of `fn` with arity of `n`.
+ * Create a curried version of a `fn` taking four arguments.
  *
  * @example
  *
  * ```typescript
- *  const add = S.curryN(2, (a, b) => a + b)
+ *  const add = S.curry4((a, b, c, d) => a + b + c + d)
  *
- *  add(1)(2)
- *  // => 3
+ *  add(1)(2)(3)(4)
+ *  // => 10
  *
- *  add(1, 2)
- *  // => 3
+ *  add(1, 2, 3, 4)
+ *  // => 10
  * ```
  *
- * @see curry
+ * @see curry2
+ * @see curry3
  */
-export function curryN<F extends CallableFunction>(n: 0, fn: F): F
-export function curryN<F extends CallableFunction>(n: 1, fn: F): F
-export function curryN<T1, T2, R>(
-  n: 2,
-  fn: VariadicFunction2<T1, T2, R>
-): CurriedFunction2<T1, T2, R>
-export function curryN<T1, T2, T3, R>(
-  n: 3,
-  fn: VariadicFunction3<T1, T2, T3, R>
-): CurriedFunction3<T1, T2, T3, R>
-export function curryN<T1, T2, T3, T4, R>(
-  n: 4,
-  fn: VariadicFunction4<T1, T2, T3, T4, R>
-): CurriedFunction4<T1, T2, T3, T4, R>
+export function curry4<T extends Tuple4, R>(
+  fn: (...args: T) => R
+): CurriedFunction4<T, R>
 
 /**
  * Decrement a number by 1.

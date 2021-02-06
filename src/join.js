@@ -1,4 +1,4 @@
-import { curry2 } from './internal/curry2'
+import { curry2 } from './curry2'
 import { joinU } from './internal/joinU'
 import { setName } from './internal/setName'
 

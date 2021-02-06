@@ -1,4 +1,4 @@
-import { curry3 } from './internal/curry3'
+import { curry3 } from './curry3'
 import { getOrU } from './internal/getOrU'
 import { setName } from './internal/setName'
 
