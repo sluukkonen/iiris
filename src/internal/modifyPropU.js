@@ -1,15 +1,13 @@
 import { isUndefined } from '../isUndefined'
-import { copyObject } from './copyObject'
 
 export const modifyPropU = (key, fn, object) => {
-  const result = copyObject(object)
   const value = fn(object[key])
 
   if (isUndefined(value)) {
-    delete result[key]
+    // eslint-disable-next-line no-unused-vars
+    const { [key]: ignore, ...rest } = object
+    return rest
   } else {
-    result[key] = value
+    return { ...object, [key]: value }
   }
-
-  return result
 }

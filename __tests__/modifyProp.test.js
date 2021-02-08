@@ -19,11 +19,3 @@ it('removes the property if the function returns undefined', () => {
   expect(modifyProp('c', noop, obj)).toEqual({ a: 1, b: 2 })
   expect(modifyProp('d', noop, obj)).toEqual(obj)
 })
-
-it('throws an error if the target is not an object', () => {
-  const one = () => 1
-
-  expect(() => modifyProp('a', one, null)).toThrowError(TypeError)
-  expect(() => modifyProp('a', one, undefined)).toThrowError(TypeError)
-  expect(() => modifyProp('a', one, '')).toThrowError(TypeError)
-})

@@ -17,9 +17,3 @@ it('removes the property if value is undefined', () => {
   expect(setProp('c', undefined, obj)).toEqual({ a: 1, b: 2 })
   expect(setProp('d', undefined, obj)).toEqual(obj)
 })
-
-it('throws an error if the target is not an object', () => {
-  expect(() => setProp('a', 1, null)).toThrowError(TypeError)
-  expect(() => setProp('a', 1, undefined)).toThrowError(TypeError)
-  expect(() => setProp('a', 1, '')).toThrowError(TypeError)
-})
