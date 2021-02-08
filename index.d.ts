@@ -28,6 +28,9 @@ export type Predicate<T> = (value: T) => boolean
 /** A function that tests if `value` is of type `U`. */
 export type Guard<T, U extends T> = (value: T) => value is U
 
+/** A function that calculate whether two values are equal. */
+export type Equals<T> = (value: T, other: T) => boolean
+
 /** A function that takes zero or more arguments. */
 export type VariadicFunction0<R> = (...args: unknown[]) => R
 /** A function that takes one or more arguments. */
@@ -571,22 +574,16 @@ export function descend<T>(fn: (value: T) => Ordered): Comparator<T>
 /**
  * Calculate the [set
  * difference](https://en.wikipedia.org/wiki/Complement_(set_theory)#Relative_complement)
- * between the `first` array and the `second` array. Uses {@link equals} for
+ * between the `first` array and the `second` array, using {@link equals} for
  * determining equality.
  *
- * The relative order between elements is preserved.
- *
- * If you want to maximise performance and don't care about the ordering, it is
- * usually best to put the _smaller_ array first.
+ * Will not remove duplicates from the `first` array.
  *
  * @example
  *
  * ```typescript
- * S.difference([1, 2, 3], [4, 5, 6])
- * // => [1, 2, 3]
- *
- * S.difference([1, 2, 3], [1, 2, 3])
- * // => []
+ * S.difference([1, 2, 3], [2, 3, 4])
+ * // => [1]
  * ```
  *
  * @see union
@@ -596,6 +593,47 @@ export function difference<T>(first: readonly T[], second: readonly T[]): T[]
 export function difference<T>(
   first: readonly T[]
 ): (second: readonly T[]) => T[]
+
+/**
+ * Like {@link difference}, but using a custom equality function.
+ *
+ * @example
+ *
+ * ```typescript
+ * const users = [
+ *   { id: 1, name: 'Alice' },
+ *   { id: 2, name: 'Bob' },
+ *   { id: 3, name: 'Carol' },
+ * ]
+ * const otherUsers = [
+ *   { id: 2, name: 'Bob' },
+ *   { id: 3, name: 'Carol' },
+ *   { id: 4, name: 'Dan' }
+ * ]
+ *
+ * S.differenceWith((a, b) => a.id === b.id, users, otherUsers)
+ * // => [ { id: 1, name: 'Alice' } ]
+ * ```
+ *
+ * @see difference
+ * @see unionWith
+ * @see intersectionWith
+ */
+export function differenceWith<T>(
+  equals: Equals<T>,
+  array: readonly T[],
+  other: readonly T[]
+): T[]
+export function differenceWith<T>(
+  equals: Equals<T>,
+  array: readonly T[]
+): (other: readonly T[]) => T[]
+export function differenceWith<T>(
+  equals: Equals<T>
+): {
+  (array: readonly T[], other: readonly T[]): T[]
+  (array: readonly T[]): (other: readonly T[]) => T[]
+}
 
 /**
  * Divide `dividend` by the `divisor`.
@@ -1341,22 +1379,16 @@ export function init<T>(array: readonly T[]): T[]
 /**
  * Calculate the [set
  * intersection](https://en.wikipedia.org/wiki/Intersection_(set_theory))
- * between the `first` array and the `second` array. Uses {@link equals} for
+ * between the `first` array and the `second` array, using {@link equals} for
  * determining equality.
  *
- * The relative order of between elements is preserved.
- *
- * If you want to maximise performance and don't care about the ordering, it is
- * usually best to put the _smaller_ array first.
+ * Will not remove duplicates from the first array.
  *
  * @example
  *
  * ```typescript
- * S.intersection([1, 2, 3], [4, 5, 6])
- * // => []
- *
- * S.intersection([1, 2, 3], [1, 2, 3])
- * // => [1, 2, 3]
+ * S.intersection([1, 2, 3], [2, 3, 4])
+ * // => [2, 3]
  * ```
  *
  * @see union
@@ -1366,6 +1398,47 @@ export function intersection<T>(first: readonly T[], second: readonly T[]): T[]
 export function intersection<T>(
   first: readonly T[]
 ): (second: readonly T[]) => T[]
+
+/**
+ * Like {@link intersection}, but using a custom equality function.
+ *
+ * @example
+ *
+ * ```typescript
+ * const users = [
+ *   { id: 1, name: 'Alice' },
+ *   { id: 2, name: 'Bob' },
+ *   { id: 3, name: 'Carol' },
+ * ]
+ * const otherUsers = [
+ *   { id: 2, name: 'Bob' },
+ *   { id: 3, name: 'Carol' },
+ *   { id: 4, name: 'Dan' }
+ * ]
+ *
+ * S.intersectionWith((a, b) => a.id === b.id, users, otherUsers)
+ * // => [ { id: 2, name: 'Bob' }, { id: 3, name: 'Carol' } ]
+ * ```
+ *
+ * @see intersection
+ * @see unionWith
+ * @see differenceWith
+ */
+export function intersectionWith<T>(
+  equals: Equals<T>,
+  array: readonly T[],
+  other: readonly T[]
+): T[]
+export function intersectionWith<T>(
+  equals: Equals<T>,
+  array: readonly T[]
+): (other: readonly T[]) => T[]
+export function intersectionWith<T>(
+  equals: Equals<T>
+): {
+  (array: readonly T[], other: readonly T[]): T[]
+  (array: readonly T[]): (other: readonly T[]) => T[]
+}
 
 export function intersperse<T>(separator: T, array: readonly T[]): T[]
 export function intersperse<T>(separator: T): (array: readonly T[]) => T[]
@@ -1732,7 +1805,7 @@ export function mapValues<T extends object, V>(
  * // => 'a'
  * ```
  */
-export function min<T extends Ordered>(value: T, other: T): Widen<T>
+export function min<T extends Ordered>(value: T, other: T): T
 export function min<T extends Ordered>(value: T): (other: Widen<T>) => Widen<T>
 
 /**
@@ -2466,22 +2539,16 @@ export function unary<T, R>(fn: VariadicFunction1<T, R>): Function1<T, R>
 
 /**
  * Calculate the [set union](https://en.wikipedia.org/wiki/Union_(set_theory))
- * between the `first` array and the `second` array. Uses {@link equals} for
+ * between the `first` array and the `second` array, using {@link equals} for
  * determining equality.
  *
- * The order of the elements is preserved.
- *
- * If you want to maximise performance and don't care about the ordering, it is
- * usually best to put the _larger_ array first.
+ * Will not remove duplicates from the first array.
  *
  * @example
  *
  * ```typescript
- * S.union([1, 2, 3], [4, 5, 6])
- * // => [1, 2, 3, 4, 5, 6]
- *
- * S.union([1, 2, 3], [1, 2, 3])
- * // => [1, 2, 3]
+ * S.union([1, 2, 3], [2, 3, 4])
+ * // => [1, 2, 3, 4]
  * ```
  *
  * @see intersection
@@ -2491,10 +2558,49 @@ export function union<T>(first: readonly T[], second: readonly T[]): T[]
 export function union<T>(first: readonly T[]): (second: readonly T[]) => T[]
 
 /**
- * Remove duplicate values from `array`. Uses {@link equals}. for determining
- * equality.
+ * Like {@link union}, but using a custom equality function.
  *
- * The relative order between elements is preserved.
+ * @example
+ *
+ * ```typescript
+ * const users = [
+ *   { id: 1, name: 'Alice' },
+ *   { id: 2, name: 'Bob' },
+ *   { id: 3, name: 'Carol' },
+ * ]
+ * const otherUsers = [
+ *   { id: 2, name: 'Bob' },
+ *   { id: 3, name: 'Carol' },
+ *   { id: 4, name: 'Dan' }
+ * ]
+ *
+ * S.unionWith((a, b) => a.id === b.id, users, otherUsers)
+ * // => [ { id: 1, name: 'Alice' },  { id: 2, name: 'Bob' }, { id: 3, name: 'Carol' }, { id: 4, name: 'Dan' } ]
+ * ```
+ *
+ * @see union
+ * @see intersectionWith
+ * @see differenceWith
+ */
+export function unionWith<T>(
+  equals: Equals<T>,
+  array: readonly T[],
+  other: readonly T[]
+): T[]
+export function unionWith<T>(
+  equals: Equals<T>,
+  array: readonly T[]
+): (other: readonly T[]) => T[]
+export function unionWith<T>(
+  equals: Equals<T>
+): {
+  (array: readonly T[], other: readonly T[]): T[]
+  (array: readonly T[]): (other: readonly T[]) => T[]
+}
+
+/**
+ * Remove duplicate values from `array`, using {@link equals} for determining
+ * equality.
  *
  * @example
  *
@@ -2503,27 +2609,29 @@ export function union<T>(first: readonly T[]): (second: readonly T[]) => T[]
  * // => [1, 2, 3]
  * ```
  *
- * @see uniqBy
+ * @see uniqWith
  */
 export function uniq<T>(array: readonly T[]): T[]
 
 /**
- * Like {@link uniq}, but `fn` is applied to each element before determining
- * their equality.
- *
- * The relative order between elements is preserved.
+ * Like {@link uniq}, but using a custom `equals` function.
  *
  * @example
  *
  * ```typescript
- * S.uniqBy(Math.floor, [1, 1.5, 2, 2.5, 3, 3.5])
- * // => [1, 2, 3]
+ * const users = [
+ *   { id: 1, name: 'Alice' },
+ *   { id: 1, name: 'Alice' },
+ *   { id: 2, name: 'Bob' },
+ * ]
+ * S.uniqWith((a, b) => a.id === b.id, users)
+ * // => [{ id: 1, name: 'Alice' }, { id: 2, name: 'Bob' }]
  * ```
  *
  * @see uniq
  */
-export function uniqBy<T, U>(fn: (value: T) => U, array: readonly T[]): T[]
-export function uniqBy<T, U>(fn: (value: T) => U): (array: readonly T[]) => T[]
+export function uniqWith<T>(equals: Equals<T>, array: readonly T[]): T[]
+export function uniqWith<T>(equals: Equals<T>): (array: readonly T[]) => T[]
 
 /**
  * Apply `ifFalse` to `value` if the `predicate` is not satisfied. Otherwise, return

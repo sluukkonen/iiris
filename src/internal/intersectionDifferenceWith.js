@@ -1,11 +1,11 @@
-import { includesU } from './includesU'
+import { includesBy } from './includesBy'
 
-export const intersectionDifference = (intersection, xs, ys) => {
+export const intersectionDifferenceWith = (intersection, eq, xs, ys) => {
   const result = []
 
   for (let i = 0; i < xs.length; i++) {
     const value = xs[i]
-    const isIncluded = includesU(value, ys)
+    const isIncluded = includesBy(eq, value, ys)
     if (intersection ? isIncluded : !isIncluded) {
       result.push(value)
     }

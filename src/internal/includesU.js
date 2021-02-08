@@ -1,8 +1,4 @@
-import { indexOfBy } from './indexOfBy'
 import { equalsU } from './equalsU'
-import { isObjectLike } from './isObjectLike'
+import { includesBy } from './includesBy'
 
-export const includesU = (value, array) =>
-  isObjectLike(value)
-    ? indexOfBy(equalsU, value, array) !== -1
-    : array.includes(value)
+export const includesU = (value, array) => includesBy(equalsU, value, array)

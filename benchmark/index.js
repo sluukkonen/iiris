@@ -578,21 +578,27 @@ const benchmarks = [
   {
     name: 'uniq.primitive.different',
     params: [num1, num10, num100, num1000],
-    benchmarks: (array) => ({
-      soles: () => S.uniq(array),
-      ramda: () => R.uniq(array),
-      lodash: () => _.uniq(array),
-    }),
+    benchmarks: (array) => {
+      const nativeUniq = (xs) => Array.from(new Set(xs))
+      return {
+        soles: () => S.uniq(array),
+        ramda: () => R.uniq(array),
+        lodash: () => _.uniq(array),
+        native: () => nativeUniq(array),
+      }
+    },
   },
   {
     name: 'uniq.primitive.similar',
     params: [num1, num10, num100, num1000],
     benchmarks: (array) => {
       const oneToTen = array.map((n) => n % 10)
+      const nativeUniq = (xs) => Array.from(new Set(xs))
       return {
         soles: () => S.uniq(oneToTen),
         ramda: () => R.uniq(oneToTen),
         lodash: () => _.uniq(oneToTen),
+        native: () => nativeUniq(oneToTen),
       }
     },
   },
@@ -615,83 +621,87 @@ const benchmarks = [
   },
   {
     name: 'union.primitive',
-    params: [
-      [num10, num1],
-      [num100, num10],
-      [num1000, num100],
-      [num10000, num1000],
-    ],
-    benchmarks: ([arr1, arr2]) => ({
-      soles: () => S.union(arr1, arr2),
-      ramda: () => R.union(arr1, arr2),
-      lodash: () => _.union(arr1, arr2),
-    }),
+    params: [num10, num100, num1000],
+    benchmarks: (arr) => {
+      const clone = _.clone(arr)
+      const nativeUnion = (xs, ys) => Array.from(new Set([...xs, ...ys]))
+      return {
+        soles: () => S.union(arr, clone),
+        ramda: () => R.union(arr, clone),
+        lodash: () => _.union(arr, clone),
+        native: () => nativeUnion(arr, clone),
+      }
+    },
   },
   {
     name: 'union.object',
-    params: [
-      [obj10, obj1],
-      [obj100, obj10],
-    ],
-    benchmarks: ([arr1, arr2]) => ({
-      soles: () => S.union(arr1, arr2),
-      ramda: () => R.union(arr1, arr2),
-      lodash: () => _.unionWith(_.isEqual, arr1, arr2),
-    }),
+    params: [obj10, obj100],
+    benchmarks: (arr) => {
+      const clone = _.clone(arr)
+      return {
+        soles: () => S.union(arr, clone),
+        ramda: () => R.union(arr, clone),
+        lodash: () => _.unionWith(_.isEqual, arr, clone),
+      }
+    },
   },
   {
     name: 'intersection.primitive',
-    params: [
-      [num1, num10],
-      [num10, num100],
-      [num100, num1000],
-      [num1000, num10000],
-    ],
-    benchmarks: ([arr1, arr2]) => ({
-      soles: () => S.intersection(arr1, arr2),
-      ramda: () => R.intersection(arr1, arr2),
-      lodash: () => _.intersection(arr1, arr2),
-    }),
+    params: [num10, num100, num1000],
+    benchmarks: (arr) => {
+      const clone = _.clone(arr)
+      const nativeIntersection = (xs, ys) => {
+        const ysSet = new Set(ys)
+        return xs.filter((x) => !ysSet.has(x))
+      }
+      return {
+        soles: () => S.intersection(arr, clone),
+        ramda: () => R.intersection(arr, clone),
+        lodash: () => _.intersection(arr, clone),
+        native: () => nativeIntersection(arr, clone),
+      }
+    },
   },
   {
     name: 'intersection.object',
-    params: [
-      [obj1, obj10],
-      [obj10, obj100],
-      [obj100, obj1000],
-    ],
-    benchmarks: ([arr1, arr2]) => ({
-      soles: () => S.intersection(arr1, arr2),
-      ramda: () => R.intersection(arr1, arr2),
-      lodash: () => _.intersectionWith(_.isEqual, arr1, arr2),
-    }),
+    params: [obj10, obj100, obj1000],
+    benchmarks: (arr) => {
+      const clone = _.clone(arr)
+      return {
+        soles: () => S.intersection(arr, clone),
+        ramda: () => R.intersection(arr, clone),
+        lodash: () => _.intersectionWith(_.isEqual, arr, clone),
+      }
+    },
   },
   {
     name: 'difference.primitive',
-    params: [
-      [num1, num10],
-      [num10, num100],
-      [num100, num1000],
-      [num1000, num10000],
-    ],
-    benchmarks: ([arr1, arr2]) => ({
-      soles: () => S.difference(arr1, arr2),
-      ramda: () => R.difference(arr1, arr2),
-      lodash: () => _.difference(arr1, arr2),
-    }),
+    params: [num10, num100, num1000],
+    benchmarks: (arr) => {
+      const clone = _.clone(arr)
+      const nativeDifference = (xs, ys) => {
+        const ysSet = new Set(ys)
+        return xs.filter((x) => ysSet.has(x))
+      }
+      return {
+        soles: () => S.difference(arr, clone),
+        ramda: () => R.difference(arr, clone),
+        lodash: () => _.difference(arr, clone),
+        native: () => nativeDifference(arr, clone),
+      }
+    },
   },
   {
     name: 'difference.object',
-    params: [
-      [obj1, obj10],
-      [obj10, obj100],
-      [obj100, obj1000],
-    ],
-    benchmarks: ([arr1, arr2]) => ({
-      soles: () => S.difference(arr1, arr2),
-      ramda: () => R.difference(arr1, arr2),
-      lodash: () => _.differenceWith(_.isEqual, arr1, arr2),
-    }),
+    params: [obj10, obj100, obj1000],
+    benchmarks: (arr) => {
+      const clone = _.clone(arr)
+      return {
+        soles: () => S.difference(arr, clone),
+        ramda: () => R.difference(arr, clone),
+        lodash: () => _.differenceWith(_.isEqual, arr, clone),
+      }
+    },
   },
 ]
 

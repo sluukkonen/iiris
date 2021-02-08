@@ -1,3 +1,4 @@
-import { intersectionDifference } from './intersectionDifference'
+import { equalsU } from './equalsU'
+import { intersectionWithU } from './intersectionWithU'
 
-export const intersectionU = (xs, ys) => intersectionDifference(true, xs, ys)
+export const intersectionU = (xs, ys) => intersectionWithU(equalsU, xs, ys)
