@@ -1,3 +1,4 @@
 import { isUndefined } from '../isUndefined'
-export const fromMaybeU = (defaultValue, value) =>
+
+export const valueOrU = (defaultValue, value) =>
   isUndefined(value) ? defaultValue : value

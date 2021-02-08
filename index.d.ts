@@ -996,24 +996,6 @@ export function forEach<T>(fn: (value: T) => void): (array: readonly T[]) => T[]
 export function fromEntries<T>(entries: [PropertyKey, T][]): { [k: string]: T }
 
 /**
- * Return `value` if it is not `undefined`, `defaultValue` otherwise.
- *
- * @example
- *
- * ```typescript
- * S.fromMaybe(999, 0)
- * // => 0
- *
- * S.fromMaybe(999, undefined)
- * // => 999
- * ```
- *
- * @see maybe
- */
-export function fromMaybe<T>(defaultValue: T, value: T | undefined): T
-export function fromMaybe<T>(defaultValue: T): (value: T | undefined) => T
-
-/**
  * Partition the `array` into an object of arrays according to `keyFn`.
  *
  * @example
@@ -2506,6 +2488,24 @@ export function times<T>(fn: (index: number) => T): (n: number) => T[]
 export function toMap<K, T>(entries: Iterable<[K, T]>): Map<K, T>
 
 export function toSet<T>(values: Iterable<T>): Set<T>
+
+/**
+ * Return `value` if it is not `undefined`, `defaultValue` otherwise.
+ *
+ * @example
+ *
+ * ```typescript
+ * S.valueOr(999, 0)
+ * // => 0
+ *
+ * S.valueOr(999, undefined)
+ * // => 999
+ * ```
+ *
+ * @see maybe
+ */
+export function valueOr<T>(defaultValue: T, value: T | undefined): T
+export function valueOr<T>(defaultValue: T): (value: T | undefined) => T
 
 /**
  * Return an array of the own enumerable property values of `object`
