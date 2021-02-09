@@ -300,10 +300,6 @@ export function atOr<T>(
   index: number
 ): (array: NullableArray<T>) => T
 export function atOr<T>(
-  defaultValue: T,
-  index: number
-): <T>(array: NullableArray<T>) => T
-export function atOr<T>(
   defaultValue: T
 ): {
   (index: number, array: NullableArray<T>): T
