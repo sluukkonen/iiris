@@ -6,6 +6,9 @@ updates:
       interval: daily
       time: '03:00'
     open-pull-requests-limit: 99
-    labels:
-      - dependencies
-      - automerge
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: daily
+      time: '03:00'
+    open-pull-requests-limit: 99
