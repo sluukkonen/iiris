@@ -1,7 +1,3 @@
-export const findU = (fn, array) => {
-  for (const value of array) {
-    if (fn(value)) {
-      return value
-    }
-  }
-}
+import { unary } from '../unary'
+
+export const findU = (fn, array) => array.find(unary(fn))

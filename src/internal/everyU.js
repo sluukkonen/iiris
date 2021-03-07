@@ -1,9 +1,3 @@
-export const everyU = (fn, array) => {
-  for (const value of array) {
-    if (!fn(value)) {
-      return false
-    }
-  }
+import { unary } from '../unary'
 
-  return true
-}
+export const everyU = (fn, array) => array.every(unary(fn))

@@ -1,3 +1,3 @@
-import { findIndexU } from './findIndexU'
+import { unary } from '../unary'
 
-export const someU = (fn, array) => findIndexU(fn, array) !== -1
+export const someU = (fn, array) => array.some(unary(fn))

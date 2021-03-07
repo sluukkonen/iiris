@@ -1,10 +1,3 @@
-export const mapU = (fn, array) => {
-  const length = array.length
-  const result = new Array(length)
+import { unary } from '../unary'
 
-  for (let i = 0; i < length; i++) {
-    result[i] = fn(array[i])
-  }
-
-  return result
-}
+export const mapU = (fn, array) => array.map(unary(fn))

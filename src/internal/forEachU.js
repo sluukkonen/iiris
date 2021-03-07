@@ -1,7 +1,7 @@
+import { unary } from '../unary'
+
 export const forEachU = (fn, array) => {
-  for (const value of array) {
-    fn(value)
-  }
+  array.forEach(unary(fn))
 
   return array
 }

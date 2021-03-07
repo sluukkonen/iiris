@@ -1,11 +1,3 @@
-export const filterU = (fn, array) => {
-  const result = []
+import { unary } from '../unary'
 
-  for (const value of array) {
-    if (fn(value)) {
-      result.push(value)
-    }
-  }
-
-  return result
-}
+export const filterU = (fn, array) => array.filter(unary(fn))

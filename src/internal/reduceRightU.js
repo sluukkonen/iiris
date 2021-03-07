@@ -1,9 +1,4 @@
-export const reduceRightU = (fn, initial, array) => {
-  let acc = initial
+import { flip } from '../flip'
 
-  for (let i = array.length - 1; i >= 0; i--) {
-    acc = fn(array[i], acc)
-  }
-
-  return acc
-}
+export const reduceRightU = (fn, initial, array) =>
+  array.reduceRight(flip(fn), initial)
