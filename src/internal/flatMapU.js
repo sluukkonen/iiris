@@ -1,10 +1,10 @@
 export const flatMapU = (fn, array) => {
   const result = []
 
-  for (let i = 0; i < array.length; i++) {
-    const other = fn(array[i])
-    for (let j = 0; j < other.length; j++) {
-      result.push(other[j])
+  for (const value of array) {
+    const other = fn(value)
+    for (let i = 0; i < other.length; i++) {
+      result.push(other[i])
     }
   }
 

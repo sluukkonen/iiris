@@ -9,8 +9,8 @@ export const sumByU = (fn, array) => {
   let sum = 0
   let c = 0
 
-  for (let i = 0; i < array.length; i++) {
-    const y = fn(array[i]) - c
+  for (const value of array) {
+    const y = fn(value) - c
     const t = sum + y
     c = t - sum - y
     sum = t

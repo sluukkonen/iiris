@@ -1,8 +1,7 @@
 export const filterU = (fn, array) => {
   const result = []
 
-  for (let i = 0; i < array.length; i++) {
-    const value = array[i]
+  for (const value of array) {
     if (fn(value)) {
       result.push(value)
     }

@@ -1,8 +1,8 @@
 export const reduceU = (fn, initial, array) => {
   let acc = initial
 
-  for (let i = 0; i < array.length; i++) {
-    acc = fn(acc, array[i])
+  for (const value of array) {
+    acc = fn(acc, value)
   }
 
   return acc

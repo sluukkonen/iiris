@@ -4,8 +4,7 @@ import { hasOwn } from './hasOwn'
 export const groupMapReduceU = (keyFn, mapFn, reducer, array) => {
   let result = {}
 
-  for (let i = 0; i < array.length; i++) {
-    const value = array[i]
+  for (const value of array) {
     const key = keyFn(value)
     const acc = result[key]
     result[key] =

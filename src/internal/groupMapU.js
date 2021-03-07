@@ -3,8 +3,7 @@ import { isUndefined } from '../isUndefined'
 export const groupMapU = (keyFn, mapFn, array) => {
   let result = {}
 
-  for (let i = 0; i < array.length; i++) {
-    const value = array[i]
+  for (const value of array) {
     const key = keyFn(value)
     const acc = result[key]
     if (isUndefined(acc)) {

@@ -1,6 +1,6 @@
 export const everyU = (fn, array) => {
-  for (let i = 0; i < array.length; i++) {
-    if (!fn(array[i])) {
+  for (const value of array) {
+    if (!fn(value)) {
       return false
     }
   }

@@ -1,6 +1,6 @@
 export const forEachU = (fn, array) => {
-  for (let i = 0; i < array.length; i++) {
-    fn(array[i])
+  for (const value of array) {
+    fn(value)
   }
 
   return array

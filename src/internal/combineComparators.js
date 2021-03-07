@@ -18,8 +18,8 @@ export const combineComparators = (comparators) => {
       return function comparator(a, b) {
         let result = 0
 
-        for (let i = 0; i < comparators.length; i++) {
-          result = comparators[i](a, b)
+        for (const comparator of comparators) {
+          result = comparator(a, b)
           if (result !== 0) break
         }
 
