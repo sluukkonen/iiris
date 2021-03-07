@@ -1012,7 +1012,7 @@ export function flatten<D extends number>(
 ): <T extends readonly unknown[]>(array: T) => FlatArray<T, D>[]
 
 /**
- * Flip first two arguments of a function.
+ * Flip the arguments of a binary function.
  *
  * @example
  *
@@ -1020,8 +1020,8 @@ export function flatten<D extends number>(
  * const fn = (...args) => args
  * const flipped = S.flip(fn)
  *
- * flipped(1, 2, 3)
- * // => [2, 1, 3]
+ * flipped(1, 2)
+ * // => [2, 1]
  * ```
  */
 export function flip<T, U, R>(fn: Function2<T, U, R>): Function2<U, T, R>
