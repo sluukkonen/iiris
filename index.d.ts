@@ -92,20 +92,20 @@ type DropLast3<T extends unknown[]> = T extends [
   : never
 
 /** A curried function of two arguments. */
-export type CurriedFunction2<T extends unknown[], R> = {
+export type CurriedFunction2<T extends Tuple2, R> = {
   (...args: T): R
   (...args: DropLast1<T>): (...args: Drop1<T>) => R
 }
 
 /** A curried function of three arguments. */
-type CurriedFunction3<T extends unknown[], R> = {
+type CurriedFunction3<T extends Tuple3, R> = {
   (...args: T): R
   (...args: DropLast1<T>): (...args: Drop2<T>) => R
   (...args: DropLast2<T>): CurriedFunction2<Drop1<T>, R>
 }
 
 /** A curried function of four arguments. */
-type CurriedFunction4<T extends unknown[], R> = {
+type CurriedFunction4<T extends Tuple4, R> = {
   (...args: T): R
   (...args: DropLast1<T>): (...args: Drop3<T>) => R
   (...args: DropLast2<T>): CurriedFunction2<Drop2<T>, R>
