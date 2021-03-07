@@ -1,9 +1,9 @@
-import { numberIsNan } from './builtins'
+import { builtinIsNaN } from './builtins'
 import { equalsU } from './equalsU'
 import { isObjectLike } from './isObjectLike'
 
 export const lastIndexOfBy = (eq, value, array) => {
-  if (eq === equalsU && !isObjectLike(value) && !numberIsNan(value)) {
+  if (eq === equalsU && !isObjectLike(value) && !builtinIsNaN(value)) {
     return array.lastIndexOf(value)
   }
 

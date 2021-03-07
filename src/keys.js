@@ -1,4 +1,4 @@
-import { objectKeys } from './internal/builtins'
+import { builtinKeys } from './internal/builtins'
 import { isNil } from './isNil'
 
-export const keys = (obj) => (isNil(obj) ? [] : objectKeys(obj))
+export const keys = (obj) => (isNil(obj) ? [] : builtinKeys(obj))

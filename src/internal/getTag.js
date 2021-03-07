@@ -1,6 +1,6 @@
-import { objectToString } from './builtins'
+import { builtinObjectProtoToString } from './builtins'
 
-export const getTag = (obj) => objectToString.call(obj)
+export const getTag = (obj) => builtinObjectProtoToString.call(obj)
 
 export const arrayTag = '[object Array]'
 export const booleanTag = '[object Boolean]'

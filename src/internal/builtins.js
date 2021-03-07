@@ -1,17 +1,18 @@
-export const object = Object
-export const number = Number
-export const string = String
+export const builtinNumber = Number
+export const builtinIsInteger = builtinNumber.isInteger
+export const builtinIsNaN = builtinNumber.isNaN
 
-export const objectProto = object.prototype
+export const builtinObject = Object
+export const builtinAssign = builtinObject.assign
+export const builtinDefineProperty = builtinObject.defineProperty
+export const builtinEntries = builtinObject.entries
+export const builtinFromEntries = builtinObject.fromEntries
+export const builtinGetPrototypeOf = builtinObject.getPrototypeOf
+export const builtinKeys = builtinObject.keys
+export const builtinValues = builtinObject.values
 
-export const getPrototypeOf = object.getPrototypeOf
-export const hasOwnProperty = objectProto.hasOwnProperty
-export const numberIsInteger = number.isInteger
-export const numberIsNan = number.isNaN
-export const objectAssign = object.assign
-export const objectDefineProperty = object.defineProperty
-export const objectEntries = object.entries
-export const objectFromEntries = object.fromEntries
-export const objectKeys = object.keys
-export const objectToString = objectProto.toString
-export const objectValues = object.values
+export const builtinObjectProto = builtinObject.prototype
+export const builtinHasOwnProperty = builtinObjectProto.hasOwnProperty
+export const builtinObjectProtoToString = builtinObjectProto.toString
+
+export const builtinString = String

@@ -1,3 +1,3 @@
-import { hasOwnProperty } from './builtins'
+import { builtinHasOwnProperty } from './builtins'
 
-export const hasOwn = (object, key) => hasOwnProperty.call(object, key)
+export const hasOwn = (object, key) => builtinHasOwnProperty.call(object, key)

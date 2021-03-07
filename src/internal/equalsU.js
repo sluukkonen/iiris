@@ -1,4 +1,11 @@
 import { isArray } from '../isArray'
+import { isBoolean } from '../isBoolean'
+import {
+  builtinGetPrototypeOf,
+  builtinKeys,
+  builtinObjectProto,
+  builtinString,
+} from './builtins'
 import {
   booleanTag,
   dateTag,
@@ -12,10 +19,8 @@ import {
   stringTag,
 } from './getTag'
 import { hasOwn } from './hasOwn'
-import { isSameValueZero } from './isSameValueZero'
-import { string, getPrototypeOf, objectKeys, objectProto } from './builtins'
 import { isObjectLike } from './isObjectLike'
-import { isBoolean } from '../isBoolean'
+import { isSameValueZero } from './isSameValueZero'
 
 export const equalsU = (a, b, cycles) => {
   if (a === b) {
@@ -29,7 +34,10 @@ export const equalsU = (a, b, cycles) => {
   }
 
   // Fast path for plain objects
-  if (getPrototypeOf(a) === objectProto && getPrototypeOf(b) === objectProto) {
+  if (
+    builtinGetPrototypeOf(a) === builtinObjectProto &&
+    builtinGetPrototypeOf(b) === builtinObjectProto
+  ) {
     return equalsObject(a, b, cycles)
   }
 
@@ -53,7 +61,7 @@ const equalsByTag = (a, b, tag, cycles) => {
       return equalsMap(a, b, cycles)
     case regExpTag:
     case stringTag:
-      return string(a) === string(b)
+      return builtinString(a) === builtinString(b)
     case dateTag:
     case numberTag:
     case booleanTag:
@@ -89,8 +97,8 @@ const equalsArray = (a, b, cycles) => {
 }
 
 const equalsObject = (a, b, cycles) => {
-  const aKeys = objectKeys(a)
-  const bKeys = objectKeys(b)
+  const aKeys = builtinKeys(a)
+  const bKeys = builtinKeys(b)
 
   const length = aKeys.length
 
