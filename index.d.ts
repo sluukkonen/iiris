@@ -2112,14 +2112,6 @@ export function omit<K extends string>(
   keys: readonly K[]
 ): <T extends HasKey<K>>(object: T) => Omit<T, Extract<keyof T, K>>
 
-export function omitBy<T extends object>(
-  predicate: (value: T[keyof T], key: keyof T) => boolean,
-  object: T
-): Partial<T>
-export function omitBy<K extends string, V>(
-  predicate: (value: V, key: K) => boolean
-): <T extends HasKey<K, V>>(object: T) => Partial<T>
-
 /**
  * Create two element array containing `first` and `second`.
  *
@@ -2426,14 +2418,6 @@ export function pick<T extends object, K extends keyof T>(
 export function pick<K extends string>(
   keys: readonly K[]
 ): <T extends HasKey<K>>(object: T) => Pick<T, Extract<keyof T, K>>
-
-export function pickBy<T extends object>(
-  predicate: (value: T[keyof T], key: keyof T) => boolean,
-  object: T
-): Partial<T>
-export function pickBy<T extends object>(
-  predicate: (value: T[keyof T], key: keyof T) => boolean
-): (object: T) => Partial<T>
 
 export function pipe<T>(initial: T): T
 export function pipe<T, R>(initial: T, fn1: Function1<T, R>): R
