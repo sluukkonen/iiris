@@ -27,12 +27,28 @@ jobs:
       - run: yarn build
       - run: yarn test
       - run: yarn tsd
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 14
+        uses: actions/setup-node@v2.1.5
+        with:
+          node-version: 14.x
+      - run: yarn --frozen-lockfile
+      - run: yarn build
       - run: yarn lint
+      - run: yarn bundlewatch
+        env:
+          BUNDLEWATCH_GITHUB_TOKEN: ${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}
+          CI_COMMIT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
 
   merge-me:
     name: Merge me!
     needs:
       - build
+      - lint
     runs-on: ubuntu-latest
     steps:
       - name: Merge me!
