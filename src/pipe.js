@@ -1,9 +1,7 @@
 export function pipe(initial, ...fns) {
-  let acc = initial
-
   for (const fn of fns) {
-    acc = fn(acc)
+    initial = fn(initial)
   }
 
-  return acc
+  return initial
 }
