@@ -652,7 +652,7 @@ const benchmarks = [
       const clone = _.clone(arr)
       const nativeIntersection = (xs, ys) => {
         const ysSet = new Set(ys)
-        return xs.filter((x) => !ysSet.has(x))
+        return xs.filter((x) => ysSet.has(x))
       }
       return {
         soles: () => S.intersection(arr, clone),
