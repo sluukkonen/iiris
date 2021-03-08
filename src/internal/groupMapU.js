@@ -1,15 +1,15 @@
-import { isUndefined } from '../isUndefined'
+import { isArray } from '../isArray'
 
-export const groupMapU = (keyFn, mapFn, array) => {
+export const groupMapU = (mapFn, keyFn, array) => {
   let result = {}
 
   for (const value of array) {
     const key = keyFn(value)
     const acc = result[key]
-    if (isUndefined(acc)) {
-      result[key] = [mapFn(value)]
-    } else {
+    if (isArray(acc)) {
       acc.push(mapFn(value))
+    } else {
+      result[key] = [mapFn(value)]
     }
   }
 

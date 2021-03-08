@@ -1,7 +1,7 @@
 import { isUndefined } from '../isUndefined'
 import { hasOwn } from './hasOwn'
 
-export const groupMapReduceU = (keyFn, mapFn, reducer, array) => {
+export const groupMapReduceU = (reducer, mapFn, keyFn, array) => {
   let result = {}
 
   for (const value of array) {

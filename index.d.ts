@@ -1096,27 +1096,32 @@ export function groupBy<T, K extends PropertyKey>(
  *   { name: 'Bob', age: 20 },
  *   { name: 'Alice', age: 30 }
  * ]
- * const agesByName = S.groupMap(S.get('name'), S.get('age'), users)
+ * const agesByName = S.groupMap(S.prop('age'), S.prop('name'), users)
  * // => { Alice: [10, 30], Bob: [20] }
  * ```
  *
  * @see groupBy
  * @see groupMapReduce
  */
-export function groupMap<T, K extends PropertyKey, U>(
-  keyFn: (value: T) => K,
+export function groupMap<T, U, K extends PropertyKey>(
   mapFn: (value: T) => U,
+  keyFn: (value: T) => K,
   array: readonly T[]
 ): Record<K, U[]>
-export function groupMap<T, K extends PropertyKey, U>(
-  keyFn: (value: T) => K,
-  mapFn: (value: T) => U
-): (array: readonly T[]) => Record<K, U[]>
-export function groupMap<T, K extends PropertyKey>(
+export function groupMap<T, U, K extends PropertyKey>(
+  mapFn: (value: T) => U,
   keyFn: (value: T) => K
+): (array: readonly T[]) => Record<K, U[]>
+export function groupMap<T, U>(
+  mapFn: (value: T) => U
 ): {
-  <U>(mapFn: (value: T) => U, array: readonly T[]): Record<K, U[]>
-  <U>(mapFn: (value: T) => U): (array: readonly T[]) => Record<K, U[]>
+  <K extends PropertyKey>(keyFn: (value: T) => K, array: readonly T[]): Record<
+    K,
+    U[]
+  >
+  <K extends PropertyKey>(keyFn: (value: T) => K): (
+    array: readonly T[]
+  ) => Record<K, U[]>
 }
 
 /**
@@ -1131,45 +1136,55 @@ export function groupMap<T, K extends PropertyKey>(
  *   { name: 'Bob', age: 20 },
  *   { name: 'Alice', age: 30 }
  * ]
- * const sumOfAgesByName = S.groupMapReduce(S.get('name'), S.get('age'), S.add, users)
+ * const sumOfAgesByName = S.groupMapReduce(S.add, S.prop('age'), S.prop('name'), users)
  * // => { Alice: 40, Bob: 20 }
  * ```
  *
  * @see groupBy
  * @see groupMap
  */
-export function groupMapReduce<T, K extends PropertyKey, U>(
-  keyFn: (value: T) => K,
-  mapFn: (value: T) => U,
+export function groupMapReduce<U, T, K extends PropertyKey>(
   reducer: LeftReducer<U, U>,
+  mapFn: (value: T) => U,
+  keyFn: (value: T) => K,
   array: readonly T[]
 ): Record<K, U>
-export function groupMapReduce<T, K extends PropertyKey, U>(
-  keyFn: (value: T) => K,
+export function groupMapReduce<U, T, K extends PropertyKey>(
+  reducer: LeftReducer<U, U>,
   mapFn: (value: T) => U,
-  reducer: LeftReducer<U, U>
+  keyFn: (value: T) => K
 ): (array: readonly T[]) => Record<K, U>
-export function groupMapReduce<T, K extends PropertyKey, U>(
-  keyFn: (value: T) => K,
+export function groupMapReduce<U, T>(
+  reducer: LeftReducer<U, U>,
   mapFn: (value: T) => U
 ): {
-  (reducer: LeftReducer<U, U>, array: readonly T[]): Record<K, U>
-  (reducer: LeftReducer<U, U>): (array: readonly T[]) => Record<K, U>
-}
-export function groupMapReduce<T, K extends PropertyKey>(
-  keyFn: (value: T) => K
-): {
-  <U>(
-    mapFn: (value: T) => U,
-    reducer: LeftReducer<U, U>,
-    array: readonly T[]
-  ): Record<K, U>
-  <U>(mapFn: (value: T) => U, reducer: LeftReducer<U, U>): (
+  <K extends PropertyKey>(keyFn: (value: T) => K, array: readonly T[]): Record<
+    K,
+    U
+  >
+  <K extends PropertyKey>(keyFn: (value: T) => K): (
     array: readonly T[]
   ) => Record<K, U>
-  <U>(mapFn: (value: T) => U): {
-    (reducer: LeftReducer<U, U>, array: readonly T[]): Record<K, U>
-    (reducer: LeftReducer<U, U>): (array: readonly T[]) => Record<K, U>
+}
+export function groupMapReduce<U>(
+  reducer: LeftReducer<U, U>
+): {
+  <T, K extends PropertyKey>(
+    mapFn: (value: T) => U,
+    keyFn: (value: T) => K,
+    array: readonly T[]
+  ): Record<K, U>
+  <T, K extends PropertyKey>(mapFn: (value: T) => U, keyFn: (value: T) => K): (
+    array: readonly T[]
+  ) => Record<K, U>
+  <T>(mapFn: (value: T) => U): {
+    <K extends PropertyKey>(
+      keyFn: (value: T) => K,
+      array: readonly T[]
+    ): Record<K, U>
+    <K extends PropertyKey>(keyFn: (value: T) => K): (
+      array: readonly T[]
+    ) => Record<K, U>
   }
 }
 
