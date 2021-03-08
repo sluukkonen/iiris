@@ -1,5 +1,7 @@
 export const reduceRightU = (fn, initial, array) => {
-  for (let i = array.length - 1; i >= 0; i--) {
+  let i = array.length
+
+  while (i--) {
     initial = fn(array[i], initial)
   }
 

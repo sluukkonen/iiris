@@ -101,7 +101,6 @@ const equalsObject = (a, b, cycles) => {
   const bKeys = builtinKeys(b)
 
   const length = aKeys.length
-
   if (length !== bKeys.length) {
     return false
   } else if (length === 0) {
@@ -110,8 +109,8 @@ const equalsObject = (a, b, cycles) => {
 
   // As an optimization, try to find a key mismatch before starting to compare
   // the equality of the values.
-  for (let i = 0; i < length; i++) {
-    if (!hasOwn(b, aKeys[i])) {
+  for (const key of aKeys) {
+    if (!hasOwn(b, key)) {
       return false
     }
   }
@@ -120,8 +119,7 @@ const equalsObject = (a, b, cycles) => {
   if (isBoolean(cycles)) return cycles
 
   // Keys match. Now compare the values.
-  for (let i = 0; i < length; i++) {
-    const key = aKeys[i]
+  for (const key of aKeys) {
     if (!equalsU(a[key], b[key], cycles)) {
       return false
     }
@@ -159,7 +157,7 @@ const equalsMap = (a, b, cycles) => {
 
   // As an optimization, try to find a key mismatch before starting to compare
   // the equality of the values.
-  for (const key of a.keys()) {
+  for (const [key] of a) {
     if (!b.has(key)) {
       return false
     }
