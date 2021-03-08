@@ -1,5 +1,5 @@
-import { curry2 } from './curry2'
+import { equalsU } from './internal/equalsU'
 import { setName } from './internal/setName'
-import { unionU } from './internal/unionU'
+import { unionWith } from './unionWith'
 
-export const union = setName(curry2(unionU), 'union')
+export const union = setName(unionWith(equalsU), 'union')

@@ -1,5 +1,5 @@
-import { curry2 } from './curry2'
-import { intersectionU } from './internal/intersectionU'
+import { equalsU } from './internal/equalsU'
 import { setName } from './internal/setName'
+import { intersectionWith } from './intersectionWith'
 
-export const intersection = setName(curry2(intersectionU), 'intersection')
+export const intersection = setName(intersectionWith(equalsU), 'intersection')

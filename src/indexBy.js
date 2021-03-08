@@ -1,5 +1,6 @@
-import { curry2 } from './curry2'
-import { indexByU } from './internal/indexByU'
+import { groupMapReduce } from './groupMapReduce'
+import { identity } from './identity'
 import { setName } from './internal/setName'
+import { second } from './second'
 
-export const indexBy = setName(curry2(indexByU), 'indexBy')
+export const indexBy = setName(groupMapReduce(second, identity), 'indexBy')

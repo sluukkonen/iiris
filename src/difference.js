@@ -1,5 +1,5 @@
-import { curry2 } from './curry2'
-import { differenceU } from './internal/differenceU'
+import { differenceWith } from './differenceWith'
+import { equalsU } from './internal/equalsU'
 import { setName } from './internal/setName'
 
-export const difference = setName(curry2(differenceU), 'difference')
+export const difference = setName(differenceWith(equalsU), 'difference')
