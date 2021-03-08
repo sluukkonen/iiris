@@ -1,9 +1,9 @@
 import { equalsU } from './internal/equalsU'
-import { isSameValueZero } from './internal/isSameValueZero'
 import { isObjectLike } from './internal/isObjectLike'
+import { isSameValueZero } from './internal/isSameValueZero'
 
 export function equals(a, b) {
-  // Optimize the curried isEqual(...) case.
+  // Optimize the curried equals(...) case.
   return arguments.length < 2
     ? !isObjectLike(a)
       ? function equals1(b) {
