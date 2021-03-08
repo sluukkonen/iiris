@@ -23,6 +23,11 @@ jobs:
         uses: actions/setup-node@v2.1.5
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Restore cache
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: yarn-${{ matrix.node-version }}-${{ hashFiles('**/yarn.lock') }}
       - run: yarn --frozen-lockfile
       - run: yarn build
       - run: yarn test
@@ -36,6 +41,11 @@ jobs:
         uses: actions/setup-node@v2.1.5
         with:
           node-version: 14.x
+      - name: Restore cache
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: yarn-14.x-${{ hashFiles('**/yarn.lock') }}
       - run: yarn --frozen-lockfile
       - run: yarn build
       - run: yarn lint
