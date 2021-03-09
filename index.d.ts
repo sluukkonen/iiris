@@ -22,15 +22,6 @@ export type Function3<T1, T2, T3, R> = (a1: T1, a2: T2, a3: T3) => R
 /** A function that takes four arguments. */
 export type Function4<T1, T2, T3, T4, R> = (a1: T1, a2: T2, a3: T3, a4: T4) => R
 
-/** A function that returns a boolean. */
-export type Predicate<T> = (value: T) => boolean
-
-/** A function that tests if `value` is of type `U`. */
-export type Guard<T, U extends T> = (value: T) => value is U
-
-/** A function that calculate whether two values are equal. */
-export type Equals<T> = (value: T, other: T) => boolean
-
 /** A function that takes zero or more arguments. */
 export type VariadicFunction0<R> = (...args: unknown[]) => R
 /** A function that takes one or more arguments. */
@@ -126,17 +117,6 @@ export type Widen<T> = T extends number
   ? boolean
   : T
 
-export type LeftReducer<T, R> = (accumulator: T, value: R) => R
-export type RightReducer<T, R> = (value: R, accumulator: T) => R
-
-/**
- * A Comparator is a function that determines the ordering between two values.
- *
- * It returns a positive number if the `first` value is larger, a negative
- * number if it is smaller and `0` if both values are equal.
- */
-export type Comparator<T> = (first: T, second: T) => number
-
 // Internal helper types
 
 /** Removes undefined from T */
@@ -151,10 +131,6 @@ type NullableHasKey<K extends string, V = unknown> =
   | null
   | undefined
 
-type NullableObject = object | null | undefined
-
-type NullableArray<T = unknown> = readonly T[] | null | undefined
-
 /** Return true if T is `undefined` */
 type IsUndefined<T> = [T] extends [undefined]
   ? [undefined] extends [T]
@@ -164,13 +140,11 @@ type IsUndefined<T> = [T] extends [undefined]
 
 export type Get<T extends HasKey<K>, K extends string> = NonNullable<T>[K]
 
-type Gets<T extends NullableHasKey<K>, K extends string> = Expand<
+type Prop<T extends NullableHasKey<K>, K extends string> = Expand<
   T extends null | undefined ? Get<T, K> | undefined : Get<T, K>
 >
 
-type ArrayGets<T extends NullableArray> = NonNullable<T>[number] | undefined
-
-type GetsOr<T extends NullableHasKey<K>, K extends string, D> = Expand<
+type PropOr<T extends NullableHasKey<K>, K extends string, D> = Expand<
   T extends null | undefined
     ? Defined<Get<T, K>> | D
     : undefined extends Get<T, K>
@@ -179,7 +153,7 @@ type GetsOr<T extends NullableHasKey<K>, K extends string, D> = Expand<
 >
 
 /** A helper type that sets the key K to value V in object T. */
-type Sets<T extends object, K extends string, V> = K extends keyof T
+type SetProp<T extends object, K extends string, V> = K extends keyof T
   ? V extends T[K]
     ? T
     : true extends IsUndefined<V>
@@ -196,6 +170,7 @@ type Modifiable<K extends string, V> = undefined extends V
 /**
  * Add two numbers together.
  *
+ * @category Math
  * @example
  *
  * ```typescript
@@ -209,6 +184,7 @@ export function add(n: number): (m: number) => number
 /**
  * Append a new element to the end of an array.
  *
+ * @category Basic array operations
  * @example
  *
  * ```typescript
@@ -217,6 +193,7 @@ export function add(n: number): (m: number) => number
  * ```
  *
  * @see prepend
+ * @see concat
  */
 export function append<T>(value: T, array: readonly T[]): T[]
 export function append<T>(value: T): (array: readonly T[]) => T[]
@@ -225,10 +202,11 @@ export function append<T>(value: T): (array: readonly T[]) => T[]
  * Given a `fn` that maps a `value` to an {@link Ordered} value, create an
  * ascending {@link Comparator} function.
  *
+ * @category Sorting arrays
  * @example
  *
  * ```typescript
- * S.sort(S.ascend(S.get('age')), [{ name: 'Bob' }, { name: 'Alice' }])
+ * S.sort(S.ascend(S.prop('age')), [{ name: 'Bob' }, { name: 'Alice' }])
  * // => [{ name: 'Alice' }, { name: 'Bob' }]
  * ```
  *
@@ -236,7 +214,9 @@ export function append<T>(value: T): (array: readonly T[]) => T[]
  * @see sort
  * @see sortWith
  */
-export function ascend<T>(fn: (value: T) => Ordered): Comparator<T>
+export function ascend<T>(
+  fn: (value: T) => Ordered
+): (first: T, second: T) => number
 
 /**
  * Safe array getter. Tries to retrieve the `array` element at `index`.
@@ -244,6 +224,7 @@ export function ascend<T>(fn: (value: T) => Ordered): Comparator<T>
  * Returns `undefined` if the `array` doesn't contain an element at `index` or
  * if the `array` is missing.
  *
+ * @category Getters and setters
  * @example
  *
  * ```typescript
@@ -260,20 +241,18 @@ export function ascend<T>(fn: (value: T) => Ordered): Comparator<T>
  * @see atOr
  * @see prop
  */
-export function at<T extends NullableArray>(
+export function at<T>(
   index: number,
-  array: T
-): ArrayGets<T>
+  array: readonly T[] | null | undefined
+): T | undefined
 export function at(
   index: number
-): <T extends NullableArray>(array: T) => ArrayGets<T>
+): <T>(array: readonly T[] | null | undefined) => T | undefined
 
 /**
- * Safe array getter with a default value. Tries to retrieve the `array` element at `index`.
+ * Like {@link at}, but returns `defaultValue` as the fallback.
  *
- * Returns `defaultValue` if the `array` doesn't contain an element at `index` or
- * if the `array` is missing.
- *
+ * @category Getters and setters
  * @example
  *
  * ```typescript
@@ -293,22 +272,23 @@ export function at(
 export function atOr<T>(
   defaultValue: T,
   index: number,
-  array: NullableArray<T>
+  array: readonly T[] | null | undefined
 ): T
 export function atOr<T>(
   defaultValue: T,
   index: number
-): (array: NullableArray<T>) => T
+): (array: readonly T[] | null | undefined) => T
 export function atOr<T>(
   defaultValue: T
 ): {
-  (index: number, array: NullableArray<T>): T
-  (index: number): (array: NullableArray<T>) => T
+  (index: number, array: readonly T[] | null | undefined): T
+  (index: number): (array: readonly T[] | null | undefined) => T
 }
 
 /**
  * Create a version of `fn` that accepts two arguments.
  *
+ * @category Function
  * @example
  *
  * ```typescript
@@ -331,6 +311,7 @@ export function binary<T1, T2, R>(
 /**
  * Clamp a number within the closed interval `[lower, upper]`.
  *
+ * @category Relation
  * @example
  *
  * ```typescript
@@ -355,6 +336,7 @@ export function clamp<T extends Ordered>(
 /**
  * Create a version of a predicate `fn` that flips the returned boolean value.
  *
+ * @category Function
  * @example
  *
  * ```typescript
@@ -374,6 +356,7 @@ export function complement<T extends VariadicFunction0<boolean>>(fn: T): T
 /**
  * Right-to-left function composition.
  *
+ * @category Function
  * @example
  *
  * ```typescript
@@ -474,12 +457,16 @@ export function compose<
 /**
  * Concatenate two arrays together.
  *
+ * @category Basic array operations
  * @example
  *
  * ```typescript
  * S.concat([1, 2, 3], [4, 5, 6])
  * // => [1, 2, 3, 4, 5, 6]
  * ```
+ *
+ * @see append
+ * @see prepend
  */
 export function concat<T>(array: readonly T[], other: readonly T[]): T[]
 export function concat<T>(array: readonly T[]): (other: readonly T[]) => T[]
@@ -487,6 +474,7 @@ export function concat<T>(array: readonly T[]): (other: readonly T[]) => T[]
 /**
  * Create a function that always returns `value`.
  *
+ * @category Function
  * @example
  *
  * ```typescript
@@ -499,46 +487,56 @@ export function constant<T>(value: T): () => T
 /**
  * Count the number of elements in the `array` the satisfy the `predicate`.
  *
+ * @category Searching arrays with a predicate
  * @example
  *
  * ```typescript
  * S.count((n) => n > 1, [1, 2, 3])
  * // => 2
  * ```
+ *
+ * @see filter
  */
-export function count<T>(predicate: Predicate<T>, array: readonly T[]): number
 export function count<T>(
-  predicate: Predicate<T>
+  predicate: (value: T) => boolean,
+  array: readonly T[]
+): number
+export function count<T>(
+  predicate: (value: T) => boolean
 ): (array: readonly T[]) => number
 
 /**
  * Apply `keyFn` to each element in the `array` and return an object of counts
  * by key.
  *
+ * @category Grouping arrays
  * @example
  *
  * ```typescript
  * const users = [
  *   { name: 'Alice' },
- *   { name: 'Bob' }
+ *   { name: 'Bob' },
  *   { name: 'Alice' }
  * ]
  *
- * S.countBy(S.get('name'), users)
+ * S.countBy(S.prop('name'), users)
  * // => { Alice: 2, Bob: 1 }
  * ```
+ *
+ * @see groupBy
  */
-export function countBy<T, K extends PropertyKey>(
+export function countBy<T, K extends string>(
   keyFn: (value: T) => K,
   array: readonly T[]
 ): Record<K, number>
-export function countBy<T, K extends PropertyKey>(
+export function countBy<T, K extends string>(
   keyFn: (value: T) => K
 ): (array: readonly T[]) => Record<K, number>
 
 /**
  * Create a curried version of a `fn` taking two arguments.
  *
+ * @category Function
  * @example
  *
  * ```typescript
@@ -561,6 +559,7 @@ export function curry2<T extends Tuple2, R>(
 /**
  * Create a curried version of a `fn` taking three arguments.
  *
+ * @category Function
  * @example
  *
  * ```typescript
@@ -583,6 +582,7 @@ export function curry3<T extends Tuple3, R>(
 /**
  * Create a curried version of a `fn` taking four arguments.
  *
+ * @category Function
  * @example
  *
  * ```typescript
@@ -605,11 +605,12 @@ export function curry4<T extends Tuple4, R>(
 /**
  * Decrement a number by 1.
  *
+ * @category Math
  * @example
  *
  * ```typescript
- * S.dec(1)
- * // => 0
+ * S.map(S.dec, [1, 2, 3])
+ * // => [0, 1, 2]
  * ```
  *
  * @see inc
@@ -620,10 +621,11 @@ export function dec(n: number): number
  * Given a `fn` that maps a `value` to an {@link Ordered} value, create a
  * descending {@link Comparator} function.
  *
+ * @category Sorting arrays
  * @example
  *
  * ```typescript
- * S.sort(S.descend(S.get('name')), [{ name: 'Alice' }, { name: 'Bob' }])
+ * S.sort(S.descend(S.prop('name')), [{ name: 'Alice' }, { name: 'Bob' }])
  * // => [{ name: 'Bob' }, { name: 'Alice' }]
  * ```
  *
@@ -631,7 +633,9 @@ export function dec(n: number): number
  * @see sort
  * @see sortWith
  */
-export function descend<T>(fn: (value: T) => Ordered): Comparator<T>
+export function descend<T>(
+  fn: (value: T) => Ordered
+): (first: T, second: T) => number
 
 /**
  * Calculate the [set
@@ -641,6 +645,7 @@ export function descend<T>(fn: (value: T) => Ordered): Comparator<T>
  *
  * Will not remove duplicates from the `first` array.
  *
+ * @category Set operations
  * @example
  *
  * ```typescript
@@ -648,6 +653,7 @@ export function descend<T>(fn: (value: T) => Ordered): Comparator<T>
  * // => [1]
  * ```
  *
+ * @see differenceWith
  * @see union
  * @see intersection
  */
@@ -659,6 +665,7 @@ export function difference<T>(
 /**
  * Like {@link difference}, but using a custom equality function.
  *
+ * @category Set operations
  * @example
  *
  * ```typescript
@@ -682,16 +689,16 @@ export function difference<T>(
  * @see intersectionWith
  */
 export function differenceWith<T>(
-  equals: Equals<T>,
+  equals: (value: T, other: T) => boolean,
   array: readonly T[],
   other: readonly T[]
 ): T[]
 export function differenceWith<T>(
-  equals: Equals<T>,
+  equals: (value: T, other: T) => boolean,
   array: readonly T[]
 ): (other: readonly T[]) => T[]
 export function differenceWith<T>(
-  equals: Equals<T>
+  equals: (value: T, other: T) => boolean
 ): {
   (array: readonly T[], other: readonly T[]): T[]
   (array: readonly T[]): (other: readonly T[]) => T[]
@@ -700,11 +707,12 @@ export function differenceWith<T>(
 /**
  * Divide `dividend` by the `divisor`.
  *
+ * @category Math
  * @example
  *
  * ```typescript
  * S.map(S.divideBy(2), [1, 2, 3])
- * // => [0.1, 1, 1.5]
+ * // => [0.5, 1, 1.5]
  * ```
  */
 export function divideBy(divisor: number, dividend: number): number
@@ -713,6 +721,7 @@ export function divideBy(divisor: number): (dividend: number) => number
 /**
  * Drop the first `n` elements of an `array`.
  *
+ * @category Slicing arrays
  * @example
  *
  * ```typescript
@@ -722,6 +731,9 @@ export function divideBy(divisor: number): (dividend: number) => number
  * S.drop(2, [1, 2, 3])
  * // => [3]
  * ```
+ *
+ * @see dropLast
+ * @see take
  */
 export function drop<T>(n: number, array: readonly T[]): T[]
 export function drop(n: number): <T>(array: readonly T[]) => T[]
@@ -729,6 +741,7 @@ export function drop(n: number): <T>(array: readonly T[]) => T[]
 /**
  * Drop the last `n` elements of an `array`.
  *
+ * @category Slicing arrays
  * @example
  *
  * ```typescript
@@ -738,6 +751,9 @@ export function drop(n: number): <T>(array: readonly T[]) => T[]
  * S.dropLast(2, [1, 2, 3])
  * // => [1]
  * ```
+ *
+ * @see drop
+ * @see takeLast
  */
 export function dropLast<T>(n: number, array: readonly T[]): T[]
 export function dropLast(n: number): <T>(array: readonly T[]) => T[]
@@ -745,40 +761,52 @@ export function dropLast(n: number): <T>(array: readonly T[]) => T[]
 /**
  * Drop elements from the end of an `array` while `predicate` is satisfied.
  *
+ * @category Slicing arrays
  * @example
  *
  * ```typescript
  * S.dropLastWhile((n) => n > 1, [1, 2, 3])
  * // => [1]
  * ```
+ *
+ * @see dropWhile
+ * @see takeLastWhile
  */
 export function dropLastWhile<T>(
-  predicate: Predicate<T>,
+  predicate: (value: T) => boolean,
   array: readonly T[]
 ): T[]
 export function dropLastWhile<T>(
-  predicate: Predicate<T>
+  predicate: (value: T) => boolean
 ): (array: readonly T[]) => T[]
 
 /**
  * Drop elements from the beginning of an `array` while `predicate` is
  * satisfied.
  *
+ * @category Slicing arrays
  * @example
  *
  * ```typescript
  * S.dropWhile((n) => n === 1, [1, 2, 3])
  * // => [2, 3]
  * ```
+ *
+ * @see dropLastWhile
+ * @see takeWhile
  */
-export function dropWhile<T>(predicate: Predicate<T>, array: readonly T[]): T[]
 export function dropWhile<T>(
-  predicate: Predicate<T>
+  predicate: (value: T) => boolean,
+  array: readonly T[]
+): T[]
+export function dropWhile<T>(
+  predicate: (value: T) => boolean
 ): (array: readonly T[]) => T[]
 
 /**
  * Return an array of the own enumerable property key-value pairs of `object`
  *
+ * @category Object
  * @example
  *
  * ```typescript
@@ -790,8 +818,8 @@ export function dropWhile<T>(
  * @see keys
  * @see values
  */
-export function entries<T extends NullableObject, K extends keyof T>(
-  object: T
+export function entries<T extends object, K extends keyof T & string>(
+  object: T | null | undefined
 ): Array<[K, T[K]]>
 
 /**
@@ -806,6 +834,17 @@ export function entries<T extends NullableObject, K extends keyof T>(
  * - Functions and are compared with `===`.
  * - Supports cyclic references.
  * - Does not support WeakMaps, WeakSets or typed arrays.
+ *
+ * @category Relation
+ * @example
+ *
+ * ```typescript
+ * S.equals([1, 2, 3], [1, 2, 3])
+ * // => true
+ *
+ * S.equals([1, 2, 3], [4, 5, 6])
+ * // => false
+ * ```
  */
 export function equals<T>(value: T, other: T): boolean
 export function equals<T>(value: T): (other: T) => boolean
@@ -814,6 +853,7 @@ export function equals<T>(value: T): (other: T) => boolean
  * Like {@link equals}, but the function `fn` is applied to both values before
  * determining equality.
  *
+ * @category Relation
  * @example
  *
  * ```typescript
@@ -838,6 +878,7 @@ export function equalsBy<T, U>(
 /**
  * Check if every element in the `array` satisfies the `predicate`.
  *
+ * @category Searching arrays with a predicate
  * @example
  *
  * ```typescript
@@ -847,10 +888,16 @@ export function equalsBy<T, U>(
  * S.every((n) => n < 3, [1, 2, 3])
  * // => false
  * ```
+ *
+ * @see none
+ * @see some
  */
-export function every<T>(predicate: Predicate<T>, array: readonly T[]): boolean
 export function every<T>(
-  predicate: Predicate<T>
+  predicate: (value: T) => boolean,
+  array: readonly T[]
+): boolean
+export function every<T>(
+  predicate: (value: T) => boolean
 ): (array: readonly T[]) => boolean
 
 /**
@@ -858,22 +905,26 @@ export function every<T>(
  *
  * Returns `undefined` if none of the elements match.
  *
+ * @category Searching arrays with a predicate
  * @example
  *
  * ```typescript
- * S.find((n) => n >= 2, [1, 2, 3])
- * // => 2
+ * S.find((c) => c !== 'a', ['a', 'b', 'c'])
+ * // => 'b'
  *
- * S.find((n) => n >= 5, [1, 2, 3])
+ * S.find((c) => c === 'x', ['a', 'b', 'c'])
  * // => undefined
  * ```
+ *
+ * @see findLast
+ * @see findIndex
  */
 export function find<T>(
-  predicate: Predicate<T>,
+  predicate: (value: T) => boolean,
   array: readonly T[]
 ): T | undefined
 export function find<T>(
-  predicate: Predicate<T>
+  predicate: (value: T) => boolean
 ): (array: readonly T[]) => T | undefined
 
 /**
@@ -882,45 +933,53 @@ export function find<T>(
  *
  * Returns `-1` if none of the elements satisfy the predicate.
  *
+ * @category Searching arrays with a predicate
  * @example
  *
  * ```typescript
- * S.findIndex((n) => n >= 2, [1, 2, 3])
+ * S.findIndex((c) => c !== 'a', ['a', 'b', 'c'])
  * // => 1
  *
- * S.find((n) => n >= 5, [1, 2, 3])
+ * S.findIndex((c) => c === 'x', ['a', 'b', 'c'])
  * // => -1
  * ```
+ *
+ * @see findLastIndex
+ * @see find
  */
 export function findIndex<T>(
-  predicate: Predicate<T>,
+  predicate: (value: T) => boolean,
   array: readonly T[]
 ): number
 export function findIndex<T>(
-  predicate: Predicate<T>
+  predicate: (value: T) => boolean
 ): (array: readonly T[]) => number
 
 /**
- * Find the last element in the `array` that the `predicate` satisfies.
+ * Find the last element in the `array` that satisfies the `predicate`.
  *
- * Returns `-1` if none of the elements satisfy the predicate.
+ * Returns `undefined` if none of the elements match.
  *
+ * @category Searching arrays with a predicate
  * @example
  *
  * ```typescript
- * S.findLastIndex((n) => n >= 2, [1, 2, 3])
- * // => 2
+ * S.findLast((c) => c !== 'a', ['a', 'b', 'c'])
+ * // => 'c'
  *
- * S.find((n) => n >= 5, [1, 2, 3])
- * // => -1
+ * S.findLast((c) => c === 'x', ['a', 'b', 'c'])
+ * // => undefined
  * ```
+ *
+ * @see find
+ * @see findLastIndex
  */
 export function findLast<T>(
-  predicate: Predicate<T>,
+  predicate: (value: T) => boolean,
   array: readonly T[]
 ): T | undefined
 export function findLast<T>(
-  predicate: Predicate<T>
+  predicate: (value: T) => boolean
 ): (array: readonly T[]) => T | undefined
 
 /**
@@ -929,67 +988,72 @@ export function findLast<T>(
  *
  * Returns `-1` if none of the elements match.
  *
+ * @category Searching arrays with a predicate
  * @example
  *
  * ```typescript
- * S.findLastIndex((n) => n >= 2, [1, 2, 3])
+ * S.findLastIndex((c) => c !== 'a', ['a', 'b', 'c'])
  * // => 2
  *
- * S.find((n) => n >= 5, [1, 2, 3])
+ * S.findLastIndex((c) => c === 'x', ['a', 'b', 'c'])
  * // => -1
  * ```
+ *
+ * @see findIndex
+ * @see findLast
  */
 export function findLastIndex<T>(
-  predicate: Predicate<T>,
+  predicate: (value: T) => boolean,
   array: readonly T[]
 ): number
 export function findLastIndex<T>(
-  predicate: Predicate<T>
+  predicate: (value: T) => boolean
 ): (array: readonly T[]) => number
 
-/**
- * Return the elements of the `array` satisfying the type `guard`.
- *
- * @example
- *
- * ```typescript
- * S.filter(S.isString, [1, 'hi', true]) // has the type `string[]`
- * // => ['hi']
- * ```
- */
 export function filter<T, U extends T>(
-  guard: Guard<T, U>,
+  guard: (value: T) => value is U,
   array: readonly T[]
 ): U[]
 export function filter<T, U extends T>(
-  guard: Guard<T, U>
+  guard: (value: T) => value is U
 ): (array: readonly T[]) => U[]
 
 /**
- * Return the elements of the `array` satisfying the `predicate`.
+ * Return the elements of the `array` that satisfy the `predicate`.
  *
+ * @category Searching arrays with a predicate
  * @example
  *
  * ```typescript
  * S.filter((n) => n > 1, [1, 2, 3])
  * // => [2, 3]
  * ```
+ *
+ * @see count
+ * @see partition
  */
-export function filter<T>(predicate: Predicate<T>, array: readonly T[]): T[]
-export function filter<T>(predicate: Predicate<T>): (array: readonly T[]) => T[]
+export function filter<T>(
+  predicate: (value: T) => boolean,
+  array: readonly T[]
+): T[]
+export function filter<T>(
+  predicate: (value: T) => boolean
+): (array: readonly T[]) => T[]
 
 /**
- * Monadic bind.
- *
  * Return an array containing the results of applying `fn` to each element in
  * the original `array` and then flattening the result by one level.
  *
+ * @category Transforming arrays
  * @example
  *
  * ```typescript
  * S.flatMap((n) => [n, n], [1, 2, 3])
  * // => [1, 1, 2, 2, 3, 3]
  * ```
+ *
+ * @see map
+ * @see flatten
  */
 export function flatMap<T, U>(fn: (value: T) => U[], array: readonly T[]): U[]
 export function flatMap<T, U>(
@@ -999,6 +1063,7 @@ export function flatMap<T, U>(
 /**
  * Flatten a nested `array` by `n` levels.
  *
+ * @category Transforming arrays
  * @example
  *
  * ```typescript
@@ -1008,6 +1073,8 @@ export function flatMap<T, U>(
  * S.flatten(2, [1, [2, [3]]])
  * // => [1, 2, 3]
  * ```
+ *
+ * @see flatMap
  */
 export function flatten<T extends readonly unknown[], D extends number>(
   depth: D,
@@ -1020,6 +1087,7 @@ export function flatten<D extends number>(
 /**
  * Flip the arguments of a binary function.
  *
+ * @category Function
  * @example
  *
  * ```typescript
@@ -1033,13 +1101,13 @@ export function flatten<D extends number>(
 export function flip<T, U, R>(fn: Function2<T, U, R>): Function2<U, T, R>
 
 /**
- * Apply the callback `fn` for each element in the `array` and return the
- * `array`.
+ * Apply `fn` to each element of the `array` and return the `array`.
  *
+ * @category Basic array operations
  * @example
  *
  * ```typescript
- * S.forEach(x => console.log(x), [1, 2, 3])
+ * S.forEach(console.log, [1, 2, 3])
  * 1
  * 2
  * 3
@@ -1052,6 +1120,7 @@ export function forEach<T>(fn: (value: T) => void): (array: readonly T[]) => T[]
 /**
  * Create an object from an array of `[key, value]` pairs.
  *
+ * @category Object
  * @example
  *
  * ```typescript
@@ -1061,11 +1130,14 @@ export function forEach<T>(fn: (value: T) => void): (array: readonly T[]) => T[]
  *
  * @see entries
  */
-export function fromEntries<T>(entries: [PropertyKey, T][]): { [k: string]: T }
+export function fromEntries<K extends string, T>(
+  entries: [K, T][]
+): Record<K, T>
 
 /**
  * Partition the `array` into an object of arrays according to `keyFn`.
  *
+ * @category Grouping arrays
  * @example
  *
  * ```typescript
@@ -1073,14 +1145,16 @@ export function fromEntries<T>(entries: [PropertyKey, T][]): { [k: string]: T }
  * // => {'0': [2], '1': [1, 3] }
  * ```
  *
+ * @see indexBy
+ * @see countBy
  * @see groupMap
  * @see groupMapReduce
  */
-export function groupBy<T, K extends PropertyKey>(
+export function groupBy<T, K extends string>(
   keyFn: (value: T) => K,
   array: readonly T[]
 ): Record<K, T[]>
-export function groupBy<T, K extends PropertyKey>(
+export function groupBy<T, K extends string>(
   keyFn: (value: T) => K
 ): (array: readonly T[]) => Record<K, T[]>
 
@@ -1088,6 +1162,7 @@ export function groupBy<T, K extends PropertyKey>(
  * Like {@link groupBy}, but also apply `mapFn` to each element before adding
  * it to the corresponding array.
  *
+ * @category Grouping arrays
  * @example
  *
  * ```typescript
@@ -1103,23 +1178,23 @@ export function groupBy<T, K extends PropertyKey>(
  * @see groupBy
  * @see groupMapReduce
  */
-export function groupMap<T, U, K extends PropertyKey>(
+export function groupMap<T, U, K extends string>(
   mapFn: (value: T) => U,
   keyFn: (value: T) => K,
   array: readonly T[]
 ): Record<K, U[]>
-export function groupMap<T, U, K extends PropertyKey>(
+export function groupMap<T, U, K extends string>(
   mapFn: (value: T) => U,
   keyFn: (value: T) => K
 ): (array: readonly T[]) => Record<K, U[]>
 export function groupMap<T, U>(
   mapFn: (value: T) => U
 ): {
-  <K extends PropertyKey>(keyFn: (value: T) => K, array: readonly T[]): Record<
+  <K extends string>(keyFn: (value: T) => K, array: readonly T[]): Record<
     K,
     U[]
   >
-  <K extends PropertyKey>(keyFn: (value: T) => K): (
+  <K extends string>(keyFn: (value: T) => K): (
     array: readonly T[]
   ) => Record<K, U[]>
 }
@@ -1128,6 +1203,7 @@ export function groupMap<T, U>(
  * Like {@link groupMap}, but instead of returning an object of arrays, combine
  * elements mapping to the same key with `reducer`.
  *
+ * @category Grouping arrays
  * @example
  *
  * ```typescript
@@ -1143,46 +1219,43 @@ export function groupMap<T, U>(
  * @see groupBy
  * @see groupMap
  */
-export function groupMapReduce<U, T, K extends PropertyKey>(
-  reducer: LeftReducer<U, U>,
+export function groupMapReduce<U, T, K extends string>(
+  reducer: (accumulator: U, value: U) => U,
   mapFn: (value: T) => U,
   keyFn: (value: T) => K,
   array: readonly T[]
 ): Record<K, U>
-export function groupMapReduce<U, T, K extends PropertyKey>(
-  reducer: LeftReducer<U, U>,
+export function groupMapReduce<U, T, K extends string>(
+  reducer: (accumulator: U, value: U) => U,
   mapFn: (value: T) => U,
   keyFn: (value: T) => K
 ): (array: readonly T[]) => Record<K, U>
 export function groupMapReduce<U, T>(
-  reducer: LeftReducer<U, U>,
+  reducer: (accumulator: U, value: U) => U,
   mapFn: (value: T) => U
 ): {
-  <K extends PropertyKey>(keyFn: (value: T) => K, array: readonly T[]): Record<
-    K,
-    U
-  >
-  <K extends PropertyKey>(keyFn: (value: T) => K): (
+  <K extends string>(keyFn: (value: T) => K, array: readonly T[]): Record<K, U>
+  <K extends string>(keyFn: (value: T) => K): (
     array: readonly T[]
   ) => Record<K, U>
 }
 export function groupMapReduce<U>(
-  reducer: LeftReducer<U, U>
+  reducer: (accumulator: U, value: U) => U
 ): {
-  <T, K extends PropertyKey>(
+  <T, K extends string>(
     mapFn: (value: T) => U,
     keyFn: (value: T) => K,
     array: readonly T[]
   ): Record<K, U>
-  <T, K extends PropertyKey>(mapFn: (value: T) => U, keyFn: (value: T) => K): (
+  <T, K extends string>(mapFn: (value: T) => U, keyFn: (value: T) => K): (
     array: readonly T[]
   ) => Record<K, U>
   <T>(mapFn: (value: T) => U): {
-    <K extends PropertyKey>(
-      keyFn: (value: T) => K,
-      array: readonly T[]
-    ): Record<K, U>
-    <K extends PropertyKey>(keyFn: (value: T) => K): (
+    <K extends string>(keyFn: (value: T) => K, array: readonly T[]): Record<
+      K,
+      U
+    >
+    <K extends string>(keyFn: (value: T) => K): (
       array: readonly T[]
     ) => Record<K, U>
   }
@@ -1191,6 +1264,7 @@ export function groupMapReduce<U>(
 /**
  * Check if the `second` argument is greater than the `first`.
  *
+ * @category Relation
  * @example
  *
  * ```typescript
@@ -1204,6 +1278,7 @@ export function gt<T extends Ordered>(first: T): (second: Widen<T>) => boolean
 /**
  * Check if the `second` argument is greater than or equal to the `first`.
  *
+ * @category Relation
  * @example
  * ```typescript
  * S.filter(S.gte(2), [1, 2, 3])
@@ -1216,6 +1291,7 @@ export function gte<T extends Ordered>(first: T): (second: Widen<T>) => boolean
 /**
  * Check if `key` is an own property of `object`.
  *
+ * @category Object
  * @example
  *
  * ```typescript
@@ -1237,6 +1313,7 @@ export function has<K extends string>(
 /**
  * Return the first element of the `array` or `undefined` if the array is empty.
  *
+ * @category Basic array operations
  * @example
  *
  * ```typescript
@@ -1246,12 +1323,17 @@ export function has<K extends string>(
  * S.head([])
  * // => undefined
  * ```
+ *
+ * @see tail
+ * @see init
+ * @see last
  */
 export function head<T>(array: readonly T[]): T | undefined
 
 /**
  * Identity function. Returns the first argument.
  *
+ * @category Function
  * @example
  *
  * ```typescript
@@ -1264,11 +1346,12 @@ export function identity<T>(value: T): T
 /**
  * Increment a number by 1.
  *
+ * @category Math
  * @example
  *
  * ```typescript
- * S.inc(1)
- * // => 2
+ * S.map(S.inc, [1, 2, 3])
+ * // => [2, 3, 4]
  * ```
  */
 export function inc(n: number): number
@@ -1277,6 +1360,7 @@ export function inc(n: number): number
  * Check if the `array` includes the specified `value`. Uses {@link equals} for
  * determining equality.
  *
+ * @category Searching arrays by value
  * @example
  *
  * ```typescript
@@ -1296,6 +1380,7 @@ export function includes<T>(value: T): (array: readonly T[]) => boolean
  *
  * If multiple elements map to the same key, the last one is selected.
  *
+ * @category Grouping arrays
  * @example
  *
  * ```typescript
@@ -1304,15 +1389,17 @@ export function includes<T>(value: T): (array: readonly T[]) => boolean
  *   { id: 2, name: 'Bob' },
  *   { id: 1, name: 'Carol' }
  * ]
- * S.indexBy(S.get('id'), users)
+ * S.indexBy(S.prop('id'), users)
  * // => { '1': { id: 1, name: 'Carol' }, '2': { id: 2, name: 'Bob' } }
  * ```
+ *
+ * @see groupBy
  */
-export function indexBy<T, K extends PropertyKey>(
+export function indexBy<T, K extends string>(
   keyFn: (value: T) => K,
   array: readonly T[]
 ): Record<K, T>
-export function indexBy<T, K extends PropertyKey>(
+export function indexBy<T, K extends string>(
   keyFn: (value: T) => K
 ): (array: readonly T[]) => Record<K, T>
 
@@ -1320,15 +1407,19 @@ export function indexBy<T, K extends PropertyKey>(
  * Return the index of the first element equaling `value`, using {@link equals}
  * for determining equality. Returns -1 if no match can be found.
  *
+ * @category Searching arrays by value
  * @example
  *
  * ```typescript
- * S.indexOf(2, [1, 2, 3, 1, 2, 3])
+ * S.indexOf('b', ['a', 'b', 'c', 'a', 'b', 'c'])
  * // => 1
  *
- * S.indexOf(4, [1, 2, 3 1, 2, 3])
+ * S.indexOf('x', ['a', 'b', 'c', 'a', 'b', 'c'])
  * // => -1
  * ```
+ *
+ * @see lastIndexOf
+ * @see includes
  */
 export function indexOf<T>(value: T, array: readonly T[]): number
 export function indexOf<T>(value: T): (array: readonly T[]) => number
@@ -1336,12 +1427,17 @@ export function indexOf<T>(value: T): (array: readonly T[]) => number
 /**
  * Return all elements of the `array` except the last.
  *
+ * @category Basic array operations
  * @example
  *
  * ```typescript
  * S.tail([1, 2, 3])
  * // => [1, 2]
  * ```
+ *
+ * @see last
+ * @see head
+ * @see tail
  */
 export function init<T>(array: readonly T[]): T[]
 
@@ -1353,6 +1449,7 @@ export function init<T>(array: readonly T[]): T[]
  *
  * Will not remove duplicates from the first array.
  *
+ * @category Set operations
  * @example
  *
  * ```typescript
@@ -1360,6 +1457,7 @@ export function init<T>(array: readonly T[]): T[]
  * // => [2, 3]
  * ```
  *
+ * @see intersectionWith
  * @see union
  * @see difference
  */
@@ -1371,6 +1469,7 @@ export function intersection<T>(
 /**
  * Like {@link intersection}, but using a custom equality function.
  *
+ * @category Set operations
  * @example
  *
  * ```typescript
@@ -1394,16 +1493,16 @@ export function intersection<T>(
  * @see differenceWith
  */
 export function intersectionWith<T>(
-  equals: Equals<T>,
+  equals: (value: T, other: T) => boolean,
   array: readonly T[],
   other: readonly T[]
 ): T[]
 export function intersectionWith<T>(
-  equals: Equals<T>,
+  equals: (value: T, other: T) => boolean,
   array: readonly T[]
 ): (other: readonly T[]) => T[]
 export function intersectionWith<T>(
-  equals: Equals<T>
+  equals: (value: T, other: T) => boolean
 ): {
   (array: readonly T[], other: readonly T[]): T[]
   (array: readonly T[]): (other: readonly T[]) => T[]
@@ -1412,6 +1511,7 @@ export function intersectionWith<T>(
 /**
  * Return a copy of `array` with `separator` inserted between each element.
  *
+ * @category Transforming arrays
  * @example
  *
  * ```typescript
@@ -1421,6 +1521,8 @@ export function intersectionWith<T>(
  * S.intersperse(',', [])
  * // => []
  * ```
+ *
+ * @see join
  */
 export function intersperse<T>(separator: T, array: readonly T[]): T[]
 export function intersperse<T>(separator: T): (array: readonly T[]) => T[]
@@ -1428,6 +1530,8 @@ export function intersperse<T>(separator: T): (array: readonly T[]) => T[]
 /**
  * Check if the `value` is an
  * [`Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
+ *
+ * @category Type tests
  */
 export function isArray<T>(
   value: T | readonly unknown[]
@@ -1436,36 +1540,48 @@ export function isArray<T>(
 /**
  * Check if the `value` is a
  * [`BigInt`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt).
+ *
+ * @category Type tests
  */
 export function isBigInt<T>(value: T | bigint): value is bigint
 
 /**
  * Check if the `value` is a
  * [`boolean`](https://developer.mozilla.org/en-US/docs/Glossary/boolean).
+ *
+ * @category Type tests
  */
 export function isBoolean<T>(value: T | boolean): value is boolean
 
 /**
  * Check if the `value` is a
  * [`Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date).
+ *
+ * @category Type tests
  */
 export function isDate<T>(value: T | Date): value is Date
 
 /**
  * Check if the `value` is not
  * [`undefined`](https://developer.mozilla.org/en-US/docs/Glossary/undefined).
+ *
+ * @category Type tests
  */
 export function isDefined<T>(value: T | undefined): value is T
 
 /**
  * Check if the `value` is an
  * [`Error`](https://developer.mozilla.org/en-us/docs/Web/JavaScript/Reference/Global_Objects/Error).
+ *
+ * @category Type tests
  */
 export function isError<T>(value: T | Error): value is Error
 
 /**
  * Check if the `value` is a
  * [function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions).
+ *
+ * @category Type tests
  */
 export function isFunction<T>(value: T | Function): value is Function
 
@@ -1473,24 +1589,32 @@ export function isFunction<T>(value: T | Function): value is Function
  * Check if the `value` is
  * [`null`](https://developer.mozilla.org/en-US/docs/Glossary/null) or
  * [`undefined`](https://developer.mozilla.org/en-US/docs/Glossary/undefined).
+ *
+ * @category Type tests
  */
 export function isNil<T>(value: T | null | undefined): value is null | undefined
 
 /**
  * Check if the `value` is
  * [`null`](https://developer.mozilla.org/en-US/docs/Glossary/null).
+ *
+ * @category Type tests
  */
 export function isNull<T>(value: T | null): value is null
 
 /**
  * Check if the `value` is a
  * [`number`](https://developer.mozilla.org/en-US/docs/Glossary/number).
+ *
+ * @category Type tests
  */
 export function isNumber<T>(value: T | number): value is number
 
 /**
  * Check if the `value` is a
  * [`Map`](https://developer.mozilla.org/en-us/docs/Web/JavaScript/Reference/Global_Objects/Map).
+ *
+ * @category Type tests
  */
 export function isMap<T>(
   value: T | Map<unknown, unknown>
@@ -1501,36 +1625,48 @@ export function isMap<T>(
  * [object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#objects).
  *
  * Note that functions and arrays are also objects.
+ *
+ * @category Type tests
  */
 export function isObject<T>(value: T | object): value is object
 
 /**
  * Check if the `value` is a
  * [`RegExp`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp).
+ *
+ * @category Type tests
  */
 export function isRegExp<T>(value: T | RegExp): value is RegExp
 
 /**
  * Check if the `value` is a
  * [`Set`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set).
+ *
+ * @category Type tests
  */
 export function isSet<T>(value: T | Set<unknown>): value is Set<unknown>
 
 /**
  * Check if the `value` is a
  * [`string`](https://developer.mozilla.org/en-us/docs/Web/JavaScript/Reference/Global_Objects/String).
+ *
+ * @category Type tests
  */
 export function isString<T>(value: T | string): value is string
 
 /**
  * Check if the `value` is a
  * [`Symbol`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol).
+ *
+ * @category Type tests
  */
 export function isSymbol<T>(value: T | Symbol): value is Symbol
 
 /**
  * Check if the `value` is
  * [`undefined`](https://developer.mozilla.org/en-US/docs/Glossary/undefined).
+ *
+ * @category Type tests
  */
 export function isUndefined<T>(value: T | undefined): value is undefined
 
@@ -1538,12 +1674,15 @@ export function isUndefined<T>(value: T | undefined): value is undefined
  * Convert the `array` to a string, inserting the `separator` between each
  * element.
  *
+ * @category Transforming arrays
  * @example
  *
  * ```typescript
  * S.join(', ', [1, 2, 3])
  * // => '1, 2, 3'
  * ```
+ *
+ * @see intersperse
  */
 export function join<T>(separator: string, array: readonly T[]): string
 export function join(separator: string): <T>(array: readonly T[]) => string
@@ -1551,6 +1690,7 @@ export function join(separator: string): <T>(array: readonly T[]) => string
 /**
  * Return the last element of the `array` or `undefined` if the array is empty.
  *
+ * @category Basic array operations
  * @example
  *
  * ```typescript
@@ -1560,6 +1700,10 @@ export function join(separator: string): <T>(array: readonly T[]) => string
  * S.last([])
  * // => undefined
  * ```
+ *
+ * @see init
+ * @see head
+ * @see tail
  */
 export function last<T>(array: readonly T[]): T | undefined
 
@@ -1567,15 +1711,19 @@ export function last<T>(array: readonly T[]): T | undefined
  * Return the index of the last element equaling `value`, using {@link equals}
  * for determining equality. Returns -1 if no match can be found.
  *
+ * @category Searching arrays by value
  * @example
  *
  * ```typescript
- * S.lastIndexOf(2, [1, 2, 3, 1, 2, 3])
+ * S.lastIndexOf('b', ['a', 'b', 'c', 'a', 'b', 'c'])
  * // => 4
  *
- * S.lastIndexOf(4, [1, 2, 3 1, 2, 3])
+ * S.lastIndexOf('x', ['a', 'b', 'c', 'a', 'b', 'c'])
  * // => -1
  * ```
+ *
+ * @see indexOf
+ * @see includes
  */
 export function lastIndexOf<T>(value: T, array: readonly T[]): number
 export function lastIndexOf<T>(value: T): (array: readonly T[]) => number
@@ -1583,6 +1731,7 @@ export function lastIndexOf<T>(value: T): (array: readonly T[]) => number
 /**
  * Check if the `second` argument is less than the `first`.
  *
+ * @category Relation
  * @example
  *
  * ```typescript
@@ -1596,6 +1745,7 @@ export function lt<T extends Ordered>(first: T): (second: Widen<T>) => boolean
 /**
  * Check if the `second` argument is less than or equal to the `first`.
  *
+ * @category Relation
  * @example
  *
  * ```typescript
@@ -1609,6 +1759,7 @@ export function lte<T extends Ordered>(first: T): (second: Widen<T>) => boolean
 /**
  * Return an array of the own enumerable property keys of `object`.
  *
+ * @category Object
  * @example
  *
  * ```typescript
@@ -1619,12 +1770,15 @@ export function lte<T extends Ordered>(first: T): (second: Widen<T>) => boolean
  * @see entries
  * @see values
  */
-export function keys<T extends NullableObject>(object: T): Array<keyof T>
+export function keys<T extends object>(
+  object: T | null | undefined
+): Array<keyof T & string>
 
 /**
  * Apply `fn` to `maybeValue` if it is not `undefined`, return `defaultValue`
  * otherwise.
  *
+ * @category Logic
  * @example
  *
  * ```typescript
@@ -1654,6 +1808,7 @@ export function maybe<R>(
 /**
  * Return the larger of two values.
  *
+ * @category Relation
  * @example
  *
  * ```typescript
@@ -1663,14 +1818,46 @@ export function maybe<R>(
  * S.max('a', 'b')
  * // => 'b'
  * ```
+ *
+ * @see min
+ * @see maxBy
  */
 export function max<T extends Ordered>(value: T, other: T): Widen<T>
 export function max<T extends Ordered>(value: T): (other: Widen<T>) => Widen<T>
 
 /**
+ * Like {@link max}, but apply `fn` to both values before determining their
+ * ordering.
+ *
+ * @category Relation
+ * @example
+ *
+ * ```typescript
+ * S.maxBy(Math.abs, 1, -2)
+ * // => -2
+ * ```
+ *
+ * @see max
+ * @see minBy
+ */
+export function maxBy<T>(
+  fn: (value: T) => Ordered,
+  value: T,
+  other: T
+): Widen<T>
+export function maxBy<T>(
+  fn: (value: T) => Ordered,
+  value: T
+): (other: Widen<T>) => Widen<T>
+export function maxBy<T>(
+  fn: (value: T) => Ordered
+): { (value: T, other: T): Widen<T>; (value: T): (other: T) => Widen<T> }
+
+/**
  * Return the largest element of an `array` or `undefined` if the array is
  * empty.
  *
+ * @category Reducing arrays
  * @example
  *
  * ```typescript
@@ -1687,9 +1874,10 @@ export function max<T extends Ordered>(value: T): (other: Widen<T>) => Widen<T>
 export function maximum<T extends Ordered>(array: readonly T[]): T | undefined
 
 /**
- * Like @{link maximum}, but `fn` is applied to each value before determining
+ * Like {@link maximum}, but apply `fn` to each value before determining
  * their ordering.
  *
+ * @category Reducing arrays
  * @example
  *
  * ```typescript
@@ -1718,25 +1906,34 @@ export function maximumBy<T>(
  * Return an array containing the results of applying `fn` to each element in
  * the original `array`.
  *
+ * @category Transforming arrays
  * @example
  *
  * ```typescript
  * S.map(S.inc, [1, 2, 3])
  * // => [2, 3, 4]
  * ```
+ *
+ * @see mapIndexed
+ * @see mapMaybe
+ * @see flatMap
  */
 export function map<T, U>(fn: (value: T) => U, array: readonly T[]): U[]
 export function map<T, U>(fn: (value: T) => U): (array: readonly T[]) => U[]
 
 /**
- * Like {@link map}, but `fn` also receives the element index.
+ * Like {@link map}, but `fn` also receives the element index as the first
+ * argument.
  *
+ * @category Transforming arrays
  * @example
  *
  * ```typescript
  * S.mapIndexed((i, c) => `${i}-${c}`, ['a', 'b', 'c'])
  * // => ['0-a', '1-b', '2-c']
  * ```
+ *
+ * @see map
  */
 export function mapIndexed<T, U>(
   fn: (index: number, value: T) => U,
@@ -1750,6 +1947,7 @@ export function mapIndexed<T, U>(
  * Return an array containing the results of applying `fn` to each element in
  * the original `array`, discarding any `undefined` values.
  *
+ * @category Transforming arrays
  * @example
  *
  * ```typescript
@@ -1759,9 +1957,11 @@ export function mapIndexed<T, U>(
  *   { name: 'Carol', age: 20 }
  * ]
  *
- * S.mapMaybe(S.get('age'), users)
+ * S.mapMaybe(S.prop('age'), users)
  * // => [10, 20]
  * ```
+ *
+ * @see map
  */
 export function mapMaybe<T, U>(
   fn: (value: T) => U | undefined,
@@ -1777,6 +1977,7 @@ export function mapMaybe<T, U>(
  *
  * If multiple keys map to the same new key, the latest value is selected.
  *
+ * @category Object
  * @example
  *
  * ```typescript
@@ -1784,18 +1985,19 @@ export function mapMaybe<T, U>(
  * // => { A: 1, B: 2, C: 3 }
  * ```
  */
-export function mapKeys<T extends object, K extends PropertyKey>(
-  fn: (key: keyof T) => K,
-  object: T
-): Record<K, T[keyof T]>
-export function mapKeys<T extends object, K extends PropertyKey>(
-  fn: (value: keyof T) => K
-): (object: T) => Record<K, T[keyof T]>
+export function mapKeys<K1 extends string, K2 extends string, T>(
+  fn: (key: K1) => K2,
+  object: Record<K1, T>
+): Record<K2, T>
+export function mapKeys<K1 extends string, K2 extends string, T>(
+  fn: (value: K1) => K2
+): (object: Record<K1, T>) => Record<K2, T>
 
 /**
  * Return an object containing the results of applying `fn` to each value of
  * the original `object`.
  *
+ * @category Object
  * @example
  *
  * ```typescript
@@ -1803,17 +2005,18 @@ export function mapKeys<T extends object, K extends PropertyKey>(
  * // => {a: 2, b: 3, c: 4}
  * ```
  */
-export function mapValues<T extends object, V>(
-  fn: (value: T[keyof T]) => V,
-  object: T
-): Record<keyof T, V>
-export function mapValues<T extends object, V>(
-  fn: (value: T[keyof T]) => V
-): (object: T) => Record<keyof T, V>
+export function mapValues<K extends string, V1, V2>(
+  fn: (value: V1) => V2,
+  object: Record<K, V1>
+): Record<K, V2>
+export function mapValues<K extends string, V1, V2>(
+  fn: (value: V1) => V2
+): (object: Record<K, V1>) => Record<K, V2>
 
 /**
  * Return the smaller of two values.
  *
+ * @category Relation
  * @example
  *
  * ```typescript
@@ -1823,13 +2026,45 @@ export function mapValues<T extends object, V>(
  * S.min('a', 'b')
  * // => 'a'
  * ```
+ *
+ * @see max
+ * @see minBy
  */
 export function min<T extends Ordered>(value: T, other: T): T
 export function min<T extends Ordered>(value: T): (other: Widen<T>) => Widen<T>
 
 /**
+ * Like {@link min}, but apply `fn` to both values before determining their
+ * ordering.
+ *
+ * @category Relation
+ * @example
+ *
+ * ```typescript
+ * S.minBy(Math.abs, -1, 2)
+ * // => -1
+ * ```
+ *
+ * @see min
+ * @see maxBy
+ */
+export function minBy<T>(
+  fn: (value: T) => Ordered,
+  value: T,
+  other: T
+): Widen<T>
+export function minBy<T>(
+  fn: (value: T) => Ordered,
+  value: T
+): (other: Widen<T>) => Widen<T>
+export function minBy<T>(
+  fn: (value: T) => Ordered
+): { (value: T, other: T): Widen<T>; (value: T): (other: T) => Widen<T> }
+
+/**
  * Return the smallest element of `array` or `undefined` if the array is empty.
  *
+ * @category Reducing arrays
  * @example
  *
  * ```typescript
@@ -1846,9 +2081,10 @@ export function min<T extends Ordered>(value: T): (other: Widen<T>) => Widen<T>
 export function minimum<T extends Ordered>(array: readonly T[]): T | undefined
 
 /**
- * Like @{link minimum}, but `fn` is applied to each value before determining
+ * Like {@link minimum}, but `fn` is applied to each value before determining
  * their ordering.
  *
+ * @category Reducing arrays
  * @example
  *
  * ```typescript
@@ -1879,6 +2115,7 @@ export function minimumBy<T>(
  *
  * Removes the element if `fn` returns `undefined`.
  *
+ * @category Getters and setters
  * @example
  *
  * ```typescript
@@ -1920,6 +2157,7 @@ export function modifyAt(
  * receives `undefined` as its argument. If `fn` returns `undefined`, the
  * property is removed.
  *
+ * @category Getters and setters
  * @example
  *
  * ```typescript
@@ -1940,26 +2178,27 @@ export function modifyProp<K extends keyof T & string, V, T extends object>(
   key: K,
   fn: (value: T[K]) => V,
   object: T
-): Sets<T, K, V>
+): SetProp<T, K, V>
 export function modifyProp<K extends string, V1, V2>(
   key: K,
   fn: (value: V1) => V2
-): <T extends Modifiable<K, V1>>(object: T) => Sets<T, K, V2>
+): <T extends Modifiable<K, V1>>(object: T) => SetProp<T, K, V2>
 export function modifyProp<K extends string>(
   key: K
 ): {
   <V, T extends { [P in K]?: unknown }>(
     fn: (value: T[K]) => V,
     object: T
-  ): Sets<T, K, V>
+  ): SetProp<T, K, V>
   <V1, V2>(fn: (value: V1) => V2): <T extends Modifiable<K, V1>>(
     object: T
-  ) => Sets<T, K, V2>
+  ) => SetProp<T, K, V2>
 }
 
 /**
  * Multiply two numbers together.
  *
+ * @category Math
  * @example
  *
  * ```typescript
@@ -1973,11 +2212,12 @@ export function multiply(multiplicand: number): (multiplier: number) => number
 /**
  * Return `n` with its sign reversed.
  *
+ * @category Math
  * @example
  *
  * ```typescript
- * S.negate(1)
- * // => -1
+ * S.map(S.negate, [1, 2, 3])
+ * // => [-1, -2, -3]
  * ```
  */
 export function negate(n: number): number
@@ -1985,6 +2225,7 @@ export function negate(n: number): number
 /**
  * Check if none of the elements in the `array` satisfy the `predicate`.
  *
+ * @category Searching arrays with a predicate
  * @example
  *
  * ```typescript
@@ -1994,15 +2235,22 @@ export function negate(n: number): number
  * S.none((n) => n > 5, [1, 2, 3])
  * // false
  * ```
+ *
+ * @see every
+ * @see some
  */
-export function none<T>(predicate: Predicate<T>, array: readonly T[]): boolean
 export function none<T>(
-  predicate: Predicate<T>
+  predicate: (value: T) => boolean,
+  array: readonly T[]
+): boolean
+export function none<T>(
+  predicate: (value: T) => boolean
 ): (array: readonly T[]) => boolean
 
 /**
  * Logical not. Flip the value of a boolean argument
  *
+ * @category Function
  * @example
  *
  * ```typescript
@@ -2021,10 +2269,11 @@ export function not(bool: boolean): boolean
 /**
  * Do nothing an return `undefined`.
  *
+ * @category Function
  * @example
  *
  * ```typescript
- *  launchMissiles().then(noop).catch(noop) // Ignore the promise return value
+ *  launchMissiles().then(S.noop).catch(S.noop) // Ignore the promise return value
  * ```
  */
 export function noop(): undefined
@@ -2032,18 +2281,22 @@ export function noop(): undefined
 /**
  * Create a singleton array containing `value`
  *
+ * @category Building arrays
  * @example
  *
  * ```typescript
  * S.of(1)
  * // => [1]
  * ```
+ *
+ * @see pair
  */
 export function of<T>(value: T): [T]
 
 /**
  * Return a copy of `object` without the specified `keys`.
  *
+ * @category Object
  * @example
  *
  * ```typescript
@@ -2053,7 +2306,7 @@ export function of<T>(value: T): [T]
  *
  * @see pick
  */
-export function omit<T extends object, K extends keyof T>(
+export function omit<T extends object, K extends keyof T & string>(
   keys: readonly K[],
   object: T
 ): Omit<T, K>
@@ -2064,12 +2317,15 @@ export function omit<K extends string>(
 /**
  * Create two element array containing `first` and `second`.
  *
+ * @category Building arrays
  * @example
  *
  * ```typescript
  * S.pair(1, 2)
  * // => [1, 2]
  * ```
+ *
+ * @see of
  */
 export function pair<T, U>(first: T, second: U): [T, U]
 export function pair<T>(first: T): <U>(second: U) => [T, U]
@@ -2079,24 +2335,28 @@ export function pair<T>(first: T): <U>(second: U) => [T, U]
  * that satisfy the `predicate` and the second containing the elements that do
  * not.
  *
+ * @category Searching arrays with a predicate
  * @example
  *
  * ```typescript
  * const [evens, odds] = S.partition((n) => n % 2 === 0, [1, 2, 3])
  * // => [[2], [1, 3]]
  * ```
+ *
+ * @see filter
  */
 export function partition<T>(
-  predicate: Predicate<T>,
+  predicate: (value: T) => boolean,
   array: readonly T[]
 ): [T[], T[]]
 export function partition<T>(
-  predicate: Predicate<T>
+  predicate: (value: T) => boolean
 ): (array: readonly T[]) => [T[], T[]]
 
 /**
  * Prepend a new element to the beginning of an array.
  *
+ * @category Basic array operations
  * @example
  *
  * ```typescript
@@ -2105,6 +2365,7 @@ export function partition<T>(
  * ```
  *
  * @see append
+ * @see concat
  */
 export function prepend<T>(value: T, array: readonly T[]): T[]
 export function prepend<T>(value: T): (array: readonly T[]) => T[]
@@ -2115,6 +2376,7 @@ export function prepend<T>(value: T): (array: readonly T[]) => T[]
  * Returns `undefined` if the `object` doesn't contain `key` or if the `object`
  * is missing.
  *
+ * @category Getters and setters
  * @example
  *
  * ```typescript
@@ -2133,19 +2395,16 @@ export function prepend<T>(value: T): (array: readonly T[]) => T[]
  */
 export function prop<
   K extends keyof NonNullable<T> & string,
-  T extends NullableObject
->(key: K, object: T): Gets<T, K>
+  T extends object | null | undefined
+>(key: K, object: T): Prop<T, K>
 export function prop<K extends string>(
   key: K
-): <T extends NullableHasKey<K>>(object: T) => Gets<T, K>
+): <T extends NullableHasKey<K>>(object: T) => Prop<T, K>
 
 /**
- * Safe object getter with a default value. Tries to retrieve the property
- * `key` from `object`.
+ * Like {@link prop}, but returns `defaultValue` as the fallback.
  *
- * Returns `defaultValue` if the `object` doesn't contain `key` or if the
- * `object` is missing.
- *
+ * @category Getters and setters
  * @example
  *
  * ```typescript
@@ -2165,29 +2424,30 @@ export function prop<K extends string>(
 export function propOr<
   V extends Get<T, K>,
   K extends keyof NonNullable<T> & string,
-  T extends NullableObject
->(defaultValue: V, key: K, object: T): GetsOr<T, K, V>
+  T extends object | null | undefined
+>(defaultValue: V, key: K, object: T): PropOr<T, K, V>
 export function propOr<V, K extends string>(
   defaultValue: V,
   key: K
-): <T extends NullableHasKey<K, V>>(object: T) => GetsOr<T, K, V>
+): <T extends NullableHasKey<K, V>>(object: T) => PropOr<T, K, V>
 export function propOr<V>(
   defaultValue: V
 ): {
-  <K extends string, T extends NullableHasKey<K, V>>(key: K, object: T): GetsOr<
+  <K extends string, T extends NullableHasKey<K, V>>(key: K, object: T): PropOr<
     T,
     K,
     V
   >
   <K extends string>(key: K): <T extends NullableHasKey<K, V>>(
     object: T
-  ) => GetsOr<T, K, V>
+  ) => PropOr<T, K, V>
 }
 
 /**
  * Create an array of numbers between `start` (inclusive) and `end`
  * (exclusive).
  *
+ * @category Building arrays
  * @example
  *
  * ```typescript
@@ -2213,24 +2473,27 @@ export function range(start: number): (end: number) => number[]
  *
  * If the array is empty, `initial` is returned.
  *
+ * @category Reducing arrays
  * @example
  *
  * ```typescript
  * S.reduce((sum, n) => sum + n, 1, [2, 3, 4]) // equal to ((1 + 2) + 3) + 4
- * // => 6
+ * // => 10
  * ```
+ *
+ * @see reduceRight
  */
 export function reduce<T, R>(
-  reducer: LeftReducer<T, R>,
+  reducer: (accumulator: T, value: R) => R,
   initial: R,
   array: readonly T[]
 ): R
 export function reduce<T, R>(
-  reducer: LeftReducer<T, R>,
+  reducer: (accumulator: T, value: R) => R,
   initial: R
 ): (array: readonly T[]) => R
 export function reduce<T, R>(
-  reducer: LeftReducer<T, R>
+  reducer: (accumulator: T, value: R) => R
 ): {
   (initial: R, array: readonly T[]): R
   (initial: R): (array: readonly T[]) => R
@@ -2245,24 +2508,27 @@ export function reduce<T, R>(
  *
  * If the array is empty, `initial` is returned.
  *
+ * @category Reducing arrays
  * @example
  *
  * ```typescript
  * S.reduceRight((n, sum) => n + sum, 4, [1, 2, 3]) // equal to 1 + (2 + (3 + 4))
- * // => [1, 2, 3]
+ * // => 10
  * ```
+ *
+ * @see reduce
  */
 export function reduceRight<T, R>(
-  reducer: RightReducer<T, R>,
+  reducer: (value: R, accumulator: T) => R,
   initial: R,
   array: readonly T[]
 ): R
 export function reduceRight<T, R>(
-  reducer: RightReducer<T, R>,
+  reducer: (value: R, accumulator: T) => R,
   initial: R
 ): (array: readonly T[]) => R
 export function reduceRight<T, R>(
-  reducer: RightReducer<T, R>
+  reducer: (value: R, accumulator: T) => R
 ): {
   (initial: R, array: readonly T[]): R
   (initial: R): (array: readonly T[]) => R
@@ -2271,6 +2537,7 @@ export function reduceRight<T, R>(
 /**
  * Returns a copy of `array` where the element at `index` has been removed.
  *
+ * @category Getters and setters
  * @example
  *
  * ```typescript
@@ -2293,6 +2560,7 @@ export function removeAt(index: number): <T>(array: readonly T[]) => T[]
 /**
  * Return a copy of `object` without the property `key`.
  *
+ * @category Getters and setters
  * @example
  *
  * ```typescript
@@ -2311,6 +2579,7 @@ export function removeProp<K extends string>(
 /**
  * Repeat the given `value` `n` times.
  *
+ * @category Building arrays
  * @example
  *
  * ```typescript
@@ -2327,6 +2596,7 @@ export function repeat<T>(value: T): (n: number) => T[]
 /**
  * Reverse an `array`.
  *
+ * @category Transforming arrays
  * @example
  *
  * ```typescript
@@ -2339,6 +2609,7 @@ export function reverse<T>(array: readonly T[]): T[]
 /**
  * Return the `second` argument.
  *
+ * @category Function
  * @example
  *
  * ```typescript
@@ -2351,6 +2622,7 @@ export function second<T>(first: unknown, second: T): T
 /**
  * Return a copy of `object` with only the specified `keys`.
  *
+ * @category Object
  * @example
  *
  * ```typescript
@@ -2360,7 +2632,7 @@ export function second<T>(first: unknown, second: T): T
  *
  * @see omit
  */
-export function pick<T extends object, K extends keyof T>(
+export function pick<T extends object, K extends keyof T & string>(
   keys: readonly K[],
   object: T
 ): Pick<T, K>
@@ -2368,6 +2640,27 @@ export function pick<K extends string>(
   keys: readonly K[]
 ): <T extends HasKey<K>>(object: T) => Pick<T, Extract<keyof T, K>>
 
+/**
+ * Pipe an `initial` value through one or more functions in left-to-right order,
+ * allowing the programmer to chain operations in a readable manner.
+ *
+ * `S.pipe(initial, f1, f2, ...fn)` can be thought as syntax sugar
+ * for `fn(...(f2(f1(initial))))`
+ *
+ * @category Function
+ * @example
+ *
+ * ```typescript
+ * S.pipe(
+ *   [1, 2, 3]
+ *   S.map((n) => n * 2),
+ *   S.sum
+ * )
+ * // => 12
+ * ```
+ *
+ * @see compose
+ */
 export function pipe<T>(initial: T): T
 export function pipe<T, R>(initial: T, fn1: Function1<T, R>): R
 export function pipe<T1, T2, R>(
@@ -2444,6 +2737,7 @@ export function pipe<T1, T2, T3, T4, T5, T6, T7, T8, T9, R>(
  *
  * Removes the element if `value` is `undefined`.
  *
+ * @category Getters and setters
  * @example
  *
  * ```typescript
@@ -2483,6 +2777,7 @@ export function setAt(
  * Return a copy of `object` with the property `key` set to `value`. If `value`
  * is `undefined`, the property is removed instead.
  *
+ * @category Getters and setters
  * @example
  *
  * ```typescript
@@ -2500,18 +2795,33 @@ export function setProp<K extends string, V, T extends object>(
   key: K,
   value: V,
   object: T
-): Sets<T, K, V>
+): SetProp<T, K, V>
 export function setProp<K extends string, V>(
   key: K,
   value: V
-): <T extends object>(object: T) => Sets<T, K, V>
+): <T extends object>(object: T) => SetProp<T, K, V>
 export function setProp<K extends string>(
   key: K
 ): {
-  <V, T extends object>(value: V, object: T): Sets<T, K, V>
-  <V>(value: V): <T extends object>(object: T) => Sets<T, K, V>
+  <V, T extends object>(value: V, object: T): SetProp<T, K, V>
+  <V>(value: V): <T extends object>(object: T) => SetProp<T, K, V>
 }
 
+/**
+ * Create a copy of `array` containing the elements from `start` (inclusive)
+ * to `end` (exclusive).
+ *
+ * @category Slicing arrays
+ * @example
+ *
+ * ```typescript
+ * S.slice(0, 2, [1, 2, 3])
+ * // => [1, 2]
+ *
+ * S.slice(1, 2, [1, 2, 3])
+ * // => [2]
+ * ```
+ */
 export function slice<T>(start: number, end: number, array: readonly T[]): T[]
 export function slice(
   start: number,
@@ -2527,6 +2837,7 @@ export function slice(
 /**
  * Check if some elements in the `array` satisfies the `predicate`.
  *
+ * @category Searching arrays with a predicate
  * @example
  *
  * ```typescript
@@ -2536,15 +2847,22 @@ export function slice(
  * S.some((n) => n > 5, [1, 2, 3])
  * // false
  * ```
+ *
+ * @see every
+ * @see none
  */
-export function some<T>(predicate: Predicate<T>, array: readonly T[]): boolean
 export function some<T>(
-  predicate: Predicate<T>
+  predicate: (value: T) => boolean,
+  array: readonly T[]
+): boolean
+export function some<T>(
+  predicate: (value: T) => boolean
 ): (array: readonly T[]) => boolean
 
 /**
  * Sort an `array` according to the {@link Comparator} function.
  *
+ * @category Sorting arrays
  * @example
  *
  * ```typescript
@@ -2557,13 +2875,19 @@ export function some<T>(
  * @see ascend
  * @see descend
  */
-export function sort<T>(comparator: Comparator<T>, array: readonly T[]): T[]
-export function sort<T>(comparator: Comparator<T>): (array: readonly T[]) => T[]
+export function sort<T>(
+  comparator: (first: T, second: T) => number,
+  array: readonly T[]
+): T[]
+export function sort<T>(
+  comparator: (first: T, second: T) => number
+): (array: readonly T[]) => T[]
 
 /**
  * Sort an `array` into ascending order by mapping each element of the array
  * with `fn`.
  *
+ * @category Sorting arrays
  * @example
  *
  * ```typescript
@@ -2572,10 +2896,10 @@ export function sort<T>(comparator: Comparator<T>): (array: readonly T[]) => T[]
  *   { name: 'Alice', age: 20 }
  * ]
  *
- * S.sortBy(S.get('name'), users)
+ * S.sortBy(S.prop('name'), users)
  * // => [{ name: 'Alice', age: 20 }, { name: 'Bob', age: 10 }]
  *
- * S.sortBy(S.get('age'), users)
+ * S.sortBy(S.prop('age'), users)
  * // => [{ name: 'Bob', age: 10 }, { name: 'Alice', age: 20 }]
  * ```
  *
@@ -2592,6 +2916,7 @@ export function sortBy<T>(
  *
  * The comparators are tried in order until an ordering has been found.
  *
+ * @category Sorting arrays
  * @example
  *
  * ```typescript
@@ -2601,7 +2926,7 @@ export function sortBy<T>(
  *   { name: 'Alice', age: 20 },
  * ]
  *
- * S.sortWith([S.descend(S.get('age')), S.ascend(S.get('name'))], users)
+ * S.sortWith([S.descend(S.prop('age')), S.ascend(S.prop('name'))], users)
  * // => [{ name: 'Alice', age: 20 }, { name: 'Bob', age: 20 }, { name: 'Alice', age: 10 }]
  * ```
  *
@@ -2611,16 +2936,17 @@ export function sortBy<T>(
  * @see descend
  */
 export function sortWith<T>(
-  comparators: readonly Comparator<T>[],
+  comparators: readonly ((first: T, second: T) => number)[],
   array: readonly T[]
 ): T[]
 export function sortWith<T>(
-  comparators: readonly Comparator<T>[]
+  comparators: readonly ((first: T, second: T) => number)[]
 ): (array: readonly T[]) => T[]
 
 /**
  * Subtract the `subtrahend` from the `minuend`.
  *
+ * @category Math
  * @example
  *
  * ```typescript
@@ -2638,6 +2964,7 @@ export function subtractBy(subtrahend: number): (minuend: number) => number
  * algorithm](https://en.wikipedia.org/wiki/Kahan_summation_algorithm) for
  * minimizing numerical error.
  *
+ * @category Reducing arrays
  * @example
  *
  * ```typescript
@@ -2656,12 +2983,14 @@ export function subtractBy(subtrahend: number): (minuend: number) => number
 export function sum(numbers: readonly number[]): number
 
 /**
- * Sum an `array` together by mapping each element to a number with `fn`.
+ * Like {@link sum}, but each element of the `array` is converted to a number
+ * by applying `fn`.
  *
+ * @category Reducing arrays
  * @example
  *
  * ```typescript
- * S.sumBy(S.get('age'), [{ name: 'Alice', age: 10 }, { name: 'Bob', age: 20 }])
+ * S.sumBy(S.prop('age'), [{ name: 'Alice', age: 10 }, { name: 'Bob', age: 20 }])
  * // => 30
  * ```
  *
@@ -2675,24 +3004,33 @@ export function sumBy<T>(
 /**
  * Return all elements of the `array` except the first.
  *
+ * @category Basic array operations
  * @example
  *
  * ```typescript
  * S.tail([1, 2, 3])
  * // => [2, 3]
  * ```
+ *
+ * @see head
+ * @see init
+ * @see last
  */
 export function tail<T>(array: readonly T[]): T[]
 
 /**
  * Take the first `n` elements of an `array`.
  *
+ * @category Slicing arrays
  * @example
  *
  * ```typescript
  * S.take(2, [1, 2, 3])
  * // => [1, 2]
  * ```
+ *
+ * @see drop
+ * @see takeLast
  */
 export function take<T>(n: number, array: readonly T[]): T[]
 export function take(n: number): <T>(array: readonly T[]) => T[]
@@ -2700,12 +3038,16 @@ export function take(n: number): <T>(array: readonly T[]) => T[]
 /**
  * Take the last `n` elements of an `array`.
  *
+ * @category Slicing arrays
  * @example
  *
  * ```typescript
  * S.takeLast(2, [1, 2, 3])
  * // => [2, 3]
  * ```
+ *
+ * @see dropLast
+ * @see take
  */
 export function takeLast<T>(n: number, array: readonly T[]): T[]
 export function takeLast<T>(n: number): (array: readonly T[]) => T[]
@@ -2713,25 +3055,30 @@ export function takeLast<T>(n: number): (array: readonly T[]) => T[]
 /**
  * Take elements from the end of an `array` while `predicate` is satisfied.
  *
+ * @category Slicing arrays
  * @example
  *
  * ```typescript
  * S.takeLastWhile((n) => n >= 2, [1, 2, 3])
  * // => [2, 3]
  * ```
+ *
+ * @see dropLastWhile
+ * @see takeWhile
  */
 export function takeLastWhile<T>(
-  predicate: Predicate<T>,
+  predicate: (value: T) => boolean,
   array: readonly T[]
 ): T[]
 export function takeLastWhile<T>(
-  predicate: Predicate<T>
+  predicate: (value: T) => boolean
 ): (array: readonly T[]) => T[]
 
 /**
  * Take elements from the beginning of an `array` while `predicate` is
  * satisfied.
  *
+ * @category Slicing arrays
  * @example
  *
  * ```typescript
@@ -2739,10 +3086,15 @@ export function takeLastWhile<T>(
  * // => [1, 2]
  * ```
  *
+ * @see dropWhile
+ * @see takeLastWhile
  */
-export function takeWhile<T>(predicate: Predicate<T>, array: readonly T[]): T[]
 export function takeWhile<T>(
-  predicate: Predicate<T>
+  predicate: (value: T) => boolean,
+  array: readonly T[]
+): T[]
+export function takeWhile<T>(
+  predicate: (value: T) => boolean
 ): (array: readonly T[]) => T[]
 
 /**
@@ -2751,6 +3103,7 @@ export function takeWhile<T>(
  *
  * Useful for executing a side-effect within a pipeline.
  *
+ * @category Function
  * @example
  *
  * ```typescript
@@ -2770,6 +3123,7 @@ export function tap<T>(fn: (value: T) => void): (value: T) => T
 /**
  * Create an array of length `n` by applying `fn` to the index of each element.
  *
+ * @category Building arrays
  * @example
  *
  * ```typescript
@@ -2786,6 +3140,7 @@ export function times<T>(fn: (index: number) => T): (n: number) => T[]
 /**
  * Return `value` if it is not `undefined`, `defaultValue` otherwise.
  *
+ * @category Logic
  * @example
  *
  * ```typescript
@@ -2804,6 +3159,7 @@ export function valueOr<T>(defaultValue: T): (value: T | undefined) => T
 /**
  * Return an array of the own enumerable property values of `object`
  *
+ * @category Object
  * @example
  * ```
  * S.keys({a: 1, b: 2, c: 3})
@@ -2813,13 +3169,14 @@ export function valueOr<T>(defaultValue: T): (value: T | undefined) => T
  * @see keys
  * @see entries
  */
-export function values<T extends NullableObject, K extends keyof T>(
-  object: T
-): Array<T[K]>
+export function values<T extends object>(
+  object: T | null | undefined
+): T[keyof T & string][]
 
 /**
  * Create a version of `fn` that accepts a single argument.
  *
+ * @category Function
  * @example
  *
  * ```typescript
@@ -2838,6 +3195,7 @@ export function unary<T, R>(fn: VariadicFunction1<T, R>): Function1<T, R>
  *
  * Will not remove duplicates from the first array.
  *
+ * @category Set operations
  * @example
  *
  * ```typescript
@@ -2845,6 +3203,7 @@ export function unary<T, R>(fn: VariadicFunction1<T, R>): Function1<T, R>
  * // => [1, 2, 3, 4]
  * ```
  *
+ * @see unionWith
  * @see intersection
  * @see difference
  */
@@ -2854,6 +3213,7 @@ export function union<T>(first: readonly T[]): (second: readonly T[]) => T[]
 /**
  * Like {@link union}, but using a custom equality function.
  *
+ * @category Set operations
  * @example
  *
  * ```typescript
@@ -2877,16 +3237,16 @@ export function union<T>(first: readonly T[]): (second: readonly T[]) => T[]
  * @see differenceWith
  */
 export function unionWith<T>(
-  equals: Equals<T>,
+  equals: (value: T, other: T) => boolean,
   array: readonly T[],
   other: readonly T[]
 ): T[]
 export function unionWith<T>(
-  equals: Equals<T>,
+  equals: (value: T, other: T) => boolean,
   array: readonly T[]
 ): (other: readonly T[]) => T[]
 export function unionWith<T>(
-  equals: Equals<T>
+  equals: (value: T, other: T) => boolean
 ): {
   (array: readonly T[], other: readonly T[]): T[]
   (array: readonly T[]): (other: readonly T[]) => T[]
@@ -2896,6 +3256,7 @@ export function unionWith<T>(
  * Remove duplicate values from `array`, using {@link equals} for determining
  * equality.
  *
+ * @category Set operations
  * @example
  *
  * ```typescript
@@ -2908,8 +3269,9 @@ export function unionWith<T>(
 export function uniq<T>(array: readonly T[]): T[]
 
 /**
- * Like {@link uniq}, but using a custom `equals` function.
+ * Like {@link uniq}, but using a custom equality function.
  *
+ * @category Set operations
  * @example
  *
  * ```typescript
@@ -2924,8 +3286,13 @@ export function uniq<T>(array: readonly T[]): T[]
  *
  * @see uniq
  */
-export function uniqWith<T>(equals: Equals<T>, array: readonly T[]): T[]
-export function uniqWith<T>(equals: Equals<T>): (array: readonly T[]) => T[]
+export function uniqWith<T>(
+  equals: (value: T, other: T) => boolean,
+  array: readonly T[]
+): T[]
+export function uniqWith<T>(
+  equals: (value: T, other: T) => boolean
+): (array: readonly T[]) => T[]
 
 /**
  * Combine the corresponding elements of two arrays into an array of pairs.
@@ -2933,6 +3300,7 @@ export function uniqWith<T>(equals: Equals<T>): (array: readonly T[]) => T[]
  * If one of the arrays is longer than the other, the extra elements are
  * ignored.
  *
+ * @category Zipping arrays
  * @example
  *
  * ```typescript
@@ -2953,6 +3321,7 @@ export function zip<T>(
  * If one of the arrays is longer than the other, its extra elements are
  * ignored.
  *
+ * @category Zipping arrays
  * @example
  *
  * ```typescript
@@ -2962,11 +3331,11 @@ export function zip<T>(
  *
  * @see fromEntries
  */
-export function zipObject<K extends PropertyKey, T>(
+export function zipObject<K extends string, T>(
   keys: readonly K[],
   values: readonly T[]
 ): Record<K, T>
-export function zipObject<K extends PropertyKey>(
+export function zipObject<K extends string>(
   keys: readonly K[]
 ): <T>(values: readonly T[]) => Record<K, T>
 
@@ -2974,6 +3343,7 @@ export function zipObject<K extends PropertyKey>(
  * Like {@link zip}, but the elements are combined with `fn` instead of
  * constructing a pair.
  *
+ * @category Zipping arrays
  * @example
  *
  * ```typescript
