@@ -105,3 +105,6 @@ dist
 
 # IntelliJ products
 .idea 
+
+# Typedoc temporary output
+.reflection.json

@@ -32,6 +32,7 @@
     "rollup-plugin-terser": "^7.0.2",
     "terser": "^5.6.0",
     "tsd": "^0.14.0",
+    "typedoc": "^0.20.30",
     "typescript": "^4.2.3",
     "yargs": "^16.2.0",
     "yarn": "^1.22.10"
@@ -40,6 +41,7 @@
     "benchmark": "yarn build && NODE_ENV=production node benchmark",
     "build": "rm -rf dist/* && node generate-index.js && rollup --config",
     "bundlewatch": "yarn build --environment MINIFY && bundlewatch --config bundlewatch.config.json",
+    "docs": "typedoc --json .reflection.json index.d.ts && node generate-docs.js",
     "lint": "eslint .",
     "repl": "yarn build && node -i -e 'S = require(\".\")'",
     "test": "jest --coverage",

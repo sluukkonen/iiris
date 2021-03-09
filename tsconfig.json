@@ -7,6 +7,6 @@
     "outDir": "./dist",
     "strict": true,
   },
-  "include": ["src/**/*", "__tests__/**/*", "test-d/**/*"],
+  "include": ["index.d.ts"],
   "exclude": ["node_modules", "dist"]
 }
