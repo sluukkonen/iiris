@@ -2849,12 +2849,6 @@ export function tap<T>(fn: (value: T) => void): (value: T) => T
 export function times<T>(fn: (index: number) => T, n: number): T[]
 export function times<T>(fn: (index: number) => T): (n: number) => T[]
 
-/** Create a Map from an array of `[key, value]` pairs. */
-export function toMap<K, T>(entries: Iterable<[K, T]>): Map<K, T>
-
-/** Convert an array into a Set. */
-export function toSet<T>(values: Iterable<T>): Set<T>
-
 /**
  * Return `value` if it is not `undefined`, `defaultValue` otherwise.
  *
