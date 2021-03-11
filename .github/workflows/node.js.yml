@@ -47,7 +47,7 @@ jobs:
           path: node_modules
           key: yarn-14.x-${{ hashFiles('**/yarn.lock') }}
       - run: yarn --frozen-lockfile
-      - run: yarn build
+      - run: yarn build --environment MINIFY
       - run: yarn lint
       - run: yarn bundlewatch
         env:
