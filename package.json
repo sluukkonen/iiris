@@ -26,6 +26,7 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jest": "^24.3.1",
     "eslint-plugin-prettier": "^3.3.1",
+    "husky": "^5.1.3",
     "jest": "^26.6.3",
     "prettier": "^2.2.1",
     "rollup": "^2.41.2",
@@ -43,6 +44,7 @@
     "bundlewatch": "yarn build --environment MINIFY && bundlewatch --config bundlewatch.config.json",
     "docs": "typedoc --json .reflection.json index.d.ts && node generate-docs.js",
     "lint": "eslint .",
+    "prepare": "husky install",
     "repl": "yarn build && node -i -e 'S = require(\".\")'",
     "test": "jest --coverage",
     "tsd": "tsd"
