@@ -1,4 +1,5 @@
 import { identity } from './identity'
-import { sumByU } from './internal/sumByU'
+import { setName } from './internal/setName'
+import { sumBy } from './sumBy'
 
-export const sum = (array) => sumByU(identity, array)
+export const sum = setName(sumBy(identity), 'sum')
