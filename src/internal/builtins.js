@@ -17,3 +17,17 @@ export const builtinHasOwnProperty = builtinObjectProto.hasOwnProperty
 export const builtinObjectProtoToString = builtinObjectProto.toString
 
 export const builtinString = String
+
+const nodeTypes = /*@__PURE__*/ (() => {
+  try {
+    return require('util').types
+  } catch (err) {
+    /* istanbul ignore next */
+    return {}
+  }
+})()
+
+export const nodeIsDate = nodeTypes.isDate
+export const nodeIsMap = nodeTypes.isMap
+export const nodeIsRegExp = nodeTypes.isRegExp
+export const nodeIsSet = nodeTypes.isSet
