@@ -235,6 +235,8 @@ i
 // => ['h', 'i', '!']
 ```
 
+**See also:** [forEachIndexed](#foreachindexed)
+
 ***
 
 #### forEachIndexed
@@ -253,6 +255,8 @@ S.forEachIndexed(console.log, ['h', 'i', '!'])
 2 !
 // => ['h', 'i', '!']
 ```
+
+**See also:** [forEach](#foreach)
 
 ***
 
@@ -734,7 +738,7 @@ S.filter((n) => n > 1, [1, 2, 3])
 // => [2, 3]
 ```
 
-**See also:** [count](#count), [partition](#partition)
+**See also:** [filterIndexed](#filterindexed), [count](#count), [partition](#partition)
 
 ***
 

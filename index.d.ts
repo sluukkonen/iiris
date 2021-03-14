@@ -1029,6 +1029,7 @@ export function filter<T, U extends T>(
  * // => [2, 3]
  * ```
  *
+ * @see filterIndexed
  * @see count
  * @see partition
  */
@@ -1135,6 +1136,8 @@ export function flip<T, U, R>(fn: Function2<T, U, R>): Function2<U, T, R>
  * !
  * // => ['h', 'i', '!']
  * ```
+ *
+ * @see forEachIndexed
  */
 export function forEach<T>(fn: (value: T) => void, array: readonly T[]): T[]
 export function forEach<T>(fn: (value: T) => void): (array: readonly T[]) => T[]
@@ -1153,6 +1156,8 @@ export function forEach<T>(fn: (value: T) => void): (array: readonly T[]) => T[]
  * 2 !
  * // => ['h', 'i', '!']
  * ```
+ *
+ * @see forEach
  */
 export function forEachIndexed<T>(
   fn: (index: number, value: T) => void,
