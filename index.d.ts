@@ -1129,11 +1129,11 @@ export function flip<T, U, R>(fn: Function2<T, U, R>): Function2<U, T, R>
  * @example
  *
  * ```typescript
- * S.forEach(console.log, [1, 2, 3])
- * 1
- * 2
- * 3
- * // => [1, 2, 3]
+ * S.forEach(console.log, ['h', 'i', '!'])
+ * h
+ * i
+ * !
+ * // => ['h', 'e', 'l', 'l', 'o']
  * ```
  */
 export function forEach<T>(fn: (value: T) => void, array: readonly T[]): T[]
@@ -1147,11 +1147,11 @@ export function forEach<T>(fn: (value: T) => void): (array: readonly T[]) => T[]
  * @example
  *
  * ```typescript
- * S.forEachIndexed(console.log, [1, 2, 3])
- * 0 1
- * 1 2
- * 2 3
- * // => [1, 2, 3]
+ * S.forEachIndexed(console.log, ['h', 'i', '!'])
+ * 0 h
+ * 1 i
+ * 2 !
+ * // => ['h', 'i', '!']
  * ```
  */
 export function forEachIndexed<T>(

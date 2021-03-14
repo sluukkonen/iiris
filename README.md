@@ -228,11 +228,11 @@ S.concat([1, 2, 3], [4, 5, 6])
 Apply `fn` to each element of the `array` and return the `array`.
 
 ```typescript
-S.forEach(console.log, [1, 2, 3])
-1
-2
-3
-// => [1, 2, 3]
+S.forEach(console.log, ['h', 'i', '!'])
+h
+i
+!
+// => ['h', 'e', 'l', 'l', 'o']
 ```
 
 ***
@@ -247,11 +247,11 @@ Like [forEach](#foreach), but `fn` also receives the element index as the first
 argument.
 
 ```typescript
-S.forEachIndexed(console.log, [1, 2, 3])
-0 1
-1 2
-2 3
-// => [1, 2, 3]
+S.forEachIndexed(console.log, ['h', 'i', '!'])
+0 h
+1 i
+2 !
+// => ['h', 'i', '!']
 ```
 
 ***
