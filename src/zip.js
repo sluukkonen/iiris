@@ -1,5 +1,5 @@
-import { curry2 } from './curry2'
 import { setName } from './internal/setName'
-import { zipU } from './internal/zipU'
+import { zipWith } from './zipWith'
+import { pairU } from './internal/pairU'
 
-export const zip = setName(curry2(zipU), 'zip')
+export const zip = setName(zipWith(pairU), 'zip')
