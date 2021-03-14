@@ -1,3 +1,6 @@
+export const builtinArray = Array
+export const builtinIsArray = builtinArray.isArray
+
 export const builtinNumber = Number
 export const builtinIsInteger = builtinNumber.isInteger
 export const builtinIsNaN = builtinNumber.isNaN

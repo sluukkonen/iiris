@@ -1,6 +1,8 @@
+import { builtinArray } from './builtins'
+
 export const mapIndexedU = (fn, array) => {
   const length = array.length
-  const result = new Array(length)
+  const result = new builtinArray(length)
 
   for (let i = 0; i < length; i++) {
     result[i] = fn(i, array[i])

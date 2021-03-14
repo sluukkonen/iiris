@@ -1,7 +1,9 @@
+import { builtinArray } from './builtins'
+
 export const intersperseU = (separator, array) => {
   const length = array.length
   if (length === 0) return []
-  const result = new Array(length * 2 - 1)
+  const result = new builtinArray(length * 2 - 1)
 
   for (let i = 0; i < length - 1; i++) {
     result[i * 2] = array[i]
