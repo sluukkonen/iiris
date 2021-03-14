@@ -1133,7 +1133,7 @@ export function flip<T, U, R>(fn: Function2<T, U, R>): Function2<U, T, R>
  * h
  * i
  * !
- * // => ['h', 'e', 'l', 'l', 'o']
+ * // => ['h', 'i', '!']
  * ```
  */
 export function forEach<T>(fn: (value: T) => void, array: readonly T[]): T[]
