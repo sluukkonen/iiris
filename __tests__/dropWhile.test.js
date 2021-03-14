@@ -1,10 +1,9 @@
 import { dropWhile } from '../src/dropWhile'
+import { lt } from '../src/lt'
 
 it('drops elements matching a predicate from the begining of array', () => {
-  const lessThan3 = (x) => x < 3
-
-  expect(dropWhile(lessThan3, [])).toEqual([])
-  expect(dropWhile(lessThan3, [1])).toEqual([])
-  expect(dropWhile(lessThan3, [1, 2])).toEqual([])
-  expect(dropWhile(lessThan3, [1, 2, 3])).toEqual([3])
+  expect(dropWhile(lt(3), [])).toEqual([])
+  expect(dropWhile(lt(3), [1])).toEqual([])
+  expect(dropWhile(lt(3), [1, 2])).toEqual([])
+  expect(dropWhile(lt(3), [1, 2, 3])).toEqual([3])
 })

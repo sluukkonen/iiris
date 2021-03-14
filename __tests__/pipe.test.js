@@ -1,7 +1,7 @@
+import { inc } from '../src/inc'
 import { pipe } from '../src/pipe'
 
 it('sequentially applies each function to the initial value', () => {
-  const inc = (x) => x + 1
   const toString = (x) => x.toString()
   const fromString = (x) => parseInt(x, 10)
 

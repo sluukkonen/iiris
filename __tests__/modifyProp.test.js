@@ -1,8 +1,9 @@
+import { inc } from '../src/inc'
 import { modifyProp } from '../src/modifyProp'
+import { noop } from '../src/noop'
 
 it('modifies a property at the specified value', () => {
   const obj = { a: 1, b: 2, c: 3 }
-  const inc = (x) => x + 1
 
   expect(modifyProp('a', inc, obj)).toEqual({ a: 2, b: 2, c: 3 })
   expect(modifyProp('b', inc, obj)).toEqual({ a: 1, b: 3, c: 3 })
@@ -12,7 +13,6 @@ it('modifies a property at the specified value', () => {
 
 it('removes the property if the function returns undefined', () => {
   const obj = { a: 1, b: 2, c: 3 }
-  const noop = () => {}
 
   expect(modifyProp('a', noop, obj)).toEqual({ b: 2, c: 3 })
   expect(modifyProp('b', noop, obj)).toEqual({ a: 1, c: 3 })

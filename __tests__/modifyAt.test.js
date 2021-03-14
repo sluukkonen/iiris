@@ -1,8 +1,9 @@
+import { inc } from '../src/inc'
 import { modifyAt } from '../src/modifyAt'
+import { noop } from '../src/noop'
 
 it('sets the element at an index to the specified value', () => {
   const arr = [1, 2, 3]
-  const inc = (x) => x + 1
 
   expect(modifyAt(-3, inc, arr)).toEqual([2, 2, 3])
   expect(modifyAt(-2, inc, arr)).toEqual([1, 3, 3])
@@ -14,7 +15,6 @@ it('sets the element at an index to the specified value', () => {
 
 it('removes the element if value is undefined and index is within bounds', () => {
   const arr = [1, 2, 3]
-  const noop = () => {}
 
   expect(modifyAt(-4, noop, arr)).toEqual([1, 2, 3])
   expect(modifyAt(-3, noop, arr)).toEqual([2, 3])
