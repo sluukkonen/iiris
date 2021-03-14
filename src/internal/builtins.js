@@ -2,11 +2,9 @@ export const builtinArray = Array
 export const builtinIsArray = builtinArray.isArray
 
 export const builtinNumber = Number
-export const builtinIsInteger = builtinNumber.isInteger
 export const builtinIsNaN = builtinNumber.isNaN
 
 export const builtinObject = Object
-export const builtinAssign = builtinObject.assign
 export const builtinDefineProperty = builtinObject.defineProperty
 export const builtinEntries = builtinObject.entries
 export const builtinFromEntries = builtinObject.fromEntries
