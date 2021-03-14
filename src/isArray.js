@@ -1,1 +1,3 @@
-export const isArray = Array.isArray
+import { builtinIsArray } from './internal/builtins'
+
+export const isArray = builtinIsArray
