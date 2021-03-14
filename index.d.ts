@@ -1041,6 +1041,28 @@ export function filter<T>(
 ): (array: readonly T[]) => T[]
 
 /**
+ * Like {@link filter}, but `predicate` also receives the element index as the
+ * first argument.
+ *
+ * @category Searching arrays with a predicate
+ * @example
+ *
+ * ```typescript
+ * S.filterIndexed((i, n) => i + n === 3, [1, 2, 3])
+ * // => [2]
+ * ```
+ *
+ * @see filter
+ */
+export function filterIndexed<T>(
+  predicate: (index: number, value: T) => boolean,
+  array: readonly T[]
+): T[]
+export function filterIndexed<T>(
+  predicate: (index: number, value: T) => boolean
+): (array: readonly T[]) => T[]
+
+/**
  * Return an array containing the results of applying `fn` to each element in
  * the original `array` and then flattening the result by one level.
  *
@@ -1116,6 +1138,29 @@ export function flip<T, U, R>(fn: Function2<T, U, R>): Function2<U, T, R>
  */
 export function forEach<T>(fn: (value: T) => void, array: readonly T[]): T[]
 export function forEach<T>(fn: (value: T) => void): (array: readonly T[]) => T[]
+
+/**
+ * Like {@link forEach}, but `fn` also receives the element index as the first
+ * argument.
+ *
+ * @category Basic array operations
+ * @example
+ *
+ * ```typescript
+ * S.forEachIndexed(console.log, [1, 2, 3])
+ * 0 1
+ * 1 2
+ * 2 3
+ * // => [1, 2, 3]
+ * ```
+ */
+export function forEachIndexed<T>(
+  fn: (index: number, value: T) => void,
+  array: readonly T[]
+): T[]
+export function forEachIndexed<T>(
+  fn: (index: number, value: T) => void
+): (array: readonly T[]) => T[]
 
 /**
  * Create an object from an array of `[key, value]` pairs.

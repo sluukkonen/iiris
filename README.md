@@ -20,6 +20,7 @@
     - [append](#append)
     - [concat](#concat)
     - [forEach](#foreach)
+    - [forEachIndexed](#foreachindexed)
     - [head](#head)
     - [init](#init)
     - [last](#last)
@@ -47,6 +48,7 @@
     - [count](#count)
     - [every](#every)
     - [filter](#filter)
+    - [filterIndexed](#filterindexed)
     - [find](#find)
     - [findIndex](#findindex)
     - [findLast](#findlast)
@@ -230,6 +232,25 @@ S.forEach(console.log, [1, 2, 3])
 1
 2
 3
+// => [1, 2, 3]
+```
+
+***
+
+#### forEachIndexed
+
+```typescript
+<T>(fn: (index: number, value: T) => void, array: T[]) => T[]
+```
+
+Like [forEach](#foreach), but `fn` also receives the element index as the first
+argument.
+
+```typescript
+S.forEachIndexed(console.log, [1, 2, 3])
+0 1
+1 2
+2 3
 // => [1, 2, 3]
 ```
 
@@ -714,6 +735,24 @@ S.filter((n) => n > 1, [1, 2, 3])
 ```
 
 **See also:** [count](#count), [partition](#partition)
+
+***
+
+#### filterIndexed
+
+```typescript
+<T>(predicate: (index: number, value: T) => boolean, array: T[]) => T[]
+```
+
+Like [filter](#filter), but `predicate` also receives the element index as the
+first argument.
+
+```typescript
+S.filterIndexed((i, n) => i + n === 3, [1, 2, 3])
+// => [2]
+```
+
+**See also:** [filter](#filter)
 
 ***
 
