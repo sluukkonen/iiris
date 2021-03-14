@@ -38,8 +38,8 @@
   },
   "scripts": {
     "benchmark": "yarn build && NODE_ENV=production node benchmark",
-    "build": "rm -rf dist && node generate-index.js && rollup -c",
-    "bundlewatch": "bundlewatch --config bundlewatch.config.json",
+    "build": "rm -rf dist/* && node generate-index.js && rollup --config",
+    "bundlewatch": "yarn build --environment MINIFY && bundlewatch --config bundlewatch.config.json",
     "lint": "eslint .",
     "repl": "yarn build && node -i -e 'S = require(\".\")'",
     "test": "jest --coverage",
