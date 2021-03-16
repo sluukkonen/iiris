@@ -2064,6 +2064,26 @@ export function mapValues<K extends string, V1, V2>(
 ): (object: Record<K, V1>) => Record<K, V2>
 
 /**
+ * Merge the own enumerable properties of two objects together, prefering the
+ * values from `second` in case of duplicate keys.
+ *
+ * @category Object
+ * @example
+ *
+ * ```typescript
+ * S.merge({ a: 1, b: 1 }, { b: 2, c: 2 })
+ * // => { a: 1, b: 2, c: 2 }
+ * ```
+ */
+export function merge<T extends object, U extends object>(
+  first: T,
+  second: U
+): T & U
+export function merge<T extends object>(
+  first: T
+): <U extends object>(second: U) => T & U
+
+/**
  * Return the smaller of two values.
  *
  * @category Relation
