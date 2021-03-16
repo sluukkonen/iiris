@@ -1738,7 +1738,7 @@ S.fromEntries([['a', 1], ['b', 2], ['c', 3]])
 #### has
 
 ```typescript
-<K extends string>(key: K, object: unknown) => object is Record<string, unknown>
+<K extends string>(key: K, object: unknown) => object is Record<K, unknown>
 ```
 
 Check if `key` is an own property of `object`.

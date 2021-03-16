@@ -1355,10 +1355,10 @@ export function gte<T extends Ordered>(first: T): (second: Widen<T>) => boolean
 export function has<K extends string>(
   key: K,
   object: unknown
-): object is { [P in K]: unknown }
+): object is Record<K, unknown>
 export function has<K extends string>(
   key: K
-): (object: unknown) => object is { [P in K]: unknown }
+): (object: unknown) => object is Record<K, unknown>
 
 /**
  * Return the first element of the `array` or `undefined` if the array is empty.
