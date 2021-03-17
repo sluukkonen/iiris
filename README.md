@@ -16,6 +16,8 @@
 
 ## Table Of Contents
 
+- [Installation](#installation)
+- [Getting Started](#getting-started)
 - [API Reference](#api-reference) <!-- BEGIN TOC -->
   - [Basic array operations](#basic-array-operations)
     - [append](#append)
@@ -182,6 +184,20 @@
     - [isSymbol](#issymbol)
     - [isUndefined](#isundefined)
 <!-- END TOC -->
+
+## Installation
+
+```shell
+$ npm install iiris
+```
+
+```shell
+$ yarn add iiris
+```
+
+## Getting started
+
+TODO
 
 ## API Reference
 <!-- BEGIN API -->
