@@ -4,19 +4,14 @@
   "plugins": ["prettier", "jest"],
   "extends": [
     "eslint:recommended",
-    "prettier",
     "plugin:jest/recommended",
     "plugin:import/errors",
-    "plugin:import/warnings"
+    "plugin:import/warnings",
+    "plugin:prettier/recommended"
   ],
   "ignorePatterns": ["node_modules", "dist"],
   "rules": {
-    "prettier/prettier": "error",
     "import/no-commonjs": "error",
-    "jest/no-standalone-expect": [
-      "error",
-      { "additionalTestBlockFunctions": ["itProp"] }
-    ],
     "jest/expect-expect": [1, { "assertFunctionNames": ["expect*"] }]
   }
 }
