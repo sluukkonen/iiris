@@ -1,5 +1,5 @@
 {
-  "name": "soles",
+  "name": "iiris",
   "version": "0.0.1",
   "description": "A functional JavaScript utility library",
   "engines": {
@@ -8,7 +8,7 @@
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "index.d.ts",
-  "repository": "https://github.com/sluukkonen/soles",
+  "repository": "https://github.com/sluukkonen/iiris",
   "author": "Sakumatti Luukkonen <sakumatti.luukkonen@gmail.com>",
   "license": "MIT",
   "private": false,

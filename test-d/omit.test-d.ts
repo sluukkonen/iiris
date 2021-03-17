@@ -1,14 +1,14 @@
-import * as S from '..'
-import { User, user } from './index.test-d'
 import { expectType } from 'tsd'
+import * as I from '..'
+import { User, user } from './index.test-d'
 
-expectType<User>(S.omit([], user))
+expectType<User>(I.omit([], user))
 
-expectType<Omit<User, 'age'>>(S.omit(['age'], user))
-expectType<Omit<User, 'age'>>(S.omit(['age'])(user))
+expectType<Omit<User, 'age'>>(I.omit(['age'], user))
+expectType<Omit<User, 'age'>>(I.omit(['age'])(user))
 
-expectType<Omit<User, 'name'>>(S.omit(['name'], user))
-expectType<Omit<User, 'name'>>(S.omit(['name'])(user))
+expectType<Omit<User, 'name'>>(I.omit(['name'], user))
+expectType<Omit<User, 'name'>>(I.omit(['name'])(user))
 
-expectType<Omit<User, 'name' | 'age'>>(S.omit(['age', 'name'], user))
-expectType<Omit<User, 'name' | 'age'>>(S.omit(['age', 'name'])(user))
+expectType<Omit<User, 'name' | 'age'>>(I.omit(['age', 'name'], user))
+expectType<Omit<User, 'name' | 'age'>>(I.omit(['age', 'name'])(user))

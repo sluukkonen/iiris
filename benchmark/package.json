@@ -1,9 +1,9 @@
 {
-  "name": "soles-benchmark",
+  "name": "iiris-benchmark",
   "version": "1.0.0",
-  "description": "Benchmarks for soles",
+  "description": "Benchmarks for iiris",
   "main": "index.js",
-  "repository": "https://github.com/sluukkonen/soles",
+  "repository": "https://github.com/sluukkonen/iiris",
   "author": "Sakumatti Luukkonen",
   "license": "MIT",
   "private": true,

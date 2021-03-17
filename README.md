@@ -1,6 +1,6 @@
-# Soles 🦶
+# Iiris 👁️
 
-![CI](https://github.com/sluukkonen/soles/workflows/Node.js%20CI/badge.svg)
+![CI](https://github.com/sluukkonen/iiris/workflows/Node.js%20CI/badge.svg)
 
 ## Goals
 
@@ -195,7 +195,7 @@
 Append a new element to the end of an array.
 
 ```typescript
-S.append(4, [1, 2, 3])
+I.append(4, [1, 2, 3])
 // => [1, 2, 3, 4]
 ```
 
@@ -212,7 +212,7 @@ S.append(4, [1, 2, 3])
 Concatenate two arrays together.
 
 ```typescript
-S.concat([1, 2, 3], [4, 5, 6])
+I.concat([1, 2, 3], [4, 5, 6])
 // => [1, 2, 3, 4, 5, 6]
 ```
 
@@ -229,7 +229,7 @@ S.concat([1, 2, 3], [4, 5, 6])
 Apply `fn` to each element of the `array` and return the `array`.
 
 ```typescript
-S.forEach(console.log, ['h', 'i', '!'])
+I.forEach(console.log, ['h', 'i', '!'])
 h
 i
 !
@@ -250,7 +250,7 @@ Like [forEach](#foreach), but `fn` also receives the element index as the first
 argument.
 
 ```typescript
-S.forEachIndexed(console.log, ['h', 'i', '!'])
+I.forEachIndexed(console.log, ['h', 'i', '!'])
 0 h
 1 i
 2 !
@@ -270,10 +270,10 @@ S.forEachIndexed(console.log, ['h', 'i', '!'])
 Return the first element of the `array` or `undefined` if the array is empty.
 
 ```typescript
-S.head([1, 2, 3])
+I.head([1, 2, 3])
 // => 1
 
-S.head([])
+I.head([])
 // => undefined
 ```
 
@@ -290,7 +290,7 @@ S.head([])
 Return all elements of the `array` except the last.
 
 ```typescript
-S.tail([1, 2, 3])
+I.tail([1, 2, 3])
 // => [1, 2]
 ```
 
@@ -307,10 +307,10 @@ S.tail([1, 2, 3])
 Return the last element of the `array` or `undefined` if the array is empty.
 
 ```typescript
-S.last([1, 2, 3])
+I.last([1, 2, 3])
 // => 3
 
-S.last([])
+I.last([])
 // => undefined
 ```
 
@@ -327,7 +327,7 @@ S.last([])
 Prepend a new element to the beginning of an array.
 
 ```typescript
-S.prepend(0, [1, 2, 3])
+I.prepend(0, [1, 2, 3])
 // => [0, 1, 2, 3]
 ```
 
@@ -344,7 +344,7 @@ S.prepend(0, [1, 2, 3])
 Return all elements of the `array` except the first.
 
 ```typescript
-S.tail([1, 2, 3])
+I.tail([1, 2, 3])
 // => [2, 3]
 ```
 
@@ -364,7 +364,7 @@ Return an array containing the results of applying `fn` to each element in
 the original `array` and then flattening the result by one level.
 
 ```typescript
-S.flatMap((n) => [n, n], [1, 2, 3])
+I.flatMap((n) => [n, n], [1, 2, 3])
 // => [1, 1, 2, 2, 3, 3]
 ```
 
@@ -381,10 +381,10 @@ S.flatMap((n) => [n, n], [1, 2, 3])
 Flatten a nested `array` by `n` levels.
 
 ```typescript
-S.flatten(1, [1, [2, [3]]])
+I.flatten(1, [1, [2, [3]]])
 // => [1, 2, [3]]
 
-S.flatten(2, [1, [2, [3]]])
+I.flatten(2, [1, [2, [3]]])
 // => [1, 2, 3]
 ```
 
@@ -401,10 +401,10 @@ S.flatten(2, [1, [2, [3]]])
 Return a copy of `array` with `separator` inserted between each element.
 
 ```typescript
-S.intersperse(',', ['a', 'b', 'c'])
+I.intersperse(',', ['a', 'b', 'c'])
 // => ['a', ',', 'b', ',', 'c']
 
-S.intersperse(',', [])
+I.intersperse(',', [])
 // => []
 ```
 
@@ -422,7 +422,7 @@ Convert the `array` to a string, inserting the `separator` between each
 element.
 
 ```typescript
-S.join(', ', [1, 2, 3])
+I.join(', ', [1, 2, 3])
 // => '1, 2, 3'
 ```
 
@@ -440,7 +440,7 @@ Return an array containing the results of applying `fn` to each element in
 the original `array`.
 
 ```typescript
-S.map(S.inc, [1, 2, 3])
+I.map(I.inc, [1, 2, 3])
 // => [2, 3, 4]
 ```
 
@@ -458,7 +458,7 @@ Like [map](#map), but `fn` also receives the element index as the first
 argument.
 
 ```typescript
-S.mapIndexed((i, c) => `${i}-${c}`, ['a', 'b', 'c'])
+I.mapIndexed((i, c) => `${i}-${c}`, ['a', 'b', 'c'])
 // => ['0-a', '1-b', '2-c']
 ```
 
@@ -482,7 +482,7 @@ const users = [
   { name: 'Carol', age: 20 }
 ]
 
-S.mapMaybe(S.prop('age'), users)
+I.mapMaybe(I.prop('age'), users)
 // => [10, 20]
 ```
 
@@ -499,7 +499,7 @@ S.mapMaybe(S.prop('age'), users)
 Reverse an `array`.
 
 ```typescript
-S.reverse([1, 2, 3])
+I.reverse([1, 2, 3])
 // => [3, 2, 1]
 ```
 
@@ -517,10 +517,10 @@ Return the largest element of an `array` or `undefined` if the array is
 empty.
 
 ```typescript
-S.maximum([1, 2, 3])
+I.maximum([1, 2, 3])
 // => 3
 
-S.maximum([])
+I.maximum([])
 // => undefined
 ```
 
@@ -544,7 +544,7 @@ const users = [
   { name: 'Carol', age: 30 },
 ]
 
-S.maximumBy((u) => u.age, users)
+I.maximumBy((u) => u.age, users)
 // => { name: 'Carol', age: 30 }
 ```
 
@@ -561,10 +561,10 @@ S.maximumBy((u) => u.age, users)
 Return the smallest element of `array` or `undefined` if the array is empty.
 
 ```typescript
-S.minimum([1, 2, 3])
+I.minimum([1, 2, 3])
 // => 1
 
-S.minimum([])
+I.minimum([])
 // => undefined
 ```
 
@@ -588,7 +588,7 @@ const users = [
   { name: 'Carol', age: 30 },
 ]
 
-S.minimumBy((u) => u.age, users)
+I.minimumBy((u) => u.age, users)
 // => { name: 'Alice', age: 10 }
 ```
 
@@ -611,7 +611,7 @@ with the accumulated value so far and the current element. The first call to
 If the array is empty, `initial` is returned.
 
 ```typescript
-S.reduce((sum, n) => sum + n, 1, [2, 3, 4]) // equal to ((1 + 2) + 3) + 4
+I.reduce((sum, n) => sum + n, 1, [2, 3, 4]) // equal to ((1 + 2) + 3) + 4
 // => 10
 ```
 
@@ -634,7 +634,7 @@ with the current element and the accumulated value so far. The first call to
 If the array is empty, `initial` is returned.
 
 ```typescript
-S.reduceRight((n, sum) => n + sum, 4, [1, 2, 3]) // equal to 1 + (2 + (3 + 4))
+I.reduceRight((n, sum) => n + sum, 4, [1, 2, 3]) // equal to 1 + (2 + (3 + 4))
 // => 10
 ```
 
@@ -655,10 +655,10 @@ algorithm](https://en.wikipedia.org/wiki/Kahan_summation_algorithm) for
 minimizing numerical error.
 
 ```typescript
-const numbers = S.repeat(0.1, 10)
+const numbers = I.repeat(0.1, 10)
 // => [0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1]
 
-S.sum(numbers)
+I.sum(numbers)
 // => 1
 
 numbers.reduce((sum, n) => sum + n, 0)
@@ -679,7 +679,7 @@ Like [sum](#sum), but each element of the `array` is converted to a number
 by applying `fn`.
 
 ```typescript
-S.sumBy(S.prop('age'), [{ name: 'Alice', age: 10 }, { name: 'Bob', age: 20 }])
+I.sumBy(I.prop('age'), [{ name: 'Alice', age: 10 }, { name: 'Bob', age: 20 }])
 // => 30
 ```
 
@@ -698,7 +698,7 @@ S.sumBy(S.prop('age'), [{ name: 'Alice', age: 10 }, { name: 'Bob', age: 20 }])
 Count the number of elements in the `array` the satisfy the `predicate`.
 
 ```typescript
-S.count((n) => n > 1, [1, 2, 3])
+I.count((n) => n > 1, [1, 2, 3])
 // => 2
 ```
 
@@ -715,10 +715,10 @@ S.count((n) => n > 1, [1, 2, 3])
 Check if every element in the `array` satisfies the `predicate`.
 
 ```typescript
-S.every((n) => n < 10, [1, 2, 3])
+I.every((n) => n < 10, [1, 2, 3])
 // => true
 
-S.every((n) => n < 3, [1, 2, 3])
+I.every((n) => n < 3, [1, 2, 3])
 // => false
 ```
 
@@ -735,7 +735,7 @@ S.every((n) => n < 3, [1, 2, 3])
 Return the elements of the `array` that satisfy the `predicate`.
 
 ```typescript
-S.filter((n) => n > 1, [1, 2, 3])
+I.filter((n) => n > 1, [1, 2, 3])
 // => [2, 3]
 ```
 
@@ -753,7 +753,7 @@ Like [filter](#filter), but `predicate` also receives the element index as the
 first argument.
 
 ```typescript
-S.filterIndexed((i, n) => i + n === 3, [1, 2, 3])
+I.filterIndexed((i, n) => i + n === 3, [1, 2, 3])
 // => [2]
 ```
 
@@ -772,10 +772,10 @@ Find the first element in the `array` that satisfies the `predicate`.
 Returns `undefined` if none of the elements match.
 
 ```typescript
-S.find((c) => c !== 'a', ['a', 'b', 'c'])
+I.find((c) => c !== 'a', ['a', 'b', 'c'])
 // => 'b'
 
-S.find((c) => c === 'x', ['a', 'b', 'c'])
+I.find((c) => c === 'x', ['a', 'b', 'c'])
 // => undefined
 ```
 
@@ -795,10 +795,10 @@ Find the index of the first element in the `array` that satisfies the
 Returns `-1` if none of the elements satisfy the predicate.
 
 ```typescript
-S.findIndex((c) => c !== 'a', ['a', 'b', 'c'])
+I.findIndex((c) => c !== 'a', ['a', 'b', 'c'])
 // => 1
 
-S.findIndex((c) => c === 'x', ['a', 'b', 'c'])
+I.findIndex((c) => c === 'x', ['a', 'b', 'c'])
 // => -1
 ```
 
@@ -817,10 +817,10 @@ Find the last element in the `array` that satisfies the `predicate`.
 Returns `undefined` if none of the elements match.
 
 ```typescript
-S.findLast((c) => c !== 'a', ['a', 'b', 'c'])
+I.findLast((c) => c !== 'a', ['a', 'b', 'c'])
 // => 'c'
 
-S.findLast((c) => c === 'x', ['a', 'b', 'c'])
+I.findLast((c) => c === 'x', ['a', 'b', 'c'])
 // => undefined
 ```
 
@@ -840,10 +840,10 @@ Find the index of the last element in the `array` that satisfies the
 Returns `-1` if none of the elements match.
 
 ```typescript
-S.findLastIndex((c) => c !== 'a', ['a', 'b', 'c'])
+I.findLastIndex((c) => c !== 'a', ['a', 'b', 'c'])
 // => 2
 
-S.findLastIndex((c) => c === 'x', ['a', 'b', 'c'])
+I.findLastIndex((c) => c === 'x', ['a', 'b', 'c'])
 // => -1
 ```
 
@@ -860,10 +860,10 @@ S.findLastIndex((c) => c === 'x', ['a', 'b', 'c'])
 Check if none of the elements in the `array` satisfy the `predicate`.
 
 ```typescript
-S.none((n) => n > 5, [1, 2, 3])
+I.none((n) => n > 5, [1, 2, 3])
 // true
 
-S.none((n) => n > 5, [1, 2, 3])
+I.none((n) => n > 5, [1, 2, 3])
 // false
 ```
 
@@ -882,7 +882,7 @@ that satisfy the `predicate` and the second containing the elements that do
 not.
 
 ```typescript
-const [evens, odds] = S.partition((n) => n % 2 === 0, [1, 2, 3])
+const [evens, odds] = I.partition((n) => n % 2 === 0, [1, 2, 3])
 // => [[2], [1, 3]]
 ```
 
@@ -899,10 +899,10 @@ const [evens, odds] = S.partition((n) => n % 2 === 0, [1, 2, 3])
 Check if some elements in the `array` satisfies the `predicate`.
 
 ```typescript
-S.some((n) => n > 2, [1, 2, 3])
+I.some((n) => n > 2, [1, 2, 3])
 // true
 
-S.some((n) => n > 5, [1, 2, 3])
+I.some((n) => n > 5, [1, 2, 3])
 // false
 ```
 
@@ -922,10 +922,10 @@ Check if the `array` includes the specified `value`. Uses [equals](#equals) for
 determining equality.
 
 ```typescript
-S.includes(1, [1, 2, 3])
+I.includes(1, [1, 2, 3])
 // => true
 
-S.includes(0, [1, 2, 3])
+I.includes(0, [1, 2, 3])
 // => false
 ```
 
@@ -941,10 +941,10 @@ Return the index of the first element equaling `value`, using [equals](#equals)
 for determining equality. Returns -1 if no match can be found.
 
 ```typescript
-S.indexOf('b', ['a', 'b', 'c', 'a', 'b', 'c'])
+I.indexOf('b', ['a', 'b', 'c', 'a', 'b', 'c'])
 // => 1
 
-S.indexOf('x', ['a', 'b', 'c', 'a', 'b', 'c'])
+I.indexOf('x', ['a', 'b', 'c', 'a', 'b', 'c'])
 // => -1
 ```
 
@@ -962,10 +962,10 @@ Return the index of the last element equaling `value`, using [equals](#equals)
 for determining equality. Returns -1 if no match can be found.
 
 ```typescript
-S.lastIndexOf('b', ['a', 'b', 'c', 'a', 'b', 'c'])
+I.lastIndexOf('b', ['a', 'b', 'c', 'a', 'b', 'c'])
 // => 4
 
-S.lastIndexOf('x', ['a', 'b', 'c', 'a', 'b', 'c'])
+I.lastIndexOf('x', ['a', 'b', 'c', 'a', 'b', 'c'])
 // => -1
 ```
 
@@ -991,7 +991,7 @@ const users = [
   { name: 'Alice' }
 ]
 
-S.countBy(S.prop('name'), users)
+I.countBy(I.prop('name'), users)
 // => { Alice: 2, Bob: 1 }
 ```
 
@@ -1008,7 +1008,7 @@ S.countBy(S.prop('name'), users)
 Partition the `array` into an object of arrays according to `keyFn`.
 
 ```typescript
-S.groupBy((n) => n % 2, [1, 2, 3])
+I.groupBy((n) => n % 2, [1, 2, 3])
 // => {'0': [2], '1': [1, 3] }
 ```
 
@@ -1031,7 +1031,7 @@ const users = [
   { name: 'Bob', age: 20 },
   { name: 'Alice', age: 30 }
 ]
-const agesByName = S.groupMap(S.prop('age'), S.prop('name'), users)
+const agesByName = I.groupMap(I.prop('age'), I.prop('name'), users)
 // => { Alice: [10, 30], Bob: [20] }
 ```
 
@@ -1054,7 +1054,7 @@ const users = [
   { name: 'Bob', age: 20 },
   { name: 'Alice', age: 30 }
 ]
-const sumOfAgesByName = S.groupMapReduce(S.add, S.prop('age'), S.prop('name'), users)
+const sumOfAgesByName = I.groupMapReduce(I.add, I.prop('age'), I.prop('name'), users)
 // => { Alice: 40, Bob: 20 }
 ```
 
@@ -1079,7 +1079,7 @@ const users = [
   { id: 2, name: 'Bob' },
   { id: 1, name: 'Carol' }
 ]
-S.indexBy(S.prop('id'), users)
+I.indexBy(I.prop('id'), users)
 // => { '1': { id: 1, name: 'Carol' }, '2': { id: 2, name: 'Bob' } }
 ```
 
@@ -1098,7 +1098,7 @@ S.indexBy(S.prop('id'), users)
 Create a singleton array containing `value`
 
 ```typescript
-S.of(1)
+I.of(1)
 // => [1]
 ```
 
@@ -1115,7 +1115,7 @@ S.of(1)
 Create two element array containing `first` and `second`.
 
 ```typescript
-S.pair(1, 2)
+I.pair(1, 2)
 // => [1, 2]
 ```
 
@@ -1133,10 +1133,10 @@ Create an array of numbers between `start` (inclusive) and `end`
 (exclusive).
 
 ```typescript
-S.range(0, 10)
+I.range(0, 10)
 // => [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-// S.range(0, 0)
+// I.range(0, 0)
 // => []
 ```
 
@@ -1153,7 +1153,7 @@ S.range(0, 10)
 Repeat the given `value` `n` times.
 
 ```typescript
-S.repeat('a', 5)
+I.repeat('a', 5)
 // => ['a', 'a', 'a', 'a', 'a']
 ```
 
@@ -1170,7 +1170,7 @@ S.repeat('a', 5)
 Create an array of length `n` by applying `fn` to the index of each element.
 
 ```typescript
-S.times((n) => n * 10, 3)
+I.times((n) => n * 10, 3)
 // => [0, 10, 20]
 ```
 
@@ -1189,10 +1189,10 @@ S.times((n) => n * 10, 3)
 Drop the first `n` elements of an `array`.
 
 ```typescript
-S.drop(1, [1, 2, 3])
+I.drop(1, [1, 2, 3])
 // => [2, 3]
 
-S.drop(2, [1, 2, 3])
+I.drop(2, [1, 2, 3])
 // => [3]
 ```
 
@@ -1209,10 +1209,10 @@ S.drop(2, [1, 2, 3])
 Drop the last `n` elements of an `array`.
 
 ```typescript
-S.dropLast(1, [1, 2, 3])
+I.dropLast(1, [1, 2, 3])
 // => [1, 2]
 
-S.dropLast(2, [1, 2, 3])
+I.dropLast(2, [1, 2, 3])
 // => [1]
 ```
 
@@ -1229,7 +1229,7 @@ S.dropLast(2, [1, 2, 3])
 Drop elements from the end of an `array` while `predicate` is satisfied.
 
 ```typescript
-S.dropLastWhile((n) => n > 1, [1, 2, 3])
+I.dropLastWhile((n) => n > 1, [1, 2, 3])
 // => [1]
 ```
 
@@ -1247,7 +1247,7 @@ Drop elements from the beginning of an `array` while `predicate` is
 satisfied.
 
 ```typescript
-S.dropWhile((n) => n === 1, [1, 2, 3])
+I.dropWhile((n) => n === 1, [1, 2, 3])
 // => [2, 3]
 ```
 
@@ -1265,10 +1265,10 @@ Create a copy of `array` containing the elements from `start` (inclusive)
 to `end` (exclusive).
 
 ```typescript
-S.slice(0, 2, [1, 2, 3])
+I.slice(0, 2, [1, 2, 3])
 // => [1, 2]
 
-S.slice(1, 2, [1, 2, 3])
+I.slice(1, 2, [1, 2, 3])
 // => [2]
 ```
 
@@ -1283,7 +1283,7 @@ S.slice(1, 2, [1, 2, 3])
 Take the first `n` elements of an `array`.
 
 ```typescript
-S.take(2, [1, 2, 3])
+I.take(2, [1, 2, 3])
 // => [1, 2]
 ```
 
@@ -1300,7 +1300,7 @@ S.take(2, [1, 2, 3])
 Take the last `n` elements of an `array`.
 
 ```typescript
-S.takeLast(2, [1, 2, 3])
+I.takeLast(2, [1, 2, 3])
 // => [2, 3]
 ```
 
@@ -1317,7 +1317,7 @@ S.takeLast(2, [1, 2, 3])
 Take elements from the end of an `array` while `predicate` is satisfied.
 
 ```typescript
-S.takeLastWhile((n) => n >= 2, [1, 2, 3])
+I.takeLastWhile((n) => n >= 2, [1, 2, 3])
 // => [2, 3]
 ```
 
@@ -1335,7 +1335,7 @@ Take elements from the beginning of an `array` while `predicate` is
 satisfied.
 
 ```typescript
-S.takeWhile((n) => n <= 2, [1, 2, 3])
+I.takeWhile((n) => n <= 2, [1, 2, 3])
 // => [1, 2]
 ```
 
@@ -1355,7 +1355,7 @@ Given a `fn` that maps a `value` to an Ordered value, create an
 ascending Comparator function.
 
 ```typescript
-S.sort(S.ascend(S.prop('age')), [{ name: 'Bob' }, { name: 'Alice' }])
+I.sort(I.ascend(I.prop('age')), [{ name: 'Bob' }, { name: 'Alice' }])
 // => [{ name: 'Alice' }, { name: 'Bob' }]
 ```
 
@@ -1373,7 +1373,7 @@ Given a `fn` that maps a `value` to an Ordered value, create a
 descending Comparator function.
 
 ```typescript
-S.sort(S.descend(S.prop('name')), [{ name: 'Alice' }, { name: 'Bob' }])
+I.sort(I.descend(I.prop('name')), [{ name: 'Alice' }, { name: 'Bob' }])
 // => [{ name: 'Bob' }, { name: 'Alice' }]
 ```
 
@@ -1390,7 +1390,7 @@ S.sort(S.descend(S.prop('name')), [{ name: 'Alice' }, { name: 'Bob' }])
 Sort an `array` according to the Comparator function.
 
 ```typescript
-S.sort((a, b) => a - b, [3, 2, 1])
+I.sort((a, b) => a - b, [3, 2, 1])
 // => [1, 2, 3]
 ```
 
@@ -1413,10 +1413,10 @@ const users = [
   { name: 'Alice', age: 20 }
 ]
 
-S.sortBy(S.prop('name'), users)
+I.sortBy(I.prop('name'), users)
 // => [{ name: 'Alice', age: 20 }, { name: 'Bob', age: 10 }]
 
-S.sortBy(S.prop('age'), users)
+I.sortBy(I.prop('age'), users)
 // => [{ name: 'Bob', age: 10 }, { name: 'Alice', age: 20 }]
 ```
 
@@ -1441,7 +1441,7 @@ const users = [
   { name: 'Alice', age: 20 },
 ]
 
-S.sortWith([S.descend(S.prop('age')), S.ascend(S.prop('name'))], users)
+I.sortWith([I.descend(I.prop('age')), I.ascend(I.prop('name'))], users)
 // => [{ name: 'Alice', age: 20 }, { name: 'Bob', age: 20 }, { name: 'Alice', age: 10 }]
 ```
 
@@ -1463,7 +1463,7 @@ If one of the arrays is longer than the other, the extra elements are
 ignored.
 
 ```typescript
-S.zip(['a', 'b', 'c'], [1, 2, 3])
+I.zip(['a', 'b', 'c'], [1, 2, 3])
 // => [['a', 1], ['b', 2], ['c', 3]]
 ```
 
@@ -1483,7 +1483,7 @@ If one of the arrays is longer than the other, its extra elements are
 ignored.
 
 ```typescript
-S.zipObject(['a', 'b', 'c'], [1, 2, 3])
+I.zipObject(['a', 'b', 'c'], [1, 2, 3])
 // => {a: 1, b: 2, c: 3}
 ```
 
@@ -1501,7 +1501,7 @@ Like [zip](#zip), but the elements are combined with `fn` instead of
 constructing a pair.
 
 ```typescript
-S.zipWith(S.add, [1, 2, 3], [4, 5, 6])
+I.zipWith(I.add, [1, 2, 3], [4, 5, 6])
 // => [5, 7, 9]
 ```
 
@@ -1525,7 +1525,7 @@ determining equality.
 Will not remove duplicates from the `first` array.
 
 ```typescript
-S.difference([1, 2, 3], [2, 3, 4])
+I.difference([1, 2, 3], [2, 3, 4])
 // => [1]
 ```
 
@@ -1553,7 +1553,7 @@ const otherUsers = [
   { id: 4, name: 'Dan' }
 ]
 
-S.differenceWith((a, b) => a.id === b.id, users, otherUsers)
+I.differenceWith((a, b) => a.id === b.id, users, otherUsers)
 // => [ { id: 1, name: 'Alice' } ]
 ```
 
@@ -1575,7 +1575,7 @@ determining equality.
 Will not remove duplicates from the first array.
 
 ```typescript
-S.intersection([1, 2, 3], [2, 3, 4])
+I.intersection([1, 2, 3], [2, 3, 4])
 // => [2, 3]
 ```
 
@@ -1603,7 +1603,7 @@ const otherUsers = [
   { id: 4, name: 'Dan' }
 ]
 
-S.intersectionWith((a, b) => a.id === b.id, users, otherUsers)
+I.intersectionWith((a, b) => a.id === b.id, users, otherUsers)
 // => [ { id: 2, name: 'Bob' }, { id: 3, name: 'Carol' } ]
 ```
 
@@ -1624,7 +1624,7 @@ determining equality.
 Will not remove duplicates from the first array.
 
 ```typescript
-S.union([1, 2, 3], [2, 3, 4])
+I.union([1, 2, 3], [2, 3, 4])
 // => [1, 2, 3, 4]
 ```
 
@@ -1652,7 +1652,7 @@ const otherUsers = [
   { id: 4, name: 'Dan' }
 ]
 
-S.unionWith((a, b) => a.id === b.id, users, otherUsers)
+I.unionWith((a, b) => a.id === b.id, users, otherUsers)
 // => [ { id: 1, name: 'Alice' },  { id: 2, name: 'Bob' }, { id: 3, name: 'Carol' }, { id: 4, name: 'Dan' } ]
 ```
 
@@ -1670,7 +1670,7 @@ Remove duplicate values from `array`, using [equals](#equals) for determining
 equality.
 
 ```typescript
-S.uniq([1, 2, 3, 1, 2, 3])
+I.uniq([1, 2, 3, 1, 2, 3])
 // => [1, 2, 3]
 ```
 
@@ -1692,7 +1692,7 @@ const users = [
   { id: 1, name: 'Alice' },
   { id: 2, name: 'Bob' },
 ]
-S.uniqWith((a, b) => a.id === b.id, users)
+I.uniqWith((a, b) => a.id === b.id, users)
 // => [{ id: 1, name: 'Alice' }, { id: 2, name: 'Bob' }]
 ```
 
@@ -1711,7 +1711,7 @@ S.uniqWith((a, b) => a.id === b.id, users)
 Return an array of the own enumerable property key-value pairs of `object`
 
 ```typescript
-S.entries({a: 1, b: 2, c: 3})
+I.entries({a: 1, b: 2, c: 3})
 // => [['a', 1], ['b', 2], ['c', 3]]
 ```
 
@@ -1728,7 +1728,7 @@ S.entries({a: 1, b: 2, c: 3})
 Create an object from an array of `[key, value]` pairs.
 
 ```typescript
-S.fromEntries([['a', 1], ['b', 2], ['c', 3]])
+I.fromEntries([['a', 1], ['b', 2], ['c', 3]])
 // => {a: 1, b: 2, c: 3}
 ```
 
@@ -1745,10 +1745,10 @@ S.fromEntries([['a', 1], ['b', 2], ['c', 3]])
 Check if `key` is an own property of `object`.
 
 ```typescript
-S.has('a', {a: 1})
+I.has('a', {a: 1})
 // => true
 
-S.has('toString', {a: 1})
+I.has('toString', {a: 1})
 // => false
 ```
 
@@ -1763,7 +1763,7 @@ S.has('toString', {a: 1})
 Return an array of the own enumerable property keys of `object`.
 
 ```typescript
-S.keys({a: 1, b: 2, c: 3})
+I.keys({a: 1, b: 2, c: 3})
 // => ['a', 'b', 'c']
 ```
 
@@ -1783,7 +1783,7 @@ the original `object`.
 If multiple keys map to the same new key, the latest value is selected.
 
 ```typescript
-S.mapKeys((k) => k.toUpperCase(), { a: 1, b: 2, c: 3 })
+I.mapKeys((k) => k.toUpperCase(), { a: 1, b: 2, c: 3 })
 // => { A: 1, B: 2, C: 3 }
 ```
 
@@ -1799,7 +1799,7 @@ Return an object containing the results of applying `fn` to each value of
 the original `object`.
 
 ```typescript
-S.mapValues(S.inc, {a: 1, b: 2, c: 3})
+I.mapValues(I.inc, {a: 1, b: 2, c: 3})
 // => {a: 2, b: 3, c: 4}
 ```
 
@@ -1815,7 +1815,7 @@ Copy the own enumerable properties of two objects, prefering the values from
 `second` in case of duplicate keys.
 
 ```typescript
-S.merge({ a: 1, b: 1 }, { b: 2, c: 2 })
+I.merge({ a: 1, b: 1 }, { b: 2, c: 2 })
 // => { a: 1, b: 2, c: 2 }
 ```
 
@@ -1830,7 +1830,7 @@ S.merge({ a: 1, b: 1 }, { b: 2, c: 2 })
 Return a copy of `object` without the specified `keys`.
 
 ```typescript
-S.omit(['a', 'b'], { a: 1, b: 2, c: 3 })
+I.omit(['a', 'b'], { a: 1, b: 2, c: 3 })
 // => { c: 3 }
 ```
 
@@ -1847,7 +1847,7 @@ S.omit(['a', 'b'], { a: 1, b: 2, c: 3 })
 Return a copy of `object` with only the specified `keys`.
 
 ```typescript
-S.pick(['a', 'b'], { a: 1, b: 2, c: 3 })
+I.pick(['a', 'b'], { a: 1, b: 2, c: 3 })
 // => { a: 1, b: 2 }
 ```
 
@@ -1863,7 +1863,7 @@ S.pick(['a', 'b'], { a: 1, b: 2, c: 3 })
 
 Return an array of the own enumerable property values of `object`
 ```
-S.keys({a: 1, b: 2, c: 3})
+I.keys({a: 1, b: 2, c: 3})
 // => [1, 2, 3]
 ```
 
@@ -1883,7 +1883,7 @@ Create a version of `fn` that accepts two arguments.
 
 ```typescript
 const fn = (...args) => args
-const wrapped = S.binary(fn)
+const wrapped = I.binary(fn)
 
 fn(1, 2, 3)
 // => [1, 2, 3]
@@ -1906,7 +1906,7 @@ Create a version of a predicate `fn` that flips the returned boolean value.
 
 ```typescript
 const isZero = (v) => v === 0
-const notZero = S.complement(isZero)
+const notZero = I.complement(isZero)
 
 notZero(0)
 // => false
@@ -1928,7 +1928,7 @@ notZero(1)
 Right-to-left function composition.
 
 ```typescript
-const composed = S.compose(S.add(10), S.multiply(2))
+const composed = I.compose(I.add(10), I.multiply(2))
 
 composed(2)
 // => 14
@@ -1945,7 +1945,7 @@ composed(2)
 Create a function that always returns `value`.
 
 ```typescript
-S.map(S.constant(1), [1, 2, 3])
+I.map(I.constant(1), [1, 2, 3])
 // => [1, 1, 1]
 ```
 
@@ -1960,7 +1960,7 @@ S.map(S.constant(1), [1, 2, 3])
 Create a curried version of a `fn` taking two arguments.
 
 ```typescript
- const add = S.curry2((a, b) => a + b)
+ const add = I.curry2((a, b) => a + b)
 
  add(1)(2)
  // => 3
@@ -1982,7 +1982,7 @@ Create a curried version of a `fn` taking two arguments.
 Create a curried version of a `fn` taking three arguments.
 
 ```typescript
- const add = S.curry3((a, b, c) => a + b + c)
+ const add = I.curry3((a, b, c) => a + b + c)
 
  add(1)(2)(3)
  // => 6
@@ -2004,7 +2004,7 @@ Create a curried version of a `fn` taking three arguments.
 Create a curried version of a `fn` taking four arguments.
 
 ```typescript
- const add = S.curry4((a, b, c, d) => a + b + c + d)
+ const add = I.curry4((a, b, c, d) => a + b + c + d)
 
  add(1)(2)(3)(4)
  // => 10
@@ -2027,7 +2027,7 @@ Flip the arguments of a binary function.
 
 ```typescript
 const fn = (...args) => args
-const flipped = S.flip(fn)
+const flipped = I.flip(fn)
 
 flipped(1, 2)
 // => [2, 1]
@@ -2044,7 +2044,7 @@ flipped(1, 2)
 Identity function. Returns the first argument.
 
 ```typescript
-S.identity(5)
+I.identity(5)
 // => 5
 ```
 
@@ -2059,7 +2059,7 @@ S.identity(5)
 Do nothing an return `undefined`.
 
 ```typescript
- launchMissiles().then(S.noop).catch(S.noop) // Ignore the promise return value
+ launchMissiles().then(I.noop).catch(I.noop) // Ignore the promise return value
 ```
 
 ***
@@ -2073,10 +2073,10 @@ Do nothing an return `undefined`.
 Logical not. Flip the value of a boolean argument
 
 ```typescript
-S.not(true)
+I.not(true)
 // => false
 
-S.not(false)
+I.not(false)
 // => true
 ```
 
@@ -2095,14 +2095,14 @@ S.not(false)
 Pipe an `initial` value through one or more functions in left-to-right order,
 allowing the programmer to chain operations in a readable manner.
 
-`S.pipe(initial, f1, f2, ...fn)` can be thought as syntax sugar
+`I.pipe(initial, f1, f2, ...fn)` can be thought as syntax sugar
 for `fn(...(f2(f1(initial))))`
 
 ```typescript
-S.pipe(
+I.pipe(
   [1, 2, 3]
-  S.map((n) => n * 2),
-  S.sum
+  I.map((n) => n * 2),
+  I.sum
 )
 // => 12
 ```
@@ -2120,7 +2120,7 @@ S.pipe(
 Return the `second` argument.
 
 ```typescript
-S.second(1, 2)
+I.second(1, 2)
 // => 2
 ```
 
@@ -2138,12 +2138,12 @@ argument.
 Useful for executing a side-effect within a pipeline.
 
 ```typescript
-S.pipe(
+I.pipe(
   [1, 2, 3],
-  S.map(S.multiply(2)),
-  S.filter(S.gt(2)),
-  S.tap(console.log),
-  S.sum
+  I.map(I.multiply(2)),
+  I.filter(I.gt(2)),
+  I.tap(console.log),
+  I.sum
 )
 // Prints: [ 4, 6 ]
 // => 10
@@ -2160,7 +2160,7 @@ S.pipe(
 Create a version of `fn` that accepts a single argument.
 
 ```typescript
-['1', '2', '3'].map(S.unary(parseInt))
+['1', '2', '3'].map(I.unary(parseInt))
 // => [1, 2, 3]
 ```
 
@@ -2180,13 +2180,13 @@ Retrieves the element at `index` from `array` or `undefined` as the
 fallback.
 
 ```typescript
-S.at(0, [1, 2, 3])
+I.at(0, [1, 2, 3])
 // => 1
 
-S.at(0, [])
+I.at(0, [])
 // => undefined
 
-S.at(0, undefined)
+I.at(0, undefined)
 // => undefined
 ```
 
@@ -2204,13 +2204,13 @@ Like [at](#at), but if the resolved value is `undefined, `defaultValue` is
 returned instead.
 
 ```typescript
-S.atOr(999, 0, [1, 2, 3])
+I.atOr(999, 0, [1, 2, 3])
 // => 1
 
-S.atOr(999, 0, [])
+I.atOr(999, 0, [])
 // => 999
 
-S.atOr(999, 0, undefined)
+I.atOr(999, 0, undefined)
 // => 999
 ```
 
@@ -2230,16 +2230,16 @@ Returns a copy of `array` where `fn` has been applied to the element at
 Removes the element if `fn` returns `undefined`.
 
 ```typescript
-S.modifyAt(0, S.inc, [1, 2, 3])
+I.modifyAt(0, I.inc, [1, 2, 3])
 // => [2, 2, 3]
 
-S.modifyAt(-1, S.inc, [1, 2, 3])
+I.modifyAt(-1, I.inc, [1, 2, 3])
 // => [1, 2, 4]
 
-S.modifyAt(0, S.noop, [1, 2, 3])
+I.modifyAt(0, I.noop, [1, 2, 3])
 // => [2, 3]
 
-S.modifyAt(999, S.inc, [1, 2, 3])
+I.modifyAt(999, I.inc, [1, 2, 3])
 // => [1, 2, 3]
 ```
 
@@ -2259,13 +2259,13 @@ receives `undefined` as its argument. If `fn` returns `undefined`, the
 property is removed.
 
 ```typescript
-S.modifyProp('a', (n) => n + 1, { a: 1, b: 2, c: 3 })
+I.modifyProp('a', (n) => n + 1, { a: 1, b: 2, c: 3 })
 // => { a: 2, b: 2, c: 3 }
 
-S.modifyProp('a', () => undefined, { a: 1, b: 2, c: 3 })
+I.modifyProp('a', () => undefined, { a: 1, b: 2, c: 3 })
 // => { b: 2, c: 3 }
 
-S.modifyProp('d', () => 4, { a: 1, b: 2, c: 3 })
+I.modifyProp('d', () => 4, { a: 1, b: 2, c: 3 })
 // => { a: 1, b: 2, c: 3, d: 4 }
 ```
 
@@ -2282,13 +2282,13 @@ S.modifyProp('d', () => 4, { a: 1, b: 2, c: 3 })
 Retrieves the property `key` from `object` or `undefined` as the fallback.
 
 ```typescript
-S.prop('a', { a: 1, b: 2, c: 3 })
+I.prop('a', { a: 1, b: 2, c: 3 })
 // => 1
 
-S.prop('a', {})
+I.prop('a', {})
 // => undefined
 
-S.prop('a', undefined)
+I.prop('a', undefined)
 // => undefined
 ```
 
@@ -2306,13 +2306,13 @@ Like [prop](#prop), but if the resolved value is `undefined`, `defaultValue`
 is returned instead.
 
 ```typescript
-S.propOr(999, 'a', { a: 1, b: 2, c: 3 })
+I.propOr(999, 'a', { a: 1, b: 2, c: 3 })
 // => 1
 
-S.propOr(999, 'a', {})
+I.propOr(999, 'a', {})
 // => 999
 
-S.propOr(999, 'a', {a: undefined})
+I.propOr(999, 'a', {a: undefined})
 // => 999
 ```
 
@@ -2329,13 +2329,13 @@ S.propOr(999, 'a', {a: undefined})
 Returns a copy of `array` where the element at `index` has been removed.
 
 ```typescript
-S.removeAt(0, [1, 2, 3])
+I.removeAt(0, [1, 2, 3])
 // => [2, 3]
 
-S.removeAt(-1, [1, 2, 3])
+I.removeAt(-1, [1, 2, 3])
 // => [1, 2]
 
-S.removeAt(999, [1, 2, 3])
+I.removeAt(999, [1, 2, 3])
 // => [1, 2, 3]
 ```
 
@@ -2352,7 +2352,7 @@ S.removeAt(999, [1, 2, 3])
 Return a copy of `object` without the property `key`.
 
 ```typescript
-S.removeProp('a', { a: 1, b: 2, c: 3 })
+I.removeProp('a', { a: 1, b: 2, c: 3 })
 // => { b: 2, c: 3 }
 ```
 
@@ -2369,16 +2369,16 @@ Returns a copy of `array` where the element at `index` has been replaced with `v
 Removes the element if `value` is `undefined`.
 
 ```typescript
-S.setAt(0, 999, [1, 2, 3])
+I.setAt(0, 999, [1, 2, 3])
 // => [999, 2, 3]
 
-S.setAt(-1, 999, [1, 2, 3])
+I.setAt(-1, 999, [1, 2, 3])
 // => [1, 2, 999]
 
-S.setAt(999, 999, [1, 2, 3])
+I.setAt(999, 999, [1, 2, 3])
 // => [1, 2, 3]
 
-S.setAt(0, undefined, [1, 2, 3])
+I.setAt(0, undefined, [1, 2, 3])
 // => [2, 3]
 ```
 
@@ -2396,10 +2396,10 @@ Return a copy of `object` with the property `key` set to `value`. If `value`
 is `undefined`, the property is removed instead.
 
 ```typescript
-S.setProp('a', 999, { a: 1, b: 2, c: 3 })
+I.setProp('a', 999, { a: 1, b: 2, c: 3 })
 // => { a: 999, b: 2, c: 3 }
 
-S.setProp('a', undefined, { a: 1, b: 2, c: 3 })
+I.setProp('a', undefined, { a: 1, b: 2, c: 3 })
 // => { b: 2, c: 3 }
 ```
 
@@ -2418,13 +2418,13 @@ S.setProp('a', undefined, { a: 1, b: 2, c: 3 })
 Clamp a number within the closed interval `[lower, upper]`.
 
 ```typescript
-S.clamp([0, 10], 5)
+I.clamp([0, 10], 5)
 // => 5
 
-S.clamp([0, 10], 15)
+I.clamp([0, 10], 15)
 // => 10
 
-S.clamp([0, 10], -5)
+I.clamp([0, 10], -5)
 // => 0
 ```
 
@@ -2449,10 +2449,10 @@ Check if two values are deeply equal.
 - Does not support WeakMaps, WeakSets or typed arrays.
 
 ```typescript
-S.equals([1, 2, 3], [1, 2, 3])
+I.equals([1, 2, 3], [1, 2, 3])
 // => true
 
-S.equals([1, 2, 3], [4, 5, 6])
+I.equals([1, 2, 3], [4, 5, 6])
 // => false
 ```
 
@@ -2468,7 +2468,7 @@ Like [equals](#equals), but the function `fn` is applied to both values before
 determining equality.
 
 ```typescript
-S.equalsBy(Math.floor, 1, 1.5)
+I.equalsBy(Math.floor, 1, 1.5)
 // => true
 ```
 
@@ -2485,7 +2485,7 @@ S.equalsBy(Math.floor, 1, 1.5)
 Check if the `second` argument is greater than the `first`.
 
 ```typescript
-S.filter(S.gt(2), [1, 2, 3])
+I.filter(I.gt(2), [1, 2, 3])
 // => [3]
 ```
 
@@ -2499,7 +2499,7 @@ S.filter(S.gt(2), [1, 2, 3])
 
 Check if the `second` argument is greater than or equal to the `first`.
 ```typescript
-S.filter(S.gte(2), [1, 2, 3])
+I.filter(I.gte(2), [1, 2, 3])
 // => [2, 3]
 ```
 
@@ -2514,7 +2514,7 @@ S.filter(S.gte(2), [1, 2, 3])
 Check if the `second` argument is less than the `first`.
 
 ```typescript
-S.filter(S.lt(2), [1, 2, 3])
+I.filter(I.lt(2), [1, 2, 3])
 // => [1]
 ```
 
@@ -2529,7 +2529,7 @@ S.filter(S.lt(2), [1, 2, 3])
 Check if the `second` argument is less than or equal to the `first`.
 
 ```typescript
-S.filter(S.lte(2), [1, 2, 3])
+I.filter(I.lte(2), [1, 2, 3])
 // => [1, 2]
 ```
 
@@ -2544,10 +2544,10 @@ S.filter(S.lte(2), [1, 2, 3])
 Return the larger of two values.
 
 ```typescript
-S.max(1, 2)
+I.max(1, 2)
 // => 2
 
-S.max('a', 'b')
+I.max('a', 'b')
 // => 'b'
 ```
 
@@ -2565,7 +2565,7 @@ Like [max](#max), but apply `fn` to both values before determining their
 ordering.
 
 ```typescript
-S.maxBy(Math.abs, 1, -2)
+I.maxBy(Math.abs, 1, -2)
 // => -2
 ```
 
@@ -2582,10 +2582,10 @@ S.maxBy(Math.abs, 1, -2)
 Return the smaller of two values.
 
 ```typescript
-S.min(1, 2)
+I.min(1, 2)
 // => 1
 
-S.min('a', 'b')
+I.min('a', 'b')
 // => 'a'
 ```
 
@@ -2603,7 +2603,7 @@ Like [min](#min), but apply `fn` to both values before determining their
 ordering.
 
 ```typescript
-S.minBy(Math.abs, -1, 2)
+I.minBy(Math.abs, -1, 2)
 // => -1
 ```
 
@@ -2622,7 +2622,7 @@ S.minBy(Math.abs, -1, 2)
 Add two numbers together.
 
 ```typescript
-S.map(S.add(1), [1, 2, 3])
+I.map(I.add(1), [1, 2, 3])
 // => [2, 3, 4]
 ```
 
@@ -2637,7 +2637,7 @@ S.map(S.add(1), [1, 2, 3])
 Decrement a number by 1.
 
 ```typescript
-S.map(S.dec, [1, 2, 3])
+I.map(I.dec, [1, 2, 3])
 // => [0, 1, 2]
 ```
 
@@ -2654,7 +2654,7 @@ S.map(S.dec, [1, 2, 3])
 Divide `dividend` by the `divisor`.
 
 ```typescript
-S.map(S.divideBy(2), [1, 2, 3])
+I.map(I.divideBy(2), [1, 2, 3])
 // => [0.5, 1, 1.5]
 ```
 
@@ -2669,7 +2669,7 @@ S.map(S.divideBy(2), [1, 2, 3])
 Increment a number by 1.
 
 ```typescript
-S.map(S.inc, [1, 2, 3])
+I.map(I.inc, [1, 2, 3])
 // => [2, 3, 4]
 ```
 
@@ -2684,7 +2684,7 @@ S.map(S.inc, [1, 2, 3])
 Multiply two numbers together.
 
 ```typescript
-S.map(S.multiply(2), [1, 2, 3])
+I.map(I.multiply(2), [1, 2, 3])
 // => [2, 4, 6]
 ```
 
@@ -2699,7 +2699,7 @@ S.map(S.multiply(2), [1, 2, 3])
 Return `n` with its sign reversed.
 
 ```typescript
-S.map(S.negate, [1, 2, 3])
+I.map(I.negate, [1, 2, 3])
 // => [-1, -2, -3]
 ```
 
@@ -2714,7 +2714,7 @@ S.map(S.negate, [1, 2, 3])
 Subtract the `subtrahend` from the `minuend`.
 
 ```typescript
-S.map(S.subtractBy(1), [1, 2, 3])
+I.map(I.subtractBy(1), [1, 2, 3])
 // => [0, 1, 2]
 ```
 
@@ -2732,10 +2732,10 @@ Apply `fn` to `maybeValue` if it is not `undefined`, return `defaultValue`
 otherwise.
 
 ```typescript
-S.maybe('', (s) => s.toUpperCase(), 'hi')
+I.maybe('', (s) => s.toUpperCase(), 'hi')
 // => 'HI'
 
-S.maybe('', (s) => s.toUpperCase(), undefined)
+I.maybe('', (s) => s.toUpperCase(), undefined)
 // => ''
 ```
 
@@ -2750,10 +2750,10 @@ S.maybe('', (s) => s.toUpperCase(), undefined)
 Return `value` if it is not `undefined`, `defaultValue` otherwise.
 
 ```typescript
-S.valueOr(999, 0)
+I.valueOr(999, 0)
 // => 0
 
-S.valueOr(999, undefined)
+I.valueOr(999, undefined)
 // => 999
 ```
 
