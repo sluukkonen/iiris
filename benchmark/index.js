@@ -149,7 +149,7 @@ const benchmarks = [
   },
   {
     name: 'map',
-    params: [num1, num10, num100],
+    params: [num1, num10, num100, num1000],
     benchmarks: (array) => {
       return {
         iiris: () => I.map((x) => x + 1, array),
@@ -161,7 +161,7 @@ const benchmarks = [
   },
   {
     name: 'filter',
-    params: [num1, num10, num100],
+    params: [num1, num10, num100, num1000],
     benchmarks: (array) => ({
       iiris: () => I.filter((x) => x % 2 === 0, array),
       lodash: () => _.filter(array, (x) => x % 2 === 0),
@@ -171,7 +171,7 @@ const benchmarks = [
   },
   {
     name: 'reduce',
-    params: [num1, num10, num100],
+    params: [num1, num10, num100, num1000],
     benchmarks: (array) => ({
       iiris: () => I.reduce((a, b) => a + b, 0, array),
       lodash: () => _.reduce(array, (a, b) => a + b, 0),
@@ -181,7 +181,7 @@ const benchmarks = [
   },
   {
     name: 'reduceRight',
-    params: [num1, num10, num100],
+    params: [num1, num10, num100, num1000],
     benchmarks: (array) => ({
       iiris: () => I.reduceRight((a, b) => a + b, 0, array),
       lodash: () => _.reduceRight(array, (a, b) => a + b, 0),
