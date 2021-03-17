@@ -200,6 +200,10 @@ $ yarn add iiris
 TODO
 
 ## API Reference
+
+Note that we display only the fully applied type signature for each function.
+Unless indicated otherwise, every function is automatically curried.
+
 <!-- BEGIN API -->
 ### Basic array operations
 
