@@ -1,6 +1,7 @@
 # Iiris 👁️
 
 [![CI](https://github.com/sluukkonen/iiris/actions/workflows/ci.yml/badge.svg)](https://github.com/sluukkonen/iiris/actions/workflows/ci.yml)
+![MIT License](https://img.shields.io/github/license/sluukkonen/iiris)
 
 ## Goals
 
