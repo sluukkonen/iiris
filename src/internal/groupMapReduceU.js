@@ -1,4 +1,3 @@
-import { isUndefined } from '../isUndefined'
 import { hasOwn } from './hasOwn'
 
 export const groupMapReduceU = (reducer, mapFn, keyFn, array) => {
@@ -6,11 +5,9 @@ export const groupMapReduceU = (reducer, mapFn, keyFn, array) => {
 
   for (const value of array) {
     const key = keyFn(value)
-    const acc = result[key]
-    result[key] =
-      isUndefined(acc) && !hasOwn(result, key)
-        ? mapFn(value)
-        : reducer(acc, mapFn(value))
+    result[key] = hasOwn(result, key)
+      ? reducer(result[key], mapFn(value))
+      : mapFn(value)
   }
 
   return result

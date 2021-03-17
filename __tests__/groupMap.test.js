@@ -20,3 +20,7 @@ it('partitions an array into separate arrays based on keyFn and maps each value 
     3: [4.5],
   })
 })
+
+it('considers only own properties of the object', () => {
+  expect(groupMap(inc, () => 'toString', [1, 2])).toEqual({ toString: [2, 3] })
+})

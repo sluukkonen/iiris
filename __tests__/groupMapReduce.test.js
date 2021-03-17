@@ -16,3 +16,9 @@ it('partitions an array with keyFn, maps each value with mapFn and combines the 
     3: 4.5,
   })
 })
+
+it('considers only own properties of the object', () => {
+  expect(groupMapReduce(add, inc, () => 'toString', [1, 2])).toEqual({
+    toString: 5,
+  })
+})
