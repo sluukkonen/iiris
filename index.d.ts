@@ -509,7 +509,7 @@ export function count<T>(
  * Apply `keyFn` to each element in the `array` and return an object of counts
  * by key.
  *
- * @category Grouping arrays
+ * @category Grouping arrays by key
  * @example
  *
  * ```typescript
@@ -1187,7 +1187,7 @@ export function fromEntries<K extends string, T>(
 /**
  * Partition the `array` into an object of arrays according to `keyFn`.
  *
- * @category Grouping arrays
+ * @category Grouping arrays by key
  * @example
  *
  * ```typescript
@@ -1212,7 +1212,7 @@ export function groupBy<T, K extends string>(
  * Like {@link groupBy}, but also apply `mapFn` to each element before adding
  * it to the corresponding array.
  *
- * @category Grouping arrays
+ * @category Grouping arrays by key
  * @example
  *
  * ```typescript
@@ -1253,7 +1253,7 @@ export function groupMap<T, U>(
  * Like {@link groupMap}, but instead of returning an object of arrays, combine
  * elements mapping to the same key with `reducer`.
  *
- * @category Grouping arrays
+ * @category Grouping arrays by key
  * @example
  *
  * ```typescript
@@ -1430,7 +1430,7 @@ export function includes<T>(value: T): (array: readonly T[]) => boolean
  *
  * If multiple elements map to the same key, the last one is selected.
  *
- * @category Grouping arrays
+ * @category Grouping arrays by key
  * @example
  *
  * ```typescript

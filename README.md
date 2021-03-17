@@ -60,7 +60,7 @@
     - [includes](#includes)
     - [indexOf](#indexof)
     - [lastIndexOf](#lastindexof)
-  - [Grouping arrays](#grouping-arrays)
+  - [Grouping arrays by key](#grouping-arrays-by-key)
     - [countBy](#countby)
     - [groupBy](#groupby)
     - [groupMap](#groupmap)
@@ -973,7 +973,7 @@ S.lastIndexOf('x', ['a', 'b', 'c', 'a', 'b', 'c'])
 
 ***
 
-### Grouping arrays
+### Grouping arrays by key
 
 #### countBy
 

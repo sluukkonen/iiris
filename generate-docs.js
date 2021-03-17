@@ -12,7 +12,7 @@ const categoryOrdering = [
   'Reducing arrays',
   'Searching arrays with a predicate',
   'Searching arrays by value',
-  'Grouping arrays',
+  'Grouping arrays by key',
   'Building arrays',
   'Slicing arrays',
   'Sorting arrays',
