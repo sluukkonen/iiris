@@ -1,5 +1,5 @@
-import { uniq } from '../src/uniq'
 import { range } from '../src/range'
+import { uniq } from '../src/uniq'
 
 it('returns a new array with only the unique values from the source array', () => {
   expect(uniq([])).toEqual([])

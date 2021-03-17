@@ -1,5 +1,5 @@
-import { isUndefined } from '../isUndefined'
 import { isObject } from '../isObject'
+import { isUndefined } from '../isUndefined'
 
 export const propOrU = (defaultValue, key, object) => {
   if (isObject(object)) {

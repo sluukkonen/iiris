@@ -1,5 +1,5 @@
-import { isUndefined } from '../isUndefined'
 import { isArray } from '../isArray'
+import { isUndefined } from '../isUndefined'
 import { getIndex } from './getIndex'
 
 export const atOrU = (defaultValue, idx, array) => {

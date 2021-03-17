@@ -1,5 +1,5 @@
-import { sort } from '../src/sort'
 import { ascend } from '../src/ascend'
+import { sort } from '../src/sort'
 
 it('sorts an array with the help of an comparator', () => {
   const age = (x) => x.age
