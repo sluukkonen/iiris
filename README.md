@@ -1811,8 +1811,8 @@ S.mapValues(S.inc, {a: 1, b: 2, c: 3})
 <T extends object, U extends object>(first: T, second: U) => T & U
 ```
 
-Merge the own enumerable properties of two objects together, prefering the
-values from `second` in case of duplicate keys.
+Copy the own enumerable properties of two objects, prefering the values from
+`second` in case of duplicate keys.
 
 ```typescript
 S.merge({ a: 1, b: 1 }, { b: 2, c: 2 })
