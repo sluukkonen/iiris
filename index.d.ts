@@ -17,10 +17,6 @@ export type Function0<R> = () => R
 export type Function1<T, R> = (value: T) => R
 /** A function that takes two arguments. */
 export type Function2<T1, T2, R> = (a1: T1, a2: T2) => R
-/** A function that takes three arguments. */
-export type Function3<T1, T2, T3, R> = (a1: T1, a2: T2, a3: T3) => R
-/** A function that takes four arguments. */
-export type Function4<T1, T2, T3, T4, R> = (a1: T1, a2: T2, a3: T3, a4: T4) => R
 
 /** A function that takes zero or more arguments. */
 export type VariadicFunction0<R> = (...args: unknown[]) => R
@@ -30,21 +26,6 @@ export type VariadicFunction1<T, R> = (a1: T, ...args: unknown[]) => R
 export type VariadicFunction2<T1, T2, R> = (
   a1: T1,
   a2: T2,
-  ...args: unknown[]
-) => R
-/** A function that takes three or more arguments. */
-export type VariadicFunction3<T1, T2, T3, R> = (
-  a1: T1,
-  a2: T2,
-  a3: T3,
-  ...args: unknown[]
-) => R
-/** A function that takes four or more arguments. */
-export type VariadicFunction4<T1, T2, T3, T4, R> = (
-  a1: T1,
-  a2: T2,
-  a3: T3,
-  a4: T4,
   ...args: unknown[]
 ) => R
 
