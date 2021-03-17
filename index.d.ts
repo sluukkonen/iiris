@@ -200,10 +200,8 @@ export function ascend<T>(
 ): (first: T, second: T) => number
 
 /**
- * Safe array getter. Tries to retrieve the `array` element at `index`.
- *
- * Returns `undefined` if the `array` doesn't contain an element at `index` or
- * if the `array` is missing.
+ * Retrieves the element at `index` from `array` or `undefined` as the
+ * fallback.
  *
  * @category Getters and setters
  * @example
@@ -231,7 +229,8 @@ export function at(
 ): <T>(array: readonly T[] | null | undefined) => T | undefined
 
 /**
- * Like {@link at}, but returns `defaultValue` as the fallback.
+ * Like {@link at}, but if the resolved value is `undefined, `defaultValue` is
+ * returned instead.
  *
  * @category Getters and setters
  * @example
@@ -2422,10 +2421,7 @@ export function prepend<T>(value: T, array: readonly T[]): T[]
 export function prepend<T>(value: T): (array: readonly T[]) => T[]
 
 /**
- * Safe object getter. Tries to retrieve the property `key` from `object`.
- *
- * Returns `undefined` if the `object` doesn't contain `key` or if the `object`
- * is missing.
+ * Retrieves the property `key` from `object` or `undefined` as the fallback.
  *
  * @category Getters and setters
  * @example
@@ -2453,7 +2449,8 @@ export function prop<K extends string>(
 ): <T extends NullableHasKey<K>>(object: T) => Prop<T, K>
 
 /**
- * Like {@link prop}, but returns `defaultValue` as the fallback.
+ * Like {@link prop}, but if the resolved value is `undefined`, `defaultValue`
+ * is returned instead.
  *
  * @category Getters and setters
  * @example
@@ -2465,7 +2462,7 @@ export function prop<K extends string>(
  * S.propOr(999, 'a', {})
  * // => 999
  *
- * S.propOr(999, 'a', undefined)
+ * S.propOr(999, 'a', {a: undefined})
  * // => 999
  * ```
  *

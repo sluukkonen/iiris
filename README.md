@@ -2176,10 +2176,8 @@ Create a version of `fn` that accepts a single argument.
 <T>(index: number, array: T[] | null | undefined) => T | undefined
 ```
 
-Safe array getter. Tries to retrieve the `array` element at `index`.
-
-Returns `undefined` if the `array` doesn't contain an element at `index` or
-if the `array` is missing.
+Retrieves the element at `index` from `array` or `undefined` as the
+fallback.
 
 ```typescript
 S.at(0, [1, 2, 3])
@@ -2202,7 +2200,8 @@ S.at(0, undefined)
 <T>(defaultValue: T, index: number, array: T[] | null | undefined) => T
 ```
 
-Like [at](#at), but returns `defaultValue` as the fallback.
+Like [at](#at), but if the resolved value is `undefined, `defaultValue` is
+returned instead.
 
 ```typescript
 S.atOr(999, 0, [1, 2, 3])
@@ -2280,10 +2279,7 @@ S.modifyProp('d', () => 4, { a: 1, b: 2, c: 3 })
 <K extends string, T extends undefined | null | object>(key: K, object: T) => Prop<T, K>
 ```
 
-Safe object getter. Tries to retrieve the property `key` from `object`.
-
-Returns `undefined` if the `object` doesn't contain `key` or if the `object`
-is missing.
+Retrieves the property `key` from `object` or `undefined` as the fallback.
 
 ```typescript
 S.prop('a', { a: 1, b: 2, c: 3 })
@@ -2306,7 +2302,8 @@ S.prop('a', undefined)
 <V, K extends string, T extends undefined | null | object>(defaultValue: V, key: K, object: T) => PropOr<T, K, V>
 ```
 
-Like [prop](#prop), but returns `defaultValue` as the fallback.
+Like [prop](#prop), but if the resolved value is `undefined`, `defaultValue`
+is returned instead.
 
 ```typescript
 S.propOr(999, 'a', { a: 1, b: 2, c: 3 })
@@ -2315,7 +2312,7 @@ S.propOr(999, 'a', { a: 1, b: 2, c: 3 })
 S.propOr(999, 'a', {})
 // => 999
 
-S.propOr(999, 'a', undefined)
+S.propOr(999, 'a', {a: undefined})
 // => 999
 ```
 
