@@ -1,8 +1,8 @@
 import { expectType } from 'tsd'
-import * as S from '..'
+import * as I from '..'
 import { User, user } from './index.test-d'
 
-const fn = S.curry3(
+const fn = I.curry3(
   (user: User, name: string, age: number): User => ({ ...user, name, age })
 )
 

@@ -1,14 +1,14 @@
-import * as S from '..'
-import { User, user } from './index.test-d'
 import { expectType } from 'tsd'
+import * as I from '..'
+import { User, user } from './index.test-d'
 
-expectType<{}>(S.pick([], user))
+expectType<{}>(I.pick([], user))
 
-expectType<Pick<User, 'age'>>(S.pick(['age'], user))
-expectType<Pick<User, 'age'>>(S.pick(['age'])(user))
+expectType<Pick<User, 'age'>>(I.pick(['age'], user))
+expectType<Pick<User, 'age'>>(I.pick(['age'])(user))
 
-expectType<Pick<User, 'name'>>(S.pick(['name'], user))
-expectType<Pick<User, 'name'>>(S.pick(['name'])(user))
+expectType<Pick<User, 'name'>>(I.pick(['name'], user))
+expectType<Pick<User, 'name'>>(I.pick(['name'])(user))
 
-expectType<Pick<User, 'age' | 'name'>>(S.pick(['age', 'name'], user))
-expectType<Pick<User, 'age' | 'name'>>(S.pick(['age', 'name'])(user))
+expectType<Pick<User, 'age' | 'name'>>(I.pick(['age', 'name'], user))
+expectType<Pick<User, 'age' | 'name'>>(I.pick(['age', 'name'])(user))

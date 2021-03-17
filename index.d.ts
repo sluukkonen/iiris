@@ -1,7 +1,7 @@
 // Function type aliases
 
 /** An empty tuple. */
-type Tuple0 = []
+type I = []
 /** A tuple with 1 element. */
 type Tuple1 = [unknown]
 /** A tuple with 2 elements. */
@@ -155,7 +155,7 @@ type Modifiable<K extends string, V> = undefined extends V
  * @example
  *
  * ```typescript
- * S.map(S.add(1), [1, 2, 3])
+ * I.map(I.add(1), [1, 2, 3])
  * // => [2, 3, 4]
  * ```
  */
@@ -169,7 +169,7 @@ export function add(n: number): (m: number) => number
  * @example
  *
  * ```typescript
- * S.append(4, [1, 2, 3])
+ * I.append(4, [1, 2, 3])
  * // => [1, 2, 3, 4]
  * ```
  *
@@ -187,7 +187,7 @@ export function append<T>(value: T): (array: readonly T[]) => T[]
  * @example
  *
  * ```typescript
- * S.sort(S.ascend(S.prop('age')), [{ name: 'Bob' }, { name: 'Alice' }])
+ * I.sort(I.ascend(I.prop('age')), [{ name: 'Bob' }, { name: 'Alice' }])
  * // => [{ name: 'Alice' }, { name: 'Bob' }]
  * ```
  *
@@ -207,13 +207,13 @@ export function ascend<T>(
  * @example
  *
  * ```typescript
- * S.at(0, [1, 2, 3])
+ * I.at(0, [1, 2, 3])
  * // => 1
  *
- * S.at(0, [])
+ * I.at(0, [])
  * // => undefined
  *
- * S.at(0, undefined)
+ * I.at(0, undefined)
  * // => undefined
  * ```
  *
@@ -236,13 +236,13 @@ export function at(
  * @example
  *
  * ```typescript
- * S.atOr(999, 0, [1, 2, 3])
+ * I.atOr(999, 0, [1, 2, 3])
  * // => 1
  *
- * S.atOr(999, 0, [])
+ * I.atOr(999, 0, [])
  * // => 999
  *
- * S.atOr(999, 0, undefined)
+ * I.atOr(999, 0, undefined)
  * // => 999
  * ```
  *
@@ -273,7 +273,7 @@ export function atOr<T>(
  *
  * ```typescript
  * const fn = (...args) => args
- * const wrapped = S.binary(fn)
+ * const wrapped = I.binary(fn)
  *
  * fn(1, 2, 3)
  * // => [1, 2, 3]
@@ -295,13 +295,13 @@ export function binary<T1, T2, R>(
  * @example
  *
  * ```typescript
- * S.clamp([0, 10], 5)
+ * I.clamp([0, 10], 5)
  * // => 5
  *
- * S.clamp([0, 10], 15)
+ * I.clamp([0, 10], 15)
  * // => 10
  *
- * S.clamp([0, 10], -5)
+ * I.clamp([0, 10], -5)
  * // => 0
  * ```
  */
@@ -321,7 +321,7 @@ export function clamp<T extends Ordered>(
  *
  * ```typescript
  * const isZero = (v) => v === 0
- * const notZero = S.complement(isZero)
+ * const notZero = I.complement(isZero)
  *
  * notZero(0)
  * // => false
@@ -340,7 +340,7 @@ export function complement<T extends VariadicFunction0<boolean>>(fn: T): T
  * @example
  *
  * ```typescript
- * const composed = S.compose(S.add(10), S.multiply(2))
+ * const composed = I.compose(I.add(10), I.multiply(2))
  *
  * composed(2)
  * // => 14
@@ -441,7 +441,7 @@ export function compose<
  * @example
  *
  * ```typescript
- * S.concat([1, 2, 3], [4, 5, 6])
+ * I.concat([1, 2, 3], [4, 5, 6])
  * // => [1, 2, 3, 4, 5, 6]
  * ```
  *
@@ -458,7 +458,7 @@ export function concat<T>(array: readonly T[]): (other: readonly T[]) => T[]
  * @example
  *
  * ```typescript
- * S.map(S.constant(1), [1, 2, 3])
+ * I.map(I.constant(1), [1, 2, 3])
  * // => [1, 1, 1]
  * ```
  */
@@ -471,7 +471,7 @@ export function constant<T>(value: T): () => T
  * @example
  *
  * ```typescript
- * S.count((n) => n > 1, [1, 2, 3])
+ * I.count((n) => n > 1, [1, 2, 3])
  * // => 2
  * ```
  *
@@ -499,7 +499,7 @@ export function count<T>(
  *   { name: 'Alice' }
  * ]
  *
- * S.countBy(S.prop('name'), users)
+ * I.countBy(I.prop('name'), users)
  * // => { Alice: 2, Bob: 1 }
  * ```
  *
@@ -520,7 +520,7 @@ export function countBy<T, K extends string>(
  * @example
  *
  * ```typescript
- *  const add = S.curry2((a, b) => a + b)
+ *  const add = I.curry2((a, b) => a + b)
  *
  *  add(1)(2)
  *  // => 3
@@ -543,7 +543,7 @@ export function curry2<T extends Tuple2, R>(
  * @example
  *
  * ```typescript
- *  const add = S.curry3((a, b, c) => a + b + c)
+ *  const add = I.curry3((a, b, c) => a + b + c)
  *
  *  add(1)(2)(3)
  *  // => 6
@@ -566,7 +566,7 @@ export function curry3<T extends Tuple3, R>(
  * @example
  *
  * ```typescript
- *  const add = S.curry4((a, b, c, d) => a + b + c + d)
+ *  const add = I.curry4((a, b, c, d) => a + b + c + d)
  *
  *  add(1)(2)(3)(4)
  *  // => 10
@@ -589,7 +589,7 @@ export function curry4<T extends Tuple4, R>(
  * @example
  *
  * ```typescript
- * S.map(S.dec, [1, 2, 3])
+ * I.map(I.dec, [1, 2, 3])
  * // => [0, 1, 2]
  * ```
  *
@@ -605,7 +605,7 @@ export function dec(n: number): number
  * @example
  *
  * ```typescript
- * S.sort(S.descend(S.prop('name')), [{ name: 'Alice' }, { name: 'Bob' }])
+ * I.sort(I.descend(I.prop('name')), [{ name: 'Alice' }, { name: 'Bob' }])
  * // => [{ name: 'Bob' }, { name: 'Alice' }]
  * ```
  *
@@ -629,7 +629,7 @@ export function descend<T>(
  * @example
  *
  * ```typescript
- * S.difference([1, 2, 3], [2, 3, 4])
+ * I.difference([1, 2, 3], [2, 3, 4])
  * // => [1]
  * ```
  *
@@ -660,7 +660,7 @@ export function difference<T>(
  *   { id: 4, name: 'Dan' }
  * ]
  *
- * S.differenceWith((a, b) => a.id === b.id, users, otherUsers)
+ * I.differenceWith((a, b) => a.id === b.id, users, otherUsers)
  * // => [ { id: 1, name: 'Alice' } ]
  * ```
  *
@@ -691,7 +691,7 @@ export function differenceWith<T>(
  * @example
  *
  * ```typescript
- * S.map(S.divideBy(2), [1, 2, 3])
+ * I.map(I.divideBy(2), [1, 2, 3])
  * // => [0.5, 1, 1.5]
  * ```
  */
@@ -705,10 +705,10 @@ export function divideBy(divisor: number): (dividend: number) => number
  * @example
  *
  * ```typescript
- * S.drop(1, [1, 2, 3])
+ * I.drop(1, [1, 2, 3])
  * // => [2, 3]
  *
- * S.drop(2, [1, 2, 3])
+ * I.drop(2, [1, 2, 3])
  * // => [3]
  * ```
  *
@@ -725,10 +725,10 @@ export function drop(n: number): <T>(array: readonly T[]) => T[]
  * @example
  *
  * ```typescript
- * S.dropLast(1, [1, 2, 3])
+ * I.dropLast(1, [1, 2, 3])
  * // => [1, 2]
  *
- * S.dropLast(2, [1, 2, 3])
+ * I.dropLast(2, [1, 2, 3])
  * // => [1]
  * ```
  *
@@ -745,7 +745,7 @@ export function dropLast(n: number): <T>(array: readonly T[]) => T[]
  * @example
  *
  * ```typescript
- * S.dropLastWhile((n) => n > 1, [1, 2, 3])
+ * I.dropLastWhile((n) => n > 1, [1, 2, 3])
  * // => [1]
  * ```
  *
@@ -768,7 +768,7 @@ export function dropLastWhile<T>(
  * @example
  *
  * ```typescript
- * S.dropWhile((n) => n === 1, [1, 2, 3])
+ * I.dropWhile((n) => n === 1, [1, 2, 3])
  * // => [2, 3]
  * ```
  *
@@ -790,7 +790,7 @@ export function dropWhile<T>(
  * @example
  *
  * ```typescript
- * S.entries({a: 1, b: 2, c: 3})
+ * I.entries({a: 1, b: 2, c: 3})
  * // => [['a', 1], ['b', 2], ['c', 3]]
  * ```
  *
@@ -819,10 +819,10 @@ export function entries<T extends object, K extends keyof T & string>(
  * @example
  *
  * ```typescript
- * S.equals([1, 2, 3], [1, 2, 3])
+ * I.equals([1, 2, 3], [1, 2, 3])
  * // => true
  *
- * S.equals([1, 2, 3], [4, 5, 6])
+ * I.equals([1, 2, 3], [4, 5, 6])
  * // => false
  * ```
  */
@@ -837,7 +837,7 @@ export function equals<T>(value: T): (other: T) => boolean
  * @example
  *
  * ```typescript
- * S.equalsBy(Math.floor, 1, 1.5)
+ * I.equalsBy(Math.floor, 1, 1.5)
  * // => true
  * ```
  *
@@ -862,10 +862,10 @@ export function equalsBy<T, U>(
  * @example
  *
  * ```typescript
- * S.every((n) => n < 10, [1, 2, 3])
+ * I.every((n) => n < 10, [1, 2, 3])
  * // => true
  *
- * S.every((n) => n < 3, [1, 2, 3])
+ * I.every((n) => n < 3, [1, 2, 3])
  * // => false
  * ```
  *
@@ -889,10 +889,10 @@ export function every<T>(
  * @example
  *
  * ```typescript
- * S.find((c) => c !== 'a', ['a', 'b', 'c'])
+ * I.find((c) => c !== 'a', ['a', 'b', 'c'])
  * // => 'b'
  *
- * S.find((c) => c === 'x', ['a', 'b', 'c'])
+ * I.find((c) => c === 'x', ['a', 'b', 'c'])
  * // => undefined
  * ```
  *
@@ -917,10 +917,10 @@ export function find<T>(
  * @example
  *
  * ```typescript
- * S.findIndex((c) => c !== 'a', ['a', 'b', 'c'])
+ * I.findIndex((c) => c !== 'a', ['a', 'b', 'c'])
  * // => 1
  *
- * S.findIndex((c) => c === 'x', ['a', 'b', 'c'])
+ * I.findIndex((c) => c === 'x', ['a', 'b', 'c'])
  * // => -1
  * ```
  *
@@ -944,10 +944,10 @@ export function findIndex<T>(
  * @example
  *
  * ```typescript
- * S.findLast((c) => c !== 'a', ['a', 'b', 'c'])
+ * I.findLast((c) => c !== 'a', ['a', 'b', 'c'])
  * // => 'c'
  *
- * S.findLast((c) => c === 'x', ['a', 'b', 'c'])
+ * I.findLast((c) => c === 'x', ['a', 'b', 'c'])
  * // => undefined
  * ```
  *
@@ -972,10 +972,10 @@ export function findLast<T>(
  * @example
  *
  * ```typescript
- * S.findLastIndex((c) => c !== 'a', ['a', 'b', 'c'])
+ * I.findLastIndex((c) => c !== 'a', ['a', 'b', 'c'])
  * // => 2
  *
- * S.findLastIndex((c) => c === 'x', ['a', 'b', 'c'])
+ * I.findLastIndex((c) => c === 'x', ['a', 'b', 'c'])
  * // => -1
  * ```
  *
@@ -1005,7 +1005,7 @@ export function filter<T, U extends T>(
  * @example
  *
  * ```typescript
- * S.filter((n) => n > 1, [1, 2, 3])
+ * I.filter((n) => n > 1, [1, 2, 3])
  * // => [2, 3]
  * ```
  *
@@ -1029,7 +1029,7 @@ export function filter<T>(
  * @example
  *
  * ```typescript
- * S.filterIndexed((i, n) => i + n === 3, [1, 2, 3])
+ * I.filterIndexed((i, n) => i + n === 3, [1, 2, 3])
  * // => [2]
  * ```
  *
@@ -1051,7 +1051,7 @@ export function filterIndexed<T>(
  * @example
  *
  * ```typescript
- * S.flatMap((n) => [n, n], [1, 2, 3])
+ * I.flatMap((n) => [n, n], [1, 2, 3])
  * // => [1, 1, 2, 2, 3, 3]
  * ```
  *
@@ -1070,10 +1070,10 @@ export function flatMap<T, U>(
  * @example
  *
  * ```typescript
- * S.flatten(1, [1, [2, [3]]])
+ * I.flatten(1, [1, [2, [3]]])
  * // => [1, 2, [3]]
  *
- * S.flatten(2, [1, [2, [3]]])
+ * I.flatten(2, [1, [2, [3]]])
  * // => [1, 2, 3]
  * ```
  *
@@ -1095,7 +1095,7 @@ export function flatten<D extends number>(
  *
  * ```typescript
  * const fn = (...args) => args
- * const flipped = S.flip(fn)
+ * const flipped = I.flip(fn)
  *
  * flipped(1, 2)
  * // => [2, 1]
@@ -1110,7 +1110,7 @@ export function flip<T, U, R>(fn: Function2<T, U, R>): Function2<U, T, R>
  * @example
  *
  * ```typescript
- * S.forEach(console.log, ['h', 'i', '!'])
+ * I.forEach(console.log, ['h', 'i', '!'])
  * h
  * i
  * !
@@ -1130,7 +1130,7 @@ export function forEach<T>(fn: (value: T) => void): (array: readonly T[]) => T[]
  * @example
  *
  * ```typescript
- * S.forEachIndexed(console.log, ['h', 'i', '!'])
+ * I.forEachIndexed(console.log, ['h', 'i', '!'])
  * 0 h
  * 1 i
  * 2 !
@@ -1154,7 +1154,7 @@ export function forEachIndexed<T>(
  * @example
  *
  * ```typescript
- * S.fromEntries([['a', 1], ['b', 2], ['c', 3]])
+ * I.fromEntries([['a', 1], ['b', 2], ['c', 3]])
  * // => {a: 1, b: 2, c: 3}
  * ```
  *
@@ -1171,7 +1171,7 @@ export function fromEntries<K extends string, T>(
  * @example
  *
  * ```typescript
- * S.groupBy((n) => n % 2, [1, 2, 3])
+ * I.groupBy((n) => n % 2, [1, 2, 3])
  * // => {'0': [2], '1': [1, 3] }
  * ```
  *
@@ -1201,7 +1201,7 @@ export function groupBy<T, K extends string>(
  *   { name: 'Bob', age: 20 },
  *   { name: 'Alice', age: 30 }
  * ]
- * const agesByName = S.groupMap(S.prop('age'), S.prop('name'), users)
+ * const agesByName = I.groupMap(I.prop('age'), I.prop('name'), users)
  * // => { Alice: [10, 30], Bob: [20] }
  * ```
  *
@@ -1242,7 +1242,7 @@ export function groupMap<T, U>(
  *   { name: 'Bob', age: 20 },
  *   { name: 'Alice', age: 30 }
  * ]
- * const sumOfAgesByName = S.groupMapReduce(S.add, S.prop('age'), S.prop('name'), users)
+ * const sumOfAgesByName = I.groupMapReduce(I.add, I.prop('age'), I.prop('name'), users)
  * // => { Alice: 40, Bob: 20 }
  * ```
  *
@@ -1298,7 +1298,7 @@ export function groupMapReduce<U>(
  * @example
  *
  * ```typescript
- * S.filter(S.gt(2), [1, 2, 3])
+ * I.filter(I.gt(2), [1, 2, 3])
  * // => [3]
  * ```
  */
@@ -1311,7 +1311,7 @@ export function gt<T extends Ordered>(first: T): (second: Widen<T>) => boolean
  * @category Relation
  * @example
  * ```typescript
- * S.filter(S.gte(2), [1, 2, 3])
+ * I.filter(I.gte(2), [1, 2, 3])
  * // => [2, 3]
  * ```
  */
@@ -1325,10 +1325,10 @@ export function gte<T extends Ordered>(first: T): (second: Widen<T>) => boolean
  * @example
  *
  * ```typescript
- * S.has('a', {a: 1})
+ * I.has('a', {a: 1})
  * // => true
  *
- * S.has('toString', {a: 1})
+ * I.has('toString', {a: 1})
  * // => false
  * ```
  */
@@ -1347,10 +1347,10 @@ export function has<K extends string>(
  * @example
  *
  * ```typescript
- * S.head([1, 2, 3])
+ * I.head([1, 2, 3])
  * // => 1
  *
- * S.head([])
+ * I.head([])
  * // => undefined
  * ```
  *
@@ -1367,7 +1367,7 @@ export function head<T>(array: readonly T[]): T | undefined
  * @example
  *
  * ```typescript
- * S.identity(5)
+ * I.identity(5)
  * // => 5
  * ```
  */
@@ -1380,7 +1380,7 @@ export function identity<T>(value: T): T
  * @example
  *
  * ```typescript
- * S.map(S.inc, [1, 2, 3])
+ * I.map(I.inc, [1, 2, 3])
  * // => [2, 3, 4]
  * ```
  */
@@ -1394,10 +1394,10 @@ export function inc(n: number): number
  * @example
  *
  * ```typescript
- * S.includes(1, [1, 2, 3])
+ * I.includes(1, [1, 2, 3])
  * // => true
  *
- * S.includes(0, [1, 2, 3])
+ * I.includes(0, [1, 2, 3])
  * // => false
  * ```
  */
@@ -1419,7 +1419,7 @@ export function includes<T>(value: T): (array: readonly T[]) => boolean
  *   { id: 2, name: 'Bob' },
  *   { id: 1, name: 'Carol' }
  * ]
- * S.indexBy(S.prop('id'), users)
+ * I.indexBy(I.prop('id'), users)
  * // => { '1': { id: 1, name: 'Carol' }, '2': { id: 2, name: 'Bob' } }
  * ```
  *
@@ -1441,10 +1441,10 @@ export function indexBy<T, K extends string>(
  * @example
  *
  * ```typescript
- * S.indexOf('b', ['a', 'b', 'c', 'a', 'b', 'c'])
+ * I.indexOf('b', ['a', 'b', 'c', 'a', 'b', 'c'])
  * // => 1
  *
- * S.indexOf('x', ['a', 'b', 'c', 'a', 'b', 'c'])
+ * I.indexOf('x', ['a', 'b', 'c', 'a', 'b', 'c'])
  * // => -1
  * ```
  *
@@ -1461,7 +1461,7 @@ export function indexOf<T>(value: T): (array: readonly T[]) => number
  * @example
  *
  * ```typescript
- * S.tail([1, 2, 3])
+ * I.tail([1, 2, 3])
  * // => [1, 2]
  * ```
  *
@@ -1483,7 +1483,7 @@ export function init<T>(array: readonly T[]): T[]
  * @example
  *
  * ```typescript
- * S.intersection([1, 2, 3], [2, 3, 4])
+ * I.intersection([1, 2, 3], [2, 3, 4])
  * // => [2, 3]
  * ```
  *
@@ -1514,7 +1514,7 @@ export function intersection<T>(
  *   { id: 4, name: 'Dan' }
  * ]
  *
- * S.intersectionWith((a, b) => a.id === b.id, users, otherUsers)
+ * I.intersectionWith((a, b) => a.id === b.id, users, otherUsers)
  * // => [ { id: 2, name: 'Bob' }, { id: 3, name: 'Carol' } ]
  * ```
  *
@@ -1545,10 +1545,10 @@ export function intersectionWith<T>(
  * @example
  *
  * ```typescript
- * S.intersperse(',', ['a', 'b', 'c'])
+ * I.intersperse(',', ['a', 'b', 'c'])
  * // => ['a', ',', 'b', ',', 'c']
  *
- * S.intersperse(',', [])
+ * I.intersperse(',', [])
  * // => []
  * ```
  *
@@ -1708,7 +1708,7 @@ export function isUndefined<T>(value: T | undefined): value is undefined
  * @example
  *
  * ```typescript
- * S.join(', ', [1, 2, 3])
+ * I.join(', ', [1, 2, 3])
  * // => '1, 2, 3'
  * ```
  *
@@ -1724,10 +1724,10 @@ export function join(separator: string): <T>(array: readonly T[]) => string
  * @example
  *
  * ```typescript
- * S.last([1, 2, 3])
+ * I.last([1, 2, 3])
  * // => 3
  *
- * S.last([])
+ * I.last([])
  * // => undefined
  * ```
  *
@@ -1745,10 +1745,10 @@ export function last<T>(array: readonly T[]): T | undefined
  * @example
  *
  * ```typescript
- * S.lastIndexOf('b', ['a', 'b', 'c', 'a', 'b', 'c'])
+ * I.lastIndexOf('b', ['a', 'b', 'c', 'a', 'b', 'c'])
  * // => 4
  *
- * S.lastIndexOf('x', ['a', 'b', 'c', 'a', 'b', 'c'])
+ * I.lastIndexOf('x', ['a', 'b', 'c', 'a', 'b', 'c'])
  * // => -1
  * ```
  *
@@ -1765,7 +1765,7 @@ export function lastIndexOf<T>(value: T): (array: readonly T[]) => number
  * @example
  *
  * ```typescript
- * S.filter(S.lt(2), [1, 2, 3])
+ * I.filter(I.lt(2), [1, 2, 3])
  * // => [1]
  * ```
  */
@@ -1779,7 +1779,7 @@ export function lt<T extends Ordered>(first: T): (second: Widen<T>) => boolean
  * @example
  *
  * ```typescript
- * S.filter(S.lte(2), [1, 2, 3])
+ * I.filter(I.lte(2), [1, 2, 3])
  * // => [1, 2]
  * ```
  */
@@ -1793,7 +1793,7 @@ export function lte<T extends Ordered>(first: T): (second: Widen<T>) => boolean
  * @example
  *
  * ```typescript
- * S.keys({a: 1, b: 2, c: 3})
+ * I.keys({a: 1, b: 2, c: 3})
  * // => ['a', 'b', 'c']
  * ```
  *
@@ -1812,10 +1812,10 @@ export function keys<T extends object>(
  * @example
  *
  * ```typescript
- * S.maybe('', (s) => s.toUpperCase(), 'hi')
+ * I.maybe('', (s) => s.toUpperCase(), 'hi')
  * // => 'HI'
  *
- * S.maybe('', (s) => s.toUpperCase(), undefined)
+ * I.maybe('', (s) => s.toUpperCase(), undefined)
  * // => ''
  * ```
  */
@@ -1842,10 +1842,10 @@ export function maybe<R>(
  * @example
  *
  * ```typescript
- * S.max(1, 2)
+ * I.max(1, 2)
  * // => 2
  *
- * S.max('a', 'b')
+ * I.max('a', 'b')
  * // => 'b'
  * ```
  *
@@ -1863,7 +1863,7 @@ export function max<T extends Ordered>(value: T): (other: Widen<T>) => Widen<T>
  * @example
  *
  * ```typescript
- * S.maxBy(Math.abs, 1, -2)
+ * I.maxBy(Math.abs, 1, -2)
  * // => -2
  * ```
  *
@@ -1891,10 +1891,10 @@ export function maxBy<T>(
  * @example
  *
  * ```typescript
- * S.maximum([1, 2, 3])
+ * I.maximum([1, 2, 3])
  * // => 3
  *
- * S.maximum([])
+ * I.maximum([])
  * // => undefined
  * ```
  *
@@ -1917,7 +1917,7 @@ export function maximum<T extends Ordered>(array: readonly T[]): T | undefined
  *   { name: 'Carol', age: 30 },
  * ]
  *
- * S.maximumBy((u) => u.age, users)
+ * I.maximumBy((u) => u.age, users)
  * // => { name: 'Carol', age: 30 }
  * ```
  *
@@ -1940,7 +1940,7 @@ export function maximumBy<T>(
  * @example
  *
  * ```typescript
- * S.map(S.inc, [1, 2, 3])
+ * I.map(I.inc, [1, 2, 3])
  * // => [2, 3, 4]
  * ```
  *
@@ -1959,7 +1959,7 @@ export function map<T, U>(fn: (value: T) => U): (array: readonly T[]) => U[]
  * @example
  *
  * ```typescript
- * S.mapIndexed((i, c) => `${i}-${c}`, ['a', 'b', 'c'])
+ * I.mapIndexed((i, c) => `${i}-${c}`, ['a', 'b', 'c'])
  * // => ['0-a', '1-b', '2-c']
  * ```
  *
@@ -1987,7 +1987,7 @@ export function mapIndexed<T, U>(
  *   { name: 'Carol', age: 20 }
  * ]
  *
- * S.mapMaybe(S.prop('age'), users)
+ * I.mapMaybe(I.prop('age'), users)
  * // => [10, 20]
  * ```
  *
@@ -2011,7 +2011,7 @@ export function mapMaybe<T, U>(
  * @example
  *
  * ```typescript
- * S.mapKeys((k) => k.toUpperCase(), { a: 1, b: 2, c: 3 })
+ * I.mapKeys((k) => k.toUpperCase(), { a: 1, b: 2, c: 3 })
  * // => { A: 1, B: 2, C: 3 }
  * ```
  */
@@ -2031,7 +2031,7 @@ export function mapKeys<K1 extends string, K2 extends string, T>(
  * @example
  *
  * ```typescript
- * S.mapValues(S.inc, {a: 1, b: 2, c: 3})
+ * I.mapValues(I.inc, {a: 1, b: 2, c: 3})
  * // => {a: 2, b: 3, c: 4}
  * ```
  */
@@ -2051,7 +2051,7 @@ export function mapValues<K extends string, V1, V2>(
  * @example
  *
  * ```typescript
- * S.merge({ a: 1, b: 1 }, { b: 2, c: 2 })
+ * I.merge({ a: 1, b: 1 }, { b: 2, c: 2 })
  * // => { a: 1, b: 2, c: 2 }
  * ```
  */
@@ -2070,10 +2070,10 @@ export function merge<T extends object>(
  * @example
  *
  * ```typescript
- * S.min(1, 2)
+ * I.min(1, 2)
  * // => 1
  *
- * S.min('a', 'b')
+ * I.min('a', 'b')
  * // => 'a'
  * ```
  *
@@ -2091,7 +2091,7 @@ export function min<T extends Ordered>(value: T): (other: Widen<T>) => Widen<T>
  * @example
  *
  * ```typescript
- * S.minBy(Math.abs, -1, 2)
+ * I.minBy(Math.abs, -1, 2)
  * // => -1
  * ```
  *
@@ -2118,10 +2118,10 @@ export function minBy<T>(
  * @example
  *
  * ```typescript
- * S.minimum([1, 2, 3])
+ * I.minimum([1, 2, 3])
  * // => 1
  *
- * S.minimum([])
+ * I.minimum([])
  * // => undefined
  * ```
  *
@@ -2144,7 +2144,7 @@ export function minimum<T extends Ordered>(array: readonly T[]): T | undefined
  *   { name: 'Carol', age: 30 },
  * ]
  *
- * S.minimumBy((u) => u.age, users)
+ * I.minimumBy((u) => u.age, users)
  * // => { name: 'Alice', age: 10 }
  * ```
  *
@@ -2169,16 +2169,16 @@ export function minimumBy<T>(
  * @example
  *
  * ```typescript
- * S.modifyAt(0, S.inc, [1, 2, 3])
+ * I.modifyAt(0, I.inc, [1, 2, 3])
  * // => [2, 2, 3]
  *
- * S.modifyAt(-1, S.inc, [1, 2, 3])
+ * I.modifyAt(-1, I.inc, [1, 2, 3])
  * // => [1, 2, 4]
  *
- * S.modifyAt(0, S.noop, [1, 2, 3])
+ * I.modifyAt(0, I.noop, [1, 2, 3])
  * // => [2, 3]
  *
- * S.modifyAt(999, S.inc, [1, 2, 3])
+ * I.modifyAt(999, I.inc, [1, 2, 3])
  * // => [1, 2, 3]
  * ```
  *
@@ -2211,13 +2211,13 @@ export function modifyAt(
  * @example
  *
  * ```typescript
- * S.modifyProp('a', (n) => n + 1, { a: 1, b: 2, c: 3 })
+ * I.modifyProp('a', (n) => n + 1, { a: 1, b: 2, c: 3 })
  * // => { a: 2, b: 2, c: 3 }
  *
- * S.modifyProp('a', () => undefined, { a: 1, b: 2, c: 3 })
+ * I.modifyProp('a', () => undefined, { a: 1, b: 2, c: 3 })
  * // => { b: 2, c: 3 }
  *
- * S.modifyProp('d', () => 4, { a: 1, b: 2, c: 3 })
+ * I.modifyProp('d', () => 4, { a: 1, b: 2, c: 3 })
  * // => { a: 1, b: 2, c: 3, d: 4 }
  * ```
  *
@@ -2252,7 +2252,7 @@ export function modifyProp<K extends string>(
  * @example
  *
  * ```typescript
- * S.map(S.multiply(2), [1, 2, 3])
+ * I.map(I.multiply(2), [1, 2, 3])
  * // => [2, 4, 6]
  * ```
  */
@@ -2266,7 +2266,7 @@ export function multiply(multiplicand: number): (multiplier: number) => number
  * @example
  *
  * ```typescript
- * S.map(S.negate, [1, 2, 3])
+ * I.map(I.negate, [1, 2, 3])
  * // => [-1, -2, -3]
  * ```
  */
@@ -2279,10 +2279,10 @@ export function negate(n: number): number
  * @example
  *
  * ```typescript
- * S.none((n) => n > 5, [1, 2, 3])
+ * I.none((n) => n > 5, [1, 2, 3])
  * // true
  *
- * S.none((n) => n > 5, [1, 2, 3])
+ * I.none((n) => n > 5, [1, 2, 3])
  * // false
  * ```
  *
@@ -2304,10 +2304,10 @@ export function none<T>(
  * @example
  *
  * ```typescript
- * S.not(true)
+ * I.not(true)
  * // => false
  *
- * S.not(false)
+ * I.not(false)
  * // => true
  * ```
  *
@@ -2323,7 +2323,7 @@ export function not(bool: boolean): boolean
  * @example
  *
  * ```typescript
- *  launchMissiles().then(S.noop).catch(S.noop) // Ignore the promise return value
+ *  launchMissiles().then(I.noop).catch(I.noop) // Ignore the promise return value
  * ```
  */
 export function noop(): undefined
@@ -2335,7 +2335,7 @@ export function noop(): undefined
  * @example
  *
  * ```typescript
- * S.of(1)
+ * I.of(1)
  * // => [1]
  * ```
  *
@@ -2350,7 +2350,7 @@ export function of<T>(value: T): [T]
  * @example
  *
  * ```typescript
- * S.omit(['a', 'b'], { a: 1, b: 2, c: 3 })
+ * I.omit(['a', 'b'], { a: 1, b: 2, c: 3 })
  * // => { c: 3 }
  * ```
  *
@@ -2371,7 +2371,7 @@ export function omit<K extends string>(
  * @example
  *
  * ```typescript
- * S.pair(1, 2)
+ * I.pair(1, 2)
  * // => [1, 2]
  * ```
  *
@@ -2389,7 +2389,7 @@ export function pair<T>(first: T): <U>(second: U) => [T, U]
  * @example
  *
  * ```typescript
- * const [evens, odds] = S.partition((n) => n % 2 === 0, [1, 2, 3])
+ * const [evens, odds] = I.partition((n) => n % 2 === 0, [1, 2, 3])
  * // => [[2], [1, 3]]
  * ```
  *
@@ -2410,7 +2410,7 @@ export function partition<T>(
  * @example
  *
  * ```typescript
- * S.prepend(0, [1, 2, 3])
+ * I.prepend(0, [1, 2, 3])
  * // => [0, 1, 2, 3]
  * ```
  *
@@ -2427,13 +2427,13 @@ export function prepend<T>(value: T): (array: readonly T[]) => T[]
  * @example
  *
  * ```typescript
- * S.prop('a', { a: 1, b: 2, c: 3 })
+ * I.prop('a', { a: 1, b: 2, c: 3 })
  * // => 1
  *
- * S.prop('a', {})
+ * I.prop('a', {})
  * // => undefined
  *
- * S.prop('a', undefined)
+ * I.prop('a', undefined)
  * // => undefined
  * ```
  *
@@ -2456,13 +2456,13 @@ export function prop<K extends string>(
  * @example
  *
  * ```typescript
- * S.propOr(999, 'a', { a: 1, b: 2, c: 3 })
+ * I.propOr(999, 'a', { a: 1, b: 2, c: 3 })
  * // => 1
  *
- * S.propOr(999, 'a', {})
+ * I.propOr(999, 'a', {})
  * // => 999
  *
- * S.propOr(999, 'a', {a: undefined})
+ * I.propOr(999, 'a', {a: undefined})
  * // => 999
  * ```
  *
@@ -2499,10 +2499,10 @@ export function propOr<V>(
  * @example
  *
  * ```typescript
- * S.range(0, 10)
+ * I.range(0, 10)
  * // => [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
  *
- * // S.range(0, 0)
+ * // I.range(0, 0)
  * // => []
  * ```
  *
@@ -2525,7 +2525,7 @@ export function range(start: number): (end: number) => number[]
  * @example
  *
  * ```typescript
- * S.reduce((sum, n) => sum + n, 1, [2, 3, 4]) // equal to ((1 + 2) + 3) + 4
+ * I.reduce((sum, n) => sum + n, 1, [2, 3, 4]) // equal to ((1 + 2) + 3) + 4
  * // => 10
  * ```
  *
@@ -2560,7 +2560,7 @@ export function reduce<T, R>(
  * @example
  *
  * ```typescript
- * S.reduceRight((n, sum) => n + sum, 4, [1, 2, 3]) // equal to 1 + (2 + (3 + 4))
+ * I.reduceRight((n, sum) => n + sum, 4, [1, 2, 3]) // equal to 1 + (2 + (3 + 4))
  * // => 10
  * ```
  *
@@ -2589,13 +2589,13 @@ export function reduceRight<T, R>(
  * @example
  *
  * ```typescript
- * S.removeAt(0, [1, 2, 3])
+ * I.removeAt(0, [1, 2, 3])
  * // => [2, 3]
  *
- * S.removeAt(-1, [1, 2, 3])
+ * I.removeAt(-1, [1, 2, 3])
  * // => [1, 2]
  *
- * S.removeAt(999, [1, 2, 3])
+ * I.removeAt(999, [1, 2, 3])
  * // => [1, 2, 3]
  * ```
  *
@@ -2612,7 +2612,7 @@ export function removeAt(index: number): <T>(array: readonly T[]) => T[]
  * @example
  *
  * ```typescript
- * S.removeProp('a', { a: 1, b: 2, c: 3 })
+ * I.removeProp('a', { a: 1, b: 2, c: 3 })
  * // => { b: 2, c: 3 }
  * ```
  */
@@ -2631,7 +2631,7 @@ export function removeProp<K extends string>(
  * @example
  *
  * ```typescript
- * S.repeat('a', 5)
+ * I.repeat('a', 5)
  * // => ['a', 'a', 'a', 'a', 'a']
  * ```
  *
@@ -2648,7 +2648,7 @@ export function repeat<T>(value: T): (n: number) => T[]
  * @example
  *
  * ```typescript
- * S.reverse([1, 2, 3])
+ * I.reverse([1, 2, 3])
  * // => [3, 2, 1]
  * ```
  */
@@ -2661,7 +2661,7 @@ export function reverse<T>(array: readonly T[]): T[]
  * @example
  *
  * ```typescript
- * S.second(1, 2)
+ * I.second(1, 2)
  * // => 2
  * ```
  */
@@ -2674,7 +2674,7 @@ export function second<T>(first: unknown, second: T): T
  * @example
  *
  * ```typescript
- * S.pick(['a', 'b'], { a: 1, b: 2, c: 3 })
+ * I.pick(['a', 'b'], { a: 1, b: 2, c: 3 })
  * // => { a: 1, b: 2 }
  * ```
  *
@@ -2692,17 +2692,17 @@ export function pick<K extends string>(
  * Pipe an `initial` value through one or more functions in left-to-right order,
  * allowing the programmer to chain operations in a readable manner.
  *
- * `S.pipe(initial, f1, f2, ...fn)` can be thought as syntax sugar
+ * `I.pipe(initial, f1, f2, ...fn)` can be thought as syntax sugar
  * for `fn(...(f2(f1(initial))))`
  *
  * @category Function
  * @example
  *
  * ```typescript
- * S.pipe(
+ * I.pipe(
  *   [1, 2, 3]
- *   S.map((n) => n * 2),
- *   S.sum
+ *   I.map((n) => n * 2),
+ *   I.sum
  * )
  * // => 12
  * ```
@@ -2789,16 +2789,16 @@ export function pipe<T1, T2, T3, T4, T5, T6, T7, T8, T9, R>(
  * @example
  *
  * ```typescript
- * S.setAt(0, 999, [1, 2, 3])
+ * I.setAt(0, 999, [1, 2, 3])
  * // => [999, 2, 3]
  *
- * S.setAt(-1, 999, [1, 2, 3])
+ * I.setAt(-1, 999, [1, 2, 3])
  * // => [1, 2, 999]
  *
- * S.setAt(999, 999, [1, 2, 3])
+ * I.setAt(999, 999, [1, 2, 3])
  * // => [1, 2, 3]
  *
- * S.setAt(0, undefined, [1, 2, 3])
+ * I.setAt(0, undefined, [1, 2, 3])
  * // => [2, 3]
  * ```
  *
@@ -2829,10 +2829,10 @@ export function setAt(
  * @example
  *
  * ```typescript
- * S.setProp('a', 999, { a: 1, b: 2, c: 3 })
+ * I.setProp('a', 999, { a: 1, b: 2, c: 3 })
  * // => { a: 999, b: 2, c: 3 }
  *
- * S.setProp('a', undefined, { a: 1, b: 2, c: 3 })
+ * I.setProp('a', undefined, { a: 1, b: 2, c: 3 })
  * // => { b: 2, c: 3 }
  * ```
  *
@@ -2863,10 +2863,10 @@ export function setProp<K extends string>(
  * @example
  *
  * ```typescript
- * S.slice(0, 2, [1, 2, 3])
+ * I.slice(0, 2, [1, 2, 3])
  * // => [1, 2]
  *
- * S.slice(1, 2, [1, 2, 3])
+ * I.slice(1, 2, [1, 2, 3])
  * // => [2]
  * ```
  */
@@ -2889,10 +2889,10 @@ export function slice(
  * @example
  *
  * ```typescript
- * S.some((n) => n > 2, [1, 2, 3])
+ * I.some((n) => n > 2, [1, 2, 3])
  * // true
  *
- * S.some((n) => n > 5, [1, 2, 3])
+ * I.some((n) => n > 5, [1, 2, 3])
  * // false
  * ```
  *
@@ -2914,7 +2914,7 @@ export function some<T>(
  * @example
  *
  * ```typescript
- * S.sort((a, b) => a - b, [3, 2, 1])
+ * I.sort((a, b) => a - b, [3, 2, 1])
  * // => [1, 2, 3]
  * ```
  *
@@ -2944,10 +2944,10 @@ export function sort<T>(
  *   { name: 'Alice', age: 20 }
  * ]
  *
- * S.sortBy(S.prop('name'), users)
+ * I.sortBy(I.prop('name'), users)
  * // => [{ name: 'Alice', age: 20 }, { name: 'Bob', age: 10 }]
  *
- * S.sortBy(S.prop('age'), users)
+ * I.sortBy(I.prop('age'), users)
  * // => [{ name: 'Bob', age: 10 }, { name: 'Alice', age: 20 }]
  * ```
  *
@@ -2974,7 +2974,7 @@ export function sortBy<T>(
  *   { name: 'Alice', age: 20 },
  * ]
  *
- * S.sortWith([S.descend(S.prop('age')), S.ascend(S.prop('name'))], users)
+ * I.sortWith([I.descend(I.prop('age')), I.ascend(I.prop('name'))], users)
  * // => [{ name: 'Alice', age: 20 }, { name: 'Bob', age: 20 }, { name: 'Alice', age: 10 }]
  * ```
  *
@@ -2998,7 +2998,7 @@ export function sortWith<T>(
  * @example
  *
  * ```typescript
- * S.map(S.subtractBy(1), [1, 2, 3])
+ * I.map(I.subtractBy(1), [1, 2, 3])
  * // => [0, 1, 2]
  * ```
  */
@@ -3016,10 +3016,10 @@ export function subtractBy(subtrahend: number): (minuend: number) => number
  * @example
  *
  * ```typescript
- * const numbers = S.repeat(0.1, 10)
+ * const numbers = I.repeat(0.1, 10)
  * // => [0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1]
  *
- * S.sum(numbers)
+ * I.sum(numbers)
  * // => 1
  *
  * numbers.reduce((sum, n) => sum + n, 0)
@@ -3038,7 +3038,7 @@ export function sum(numbers: readonly number[]): number
  * @example
  *
  * ```typescript
- * S.sumBy(S.prop('age'), [{ name: 'Alice', age: 10 }, { name: 'Bob', age: 20 }])
+ * I.sumBy(I.prop('age'), [{ name: 'Alice', age: 10 }, { name: 'Bob', age: 20 }])
  * // => 30
  * ```
  *
@@ -3056,7 +3056,7 @@ export function sumBy<T>(
  * @example
  *
  * ```typescript
- * S.tail([1, 2, 3])
+ * I.tail([1, 2, 3])
  * // => [2, 3]
  * ```
  *
@@ -3073,7 +3073,7 @@ export function tail<T>(array: readonly T[]): T[]
  * @example
  *
  * ```typescript
- * S.take(2, [1, 2, 3])
+ * I.take(2, [1, 2, 3])
  * // => [1, 2]
  * ```
  *
@@ -3090,7 +3090,7 @@ export function take(n: number): <T>(array: readonly T[]) => T[]
  * @example
  *
  * ```typescript
- * S.takeLast(2, [1, 2, 3])
+ * I.takeLast(2, [1, 2, 3])
  * // => [2, 3]
  * ```
  *
@@ -3107,7 +3107,7 @@ export function takeLast<T>(n: number): (array: readonly T[]) => T[]
  * @example
  *
  * ```typescript
- * S.takeLastWhile((n) => n >= 2, [1, 2, 3])
+ * I.takeLastWhile((n) => n >= 2, [1, 2, 3])
  * // => [2, 3]
  * ```
  *
@@ -3130,7 +3130,7 @@ export function takeLastWhile<T>(
  * @example
  *
  * ```typescript
- * S.takeWhile((n) => n <= 2, [1, 2, 3])
+ * I.takeWhile((n) => n <= 2, [1, 2, 3])
  * // => [1, 2]
  * ```
  *
@@ -3155,12 +3155,12 @@ export function takeWhile<T>(
  * @example
  *
  * ```typescript
- * S.pipe(
+ * I.pipe(
  *   [1, 2, 3],
- *   S.map(S.multiply(2)),
- *   S.filter(S.gt(2)),
- *   S.tap(console.log),
- *   S.sum
+ *   I.map(I.multiply(2)),
+ *   I.filter(I.gt(2)),
+ *   I.tap(console.log),
+ *   I.sum
  * )
  * // Prints: [ 4, 6 ]
  * // => 10
@@ -3175,7 +3175,7 @@ export function tap<T>(fn: (value: T) => void): (value: T) => T
  * @example
  *
  * ```typescript
- * S.times((n) => n * 10, 3)
+ * I.times((n) => n * 10, 3)
  * // => [0, 10, 20]
  * ```
  *
@@ -3192,10 +3192,10 @@ export function times<T>(fn: (index: number) => T): (n: number) => T[]
  * @example
  *
  * ```typescript
- * S.valueOr(999, 0)
+ * I.valueOr(999, 0)
  * // => 0
  *
- * S.valueOr(999, undefined)
+ * I.valueOr(999, undefined)
  * // => 999
  * ```
  *
@@ -3210,7 +3210,7 @@ export function valueOr<T>(defaultValue: T): (value: T | undefined) => T
  * @category Object
  * @example
  * ```
- * S.keys({a: 1, b: 2, c: 3})
+ * I.keys({a: 1, b: 2, c: 3})
  * // => [1, 2, 3]
  * ```
  *
@@ -3228,7 +3228,7 @@ export function values<T extends object>(
  * @example
  *
  * ```typescript
- * ['1', '2', '3'].map(S.unary(parseInt))
+ * ['1', '2', '3'].map(I.unary(parseInt))
  * // => [1, 2, 3]
  * ```
  *
@@ -3247,7 +3247,7 @@ export function unary<T, R>(fn: VariadicFunction1<T, R>): Function1<T, R>
  * @example
  *
  * ```typescript
- * S.union([1, 2, 3], [2, 3, 4])
+ * I.union([1, 2, 3], [2, 3, 4])
  * // => [1, 2, 3, 4]
  * ```
  *
@@ -3276,7 +3276,7 @@ export function union<T>(first: readonly T[]): (second: readonly T[]) => T[]
  *   { id: 4, name: 'Dan' }
  * ]
  *
- * S.unionWith((a, b) => a.id === b.id, users, otherUsers)
+ * I.unionWith((a, b) => a.id === b.id, users, otherUsers)
  * // => [ { id: 1, name: 'Alice' },  { id: 2, name: 'Bob' }, { id: 3, name: 'Carol' }, { id: 4, name: 'Dan' } ]
  * ```
  *
@@ -3308,7 +3308,7 @@ export function unionWith<T>(
  * @example
  *
  * ```typescript
- * S.uniq([1, 2, 3, 1, 2, 3])
+ * I.uniq([1, 2, 3, 1, 2, 3])
  * // => [1, 2, 3]
  * ```
  *
@@ -3328,7 +3328,7 @@ export function uniq<T>(array: readonly T[]): T[]
  *   { id: 1, name: 'Alice' },
  *   { id: 2, name: 'Bob' },
  * ]
- * S.uniqWith((a, b) => a.id === b.id, users)
+ * I.uniqWith((a, b) => a.id === b.id, users)
  * // => [{ id: 1, name: 'Alice' }, { id: 2, name: 'Bob' }]
  * ```
  *
@@ -3352,7 +3352,7 @@ export function uniqWith<T>(
  * @example
  *
  * ```typescript
- * S.zip(['a', 'b', 'c'], [1, 2, 3])
+ * I.zip(['a', 'b', 'c'], [1, 2, 3])
  * // => [['a', 1], ['b', 2], ['c', 3]]
  * ```
  *
@@ -3373,7 +3373,7 @@ export function zip<T>(
  * @example
  *
  * ```typescript
- * S.zipObject(['a', 'b', 'c'], [1, 2, 3])
+ * I.zipObject(['a', 'b', 'c'], [1, 2, 3])
  * // => {a: 1, b: 2, c: 3}
  * ```
  *
@@ -3395,7 +3395,7 @@ export function zipObject<K extends string>(
  * @example
  *
  * ```typescript
- * S.zipWith(S.add, [1, 2, 3], [4, 5, 6])
+ * I.zipWith(I.add, [1, 2, 3], [4, 5, 6])
  * // => [5, 7, 9]
  * ```
  *

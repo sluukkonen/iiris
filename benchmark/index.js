@@ -4,7 +4,7 @@ const Benchmark = require('benchmark')
 
 const _ = require('lodash')
 const R = require('ramda')
-const S = require('../')
+const I = require('../')
 const util = require('util')
 const fs = require('fs')
 const path = require('path')
@@ -41,13 +41,13 @@ const benchmarks = [
   {
     name: 'unary',
     benchmarks: () => {
-      const Sunary = S.unary((a, b) => b)
+      const Iunary = I.unary((a, b) => b)
       const _unary = _.unary((a, b) => b)
       const Runary = R.unary((a, b) => b)
       const unary = ((fn) => (x) => fn(x))((a, b) => b)
 
       return {
-        soles: () => Sunary(1, 2),
+        iiris: () => Iunary(1, 2),
         lodash: () => _unary(1, 2),
         ramda: () => Runary(1, 2),
         native: () => unary(1, 2),
@@ -57,13 +57,13 @@ const benchmarks = [
   {
     name: 'curry.partial',
     benchmarks: () => {
-      const Sadd = S.curry3((a, b, c) => a + b + c)
+      const Iadd = I.curry3((a, b, c) => a + b + c)
       const _add = _.curry((a, b, c) => a + b + c)
       const Radd = R.curry((a, b, c) => a + b + c)
       const add = (a) => (b) => (c) => a + b + c
 
       return {
-        soles: () => Sadd(1)(2)(3),
+        iiris: () => Iadd(1)(2)(3),
         lodash: () => _add(1)(2)(3),
         ramda: () => Radd(1)(2)(3),
         native: () => add(1)(2)(3),
@@ -73,13 +73,13 @@ const benchmarks = [
   {
     name: 'curry.full',
     benchmarks: () => {
-      const Sadd = S.curry3((a, b, c) => a + b + c)
+      const Iadd = I.curry3((a, b, c) => a + b + c)
       const _add = _.curry((a, b, c) => a + b + c)
       const Radd = R.curry((a, b, c) => a + b + c)
       const add = (a, b, c) => a + b + c
 
       return {
-        soles: () => Sadd(1, 2, 3),
+        iiris: () => Iadd(1, 2, 3),
         lodash: () => _add(1, 2, 3),
         ramda: () => Radd(1, 2, 3),
         native: () => add(1, 2, 3),
@@ -89,13 +89,13 @@ const benchmarks = [
   {
     name: 'curry.last',
     benchmarks: () => {
-      const Sadd = S.curry3((a, b, c) => a + b + c)(1, 2)
+      const Iadd = I.curry3((a, b, c) => a + b + c)(1, 2)
       const _add = _.curry((a, b, c) => a + b + c)(1, 2)
       const Radd = R.curry((a, b, c) => a + b + c)(1, 2)
       const add = ((a, b) => (c) => a + b + c)(1, 2)
 
       return {
-        soles: () => Sadd(3),
+        iiris: () => Iadd(3),
         lodash: () => _add(3),
         ramda: () => Radd(3),
         native: () => add(3),
@@ -110,7 +110,7 @@ const benchmarks = [
       const Rpipe = R.pipe(inc, inc, inc, inc)
 
       return {
-        soles: () => S.pipe(1, inc, inc, inc, inc),
+        iiris: () => I.pipe(1, inc, inc, inc, inc),
         lodash: () => _flow(1),
         ramda: () => Rpipe(1),
         native: () => inc(inc(inc(inc(1)))),
@@ -121,14 +121,14 @@ const benchmarks = [
     name: 'compose.specialized',
     benchmarks: () => {
       const inc = (x) => x + 1
-      const soles = S.compose(inc, inc, inc)
-      const ramda = R.compose(inc, inc, inc)
-      const native = (...args) => inc(inc(inc(...args)))
+      const Icomposed = I.compose(inc, inc, inc)
+      const RCompose = R.compose(inc, inc, inc)
+      const composed = (...args) => inc(inc(inc(...args)))
 
       return {
-        soles: () => soles(1),
-        ramda: () => ramda(1),
-        native: () => native(1),
+        iiris: () => Icomposed(1),
+        ramda: () => RCompose(1),
+        native: () => composed(1),
       }
     },
   },
@@ -136,14 +136,14 @@ const benchmarks = [
     name: 'compose.generic',
     benchmarks: () => {
       const inc = (x) => x + 1
-      const soles = S.compose(inc, inc, inc, inc)
-      const ramda = R.compose(inc, inc, inc, inc)
-      const native = (...args) => inc(inc(inc(inc(...args))))
+      const IComposed = I.compose(inc, inc, inc, inc)
+      const Rcomposed = R.compose(inc, inc, inc, inc)
+      const composed = (...args) => inc(inc(inc(inc(...args))))
 
       return {
-        soles: () => soles(1),
-        ramda: () => ramda(1),
-        native: () => native(1),
+        iiris: () => IComposed(1),
+        ramda: () => Rcomposed(1),
+        native: () => composed(1),
       }
     },
   },
@@ -152,7 +152,7 @@ const benchmarks = [
     params: [num1, num10, num100],
     benchmarks: (array) => {
       return {
-        soles: () => S.map((x) => x + 1, array),
+        iiris: () => I.map((x) => x + 1, array),
         lodash: () => _.map(array, (x) => x + 1),
         ramda: () => R.map((x) => x + 1, array),
         native: () => array.map((x) => x + 1),
@@ -163,7 +163,7 @@ const benchmarks = [
     name: 'filter',
     params: [num1, num10, num100],
     benchmarks: (array) => ({
-      soles: () => S.filter((x) => x % 2 === 0, array),
+      iiris: () => I.filter((x) => x % 2 === 0, array),
       lodash: () => _.filter(array, (x) => x % 2 === 0),
       ramda: () => R.filter((x) => x % 2 === 0, array),
       native: () => array.filter((x) => x % 2 === 0),
@@ -173,7 +173,7 @@ const benchmarks = [
     name: 'reduce',
     params: [num1, num10, num100],
     benchmarks: (array) => ({
-      soles: () => S.reduce((a, b) => a + b, 0, array),
+      iiris: () => I.reduce((a, b) => a + b, 0, array),
       lodash: () => _.reduce(array, (a, b) => a + b, 0),
       ramda: () => R.reduce((a, b) => a + b, 0, array),
       native: () => array.reduce((a, b) => a + b, 0),
@@ -183,7 +183,7 @@ const benchmarks = [
     name: 'reduceRight',
     params: [num1, num10, num100],
     benchmarks: (array) => ({
-      soles: () => S.reduceRight((a, b) => a + b, 0, array),
+      iiris: () => I.reduceRight((a, b) => a + b, 0, array),
       lodash: () => _.reduceRight(array, (a, b) => a + b, 0),
       ramda: () => R.reduceRight((a, b) => a + b, 0, array),
       native: () => array.reduceRight((a, b) => a + b, 0),
@@ -192,7 +192,7 @@ const benchmarks = [
   {
     name: 'clamp',
     benchmarks: () => ({
-      soles: () => S.clamp([0, 1], 10),
+      iiris: () => I.clamp([0, 1], 10),
       lodash: () => _.clamp(0, 1, 10),
       ramda: () => R.clamp(0, 1, 10),
       native: () => Math.max(0, Math.min(1, 10)),
@@ -202,7 +202,7 @@ const benchmarks = [
     name: 'sum',
     params: [num1, num10, num100, num1000],
     benchmarks: (array) => ({
-      soles: () => S.sum(array),
+      iiris: () => I.sum(array),
       lodash: () => _.sum(array),
       ramda: () => R.sum(array),
       native: () => array.reduce((x, y) => x + y, 0),
@@ -212,7 +212,7 @@ const benchmarks = [
     name: 'concat',
     params: [num1, num10, num100, num1000],
     benchmarks: (array) => ({
-      soles: () => S.concat(array, array),
+      iiris: () => I.concat(array, array),
       lodash: () => _.concat(array, array),
       ramda: () => R.concat(array, array),
       native: () => [...array, ...array],
@@ -222,7 +222,7 @@ const benchmarks = [
     name: 'maximum',
     params: [num1, num10, num100, num1000],
     benchmarks: (array) => ({
-      soles: () => S.maximum(array),
+      iiris: () => I.maximum(array),
       lodash: () => _.max(array),
       native: () => array.reduce((a, b) => (a > b ? a : b)),
     }),
@@ -231,7 +231,7 @@ const benchmarks = [
     name: 'minimum',
     params: [num1, num10, num100, num1000],
     benchmarks: (array) => ({
-      soles: () => S.minimum(array),
+      iiris: () => I.minimum(array),
       lodash: () => _.min(array),
       native: () => array.reduce((a, b) => (a < b ? a : b)),
     }),
@@ -241,7 +241,7 @@ const benchmarks = [
     params: [num1, num10, num100, num1000],
     benchmarks: (array) => {
       return {
-        soles: () => S.reverse(array),
+        iiris: () => I.reverse(array),
         ramda: () => R.reverse(array),
         native: () => array.slice().reverse(),
       }
@@ -251,7 +251,7 @@ const benchmarks = [
     name: 'find',
     params: [num1, num10, num100, num1000],
     benchmarks: (array) => ({
-      soles: () => S.find((x) => x === 10000, array),
+      iiris: () => I.find((x) => x === 10000, array),
       lodash: () => _.find((x) => x === 10000, array),
       ramda: () => R.find((x) => x === 10000, array),
       native: () => array.find((x) => x === 10000),
@@ -261,7 +261,7 @@ const benchmarks = [
     name: 'groupBy',
     params: [num1, num10, num100, num1000],
     benchmarks: (array) => ({
-      soles: () => S.groupBy((x) => String(x % 10), array),
+      iiris: () => I.groupBy((x) => String(x % 10), array),
       lodash: () => _.groupBy(array, (x) => String(x % 10)),
       ramda: () => R.groupBy((x) => String(x % 10), array),
     }),
@@ -270,7 +270,7 @@ const benchmarks = [
     name: 'countBy',
     params: [num1, num10, num100, num1000],
     benchmarks: (array) => ({
-      soles: () => S.countBy((x) => String(x % 10), array),
+      iiris: () => I.countBy((x) => String(x % 10), array),
       lodash: () => _.countBy(array, (x) => String(x % 10)),
       ramda: () => R.countBy((x) => String(x % 10), array),
     }),
@@ -279,7 +279,7 @@ const benchmarks = [
     name: 'indexBy',
     params: [num1, num10, num100, num1000],
     benchmarks: (array) => ({
-      soles: () => S.indexBy((x) => String(x % 10), array),
+      iiris: () => I.indexBy((x) => String(x % 10), array),
       lodash: () => _.keyBy(array, (x) => String(x % 10)),
       ramda: () => R.indexBy((x) => String(x % 10), array),
     }),
@@ -288,7 +288,7 @@ const benchmarks = [
     name: 'zip',
     params: [num1, num10, num100, num1000],
     benchmarks: (array) => ({
-      soles: () => S.zip(array, array),
+      iiris: () => I.zip(array, array),
       lodash: () => _.zip(array, array),
       ramda: () => R.zip(array, array),
     }),
@@ -299,7 +299,7 @@ const benchmarks = [
     benchmarks: (obj) => {
       const clone = _.cloneDeep(obj)
       return {
-        soles: () => S.equals(obj, clone),
+        iiris: () => I.equals(obj, clone),
         lodash: () => _.isEqual(obj, clone),
         ramda: () => R.equals(obj, clone),
         native: () => util.isDeepStrictEqual(obj, clone),
@@ -312,7 +312,7 @@ const benchmarks = [
     benchmarks: (obj) => {
       const clone = _.cloneDeep(obj)
       return {
-        soles: () => S.equals(obj, clone),
+        iiris: () => I.equals(obj, clone),
         lodash: () => _.isEqual(obj, clone),
         ramda: () => R.equals(obj, clone),
         native: () => util.isDeepStrictEqual(obj, clone),
@@ -322,7 +322,7 @@ const benchmarks = [
   {
     name: 'equals.primitives',
     benchmarks: () => ({
-      soles: () => S.equals(1, 1),
+      iiris: () => I.equals(1, 1),
       lodash: () => _.isEqual(1, 1),
       ramda: () => R.equals(1, 1),
       native: () => util.isDeepStrictEqual(1, 1),
@@ -334,7 +334,7 @@ const benchmarks = [
       const obj = {}
       const clone = {}
       return {
-        soles: () => S.equals(obj, clone),
+        iiris: () => I.equals(obj, clone),
         lodash: () => _.isEqual(obj, clone),
         ramda: () => R.equals(obj, clone),
         native: () => util.isDeepStrictEqual(obj, clone),
@@ -350,7 +350,7 @@ const benchmarks = [
       const obj1 = JSON.parse(packageJson)
       const obj2 = JSON.parse(packageJson)
       return {
-        soles: () => S.equals(obj1, obj2),
+        iiris: () => I.equals(obj1, obj2),
         lodash: () => _.isEqual(obj1, obj2),
         ramda: () => R.equals(obj1, obj2),
         native: () => util.isDeepStrictEqual(obj1, obj2),
@@ -361,7 +361,7 @@ const benchmarks = [
     name: 'flatMap',
     params: [num1, num10, num100, num1000],
     benchmarks: (array) => ({
-      soles: () => S.flatMap((x) => [x, x], array),
+      iiris: () => I.flatMap((x) => [x, x], array),
       lodash: () => _.flatMap(array, (x) => [x, x]),
       ramda: () => R.chain((x) => [x, x], array),
       native: () => array.flatMap((x) => [x, x]),
@@ -373,7 +373,7 @@ const benchmarks = [
     benchmarks: (array) => {
       const last = array.length - 1
       return {
-        soles: () => S.includes(last, array),
+        iiris: () => I.includes(last, array),
         lodash: () => _.includes(array, last),
         ramda: () => R.includes(last, array),
         native: () => array.includes(last),
@@ -386,7 +386,7 @@ const benchmarks = [
     benchmarks: (array) => {
       const last = createObj(array.length - 1)
       return {
-        soles: () => S.includes(last, array),
+        iiris: () => I.includes(last, array),
         ramda: () => R.includes(last, array),
       }
     },
@@ -397,7 +397,7 @@ const benchmarks = [
     benchmarks: (array) => {
       const last = array.length - 1
       return {
-        soles: () => S.indexOf(last, array),
+        iiris: () => I.indexOf(last, array),
         lodash: () => _.indexOf(array, last),
         ramda: () => R.indexOf(last, array),
         native: () => array.indexOf(last),
@@ -410,7 +410,7 @@ const benchmarks = [
     benchmarks: (array) => {
       const last = createObj(array.length - 1)
       return {
-        soles: () => S.indexOf(last, array),
+        iiris: () => I.indexOf(last, array),
         ramda: () => R.indexOf(last, array),
       }
     },
@@ -421,7 +421,7 @@ const benchmarks = [
     benchmarks: (array) => {
       const first = 1
       return {
-        soles: () => S.lastIndexOf(first, array),
+        iiris: () => I.lastIndexOf(first, array),
         lodash: () => _.lastIndexOf(array, first),
         ramda: () => R.lastIndexOf(first, array),
         native: () => array.lastIndexOf(first),
@@ -436,9 +436,9 @@ const benchmarks = [
       const byKConstant = (obj) => obj.kConstant
       const byK1 = (obj) => obj.k1
       return {
-        soles: () =>
-          S.sortWith(
-            [S.ascend(byKConstant), S.descend(byKConstant), S.ascend(byK1)],
+        iiris: () =>
+          I.sortWith(
+            [I.ascend(byKConstant), I.descend(byKConstant), I.ascend(byK1)],
             shuffled
           ),
         lodash: () =>
@@ -459,7 +459,7 @@ const benchmarks = [
     name: 'some',
     params: [num1, num10, num100, num1000],
     benchmarks: (array) => ({
-      soles: () => S.some((n) => n > array.length, array),
+      iiris: () => I.some((n) => n > array.length, array),
       lodash: () => _.some(array, (n) => n > array.length),
       ramda: () => R.any((n) => n > array.length, array),
       native: () => array.some((n) => n > array.length),
@@ -469,7 +469,7 @@ const benchmarks = [
     name: 'every',
     params: [num1, num10, num100, num1000],
     benchmarks: (array) => ({
-      soles: () => S.every((n) => n < array.length, array),
+      iiris: () => I.every((n) => n < array.length, array),
       lodash: () => _.every(array, (n) => n < array.length),
       ramda: () => R.all((n) => n < array.length, array),
       native: () => array.every((n) => n < array.length),
@@ -479,14 +479,14 @@ const benchmarks = [
     name: 'none',
     params: [num1, num10, num100, num1000],
     benchmarks: (array) => ({
-      soles: () => S.none((n) => n > array.length, array),
+      iiris: () => I.none((n) => n > array.length, array),
       ramda: () => R.none((n) => n > array.length, array),
     }),
   },
   {
     name: 'prop',
     benchmarks: () => ({
-      soles: () => S.prop('k1', obj),
+      iiris: () => I.prop('k1', obj),
       ramda: () => R.prop('k1', obj),
       lodash: () => _.get(obj, 'k1'),
       native: () => obj?.k1,
@@ -495,7 +495,7 @@ const benchmarks = [
   {
     name: 'at',
     benchmarks: () => ({
-      soles: () => S.at(0, num100),
+      iiris: () => I.at(0, num100),
       ramda: () => R.nth(0, num100),
       lodash: () => _.nth(num100, 0),
       native: () => num100?.[0],
@@ -504,12 +504,12 @@ const benchmarks = [
   {
     name: 'at.curried',
     benchmarks: () => {
-      const Shead = S.at(0)
+      const Ihead = I.at(0)
       const Rhead = R.nth(0)
       const head = (array) => array?.[0]
 
       return {
-        soles: () => Shead(num100),
+        iiris: () => Ihead(num100),
         ramda: () => Rhead(num100),
         native: () => head(num100),
       }
@@ -518,7 +518,7 @@ const benchmarks = [
   {
     name: 'propOr',
     benchmarks: () => ({
-      soles: () => S.propOr(0, 'kDoesNotExist', obj),
+      iiris: () => I.propOr(0, 'kDoesNotExist', obj),
       ramda: () => R.propOr(0, 'KDoesNotExist', obj),
       lodash: () => _.get(obj, 'kDoesNotExist', 0),
       native: () => obj?.kDoesNotExist ?? 0,
@@ -527,7 +527,7 @@ const benchmarks = [
   {
     name: 'atOr',
     benchmarks: () => ({
-      soles: () => S.atOr(0, 150, num100),
+      iiris: () => I.atOr(0, 150, num100),
       ramda: () => R.propOr(0, 150, num100),
       native: () => num100?.[150] ?? 0,
     }),
@@ -535,7 +535,7 @@ const benchmarks = [
   {
     name: 'setProp',
     benchmarks: () => ({
-      soles: () => S.setProp('k1', 0, obj),
+      iiris: () => I.setProp('k1', 0, obj),
       ramda: () => R.assoc('k1', 0, obj),
       native: () => ({ ...obj, k1: 0 }),
     }),
@@ -543,21 +543,21 @@ const benchmarks = [
   {
     name: 'setAt',
     benchmarks: () => ({
-      soles: () => S.setAt(0, 0, num1),
+      iiris: () => I.setAt(0, 0, num1),
       ramda: () => R.update(0, 0, num1),
     }),
   },
   {
     name: 'modifyProp',
     benchmarks: () => ({
-      soles: () => S.modifyProp('k1', (x) => x + 1, obj),
+      iiris: () => I.modifyProp('k1', (x) => x + 1, obj),
       native: () => ({ ...obj, k1: obj.k1 + 1 }),
     }),
   },
   {
     name: 'modifyAt',
     benchmarks: () => ({
-      soles: () => S.modifyAt(0, (x) => x + 1, num1),
+      iiris: () => I.modifyAt(0, (x) => x + 1, num1),
       ramda: () => R.adjust(0, (x) => x + 1, num1),
     }),
   },
@@ -567,7 +567,7 @@ const benchmarks = [
     benchmarks: (array) => {
       const nativeUniq = (xs) => Array.from(new Set(xs))
       return {
-        soles: () => S.uniq(array),
+        iiris: () => I.uniq(array),
         ramda: () => R.uniq(array),
         lodash: () => _.uniq(array),
         native: () => nativeUniq(array),
@@ -581,7 +581,7 @@ const benchmarks = [
       const oneToTen = array.map((n) => n % 10)
       const nativeUniq = (xs) => Array.from(new Set(xs))
       return {
-        soles: () => S.uniq(oneToTen),
+        iiris: () => I.uniq(oneToTen),
         ramda: () => R.uniq(oneToTen),
         lodash: () => _.uniq(oneToTen),
         native: () => nativeUniq(oneToTen),
@@ -592,7 +592,7 @@ const benchmarks = [
     name: 'uniq.object',
     params: [obj1, obj10, obj100, obj1000],
     benchmarks: (array) => ({
-      soles: () => S.uniq(array),
+      iiris: () => I.uniq(array),
       ramda: () => R.uniq(array),
       lodash: () => _.uniqWith(array, _.isEqual),
     }),
@@ -600,7 +600,7 @@ const benchmarks = [
   {
     name: 'mapValues',
     benchmarks: () => ({
-      soles: () => S.mapValues((x) => x + 1, obj),
+      iiris: () => I.mapValues((x) => x + 1, obj),
       ramda: () => R.map((x) => x + 1, obj),
       lodash: () => _.mapValues(obj, (x) => x + 1),
     }),
@@ -612,7 +612,7 @@ const benchmarks = [
       const clone = _.clone(arr)
       const nativeUnion = (xs, ys) => Array.from(new Set([...xs, ...ys]))
       return {
-        soles: () => S.union(arr, clone),
+        iiris: () => I.union(arr, clone),
         ramda: () => R.union(arr, clone),
         lodash: () => _.union(arr, clone),
         native: () => nativeUnion(arr, clone),
@@ -625,7 +625,7 @@ const benchmarks = [
     benchmarks: (arr) => {
       const clone = _.clone(arr)
       return {
-        soles: () => S.union(arr, clone),
+        iiris: () => I.union(arr, clone),
         ramda: () => R.union(arr, clone),
         lodash: () => _.unionWith(arr, clone, _.isEqual),
       }
@@ -641,7 +641,7 @@ const benchmarks = [
         return xs.filter((x) => ysSet.has(x))
       }
       return {
-        soles: () => S.intersection(arr, clone),
+        iiris: () => I.intersection(arr, clone),
         ramda: () => R.intersection(arr, clone),
         lodash: () => _.intersection(arr, clone),
         native: () => nativeIntersection(arr, clone),
@@ -654,7 +654,7 @@ const benchmarks = [
     benchmarks: (arr) => {
       const clone = _.clone(arr)
       return {
-        soles: () => S.intersection(arr, clone),
+        iiris: () => I.intersection(arr, clone),
         ramda: () => R.intersection(arr, clone),
         lodash: () => _.intersectionWith(arr, clone, _.isEqual),
       }
@@ -670,7 +670,7 @@ const benchmarks = [
         return xs.filter((x) => !ysSet.has(x))
       }
       return {
-        soles: () => S.difference(arr, clone),
+        iiris: () => I.difference(arr, clone),
         ramda: () => R.difference(arr, clone),
         lodash: () => _.difference(arr, clone),
         native: () => nativeDifference(arr, clone),
@@ -683,7 +683,7 @@ const benchmarks = [
     benchmarks: (arr) => {
       const clone = _.clone(arr)
       return {
-        soles: () => S.difference(arr, clone),
+        iiris: () => I.difference(arr, clone),
         ramda: () => R.difference(arr, clone),
         lodash: () => _.differenceWith(arr, clone, _.isEqual),
       }
@@ -700,7 +700,7 @@ const argv = require('yargs')
     alias: 'l',
     type: 'array',
     description: 'List of libraries to benchmark',
-    choices: ['soles', 'lodash', 'ramda', 'native'],
+    choices: ['iiris', 'lodash', 'ramda', 'native'],
   })
   .option('sizes', {
     alias: 'n',
