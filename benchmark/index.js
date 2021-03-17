@@ -106,13 +106,10 @@ const benchmarks = [
     name: 'pipe',
     benchmarks: () => {
       const inc = (x) => x + 1
-      const _flow = _.flow([inc, inc, inc, inc])
-      const Rpipe = R.pipe(inc, inc, inc, inc)
-
       return {
         iiris: () => I.pipe(1, inc, inc, inc, inc),
-        lodash: () => _flow(1),
-        ramda: () => Rpipe(1),
+        lodash: () => _.flow([inc, inc, inc, inc])(1),
+        ramda: () => R.pipe(inc, inc, inc, inc)(1),
         native: () => inc(inc(inc(inc(1)))),
       }
     },
