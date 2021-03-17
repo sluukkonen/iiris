@@ -1,6 +1,6 @@
 # Iiris 👁️
 
-![CI](https://github.com/sluukkonen/iiris/workflows/Node.js%20CI/badge.svg)
+[![CI](https://github.com/sluukkonen/iiris/actions/workflows/ci.yml/badge.svg)](https://github.com/sluukkonen/iiris/actions/workflows/ci.yml)
 
 ## Goals
 
