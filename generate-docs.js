@@ -3,6 +3,7 @@
 const fs = require('fs')
 const path = require('path')
 const { children, groups } = require('./.reflection.json')
+const I = require('.')
 
 const README = path.resolve(__dirname, 'README.md')
 
@@ -58,7 +59,10 @@ ${category.children
     const isVariadic = variadicFunctions.includes(c.name)
     const signatures = isVariadic
       ? c.signatures.slice(0, 3)
-      : c.signatures.filter((s) => s.comment != null)
+      : // Right now, the only normal functions that have multiple signatures
+        // are predicates that also support type guards. In those cases, we want
+        // to show the normal signature first, so we reverse the results.
+        c.signatures.filter((s) => s.comment != null).reverse()
     const comment = signatures[0]?.comment
     return `#### ${c.name}
 

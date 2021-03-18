@@ -751,6 +751,7 @@ I.every((n) => n < 3, [1, 2, 3])
 
 ```typescript
 <T>(predicate: (value: T) => boolean, array: T[]) => T[]
+<T, U>(guard: (value: T) => value is U, array: T[]) => U[]
 ```
 
 Return the elements of the `array` that satisfy the `predicate`.
@@ -785,6 +786,7 @@ I.filterIndexed((i, n) => i + n === 3, [1, 2, 3])
 #### find
 
 ```typescript
+<T>(predicate: (value: T) => boolean, array: T[]) => T | undefined
 <T, U>(guard: (value: T) => value is U, array: T[]) => U | undefined
 ```
 
@@ -830,6 +832,7 @@ I.findIndex((c) => c === 'x', ['a', 'b', 'c'])
 #### findLast
 
 ```typescript
+<T>(predicate: (value: T) => boolean, array: T[]) => T | undefined
 <T, U>(guard: (value: T) => value is U, array: T[]) => U | undefined
 ```
 
@@ -895,6 +898,7 @@ I.none((n) => n > 5, [1, 2, 3])
 #### partition
 
 ```typescript
+<T>(predicate: (value: T) => boolean, array: T[]) => [T[], T[]]
 <T, U>(guard: (value: T) => value is U, array: T[]) => [U[], Array<Exclude<T, U>>]
 ```
 

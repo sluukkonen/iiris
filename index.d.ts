@@ -881,7 +881,7 @@ export function every<T>(
 ): (array: readonly T[]) => boolean
 
 /**
- * Find the first element in the `array` that satisfies the `predicate`.
+ * Find the first element in the `array` that satisfies the `guard`.
  *
  * Returns `undefined` if none of the elements match.
  *
@@ -903,13 +903,33 @@ export function find<T, U extends T>(
   guard: (value: T) => value is U,
   array: readonly T[]
 ): U | undefined
+export function find<T, U extends T>(
+  guard: (value: T) => value is U
+): (array: readonly T[]) => U | undefined
+
+/**
+ * Find the first element in the `array` that satisfies the `predicate`.
+ *
+ * Returns `undefined` if none of the elements match.
+ *
+ * @category Searching arrays with a predicate
+ * @example
+ *
+ * ```typescript
+ * I.find((c) => c !== 'a', ['a', 'b', 'c'])
+ * // => 'b'
+ *
+ * I.find((c) => c === 'x', ['a', 'b', 'c'])
+ * // => undefined
+ * ```
+ *
+ * @see findLast
+ * @see findIndex
+ */
 export function find<T>(
   predicate: (value: T) => boolean,
   array: readonly T[]
 ): T | undefined
-export function find<T, U extends T>(
-  guard: (value: T) => value is U
-): (array: readonly T[]) => U | undefined
 export function find<T>(
   predicate: (value: T) => boolean
 ): (array: readonly T[]) => T | undefined
@@ -943,7 +963,7 @@ export function findIndex<T>(
 ): (array: readonly T[]) => number
 
 /**
- * Find the last element in the `array` that satisfies the `predicate`.
+ * Find the last element in the `array` that satisfies the `guard`.
  *
  * Returns `undefined` if none of the elements match.
  *
@@ -965,13 +985,33 @@ export function findLast<T, U extends T>(
   guard: (value: T) => value is U,
   array: readonly T[]
 ): U | undefined
+export function findLast<T, U extends T>(
+  guard: (value: T) => value is U
+): (array: readonly T[]) => U | undefined
+
+/**
+ * Find the last element in the `array` that satisfies the `predicate`.
+ *
+ * Returns `undefined` if none of the elements match.
+ *
+ * @category Searching arrays with a predicate
+ * @example
+ *
+ * ```typescript
+ * I.findLast((c) => c !== 'a', ['a', 'b', 'c'])
+ * // => 'c'
+ *
+ * I.findLast((c) => c === 'x', ['a', 'b', 'c'])
+ * // => undefined
+ * ```
+ *
+ * @see find
+ * @see findLastIndex
+ */
 export function findLast<T>(
   predicate: (value: T) => boolean,
   array: readonly T[]
 ): T | undefined
-export function find<T, U extends T>(
-  guard: (value: T) => value is U
-): (array: readonly T[]) => U | undefined
 export function findLast<T>(
   predicate: (value: T) => boolean
 ): (array: readonly T[]) => T | undefined
@@ -1004,6 +1044,21 @@ export function findLastIndex<T>(
   predicate: (value: T) => boolean
 ): (array: readonly T[]) => number
 
+/**
+ * Return the elements of the `array` that satisfy the `guard`.
+ *
+ * @category Searching arrays with a predicate
+ * @example
+ *
+ * ```typescript
+ * I.filter((n) => n > 1, [1, 2, 3])
+ * // => [2, 3]
+ * ```
+ *
+ * @see filterIndexed
+ * @see count
+ * @see partition
+ */
 export function filter<T, U extends T>(
   guard: (value: T) => value is U,
   array: readonly T[]
@@ -2402,8 +2457,7 @@ export function pair<T>(first: T): <U>(second: U) => [T, U]
 
 /**
  * Partition the `array` into two arrays, the first containing the elements
- * that satisfy the `predicate` and the second containing the elements that do
- * not.
+ * that satisfy the `guard` and the second containing the elements that do not.
  *
  * @category Searching arrays with a predicate
  * @example
@@ -2419,13 +2473,29 @@ export function partition<T, U extends T>(
   guard: (value: T) => value is U,
   array: readonly T[]
 ): [U[], Exclude<T, U>[]]
+export function partition<T, U extends T>(
+  guard: (value: T) => value is U
+): (array: readonly T[]) => [U[], Exclude<T, U>[]]
+
+/**
+ * Partition the `array` into two arrays, the first containing the elements
+ * that satisfy the `predicate` and the second containing the elements that do
+ * not.
+ *
+ * @category Searching arrays with a predicate
+ * @example
+ *
+ * ```typescript
+ * const [evens, odds] = I.partition((n) => n % 2 === 0, [1, 2, 3])
+ * // => [[2], [1, 3]]
+ * ```
+ *
+ * @see filter
+ */
 export function partition<T>(
   predicate: (value: T) => boolean,
   array: readonly T[]
 ): [T[], T[]]
-export function partition<T, U extends T>(
-  guard: (value: T) => value is U
-): (array: readonly T[]) => [U[], Exclude<T, U>[]]
 export function partition<T>(
   predicate: (value: T) => boolean
 ): (array: readonly T[]) => [T[], T[]]
