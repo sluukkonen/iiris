@@ -188,11 +188,11 @@
 ## Installation
 
 ```shell
-$ npm install iiris
+$ npm install iiris # (Soon™)
 ```
 
 ```shell
-$ yarn add iiris
+$ yarn add iiris # (Soon™)
 ```
 
 ## Getting started
