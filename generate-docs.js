@@ -3,7 +3,6 @@
 const fs = require('fs')
 const path = require('path')
 const { children, groups } = require('./.reflection.json')
-const I = require('.')
 
 const README = path.resolve(__dirname, 'README.md')
 
