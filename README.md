@@ -785,7 +785,7 @@ I.filterIndexed((i, n) => i + n === 3, [1, 2, 3])
 #### find
 
 ```typescript
-<T>(predicate: (value: T) => boolean, array: T[]) => T | undefined
+<T, U>(guard: (value: T) => value is U, array: T[]) => U | undefined
 ```
 
 Find the first element in the `array` that satisfies the `predicate`.
@@ -830,7 +830,7 @@ I.findIndex((c) => c === 'x', ['a', 'b', 'c'])
 #### findLast
 
 ```typescript
-<T>(predicate: (value: T) => boolean, array: T[]) => T | undefined
+<T, U>(guard: (value: T) => value is U, array: T[]) => U | undefined
 ```
 
 Find the last element in the `array` that satisfies the `predicate`.
@@ -895,7 +895,7 @@ I.none((n) => n > 5, [1, 2, 3])
 #### partition
 
 ```typescript
-<T>(predicate: (value: T) => boolean, array: T[]) => [T[], T[]]
+<T, U>(guard: (value: T) => value is U, array: T[]) => [U[], Array<Exclude<T, U>>]
 ```
 
 Partition the `array` into two arrays, the first containing the elements

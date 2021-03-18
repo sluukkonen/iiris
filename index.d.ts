@@ -899,10 +899,17 @@ export function every<T>(
  * @see findLast
  * @see findIndex
  */
+export function find<T, U extends T>(
+  guard: (value: T) => value is U,
+  array: readonly T[]
+): U | undefined
 export function find<T>(
   predicate: (value: T) => boolean,
   array: readonly T[]
 ): T | undefined
+export function find<T, U extends T>(
+  guard: (value: T) => value is U
+): (array: readonly T[]) => U | undefined
 export function find<T>(
   predicate: (value: T) => boolean
 ): (array: readonly T[]) => T | undefined
@@ -954,10 +961,17 @@ export function findIndex<T>(
  * @see find
  * @see findLastIndex
  */
+export function findLast<T, U extends T>(
+  guard: (value: T) => value is U,
+  array: readonly T[]
+): U | undefined
 export function findLast<T>(
   predicate: (value: T) => boolean,
   array: readonly T[]
 ): T | undefined
+export function find<T, U extends T>(
+  guard: (value: T) => value is U
+): (array: readonly T[]) => U | undefined
 export function findLast<T>(
   predicate: (value: T) => boolean
 ): (array: readonly T[]) => T | undefined
@@ -2401,10 +2415,17 @@ export function pair<T>(first: T): <U>(second: U) => [T, U]
  *
  * @see filter
  */
+export function partition<T, U extends T>(
+  guard: (value: T) => value is U,
+  array: readonly T[]
+): [U[], Exclude<T, U>[]]
 export function partition<T>(
   predicate: (value: T) => boolean,
   array: readonly T[]
 ): [T[], T[]]
+export function partition<T, U extends T>(
+  guard: (value: T) => value is U
+): (array: readonly T[]) => [U[], Exclude<T, U>[]]
 export function partition<T>(
   predicate: (value: T) => boolean
 ): (array: readonly T[]) => [T[], T[]]
