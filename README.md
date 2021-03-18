@@ -204,6 +204,10 @@ TODO
 Note that we display only the fully applied type signature for each function.
 Unless indicated otherwise, every function is automatically curried.
 
+Many of the signatures are also simplified. As an example, we don't show the
+`readonly` modifier for each array argument, even though in reality, most if
+not all of the array arguments have it.
+
 <!-- BEGIN API -->
 ### Basic array operations
 
