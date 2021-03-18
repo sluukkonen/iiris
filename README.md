@@ -1029,8 +1029,14 @@ I.countBy(I.prop('name'), users)
 Partition the `array` into an object of arrays according to `keyFn`.
 
 ```typescript
-I.groupBy((n) => n % 2, [1, 2, 3])
-// => {'0': [2], '1': [1, 3] }
+const users = [
+  { name: 'Alice' },
+  { name: 'Bob' },
+  { name: 'Alice' },
+]
+
+I.groupBy(I.prop('name'), users)
+// => { Alice: [{ name: 'Alice' }, { name: 'Alice' }], Bob: [{ name: 'Bob' }] }
 ```
 
 **See also:** [indexBy](#indexby), [countBy](#countby), [groupMap](#groupmap), [groupMapReduce](#groupmapreduce)

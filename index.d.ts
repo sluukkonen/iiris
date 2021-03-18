@@ -1171,8 +1171,14 @@ export function fromEntries<K extends string, T>(
  * @example
  *
  * ```typescript
- * I.groupBy((n) => n % 2, [1, 2, 3])
- * // => {'0': [2], '1': [1, 3] }
+ * const users = [
+ *   { name: 'Alice' },
+ *   { name: 'Bob' },
+ *   { name: 'Alice' },
+ * ]
+
+ * I.groupBy(I.prop('name'), users)
+ * // => { Alice: [{ name: 'Alice' }, { name: 'Alice' }], Bob: [{ name: 'Bob' }] }
  * ```
  *
  * @see indexBy
