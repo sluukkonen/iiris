@@ -1369,6 +1369,8 @@ export function groupMapReduce<U>(
 /**
  * Check if the `second` argument is greater than the `first`.
  *
+ * Designed to be used as a curried predicate.
+ *
  * @category Relation
  * @example
  *
@@ -1382,6 +1384,8 @@ export function gt<T extends Ordered>(first: T): (second: Widen<T>) => boolean
 
 /**
  * Check if the `second` argument is greater than or equal to the `first`.
+ *
+ * Designed to be used as a curried predicate.
  *
  * @category Relation
  * @example
@@ -1836,6 +1840,8 @@ export function lastIndexOf<T>(value: T): (array: readonly T[]) => number
 /**
  * Check if the `second` argument is less than the `first`.
  *
+ * Designed to be used as a curried predicate.
+ *
  * @category Relation
  * @example
  *
@@ -1849,6 +1855,8 @@ export function lt<T extends Ordered>(first: T): (second: Widen<T>) => boolean
 
 /**
  * Check if the `second` argument is less than or equal to the `first`.
+ *
+ * Designed to be used as a curried predicate.
  *
  * @category Relation
  * @example

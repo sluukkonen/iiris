@@ -2519,6 +2519,8 @@ I.equalsBy(Math.floor, 1, 1.5)
 
 Check if the `second` argument is greater than the `first`.
 
+Designed to be used as a curried predicate.
+
 ```typescript
 I.filter(I.gt(2), [1, 2, 3])
 // => [3]
@@ -2533,6 +2535,8 @@ I.filter(I.gt(2), [1, 2, 3])
 ```
 
 Check if the `second` argument is greater than or equal to the `first`.
+
+Designed to be used as a curried predicate.
 ```typescript
 I.filter(I.gte(2), [1, 2, 3])
 // => [2, 3]
@@ -2548,6 +2552,8 @@ I.filter(I.gte(2), [1, 2, 3])
 
 Check if the `second` argument is less than the `first`.
 
+Designed to be used as a curried predicate.
+
 ```typescript
 I.filter(I.lt(2), [1, 2, 3])
 // => [1]
@@ -2562,6 +2568,8 @@ I.filter(I.lt(2), [1, 2, 3])
 ```
 
 Check if the `second` argument is less than or equal to the `first`.
+
+Designed to be used as a curried predicate.
 
 ```typescript
 I.filter(I.lte(2), [1, 2, 3])
