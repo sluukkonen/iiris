@@ -1809,7 +1809,7 @@ I.keys({a: 1, b: 2, c: 3})
 #### mapKeys
 
 ```typescript
-<K1 extends string, K2 extends string, T>(fn: (key: K1) => K2, object: Record<K1, T>) => Record<K2, T>
+<K1 extends string, K2 extends string, V>(fn: (key: K1) => K2, object: Record<K1, V>) => Record<K2, V>
 ```
 
 Return an object containing the results of applying `fn` to each key of
@@ -1827,7 +1827,7 @@ I.mapKeys((k) => k.toUpperCase(), { a: 1, b: 2, c: 3 })
 #### mapValues
 
 ```typescript
-<K extends string, V1, V2>(fn: (value: V1) => V2, object: Record<K, V1>) => Record<K, V2>
+<V1, V2, K extends string>(fn: (value: V1) => V2, object: Record<K, V1>) => Record<K, V2>
 ```
 
 Return an object containing the results of applying `fn` to each value of

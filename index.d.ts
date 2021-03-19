@@ -2098,13 +2098,13 @@ export function mapMaybe<T, U>(
  * // => { A: 1, B: 2, C: 3 }
  * ```
  */
-export function mapKeys<K1 extends string, K2 extends string, T>(
+export function mapKeys<K1 extends string, K2 extends string, V>(
   fn: (key: K1) => K2,
-  object: Record<K1, T>
-): Record<K2, T>
+  object: Record<K1, V>
+): Record<K2, V>
 export function mapKeys<K1 extends string, K2 extends string, T>(
   fn: (value: K1) => K2
-): (object: Record<K1, T>) => Record<K2, T>
+): <V>(object: Record<K1, V>) => Record<K2, V>
 
 /**
  * Return an object containing the results of applying `fn` to each value of
@@ -2118,13 +2118,13 @@ export function mapKeys<K1 extends string, K2 extends string, T>(
  * // => {a: 2, b: 3, c: 4}
  * ```
  */
-export function mapValues<K extends string, V1, V2>(
+export function mapValues<V1, V2, K extends string>(
   fn: (value: V1) => V2,
   object: Record<K, V1>
 ): Record<K, V2>
-export function mapValues<K extends string, V1, V2>(
+export function mapValues<V1, V2>(
   fn: (value: V1) => V2
-): (object: Record<K, V1>) => Record<K, V2>
+): <K extends string>(object: Record<K, V1>) => Record<K, V2>
 
 /**
  * Copy the own enumerable properties of two objects, prefering the values from
