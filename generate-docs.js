@@ -62,7 +62,7 @@ ${category.children
         // are predicates that also support type guards. In those cases, we want
         // to show the normal signature first, so we reverse the results.
         c.signatures.filter((s) => s.comment != null).reverse()
-    const comment = signatures[0]?.comment
+    const comment = signatures[0] && signatures[0].comment
     return `#### ${c.name}
 
 \`\`\`typescript
@@ -109,7 +109,7 @@ function formatCallSignature(signature) {
   const typeParameters = typeParameter
     ? `<${typeParameter.map(formatTypeParameter).join(', ')}>`
     : ''
-  const parameterList = (parameters ?? [])
+  const parameterList = (parameters || [])
     .map(
       (p) => `${p.name}: ${p.flags.isRest ? '...' : ''}${formatType(p.type)}`
     )
