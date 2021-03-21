@@ -172,6 +172,9 @@
     - [test](#test)
     - [toLowerCase](#tolowercase)
     - [toUpperCase](#touppercase)
+    - [trim](#trim)
+    - [trimEnd](#trimend)
+    - [trimStart](#trimstart)
   - [Type tests](#type-tests)
     - [isArray](#isarray)
     - [isBigInt](#isbigint)
@@ -2890,6 +2893,57 @@ I.toUpperCase('abc')
 ```
 
 **See also:** [toLowerCase](#tolowercase), [capitalize](#capitalize)
+
+***
+
+#### trim
+
+```typescript
+(string: string) => string
+```
+
+Remove whicespace from both ends of a `string`.
+
+```typescript
+I.trim('  abc  '')
+// => 'abc'
+```
+
+**See also:** [trimStart](#trimstart), [trimEnd](#trimend)
+
+***
+
+#### trimEnd
+
+```typescript
+(string: string) => string
+```
+
+Remove whicespace from the end of a `string`.
+
+```typescript
+I.trimEnd('  abc  '')
+// => '  abc'
+```
+
+**See also:** [trimStart](#trimstart), [trim](#trim)
+
+***
+
+#### trimStart
+
+```typescript
+(string: string) => string
+```
+
+Remove whicespace from the beginning of a `string`.
+
+```typescript
+I.trimStart('  abc  '')
+// => 'abc  '
+```
+
+**See also:** [trimEnd](#trimend), [trim](#trim)
 
 ***
 

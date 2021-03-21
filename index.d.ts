@@ -3325,6 +3325,54 @@ export function toLowerCase(string: string): string
 export function toUpperCase(string: string): string
 
 /**
+ * Remove whicespace from both ends of a `string`.
+ *
+ * @category String
+ * @example
+ *
+ * ```typescript
+ * I.trim('  abc  '')
+ * // => 'abc'
+ * ```
+ *
+ * @see trimStart
+ * @see trimEnd
+ */
+export function trim(string: string): string
+
+/**
+ * Remove whicespace from the end of a `string`.
+ *
+ * @category String
+ * @example
+ *
+ * ```typescript
+ * I.trimEnd('  abc  '')
+ * // => '  abc'
+ * ```
+ *
+ * @see trimStart
+ * @see trim
+ */
+export function trimEnd(string: string): string
+
+/**
+ * Remove whicespace from the beginning of a `string`.
+ *
+ * @category String
+ * @example
+ *
+ * ```typescript
+ * I.trimStart('  abc  '')
+ * // => 'abc  '
+ * ```
+ *
+ * @see trimEnd
+ * @see trim
+ */
+export function trimStart(string: string): string
+
+/**
  * Return `value` if it is not `undefined`, `defaultValue` otherwise.
  *
  * @category Logic
