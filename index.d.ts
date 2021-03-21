@@ -2745,7 +2745,7 @@ export function reverse<T>(array: readonly T[]): T[]
 export function second<T>(first: unknown, second: T): T
 
 /**
- * Split the string into an array of substrings between each `separator`.
+ * Split the `string` into an array of substrings between each `separator`.
  *
  * @category String
  * @example

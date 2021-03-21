@@ -2833,7 +2833,7 @@ I.capitalize('aBc')
 (separator: RegExp | string) => (string: string) => string
 ```
 
-Split the string into an array of substrings between each `separator`.
+Split the `string` into an array of substrings between each `separator`.
 
 ```typescript
 I.split(', ', 'a, b, c')
