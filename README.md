@@ -198,13 +198,20 @@
 
 ## Installation
 
+Run either
+
 ```shell
 $ npm install iiris # (Soon™)
 ```
 
+or
+
 ```shell
 $ yarn add iiris # (Soon™)
 ```
+
+depending on which package manager you use. Iiris includes built-in TypeScript
+typings, so you don't have to install them separately.
 
 ## Getting started
 
