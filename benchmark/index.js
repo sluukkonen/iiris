@@ -795,7 +795,7 @@ const argv = require('yargs')
   }).argv
 
 const suites = benchmarks
-  .filter((suite) => suite.name.includes(argv.suites || ''))
+  .filter((suite) => suite.name.startsWith(argv.suites || ''))
   .flatMap(({ name, params = [undefined], benchmarks: mkBenchmarks }) => {
     return params
       .map((param) => ({ param, size: _.size(param) }))
