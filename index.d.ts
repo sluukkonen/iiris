@@ -249,6 +249,23 @@ export function binary<T1, T2, R>(
 ): Function2<T1, T2, R>
 
 /**
+ * Convert the first code point of `string` to uppercase and the rest to
+ * lowercase.
+ *
+ * @category String
+ * @example
+ *
+ * ```typescript
+ * I.capitalize('aBc')
+ * // => 'Abc'
+ * ```
+ *
+ * @see toLowerCase
+ * @see toUpperCase
+ */
+export function capitalize(string: string): string
+
+/**
  * Clamp a number within the closed interval `[lower, upper]`.
  *
  * @category Relation
@@ -1751,6 +1768,7 @@ export function isUndefined<T>(value: T | undefined): value is undefined
  * // => '1, 2, 3'
  * ```
  *
+ * @see split
  * @see intersperse
  */
 export function join(separator: string): <T>(array: readonly T[]) => string
@@ -2727,6 +2745,22 @@ export function reverse<T>(array: readonly T[]): T[]
 export function second<T>(first: unknown, second: T): T
 
 /**
+ * Split the string into an array of substrings between each `separator`.
+ *
+ * @category String
+ * @example
+ *
+ * ```typescript
+ * I.split(', ', 'a, b, c')
+ * // => ['a', 'b', 'c']
+ * ```
+ *
+ * @see join
+ */
+export function split(separator: RegExp | string): (string: string) => string
+export function split(separator: RegExp | string, string: string): string
+
+/**
  * Return a copy of `object` with only the specified `keys`.
  *
  * @category Object
@@ -3228,6 +3262,20 @@ export function takeWhile<T>(
 export function tap<T>(fn: (value: T) => void): (value: T) => T
 
 /**
+ * Check if `string` matches the `regexp`.
+ *
+ * @category String
+ * @example
+ *
+ * ```typescript
+ * I.test(/abc/, 'abc')
+ * // => true
+ * ```
+ */
+export function test(regexp: RegExp): (string: string) => boolean
+export function test(regexp: RegExp, string: string): boolean
+
+/**
  * Create an array of length `n` by applying `fn` to the index of each element.
  *
  * @category Building arrays
@@ -3243,6 +3291,38 @@ export function tap<T>(fn: (value: T) => void): (value: T) => T
  */
 export function times<T>(fn: (index: number) => T): (n: number) => T[]
 export function times<T>(fn: (index: number) => T, n: number): T[]
+
+/**
+ * Convert `string` to lowercase.
+ *
+ * @category String
+ * @example
+ *
+ * ```typescript
+ * I.toLowerCase('ABC')
+ * // => 'abc'
+ * ```
+ *
+ * @see toUpperCase
+ * @see capitalize
+ */
+export function toLowerCase(string: string): string
+
+/**
+ * Convert `string` to uppercase.
+ *
+ * @category String
+ * @example
+ *
+ * ```typescript
+ * I.toUpperCase('abc')
+ * // => 'ABC'
+ * ```
+ *
+ * @see toLowerCase
+ * @see capitalize
+ */
+export function toUpperCase(string: string): string
 
 /**
  * Return `value` if it is not `undefined`, `defaultValue` otherwise.

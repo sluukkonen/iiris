@@ -24,6 +24,7 @@ const categoryOrdering = [
   'Relation',
   'Math',
   'Logic',
+  'String',
   'Type tests',
 ]
 

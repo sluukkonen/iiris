@@ -166,6 +166,12 @@
   - [Logic](#logic)
     - [maybe](#maybe)
     - [valueOr](#valueor)
+  - [String](#string)
+    - [capitalize](#capitalize)
+    - [split](#split)
+    - [test](#test)
+    - [toLowerCase](#tolowercase)
+    - [toUpperCase](#touppercase)
   - [Type tests](#type-tests)
     - [isArray](#isarray)
     - [isBigInt](#isbigint)
@@ -454,7 +460,7 @@ I.join(', ', [1, 2, 3])
 // => '1, 2, 3'
 ```
 
-**See also:** [intersperse](#intersperse)
+**See also:** [split](#split), [intersperse](#intersperse)
 
 ***
 
@@ -2798,6 +2804,92 @@ I.valueOr(999, undefined)
 ```
 
 **See also:** [maybe](#maybe)
+
+***
+
+### String
+
+#### capitalize
+
+```typescript
+(string: string) => string
+```
+
+Convert the first code point of `string` to uppercase and the rest to
+lowercase.
+
+```typescript
+I.capitalize('aBc')
+// => 'Abc'
+```
+
+**See also:** [toLowerCase](#tolowercase), [toUpperCase](#touppercase)
+
+***
+
+#### split
+
+```typescript
+(separator: RegExp | string) => (string: string) => string
+```
+
+Split the string into an array of substrings between each `separator`.
+
+```typescript
+I.split(', ', 'a, b, c')
+// => ['a', 'b', 'c']
+```
+
+**See also:** [join](#join)
+
+***
+
+#### test
+
+```typescript
+(regexp: RegExp) => (string: string) => boolean
+```
+
+Check if `string` matches the `regexp`.
+
+```typescript
+I.test(/abc/, 'abc')
+// => true
+```
+
+***
+
+#### toLowerCase
+
+```typescript
+(string: string) => string
+```
+
+Convert `string` to lowercase.
+
+```typescript
+I.toLowerCase('ABC')
+// => 'abc'
+```
+
+**See also:** [toUpperCase](#touppercase), [capitalize](#capitalize)
+
+***
+
+#### toUpperCase
+
+```typescript
+(string: string) => string
+```
+
+Convert `string` to uppercase.
+
+```typescript
+I.toUpperCase('abc')
+// => 'ABC'
+```
+
+**See also:** [toLowerCase](#tolowercase), [capitalize](#capitalize)
 
 ***
 

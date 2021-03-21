@@ -13,4 +13,5 @@ module.exports = {
   },
   coverageProvider: 'babel',
   testEnvironment: 'node',
+  testMatch: ['**/__tests__/**/*.[jt]s?(x)'],
 }

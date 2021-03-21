@@ -769,6 +769,22 @@ const benchmarks = [
       }
     },
   },
+  {
+    name: 'capitalize',
+    params: ['', 'a', 'a'.repeat(10), 'a'.repeat(100), 'a'.repeat(1000)],
+    benchmarks: (str) => {
+      const nativeCapitalize = (str) => {
+        if (str === '') return ''
+        const [first, ...rest] = str.toLowerCase()
+        return first.toUpperCase() + rest.join('')
+      }
+      return {
+        iiris: () => I.capitalize(str),
+        lodash: () => _.capitalize(str),
+        native: () => nativeCapitalize(str),
+      }
+    },
+  },
 ]
 
 const argv = require('yargs')
