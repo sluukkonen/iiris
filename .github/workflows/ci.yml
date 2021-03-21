@@ -29,7 +29,6 @@ jobs:
           path: node_modules
           key: yarn-${{ matrix.node-version }}-${{ hashFiles('**/yarn.lock') }}
       - run: yarn --frozen-lockfile
-      - run: yarn build
       - run: yarn test
       - run: yarn tsd
 
