@@ -107,11 +107,7 @@ type NullableHasKey<K extends string, V = unknown> =
   | undefined
 
 /** Return true if T is `undefined` */
-type IsUndefined<T> = [T] extends [undefined]
-  ? [undefined] extends [T]
-    ? true
-    : false
-  : false
+type IsUndefined<T> = [T] extends [undefined] ? true : false
 
 type Get<T extends HasKey<K>, K extends string> = NonNullable<T>[K]
 
@@ -130,13 +126,14 @@ type PropOr<T extends NullableHasKey<K>, K extends string, D> = T extends
   : Get<T, K>
 
 /** A helper type that sets the key K to value V in object T. */
-type SetProp<T extends object, K extends string, V> = K extends keyof T
-  ? V extends T[K]
-    ? T
-    : true extends IsUndefined<V>
-    ? Omit<T, K>
-    : Omit<T, K> & { [P in K]: V }
-  : T & { [P in K]: V }
+type SetProp<
+  T extends object,
+  K extends string,
+  V
+> = true extends IsUndefined<V>
+  ? Omit<T, K>
+  : Omit<T, K> &
+      (undefined extends V ? { [P in K]?: Defined<V> } : { [P in K]: V })
 
 type Modifiable<K extends string, V> = undefined extends V
   ? { [P in K]?: V }
