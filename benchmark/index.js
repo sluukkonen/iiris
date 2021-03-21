@@ -41,64 +41,64 @@ const benchmarks = [
   {
     name: 'unary',
     benchmarks: () => {
-      const Iunary = I.unary((a, b) => b)
-      const _unary = _.unary((a, b) => b)
-      const Runary = R.unary((a, b) => b)
-      const unary = ((fn) => (x) => fn(x))((a, b) => b)
+      const iirisUnary = I.unary((a, b) => b)
+      const lodashUnary = _.unary((a, b) => b)
+      const ramdaUnary = R.unary((a, b) => b)
+      const nativeUnary = ((fn) => (x) => fn(x))((a, b) => b)
 
       return {
-        iiris: () => Iunary(1, 2),
-        lodash: () => _unary(1, 2),
-        ramda: () => Runary(1, 2),
-        native: () => unary(1, 2),
+        iiris: () => iirisUnary(1, 2),
+        lodash: () => lodashUnary(1, 2),
+        ramda: () => ramdaUnary(1, 2),
+        native: () => nativeUnary(1, 2),
       }
     },
   },
   {
     name: 'curry.partial',
     benchmarks: () => {
-      const Iadd = I.curry3((a, b, c) => a + b + c)
-      const _add = _.curry((a, b, c) => a + b + c)
-      const Radd = R.curry((a, b, c) => a + b + c)
-      const add = (a) => (b) => (c) => a + b + c
+      const iirisAdd = I.curry3((a, b, c) => a + b + c)
+      const lodashAdd = _.curry((a, b, c) => a + b + c)
+      const ramdaAdd = R.curry((a, b, c) => a + b + c)
+      const nativeAdd = (a) => (b) => (c) => a + b + c
 
       return {
-        iiris: () => Iadd(1)(2)(3),
-        lodash: () => _add(1)(2)(3),
-        ramda: () => Radd(1)(2)(3),
-        native: () => add(1)(2)(3),
+        iiris: () => iirisAdd(1)(2)(3),
+        lodash: () => lodashAdd(1)(2)(3),
+        ramda: () => ramdaAdd(1)(2)(3),
+        native: () => nativeAdd(1)(2)(3),
       }
     },
   },
   {
     name: 'curry.full',
     benchmarks: () => {
-      const Iadd = I.curry3((a, b, c) => a + b + c)
-      const _add = _.curry((a, b, c) => a + b + c)
-      const Radd = R.curry((a, b, c) => a + b + c)
-      const add = (a, b, c) => a + b + c
+      const iirisAdd = I.curry3((a, b, c) => a + b + c)
+      const lodashAdd = _.curry((a, b, c) => a + b + c)
+      const ramdaAdd = R.curry((a, b, c) => a + b + c)
+      const nativeAdd = (a, b, c) => a + b + c
 
       return {
-        iiris: () => Iadd(1, 2, 3),
-        lodash: () => _add(1, 2, 3),
-        ramda: () => Radd(1, 2, 3),
-        native: () => add(1, 2, 3),
+        iiris: () => iirisAdd(1, 2, 3),
+        lodash: () => lodashAdd(1, 2, 3),
+        ramda: () => ramdaAdd(1, 2, 3),
+        native: () => nativeAdd(1, 2, 3),
       }
     },
   },
   {
     name: 'curry.last',
     benchmarks: () => {
-      const Iadd = I.curry3((a, b, c) => a + b + c)(1, 2)
-      const _add = _.curry((a, b, c) => a + b + c)(1, 2)
-      const Radd = R.curry((a, b, c) => a + b + c)(1, 2)
-      const add = ((a, b) => (c) => a + b + c)(1, 2)
+      const iirisAdd = I.curry3((a, b, c) => a + b + c)(1, 2)
+      const lodashAdd = _.curry((a, b, c) => a + b + c)(1, 2)
+      const ramdaAdd = R.curry((a, b, c) => a + b + c)(1, 2)
+      const nativeAdd = ((a, b) => (c) => a + b + c)(1, 2)
 
       return {
-        iiris: () => Iadd(3),
-        lodash: () => _add(3),
-        ramda: () => Radd(3),
-        native: () => add(3),
+        iiris: () => iirisAdd(3),
+        lodash: () => lodashAdd(3),
+        ramda: () => ramdaAdd(3),
+        native: () => nativeAdd(3),
       }
     },
   },
@@ -118,14 +118,14 @@ const benchmarks = [
     name: 'compose.specialized',
     benchmarks: () => {
       const inc = (x) => x + 1
-      const Icomposed = I.compose(inc, inc, inc)
-      const RCompose = R.compose(inc, inc, inc)
-      const composed = (...args) => inc(inc(inc(...args)))
+      const iirisComposed = I.compose(inc, inc, inc)
+      const ramdaComposed = R.compose(inc, inc, inc)
+      const nativeComposed = (...args) => inc(inc(inc(...args)))
 
       return {
-        iiris: () => Icomposed(1),
-        ramda: () => RCompose(1),
-        native: () => composed(1),
+        iiris: () => iirisComposed(1),
+        ramda: () => ramdaComposed(1),
+        native: () => nativeComposed(1),
       }
     },
   },
@@ -133,14 +133,14 @@ const benchmarks = [
     name: 'compose.generic',
     benchmarks: () => {
       const inc = (x) => x + 1
-      const IComposed = I.compose(inc, inc, inc, inc)
-      const Rcomposed = R.compose(inc, inc, inc, inc)
-      const composed = (...args) => inc(inc(inc(inc(...args))))
+      const iirisComposed = I.compose(inc, inc, inc, inc)
+      const ramdaComposed = R.compose(inc, inc, inc, inc)
+      const nativeComposed = (...args) => inc(inc(inc(inc(...args))))
 
       return {
-        iiris: () => IComposed(1),
-        ramda: () => Rcomposed(1),
-        native: () => composed(1),
+        iiris: () => iirisComposed(1),
+        ramda: () => ramdaComposed(1),
+        native: () => nativeComposed(1),
       }
     },
   },
@@ -148,43 +148,65 @@ const benchmarks = [
     name: 'map',
     params: [num1, num10, num100, num1000],
     benchmarks: (array) => {
+      const iirisCallback = (x) => x + 1
+      const lodashCallback = (x) => x + 1
+      const ramdaCallback = (x) => x + 1
+      const nativeCallback = (x) => x + 1
       return {
-        iiris: () => I.map((x) => x + 1, array),
-        lodash: () => _.map(array, (x) => x + 1),
-        ramda: () => R.map((x) => x + 1, array),
-        native: () => array.map((x) => x + 1),
+        iiris: () => I.map(iirisCallback, array),
+        lodash: () => _.map(array, lodashCallback),
+        ramda: () => R.map(ramdaCallback, array),
+        native: () => array.map(nativeCallback),
       }
     },
   },
   {
     name: 'filter',
     params: [num1, num10, num100, num1000],
-    benchmarks: (array) => ({
-      iiris: () => I.filter((x) => x % 2 === 0, array),
-      lodash: () => _.filter(array, (x) => x % 2 === 0),
-      ramda: () => R.filter((x) => x % 2 === 0, array),
-      native: () => array.filter((x) => x % 2 === 0),
-    }),
+    benchmarks: (array) => {
+      const iirisCallback = (x) => x % 2 === 0
+      const lodashCallback = (x) => x % 2 === 0
+      const ramdaCallback = (x) => x % 2 === 0
+      const nativeCallback = (x) => x % 2 === 0
+      return {
+        iiris: () => I.filter(iirisCallback, array),
+        lodash: () => _.filter(array, lodashCallback),
+        ramda: () => R.filter(ramdaCallback, array),
+        native: () => array.filter(nativeCallback),
+      }
+    },
   },
   {
     name: 'reduce',
     params: [num1, num10, num100, num1000],
-    benchmarks: (array) => ({
-      iiris: () => I.reduce((a, b) => a + b, 0, array),
-      lodash: () => _.reduce(array, (a, b) => a + b, 0),
-      ramda: () => R.reduce((a, b) => a + b, 0, array),
-      native: () => array.reduce((a, b) => a + b, 0),
-    }),
+    benchmarks: (array) => {
+      const iirisCallback = (a, b) => a + b
+      const lodashCallback = (a, b) => a + b
+      const ramdaCallback = (a, b) => a + b
+      const nativeCallback = (a, b) => a + b
+      return {
+        iiris: () => I.reduce(iirisCallback, 0, array),
+        lodash: () => _.reduce(array, lodashCallback, 0),
+        ramda: () => R.reduce(ramdaCallback, 0, array),
+        native: () => array.reduce(nativeCallback, 0),
+      }
+    },
   },
   {
     name: 'reduceRight',
     params: [num1, num10, num100, num1000],
-    benchmarks: (array) => ({
-      iiris: () => I.reduceRight((a, b) => a + b, 0, array),
-      lodash: () => _.reduceRight(array, (a, b) => a + b, 0),
-      ramda: () => R.reduceRight((a, b) => a + b, 0, array),
-      native: () => array.reduceRight((a, b) => a + b, 0),
-    }),
+    benchmarks: (array) => {
+      const iirisCallback = (a, b) => b + a
+      const lodashCallback = (a, b) => a + b
+      const ramdaCallback = (a, b) => b + a
+      const nativeCallback = (a, b) => a + b
+      return {
+        iiris: () => I.reduceRight(iirisCallback, 0, array),
+        lodash: () => _.reduceRight(array, lodashCallback, 0),
+        ramda: () => R.reduceRight(ramdaCallback, 0, array),
+        native: () => array.reduceRight(nativeCallback, 0),
+      }
+    },
   },
   {
     name: 'clamp',
@@ -198,12 +220,15 @@ const benchmarks = [
   {
     name: 'sum',
     params: [num1, num10, num100, num1000],
-    benchmarks: (array) => ({
-      iiris: () => I.sum(array),
-      lodash: () => _.sum(array),
-      ramda: () => R.sum(array),
-      native: () => array.reduce((x, y) => x + y, 0),
-    }),
+    benchmarks: (array) => {
+      const add = (x, y) => x + y
+      return {
+        iiris: () => I.sum(array),
+        lodash: () => _.sum(array),
+        ramda: () => R.sum(array),
+        native: () => array.reduce(add, 0),
+      }
+    },
   },
   {
     name: 'concat',
@@ -218,20 +243,26 @@ const benchmarks = [
   {
     name: 'maximum',
     params: [num1, num10, num100, num1000],
-    benchmarks: (array) => ({
-      iiris: () => I.maximum(array),
-      lodash: () => _.max(array),
-      native: () => array.reduce((a, b) => (a > b ? a : b)),
-    }),
+    benchmarks: (array) => {
+      const max = (a, b) => (a > b ? a : b)
+      return {
+        iiris: () => I.maximum(array),
+        lodash: () => _.max(array),
+        native: () => array.reduce(max),
+      }
+    },
   },
   {
     name: 'minimum',
     params: [num1, num10, num100, num1000],
-    benchmarks: (array) => ({
-      iiris: () => I.minimum(array),
-      lodash: () => _.min(array),
-      native: () => array.reduce((a, b) => (a < b ? a : b)),
-    }),
+    benchmarks: (array) => {
+      const min = (a, b) => (a < b ? a : b)
+      return {
+        iiris: () => I.minimum(array),
+        lodash: () => _.min(array),
+        native: () => array.reduce(min),
+      }
+    },
   },
   {
     name: 'reverse',
@@ -240,46 +271,67 @@ const benchmarks = [
       return {
         iiris: () => I.reverse(array),
         ramda: () => R.reverse(array),
-        native: () => array.slice().reverse(),
+        native: () => [...array].reverse(),
       }
     },
   },
   {
     name: 'find',
     params: [num1, num10, num100, num1000],
-    benchmarks: (array) => ({
-      iiris: () => I.find((x) => x === 10000, array),
-      lodash: () => _.find((x) => x === 10000, array),
-      ramda: () => R.find((x) => x === 10000, array),
-      native: () => array.find((x) => x === 10000),
-    }),
+    benchmarks: (array) => {
+      const iirisCallback = (x) => x === 10000
+      const lodashCallback = (x) => x === 10000
+      const ramdaCallback = (x) => x === 10000
+      const nativeCallback = (x) => x === 10000
+      return {
+        iiris: () => I.find(iirisCallback, array),
+        lodash: () => _.find(lodashCallback, array),
+        ramda: () => R.find(ramdaCallback, array),
+        native: () => array.find(nativeCallback),
+      }
+    },
   },
   {
     name: 'groupBy',
     params: [num1, num10, num100, num1000],
-    benchmarks: (array) => ({
-      iiris: () => I.groupBy((x) => String(x % 10), array),
-      lodash: () => _.groupBy(array, (x) => String(x % 10)),
-      ramda: () => R.groupBy((x) => String(x % 10), array),
-    }),
+    benchmarks: (array) => {
+      const iirisCallback = (x) => String(x % 10)
+      const lodashCallback = (x) => String(x % 10)
+      const ramdaCallback = (x) => String(x % 10)
+      return {
+        iiris: () => I.groupBy(iirisCallback, array),
+        lodash: () => _.groupBy(array, lodashCallback),
+        ramda: () => R.groupBy(ramdaCallback, array),
+      }
+    },
   },
   {
     name: 'countBy',
     params: [num1, num10, num100, num1000],
-    benchmarks: (array) => ({
-      iiris: () => I.countBy((x) => String(x % 10), array),
-      lodash: () => _.countBy(array, (x) => String(x % 10)),
-      ramda: () => R.countBy((x) => String(x % 10), array),
-    }),
+    benchmarks: (array) => {
+      const iirisCallback = (x) => String(x % 10)
+      const lodashCallback = (x) => String(x % 10)
+      const ramdaCallback = (x) => String(x % 10)
+      return {
+        iiris: () => I.countBy(iirisCallback, array),
+        lodash: () => _.countBy(array, lodashCallback),
+        ramda: () => R.countBy(ramdaCallback, array),
+      }
+    },
   },
   {
     name: 'indexBy',
     params: [num1, num10, num100, num1000],
-    benchmarks: (array) => ({
-      iiris: () => I.indexBy((x) => String(x % 10), array),
-      lodash: () => _.keyBy(array, (x) => String(x % 10)),
-      ramda: () => R.indexBy((x) => String(x % 10), array),
-    }),
+    benchmarks: (array) => {
+      const iirisCallback = (x) => String(x % 10)
+      const lodashCallback = (x) => String(x % 10)
+      const ramdaCallback = (x) => String(x % 10)
+      return {
+        iiris: () => I.indexBy(iirisCallback, array),
+        lodash: () => _.keyBy(array, lodashCallback),
+        ramda: () => R.indexBy(ramdaCallback, array),
+      }
+    },
   },
   {
     name: 'zip',
@@ -357,12 +409,18 @@ const benchmarks = [
   {
     name: 'flatMap',
     params: [num1, num10, num100, num1000],
-    benchmarks: (array) => ({
-      iiris: () => I.flatMap((x) => [x, x], array),
-      lodash: () => _.flatMap(array, (x) => [x, x]),
-      ramda: () => R.chain((x) => [x, x], array),
-      native: () => array.flatMap((x) => [x, x]),
-    }),
+    benchmarks: (array) => {
+      const iirisCallback = (x) => [x, x]
+      const lodashCallback = (x) => [x, x]
+      const ramdaCallback = (x) => [x, x]
+      const nativeCallback = (x) => [x, x]
+      return {
+        iiris: () => I.flatMap(iirisCallback, array),
+        lodash: () => _.flatMap(array, lodashCallback),
+        ramda: () => R.chain(ramdaCallback, array),
+        native: () => array.flatMap(nativeCallback),
+      }
+    },
   },
   {
     name: 'includes.primitive',
@@ -427,58 +485,75 @@ const benchmarks = [
   },
   {
     name: 'sortWith.object',
-    params: [obj1000, obj10000, obj100000],
+    params: [obj1, obj10, obj100, obj1000],
     benchmarks: (array) => {
       const shuffled = _.shuffle(array)
-      const byKConstant = (obj) => obj.kConstant
-      const byK1 = (obj) => obj.k1
+      const iirisComparators = [
+        I.ascend((obj) => obj.kConstant),
+        I.descend((obj) => obj.kConstant),
+        I.ascend((obj) => obj.k1),
+      ]
+      const lodashIteratees = [
+        (obj) => obj.kConstant,
+        (obj) => obj.kConstant,
+        (obj) => obj.k1,
+      ]
+      const lodashOrders = ['asc', 'desc', 'asc']
+      const ramdaComparators = [
+        R.ascend((obj) => obj.kConstant),
+        R.descend((obj) => obj.kConstant),
+        R.ascend((obj) => obj.k1),
+      ]
       return {
-        iiris: () =>
-          I.sortWith(
-            [I.ascend(byKConstant), I.descend(byKConstant), I.ascend(byK1)],
-            shuffled
-          ),
-        lodash: () =>
-          _.orderBy(
-            shuffled,
-            [byKConstant, byKConstant, byK1],
-            ['asc', 'desc', 'asc']
-          ),
-        ramda: () =>
-          R.sortWith(
-            [R.ascend(byKConstant), R.descend(byKConstant), R.ascend(byK1)],
-            shuffled
-          ),
+        iiris: () => I.sortWith(iirisComparators, shuffled),
+        lodash: () => _.orderBy(shuffled, lodashIteratees, lodashOrders),
+        ramda: () => R.sortWith(ramdaComparators, shuffled),
       }
     },
   },
   {
     name: 'some',
     params: [num1, num10, num100, num1000],
-    benchmarks: (array) => ({
-      iiris: () => I.some((n) => n > array.length, array),
-      lodash: () => _.some(array, (n) => n > array.length),
-      ramda: () => R.any((n) => n > array.length, array),
-      native: () => array.some((n) => n > array.length),
-    }),
+    benchmarks: (array) => {
+      const iirisCallback = (n) => n > array.length
+      const lodashCallback = (n) => n > array.length
+      const ramdaCallback = (n) => n > array.length
+      const nativeCallback = (n) => n > array.length
+      return {
+        iiris: () => I.some(iirisCallback, array),
+        lodash: () => _.some(array, lodashCallback),
+        ramda: () => R.any(ramdaCallback, array),
+        native: () => array.some(nativeCallback),
+      }
+    },
   },
   {
     name: 'every',
     params: [num1, num10, num100, num1000],
-    benchmarks: (array) => ({
-      iiris: () => I.every((n) => n < array.length, array),
-      lodash: () => _.every(array, (n) => n < array.length),
-      ramda: () => R.all((n) => n < array.length, array),
-      native: () => array.every((n) => n < array.length),
-    }),
+    benchmarks: (array) => {
+      const iirisCallback = (n) => n < array.length
+      const lodashCallback = (n) => n < array.length
+      const ramdaCallback = (n) => n < array.length
+      const nativeCallback = (n) => n < array.length
+      return {
+        iiris: () => I.every(iirisCallback, array),
+        lodash: () => _.every(array, lodashCallback),
+        ramda: () => R.all(ramdaCallback, array),
+        native: () => array.every(nativeCallback),
+      }
+    },
   },
   {
     name: 'none',
     params: [num1, num10, num100, num1000],
-    benchmarks: (array) => ({
-      iiris: () => I.none((n) => n > array.length, array),
-      ramda: () => R.none((n) => n > array.length, array),
-    }),
+    benchmarks: (array) => {
+      const iirisCallback = (n) => n > array.length
+      const ramdaCallback = (n) => n > array.length
+      return {
+        iiris: () => I.none(iirisCallback, array),
+        ramda: () => R.none(ramdaCallback, array),
+      }
+    },
   },
   {
     name: 'prop',
@@ -501,14 +576,14 @@ const benchmarks = [
   {
     name: 'at.curried',
     benchmarks: () => {
-      const Ihead = I.at(0)
-      const Rhead = R.nth(0)
-      const head = (array) => array?.[0]
+      const iirisHead = I.at(0)
+      const ramdaHead = R.nth(0)
+      const nativeHead = (array) => array?.[0]
 
       return {
-        iiris: () => Ihead(num100),
-        ramda: () => Rhead(num100),
-        native: () => head(num100),
+        iiris: () => iirisHead(num100),
+        ramda: () => ramdaHead(num100),
+        native: () => nativeHead(num100),
       }
     },
   },
@@ -546,17 +621,24 @@ const benchmarks = [
   },
   {
     name: 'modifyProp',
-    benchmarks: () => ({
-      iiris: () => I.modifyProp('k1', (x) => x + 1, obj),
-      native: () => ({ ...obj, k1: obj.k1 + 1 }),
-    }),
+    benchmarks: () => {
+      const iirisCallback = (x) => x + 1
+      return {
+        iiris: () => I.modifyProp('k1', iirisCallback, obj),
+        native: () => ({ ...obj, k1: obj.k1 + 1 }),
+      }
+    },
   },
   {
     name: 'modifyAt',
-    benchmarks: () => ({
-      iiris: () => I.modifyAt(0, (x) => x + 1, num1),
-      ramda: () => R.adjust(0, (x) => x + 1, num1),
-    }),
+    benchmarks: () => {
+      const iirisCallback = (x) => x + 1
+      const ramdaCallback = (x) => x + 1
+      return {
+        iiris: () => I.modifyAt(0, iirisCallback, num1),
+        ramda: () => R.adjust(0, ramdaCallback, num1),
+      }
+    },
   },
   {
     name: 'uniq.primitive.different',
@@ -596,11 +678,16 @@ const benchmarks = [
   },
   {
     name: 'mapValues',
-    benchmarks: () => ({
-      iiris: () => I.mapValues((x) => x + 1, obj),
-      ramda: () => R.map((x) => x + 1, obj),
-      lodash: () => _.mapValues(obj, (x) => x + 1),
-    }),
+    benchmarks: () => {
+      const iirisCallback = (x) => x + 1
+      const ramdaCallback = (x) => x + 1
+      const lodashCallback = (x) => x + 1
+      return {
+        iiris: () => I.mapValues(iirisCallback, obj),
+        ramda: () => R.map(ramdaCallback, obj),
+        lodash: () => _.mapValues(obj, lodashCallback),
+      }
+    },
   },
   {
     name: 'union.primitive',
