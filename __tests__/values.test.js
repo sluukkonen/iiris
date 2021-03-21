@@ -5,7 +5,11 @@ it('returns the own enumerable values of an object', () => {
   expect(values(obj)).toEqual([2, 3])
 })
 
-it('returns an empty array for null and undefined', () => {
-  expect(values(null)).toEqual([])
-  expect(values(undefined)).toEqual([])
+it('throws an error for null and undefined', () => {
+  expect(() => values(null)).toThrowError(
+    new TypeError('Cannot convert undefined or null to object')
+  )
+  expect(() => values(undefined)).toThrowError(
+    new TypeError('Cannot convert undefined or null to object')
+  )
 })

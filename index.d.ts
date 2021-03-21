@@ -759,7 +759,7 @@ export function dropWhile<T>(
  * @see values
  */
 export function entries<T extends object, K extends keyof T & string>(
-  object: T | null | undefined
+  object: T
 ): Array<[K, T[K]]>
 
 /**
@@ -1843,9 +1843,7 @@ export function lte<T extends Ordered>(first: T, second: T): boolean
  * @see entries
  * @see values
  */
-export function keys<T extends object>(
-  object: T | null | undefined
-): Array<keyof T & string>
+export function keys<T extends object>(object: T): Array<keyof T & string>
 
 /**
  * Apply `fn` to `maybeValue` if it is not `undefined`, return `defaultValue`
@@ -3278,9 +3276,7 @@ export function valueOr<T>(defaultValue: T, value: T | undefined): T
  * @see keys
  * @see entries
  */
-export function values<T extends object>(
-  object: T | null | undefined
-): T[keyof T & string][]
+export function values<T extends object>(object: T): T[keyof T & string][]
 
 /**
  * Create a version of `fn` that accepts a single argument.

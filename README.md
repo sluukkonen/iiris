@@ -1743,7 +1743,7 @@ I.uniqWith((a, b) => a.id === b.id, users)
 #### entries
 
 ```typescript
-<T extends object, K extends string>(object: T | null | undefined) => Array<[K, T[K]]>
+<T extends object, K extends string>(object: T) => Array<[K, T[K]]>
 ```
 
 Return an array of the own enumerable property key-value pairs of `object`
@@ -1795,7 +1795,7 @@ I.has('toString', {a: 1})
 #### keys
 
 ```typescript
-<T extends object>(object: T | null | undefined) => Array<keyof T & string>
+<T extends object>(object: T) => Array<keyof T & string>
 ```
 
 Return an array of the own enumerable property keys of `object`.
@@ -1896,7 +1896,7 @@ I.pick(['a', 'b'], { a: 1, b: 2, c: 3 })
 #### values
 
 ```typescript
-<T extends object>(object: T | null | undefined) => Array<T[keyof T & string]>
+<T extends object>(object: T) => Array<T[keyof T & string]>
 ```
 
 Return an array of the own enumerable property values of `object`

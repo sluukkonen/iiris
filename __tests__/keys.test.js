@@ -6,6 +6,10 @@ it('returns the own enumerable keys of an object', () => {
 })
 
 it('returns an empty array for null and undefined', () => {
-  expect(keys(null)).toEqual([])
-  expect(keys(undefined)).toEqual([])
+  expect(() => keys(null)).toThrowError(
+    new TypeError('Cannot convert undefined or null to object')
+  )
+  expect(() => keys(undefined)).toThrowError(
+    new TypeError('Cannot convert undefined or null to object')
+  )
 })
