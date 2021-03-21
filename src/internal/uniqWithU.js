@@ -1,13 +1,3 @@
-import { includesBy } from './includesBy'
+import { unionWithU } from './unionWithU'
 
-export const uniqWithU = (eq, array) => {
-  const result = []
-
-  for (const value of array) {
-    if (!includesBy(eq, value, result)) {
-      result.push(value)
-    }
-  }
-
-  return result
-}
+export const uniqWithU = (eq, array) => unionWithU(eq, [], array)
