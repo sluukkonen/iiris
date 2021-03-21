@@ -2235,7 +2235,7 @@ I.at(0, [])
 <T>(defaultValue: T) => (index: number) => (array: T[]) => T
 ```
 
-Like [at](#at), but if the resolved value is `undefined, `defaultValue` is
+Like [at](#at), but if the resolved value is `undefined`, `defaultValue` is
 returned instead.
 
 ```typescript
@@ -2344,7 +2344,7 @@ I.propOr(999, 'a', { a: 1, b: 2, c: 3 })
 I.propOr(999, 'a', {})
 // => 999
 
- * I.propOr(999, 'a', {a: undefined})
+I.propOr(999, 'a', {a: undefined})
 // => 999
 ```
 

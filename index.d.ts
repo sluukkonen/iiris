@@ -193,7 +193,7 @@ export function at(index: number): <T>(array: readonly T[]) => T | undefined
 export function at<T>(index: number, array: readonly T[]): T | undefined
 
 /**
- * Like {@link at}, but if the resolved value is `undefined, `defaultValue` is
+ * Like {@link at}, but if the resolved value is `undefined`, `defaultValue` is
  * returned instead.
  *
  * @category Getters and setters
@@ -2525,7 +2525,7 @@ export function prop<K extends keyof T & string, T extends object>(
  * I.propOr(999, 'a', {})
  * // => 999
  *
- *  * I.propOr(999, 'a', {a: undefined})
+ * I.propOr(999, 'a', {a: undefined})
  * // => 999
  * ```
  *
