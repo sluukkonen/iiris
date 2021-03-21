@@ -26,12 +26,8 @@ it('returns the default value if the element is undefined', () => {
   expect(atOr(0, 0, [undefined])).toBe(0)
 })
 
-it('returns the default value if the target is not an array', () => {
-  expect(atOr(0, 0, null)).toBe(0)
-  expect(atOr(0, 0, undefined)).toBe(0)
-  expect(atOr(0, 0, '')).toBe(0)
-
-  expect(atOr(0, 0)(null)).toBe(0)
-  expect(atOr(0, 0)(undefined)).toBe(0)
-  expect(atOr(0, 0)('')).toBe(0)
+it('throws an error if the element is nil', () => {
+  expect(() => atOr(0, 0, null)).toThrowError(
+    new TypeError(`Cannot read property 'length' of null`)
+  )
 })

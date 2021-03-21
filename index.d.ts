@@ -101,29 +101,8 @@ type Defined<T> = T extends undefined ? never : T
 
 type HasKey<K extends string, V = unknown> = { [P in K]?: V }
 
-type NullableHasKey<K extends string, V = unknown> =
-  | HasKey<K, V>
-  | null
-  | undefined
-
 /** Return true if T is `undefined` */
 type IsUndefined<T> = [T] extends [undefined] ? true : false
-
-type Get<T extends HasKey<K>, K extends string> = NonNullable<T>[K]
-
-type Prop<T extends NullableHasKey<K>, K extends string> = T extends
-  | null
-  | undefined
-  ? Get<T, K> | undefined
-  : Get<T, K>
-
-type PropOr<T extends NullableHasKey<K>, K extends string, D> = T extends
-  | null
-  | undefined
-  ? Defined<Get<T, K>> | D
-  : undefined extends Get<T, K>
-  ? Defined<Get<T, K>> | D
-  : Get<T, K>
 
 /** A helper type that sets the key K to value V in object T. */
 type SetProp<
@@ -205,21 +184,13 @@ export function ascend<T>(
  *
  * I.at(0, [])
  * // => undefined
- *
- * I.at(0, undefined)
- * // => undefined
  * ```
  *
  * @see atOr
  * @see prop
  */
-export function at(
-  index: number
-): <T>(array: readonly T[] | null | undefined) => T | undefined
-export function at<T>(
-  index: number,
-  array: readonly T[] | null | undefined
-): T | undefined
+export function at(index: number): <T>(array: readonly T[]) => T | undefined
+export function at<T>(index: number, array: readonly T[]): T | undefined
 
 /**
  * Like {@link at}, but if the resolved value is `undefined, `defaultValue` is
@@ -235,7 +206,7 @@ export function at<T>(
  * I.atOr(999, 0, [])
  * // => 999
  *
- * I.atOr(999, 0, undefined)
+ * I.atOr(999, 0, [undefined])
  * // => 999
  * ```
  *
@@ -245,18 +216,14 @@ export function at<T>(
 export function atOr<T>(
   defaultValue: T
 ): {
-  (index: number): (array: readonly T[] | null | undefined) => T
-  (index: number, array: readonly T[] | null | undefined): T
+  (index: number): (array: readonly T[]) => T
+  (index: number, array: readonly T[]): T
 }
 export function atOr<T>(
   defaultValue: T,
   index: number
-): (array: readonly T[] | null | undefined) => T
-export function atOr<T>(
-  defaultValue: T,
-  index: number,
-  array: readonly T[] | null | undefined
-): T
+): (array: readonly T[]) => T
+export function atOr<T>(defaultValue: T, index: number, array: readonly T[]): T
 
 /**
  * Create a version of `fn` that accepts two arguments.
@@ -2533,9 +2500,6 @@ export function prepend<T>(value: T, array: readonly T[]): T[]
  *
  * I.prop('a', {})
  * // => undefined
- *
- * I.prop('a', undefined)
- * // => undefined
  * ```
  *
  * @see propOr
@@ -2543,11 +2507,11 @@ export function prepend<T>(value: T, array: readonly T[]): T[]
  */
 export function prop<K extends string>(
   key: K
-): <T extends NullableHasKey<K>>(object: T) => Prop<T, K>
-export function prop<
-  K extends keyof NonNullable<T> & string,
-  T extends object | null | undefined
->(key: K, object: T): Prop<T, K>
+): <T extends HasKey<K>>(object: T) => T[K]
+export function prop<K extends keyof T & string, T extends object>(
+  key: K,
+  object: T
+): T[K]
 
 /**
  * Like {@link prop}, but if the resolved value is `undefined`, `defaultValue`
@@ -2563,7 +2527,7 @@ export function prop<
  * I.propOr(999, 'a', {})
  * // => 999
  *
- * I.propOr(999, 'a', {a: undefined})
+ *  * I.propOr(999, 'a', {a: undefined})
  * // => 999
  * ```
  *
@@ -2573,24 +2537,20 @@ export function prop<
 export function propOr<V>(
   defaultValue: V
 ): {
-  <K extends string>(key: K): <T extends NullableHasKey<K, V>>(
+  <K extends string>(key: K): <T extends HasKey<K, V>>(
     object: T
-  ) => PropOr<T, K, V>
-  <K extends string, T extends NullableHasKey<K, V>>(key: K, object: T): PropOr<
-    T,
-    K,
-    V
-  >
+  ) => Defined<T[K]>
+  <K extends string, T extends HasKey<K, V>>(key: K, object: T): Defined<T[K]>
 }
 export function propOr<V, K extends string>(
   defaultValue: V,
   key: K
-): <T extends NullableHasKey<K, V>>(object: T) => PropOr<T, K, V>
-export function propOr<
-  V extends Get<T, K>,
-  K extends keyof NonNullable<T> & string,
-  T extends object | null | undefined
->(defaultValue: V, key: K, object: T): PropOr<T, K, V>
+): <T extends HasKey<K, V>>(object: T) => Defined<T[K]>
+export function propOr<V extends T[K], K extends keyof T & string, T>(
+  defaultValue: V,
+  key: K,
+  object: T
+): Defined<T[K]>
 
 /**
  * Create an array of numbers between `start` (inclusive) and `end`

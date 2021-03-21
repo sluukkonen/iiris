@@ -11,18 +11,8 @@ expectType<number | undefined>(I.prop('age', user))
 expectType<number | undefined>(I.prop('age')(user))
 
 // Nullable object
-expectType<string | undefined>(I.prop('name', maybeUser))
-expectType<string | undefined>(I.prop('name')(maybeUser))
-
-expectType<number | undefined>(I.prop('age', maybeUser))
-expectType<number | undefined>(I.prop('age')(maybeUser))
-
-// Null object
-expectType<undefined>(I.prop('name', null))
-expectType<undefined>(I.prop('name')(null))
-
-expectType<undefined>(I.prop('age', null))
-expectType<undefined>(I.prop('age')(null))
+expectError(I.prop('name', maybeUser))
+expectError(I.prop('name')(maybeUser))
 
 // Invalid field
 expectError(I.prop('foo', user))

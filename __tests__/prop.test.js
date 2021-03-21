@@ -14,12 +14,12 @@ it('retrieves a property from an object', () => {
   expect(prop('d')(obj)).toBe(undefined)
 })
 
-it('returns undefined if the target is not an object', () => {
-  expect(prop('a', null)).toBeUndefined()
-  expect(prop('a', undefined)).toBeUndefined()
-  expect(prop('length', '')).toBeUndefined()
+it('works for primitive objects as well', () => {
+  expect(prop('length', 'abc')).toBe(3)
+})
 
-  expect(prop('a')(null)).toBeUndefined()
-  expect(prop('a')(undefined)).toBeUndefined()
-  expect(prop('length')('')).toBeUndefined()
+it('throws an error if target is nil', () => {
+  expect(() => prop('a', null)).toThrowError(
+    new TypeError(`Cannot read property 'a' of null`)
+  )
 })

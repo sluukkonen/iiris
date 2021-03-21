@@ -2211,7 +2211,7 @@ Create a version of `fn` that accepts a single argument.
 #### at
 
 ```typescript
-(index: number) => <T>(array: T[] | null | undefined) => T | undefined
+(index: number) => <T>(array: T[]) => T | undefined
 ```
 
 Retrieves the element at `index` from `array` or `undefined` as the
@@ -2223,9 +2223,6 @@ I.at(0, [1, 2, 3])
 
 I.at(0, [])
 // => undefined
-
-I.at(0, undefined)
-// => undefined
 ```
 
 **See also:** [atOr](#ator), [prop](#prop)
@@ -2235,7 +2232,7 @@ I.at(0, undefined)
 #### atOr
 
 ```typescript
-<T>(defaultValue: T) => (index: number) => (array: undefined | null | T[]) => T
+<T>(defaultValue: T) => (index: number) => (array: T[]) => T
 ```
 
 Like [at](#at), but if the resolved value is `undefined, `defaultValue` is
@@ -2248,7 +2245,7 @@ I.atOr(999, 0, [1, 2, 3])
 I.atOr(999, 0, [])
 // => 999
 
-I.atOr(999, 0, undefined)
+I.atOr(999, 0, [undefined])
 // => 999
 ```
 
@@ -2314,7 +2311,7 @@ I.modifyProp('d', () => 4, { a: 1, b: 2, c: 3 })
 #### prop
 
 ```typescript
-<K extends string>(key: K) => <T extends NullableHasKey<K>>(object: T) => Prop<T, K>
+<K extends string>(key: K) => <T extends HasKey<K>>(object: T) => T[K]
 ```
 
 Retrieves the property `key` from `object` or `undefined` as the fallback.
@@ -2325,9 +2322,6 @@ I.prop('a', { a: 1, b: 2, c: 3 })
 
 I.prop('a', {})
 // => undefined
-
-I.prop('a', undefined)
-// => undefined
 ```
 
 **See also:** [propOr](#propor), [at](#at)
@@ -2337,7 +2331,7 @@ I.prop('a', undefined)
 #### propOr
 
 ```typescript
-<V>(defaultValue: V) => <K extends string>(key: K) => <T extends NullableHasKey<K, V>>(object: T) => PropOr<T, K, V>
+<V>(defaultValue: V) => <K extends string>(key: K) => <T extends HasKey<K, V>>(object: T) => Defined<T[K]>
 ```
 
 Like [prop](#prop), but if the resolved value is `undefined`, `defaultValue`
@@ -2350,7 +2344,7 @@ I.propOr(999, 'a', { a: 1, b: 2, c: 3 })
 I.propOr(999, 'a', {})
 // => 999
 
-I.propOr(999, 'a', {a: undefined})
+ * I.propOr(999, 'a', {a: undefined})
 // => 999
 ```
 

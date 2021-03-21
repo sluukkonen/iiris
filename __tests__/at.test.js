@@ -22,12 +22,8 @@ it('retrieves an element from an array', () => {
   expect(at(3)(arr)).toBe(undefined)
 })
 
-it('returns undefined if the target is not an array', () => {
-  expect(at(0, null)).toBeUndefined()
-  expect(at(0, undefined)).toBeUndefined()
-  expect(at(0, '')).toBeUndefined()
-
-  expect(at(0)(null)).toBeUndefined()
-  expect(at(0)(undefined)).toBeUndefined()
-  expect(at(0)('')).toBeUndefined()
+it('throws an error if array is nil', () => {
+  expect(() => at(0, null)).toThrowError(
+    new TypeError(`Cannot read property 'length' of null`)
+  )
 })
