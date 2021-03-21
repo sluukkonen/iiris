@@ -2,10 +2,10 @@
 
 /* eslint-disable import/no-commonjs */
 
-const { promisify } = require('util')
+const { promises: fs } = require('fs')
 const path = require('path')
+const { promisify } = require('util')
 const glob = promisify(require('glob').glob)
-const writeFile = promisify(require('fs').writeFile)
 
 glob(path.join(__dirname, 'src/*.js')).then((files) => {
   const functions = files
@@ -15,5 +15,5 @@ glob(path.join(__dirname, 'src/*.js')).then((files) => {
     .map((fn) => `export { ${fn} } from './${fn}'`)
     .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
     .join('\n')
-  return writeFile(path.join(__dirname, 'src', 'index.js'), index + '\n')
+  return fs.writeFile(path.join(__dirname, 'src', 'index.js'), index + '\n')
 })
