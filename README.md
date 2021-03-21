@@ -208,16 +208,35 @@ $ yarn add iiris # (Soon™)
 
 ## Getting started
 
-TODO
+```typescript
+import * as I from 'iiris'
+```
+
+By convention, Iiris is imported to a single-letter variable `I`.
 
 ## API Reference
 
 Note that we display only the fully curried type signature for all curried
-functions.
+functions. Unless otherwise specified, each function is curried and you may
+pass the desired number of arguments, depending on the context.
 
-Many of the signatures are also simplified. As an example, we don't show the
-`readonly` modifier for each array argument, even though in reality, most if
-not all of the array arguments have it.
+For example, [`I.add`](#add) has an arity of 2, so the following are equivalent.
+
+```typescript
+I.add(x, y) === I.add(x)(y)
+```
+
+[`I.equalsBy`](#equalsby) has an arity of 3, so all the following are equivalent.
+
+```typescript
+I.equalsBy(fn, a, b)
+I.equalsBy(fn, a)(b)
+I.equalsBy(fn)(a, b)
+I.equalsBy(fn)(a)(b)
+```
+
+Many of the type signatures are also simplified. As an example, we don't show the
+`readonly` modifier for each array argument.
 
 <!-- prettier-ignore-start -->
 <!-- BEGIN API -->
@@ -1399,7 +1418,9 @@ I.takeWhile((n) => n <= 2, [1, 2, 3])
 ```
 
 Given a `fn` that maps a `value` to an Ordered value, create an
-ascending Comparator function.
+ascending comparator function.
+
+**Note:** This function is not curried.
 
 ```typescript
 I.sort(I.ascend(I.prop('age')), [{ name: 'Bob' }, { name: 'Alice' }])
@@ -1417,7 +1438,9 @@ I.sort(I.ascend(I.prop('age')), [{ name: 'Bob' }, { name: 'Alice' }])
 ```
 
 Given a `fn` that maps a `value` to an Ordered value, create a
-descending Comparator function.
+descending comparator function.
+
+**Note:** This function is not curried.
 
 ```typescript
 I.sort(I.descend(I.prop('name')), [{ name: 'Alice' }, { name: 'Bob' }])
@@ -1434,7 +1457,7 @@ I.sort(I.descend(I.prop('name')), [{ name: 'Alice' }, { name: 'Bob' }])
 <T>(comparator: (first: T, second: T) => number) => (array: T[]) => T[]
 ```
 
-Sort an `array` according to the Comparator function.
+Sort an `array` according to the comparator function.
 
 ```typescript
 I.sort((a, b) => a - b, [3, 2, 1])
@@ -1477,7 +1500,7 @@ I.sortBy(I.prop('age'), users)
 <T>(comparators: Array<(first: T, second: T) => number>) => (array: T[]) => T[]
 ```
 
-Sort an `array` according to an array of Comparator functions.
+Sort an `array` according to an array of comparator functions.
 
 The comparators are tried in order until an ordering has been found.
 
@@ -1858,7 +1881,7 @@ I.mapValues(I.inc, {a: 1, b: 2, c: 3})
 <T extends object>(first: T) => <U extends object>(second: U) => T & U
 ```
 
-Copy the own enumerable properties of two objects, prefering the values from
+Copy the own enumerable properties of two objects, preferring the values from
 `second` in case of duplicate keys.
 
 ```typescript
@@ -1973,6 +1996,8 @@ notZero(1)
 ```
 
 Right-to-left function composition.
+
+**Note:** This function is not curried.
 
 ```typescript
 const composed = I.compose(I.add(10), I.multiply(2))
@@ -2144,6 +2169,8 @@ allowing the programmer to chain operations in a readable manner.
 
 `I.pipe(initial, f1, f2, ...fn)` can be thought as syntax sugar
 for `fn(...(f2(f1(initial))))`
+
+**Note:** This function is not curried.
 
 ```typescript
 I.pipe(
@@ -2902,7 +2929,7 @@ I.toUpperCase('abc')
 (string: string) => string
 ```
 
-Remove whicespace from both ends of a `string`.
+Remove whitespace from both ends of a `string`.
 
 ```typescript
 I.trim('  abc  '')
@@ -2919,7 +2946,7 @@ I.trim('  abc  '')
 (string: string) => string
 ```
 
-Remove whicespace from the end of a `string`.
+Remove whitespace from the end of a `string`.
 
 ```typescript
 I.trimEnd('  abc  '')
@@ -2936,7 +2963,7 @@ I.trimEnd('  abc  '')
 (string: string) => string
 ```
 
-Remove whicespace from the beginning of a `string`.
+Remove whitespace from the beginning of a `string`.
 
 ```typescript
 I.trimStart('  abc  '')

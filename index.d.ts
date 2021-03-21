@@ -153,7 +153,9 @@ export function append<T>(value: T, array: readonly T[]): T[]
 
 /**
  * Given a `fn` that maps a `value` to an {@link Ordered} value, create an
- * ascending {@link Comparator} function.
+ * ascending comparator function.
+ *
+ * **Note:** This function is not curried.
  *
  * @category Sorting arrays
  * @example
@@ -312,6 +314,8 @@ export function complement<T extends VariadicFunction0<boolean>>(fn: T): T
 
 /**
  * Right-to-left function composition.
+ *
+ * **Note:** This function is not curried.
  *
  * @category Function
  * @example
@@ -576,7 +580,9 @@ export function dec(n: number): number
 
 /**
  * Given a `fn` that maps a `value` to an {@link Ordered} value, create a
- * descending {@link Comparator} function.
+ * descending comparator function.
+ *
+ * **Note:** This function is not curried.
  *
  * @category Sorting arrays
  * @example
@@ -2103,7 +2109,7 @@ export function mapValues<V1, V2, K extends string>(
 ): Record<K, V2>
 
 /**
- * Copy the own enumerable properties of two objects, prefering the values from
+ * Copy the own enumerable properties of two objects, preferring the values from
  * `second` in case of duplicate keys.
  *
  * @category Object
@@ -2788,6 +2794,8 @@ export function pick<T extends object, K extends keyof T & string>(
  * `I.pipe(initial, f1, f2, ...fn)` can be thought as syntax sugar
  * for `fn(...(f2(f1(initial))))`
  *
+ * **Note:** This function is not curried.
+ *
  * @category Function
  * @example
  *
@@ -3001,7 +3009,7 @@ export function some<T>(
 ): boolean
 
 /**
- * Sort an `array` according to the {@link Comparator} function.
+ * Sort an `array` according to the comparator function.
  *
  * @category Sorting arrays
  * @example
@@ -3053,7 +3061,7 @@ export function sortBy<T>(
 export function sortBy<T>(fn: (value: T) => Ordered, array: readonly T[]): T[]
 
 /**
- * Sort an `array` according to an array of {@link Comparator} functions.
+ * Sort an `array` according to an array of comparator functions.
  *
  * The comparators are tried in order until an ordering has been found.
  *
@@ -3325,7 +3333,7 @@ export function toLowerCase(string: string): string
 export function toUpperCase(string: string): string
 
 /**
- * Remove whicespace from both ends of a `string`.
+ * Remove whitespace from both ends of a `string`.
  *
  * @category String
  * @example
@@ -3341,7 +3349,7 @@ export function toUpperCase(string: string): string
 export function trim(string: string): string
 
 /**
- * Remove whicespace from the end of a `string`.
+ * Remove whitespace from the end of a `string`.
  *
  * @category String
  * @example
@@ -3357,7 +3365,7 @@ export function trim(string: string): string
 export function trimEnd(string: string): string
 
 /**
- * Remove whicespace from the beginning of a `string`.
+ * Remove whitespace from the beginning of a `string`.
  *
  * @category String
  * @example
