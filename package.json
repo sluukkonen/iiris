@@ -44,7 +44,7 @@
     "bundlewatch": "yarn build --environment MINIFY && bundlewatch --config bundlewatch.config.json",
     "docs": "typedoc --json .reflection.json index.d.ts && node generate-docs.js",
     "lint": "eslint .",
-    "prepare": "husky install",
+    "prepare": "yarn build && husky install",
     "repl": "yarn build && node -i -e 'I = require(\".\")'",
     "test": "jest --coverage",
     "tsd": "tsd"
