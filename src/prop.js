@@ -1,4 +1,5 @@
 import { setName } from './internal/setName'
-import { propOr } from './propOr'
+import { curry2 } from './curry2'
+import { propU } from './internal/propU'
 
-export const prop = setName(propOr(undefined), 'prop')
+export const prop = setName(curry2(propU), 'prop')
