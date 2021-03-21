@@ -27,15 +27,11 @@ const num1 = fill(1).map(snd)
 const num10 = fill(10).map(snd)
 const num100 = fill(100).map(snd)
 const num1000 = fill(1000).map(snd)
-const num10000 = fill(10000).map(snd)
-const num100000 = fill(100000).map(snd)
 
 const obj1 = num1.map(createObj)
 const obj10 = num10.map(createObj)
 const obj100 = num100.map(createObj)
 const obj1000 = num1000.map(createObj)
-const obj10000 = num10000.map(createObj)
-const obj100000 = num100000.map(createObj)
 
 const benchmarks = [
   {
