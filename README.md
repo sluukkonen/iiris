@@ -629,7 +629,7 @@ I.minimumBy((u) => u.age, users)
 
 Left-associative fold.
 
-Combine the elements of an array in to a single value by calling `reducer`
+Combine the elements of an `array` in to a single value by calling `reducer`
 with the accumulated value so far and the current element. The first call to
 `reducer` receives `initial` as the accumulator.
 
@@ -652,7 +652,7 @@ I.reduce((sum, n) => sum + n, 1, [2, 3, 4]) // equal to ((1 + 2) + 3) + 4
 
 Right-associative fold.
 
-Combine the elements of an array in to a single value by calling `reducer`
+Combine the elements of an `array` in to a single value by calling `reducer`
 with the current element and the accumulated value so far. The first call to
 `reducer` receives `initial` as the accumulator.
 
@@ -1519,7 +1519,7 @@ ignored.
 
 ```typescript
 I.zipObject(['a', 'b', 'c'], [1, 2, 3])
-// => {a: 1, b: 2, c: 3}
+// => { a: 1, b: 2, c: 3 }
 ```
 
 **See also:** [fromEntries](#fromentries)
@@ -2479,7 +2479,7 @@ Check if two values are deeply equal.
 - Built-in objects (e.g. Arrays, Maps & Sets) are not checked for extra keys.
 - Sets and Map keys are compared with [SameValueZero](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness#same-value-zero_equality).
 - Error objects are equal if their `name` and `message` properties are equal.
-- Functions and are compared with `===`.
+- Functions are compared with `===`.
 - Supports cyclic references.
 - Does not support WeakMaps, WeakSets or typed arrays.
 
