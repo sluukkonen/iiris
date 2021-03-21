@@ -12,22 +12,18 @@ type Tuple3 = [unknown, unknown, unknown]
 type Tuple4 = [unknown, unknown, unknown, unknown]
 
 /** A function that takes no arguments. */
-export type Function0<R> = () => R
+type Function0<R> = () => R
 /** A function that takes one argument. */
-export type Function1<T, R> = (value: T) => R
+type Function1<T, R> = (value: T) => R
 /** A function that takes two arguments. */
-export type Function2<T1, T2, R> = (a1: T1, a2: T2) => R
+type Function2<T1, T2, R> = (a1: T1, a2: T2) => R
 
 /** A function that takes zero or more arguments. */
-export type VariadicFunction0<R> = (...args: unknown[]) => R
+type VariadicFunction0<R> = (...args: unknown[]) => R
 /** A function that takes one or more arguments. */
-export type VariadicFunction1<T, R> = (a1: T, ...args: unknown[]) => R
+type VariadicFunction1<T, R> = (a1: T, ...args: unknown[]) => R
 /** A function that takes two or more arguments. */
-export type VariadicFunction2<T1, T2, R> = (
-  a1: T1,
-  a2: T2,
-  ...args: unknown[]
-) => R
+type VariadicFunction2<T1, T2, R> = (a1: T1, a2: T2, ...args: unknown[]) => R
 
 /** Drop the first element of a tuple. */
 type Drop1<T extends unknown[]> = T extends [unknown, ...infer U] ? U : never
@@ -64,7 +60,7 @@ type DropLast3<T extends unknown[]> = T extends [
   : never
 
 /** A curried function of two arguments. */
-export type CurriedFunction2<T extends Tuple2, R> = {
+type CurriedFunction2<T extends Tuple2, R> = {
   (...args: T): R
   (...args: DropLast1<T>): (...args: Drop1<T>) => R
 }
@@ -85,10 +81,10 @@ type CurriedFunction4<T extends Tuple4, R> = {
 }
 
 /** A data type that can be compared with the `<` and `>` operators. */
-export type Ordered = number | bigint | string | Date | boolean
+type Ordered = number | bigint | string | Date | boolean
 
 /** A helper type that widens primitive literal types. */
-export type Widen<T> = T extends number
+type Widen<T> = T extends number
   ? number
   : T extends bigint
   ? bigint
