@@ -756,7 +756,7 @@ export function dropWhile<T>(
  * @example
  *
  * ```typescript
- * I.entries({a: 1, b: 2, c: 3})
+ * I.entries({ a: 1, b: 2, c: 3 })
  * // => [['a', 1], ['b', 2], ['c', 3]]
  * ```
  *
@@ -1190,7 +1190,7 @@ export function forEachWithIndex<T>(
  *
  * ```typescript
  * I.fromEntries([['a', 1], ['b', 2], ['c', 3]])
- * // => {a: 1, b: 2, c: 3}
+ * // => { a: 1, b: 2, c: 3 }
  * ```
  *
  * @see entries
@@ -1370,10 +1370,10 @@ export function gte<T extends Ordered>(first: T, second: T): boolean
  * @example
  *
  * ```typescript
- * I.has('a', {a: 1})
+ * I.has('a', { a: 1 })
  * // => true
  *
- * I.has('toString', {a: 1})
+ * I.has('toString', { a: 1 })
  * // => false
  * ```
  */
@@ -1846,7 +1846,7 @@ export function lte<T extends Ordered>(first: T, second: T): boolean
  * @example
  *
  * ```typescript
- * I.keys({a: 1, b: 2, c: 3})
+ * I.keys({ a: 1, b: 2, c: 3 })
  * // => ['a', 'b', 'c']
  * ```
  *
@@ -2081,8 +2081,8 @@ export function mapKeys<K1 extends string, K2 extends string, V>(
  * @example
  *
  * ```typescript
- * I.mapValues(I.inc, {a: 1, b: 2, c: 3})
- * // => {a: 2, b: 3, c: 4}
+ * I.mapValues(I.inc, { a: 1, b: 2, c: 3 })
+ * // => { a: 2, b: 3, c: 4 }
  * ```
  */
 export function mapValues<V1, V2>(
@@ -2375,7 +2375,8 @@ export function not(bool: boolean): boolean
  * @example
  *
  * ```typescript
- *  launchMissiles().then(I.noop).catch(I.noop) // Ignore the promise return value
+ * I.map(I.noop, [1, 2, 3])
+ * // => [undefined, undefined, undefined]
  * ```
  */
 export function noop(): undefined
@@ -2533,7 +2534,7 @@ export function prop<K extends keyof T & string, T extends object>(
  * I.propOr(999, 'a', {})
  * // => 999
  *
- * I.propOr(999, 'a', {a: undefined})
+ * I.propOr(999, 'a', { a: undefined })
  * // => 999
  * ```
  *
@@ -2793,7 +2794,7 @@ export function pick<K extends keyof T & string, T extends object>(
  *
  * ```typescript
  * I.pipe(
- *   [1, 2, 3]
+ *   [1, 2, 3],
  *   I.map((n) => n * 2),
  *   I.sum
  * )
@@ -3337,7 +3338,7 @@ export function toUpperCase(string: string): string
  * @example
  *
  * ```typescript
- * I.trim('  abc  '')
+ * I.trim('  abc  ')
  * // => 'abc'
  * ```
  *
@@ -3353,7 +3354,7 @@ export function trim(string: string): string
  * @example
  *
  * ```typescript
- * I.trimEnd('  abc  '')
+ * I.trimEnd('  abc  ')
  * // => '  abc'
  * ```
  *
@@ -3369,7 +3370,7 @@ export function trimEnd(string: string): string
  * @example
  *
  * ```typescript
- * I.trimStart('  abc  '')
+ * I.trimStart('  abc  ')
  * // => 'abc  '
  * ```
  *
@@ -3403,7 +3404,7 @@ export function valueOr<T>(defaultValue: T, value: T | undefined): T
  * @category Object
  * @example
  * ```
- * I.keys({a: 1, b: 2, c: 3})
+ * I.keys({ a: 1, b: 2, c: 3 })
  * // => [1, 2, 3]
  * ```
  *

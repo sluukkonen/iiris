@@ -1943,7 +1943,7 @@ Return an array of the own enumerable property key-value pairs of `object`
 **Example:**
 
 ```typescript
-I.entries({a: 1, b: 2, c: 3})
+I.entries({ a: 1, b: 2, c: 3 })
 // => [['a', 1], ['b', 2], ['c', 3]]
 ```
 
@@ -1963,7 +1963,7 @@ Create an object from an array of `[key, value]` pairs.
 
 ```typescript
 I.fromEntries([['a', 1], ['b', 2], ['c', 3]])
-// => {a: 1, b: 2, c: 3}
+// => { a: 1, b: 2, c: 3 }
 ```
 
 **See also:** [entries](#entries)
@@ -1981,10 +1981,10 @@ Check if `key` is an own property of `object`.
 **Example:**
 
 ```typescript
-I.has('a', {a: 1})
+I.has('a', { a: 1 })
 // => true
 
-I.has('toString', {a: 1})
+I.has('toString', { a: 1 })
 // => false
 ```
 
@@ -2001,7 +2001,7 @@ Return an array of the own enumerable property keys of `object`.
 **Example:**
 
 ```typescript
-I.keys({a: 1, b: 2, c: 3})
+I.keys({ a: 1, b: 2, c: 3 })
 // => ['a', 'b', 'c']
 ```
 
@@ -2041,8 +2041,8 @@ the original `object`.
 **Example:**
 
 ```typescript
-I.mapValues(I.inc, {a: 1, b: 2, c: 3})
-// => {a: 2, b: 3, c: 4}
+I.mapValues(I.inc, { a: 1, b: 2, c: 3 })
+// => { a: 2, b: 3, c: 4 }
 ```
 
 ***
@@ -2113,7 +2113,7 @@ Return an array of the own enumerable property values of `object`
 
 **Example:**
 ```
-I.keys({a: 1, b: 2, c: 3})
+I.keys({ a: 1, b: 2, c: 3 })
 // => [1, 2, 3]
 ```
 
@@ -2331,7 +2331,8 @@ Do nothing an return `undefined`.
 **Example:**
 
 ```typescript
- launchMissiles().then(I.noop).catch(I.noop) // Ignore the promise return value
+I.map(I.noop, [1, 2, 3])
+// => [undefined, undefined, undefined]
 ```
 
 ***
@@ -2378,7 +2379,7 @@ for `fn(...(f2(f1(initial))))`
 
 ```typescript
 I.pipe(
-  [1, 2, 3]
+  [1, 2, 3],
   I.map((n) => n * 2),
   I.sum
 )
@@ -2605,7 +2606,7 @@ I.propOr(999, 'a', { a: 1, b: 2, c: 3 })
 I.propOr(999, 'a', {})
 // => 999
 
-I.propOr(999, 'a', {a: undefined})
+I.propOr(999, 'a', { a: undefined })
 // => 999
 ```
 
@@ -3226,7 +3227,7 @@ Remove whitespace from both ends of a `string`.
 **Example:**
 
 ```typescript
-I.trim('  abc  '')
+I.trim('  abc  ')
 // => 'abc'
 ```
 
@@ -3245,7 +3246,7 @@ Remove whitespace from the end of a `string`.
 **Example:**
 
 ```typescript
-I.trimEnd('  abc  '')
+I.trimEnd('  abc  ')
 // => '  abc'
 ```
 
@@ -3264,7 +3265,7 @@ Remove whitespace from the beginning of a `string`.
 **Example:**
 
 ```typescript
-I.trimStart('  abc  '')
+I.trimStart('  abc  ')
 // => 'abc  '
 ```
 
