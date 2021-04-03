@@ -208,5 +208,5 @@ function formatCommentTags(tags) {
     .map((t) => createLink(t.text.trim()))
     .join(', ')
 
-  return `${example}${see ? `\n\n**See also:** ${see}` : ''}`
+  return `\n\n**Example:**${example}${see ? `\n\n**See also:** ${see}` : ''}`
 }

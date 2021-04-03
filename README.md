@@ -257,6 +257,8 @@ Many of the type signatures are also simplified. As an example, we don't show th
 
 Append a new element to the end of an array.
 
+**Example:**
+
 ```typescript
 I.append(4, [1, 2, 3])
 // => [1, 2, 3, 4]
@@ -274,6 +276,8 @@ I.append(4, [1, 2, 3])
 
 Concatenate two arrays together.
 
+**Example:**
+
 ```typescript
 I.concat([1, 2, 3], [4, 5, 6])
 // => [1, 2, 3, 4, 5, 6]
@@ -290,6 +294,8 @@ I.concat([1, 2, 3], [4, 5, 6])
 ```
 
 Apply `fn` to each element of the `array` and return the `array`.
+
+**Example:**
 
 ```typescript
 I.forEach(console.log, ['h', 'i', '!'])
@@ -312,6 +318,8 @@ i
 Like [forEach](#foreach), but `fn` also receives the element index as the first
 argument.
 
+**Example:**
+
 ```typescript
 I.forEachWithIndex(console.log, ['h', 'i', '!'])
 0 h
@@ -331,6 +339,8 @@ I.forEachWithIndex(console.log, ['h', 'i', '!'])
 ```
 
 Return the first element of the `array` or `undefined`.
+
+**Example:**
 
 ```typescript
 I.head([1, 2, 3])
@@ -352,6 +362,8 @@ I.head([])
 
 Return all elements of the `array` except the last.
 
+**Example:**
+
 ```typescript
 I.init([1, 2, 3])
 // => [1, 2]
@@ -371,6 +383,8 @@ I.init([])
 ```
 
 Return the last element of the `array` or `undefined`.
+
+**Example:**
 
 ```typescript
 I.last([1, 2, 3])
@@ -392,6 +406,8 @@ I.last([])
 
 Prepend a new element to the beginning of an array.
 
+**Example:**
+
 ```typescript
 I.prepend(0, [1, 2, 3])
 // => [0, 1, 2, 3]
@@ -408,6 +424,8 @@ I.prepend(0, [1, 2, 3])
 ```
 
 Return all elements of the `array` except the first.
+
+**Example:**
 
 ```typescript
 I.tail([1, 2, 3])
@@ -432,6 +450,8 @@ I.tail([])
 Return an array containing the results of applying `fn` to each element in
 the original `array` and then flattening the result by one level.
 
+**Example:**
+
 ```typescript
 I.flatMap((n) => [n, n], [1, 2, 3])
 // => [1, 1, 2, 2, 3, 3]
@@ -448,6 +468,8 @@ I.flatMap((n) => [n, n], [1, 2, 3])
 ```
 
 Flatten a nested `array` by `n` levels.
+
+**Example:**
 
 ```typescript
 I.flatten(1, [1, [2, [3]]])
@@ -468,6 +490,8 @@ I.flatten(2, [1, [2, [3]]])
 ```
 
 Return a copy of `array` with `separator` inserted between each element.
+
+**Example:**
 
 ```typescript
 I.intersperse(',', ['a', 'b', 'c'])
@@ -490,6 +514,8 @@ I.intersperse(',', [])
 Convert the `array` to a string, inserting the `separator` between each
 element.
 
+**Example:**
+
 ```typescript
 I.join(', ', [1, 2, 3])
 // => '1, 2, 3'
@@ -508,6 +534,8 @@ I.join(', ', [1, 2, 3])
 Return an array containing the results of applying `fn` to each element in
 the original `array`.
 
+**Example:**
+
 ```typescript
 I.map(I.inc, [1, 2, 3])
 // => [2, 3, 4]
@@ -525,6 +553,8 @@ I.map(I.inc, [1, 2, 3])
 
 Return an array containing the results of applying `fn` to each element in
 the original `array`, discarding any `undefined` values.
+
+**Example:**
 
 ```typescript
 const users = [
@@ -550,6 +580,8 @@ I.mapMaybe(I.prop('age'), users)
 Like [map](#map), but `fn` also receives the element index as the first
 argument.
 
+**Example:**
+
 ```typescript
 I.mapWithIndex((i, c) => `${i}-${c}`, ['a', 'b', 'c'])
 // => ['0-a', '1-b', '2-c']
@@ -567,6 +599,8 @@ I.mapWithIndex((i, c) => `${i}-${c}`, ['a', 'b', 'c'])
 
 Reverse an `array`.
 
+**Example:**
+
 ```typescript
 I.reverse([1, 2, 3])
 // => [3, 2, 1]
@@ -583,6 +617,8 @@ I.reverse([1, 2, 3])
 ```
 
 Return the largest element of an `array` or `undefined`.
+
+**Example:**
 
 ```typescript
 I.maximum([1, 2, 3])
@@ -604,6 +640,8 @@ I.maximum([])
 
 Like [maximum](#maximum), but apply `fn` to each value before determining
 their ordering.
+
+**Example:**
 
 ```typescript
 const users = [
@@ -628,6 +666,8 @@ I.maximumBy((u) => u.age, users)
 
 Return the smallest element of `array` or `undefined`.
 
+**Example:**
+
 ```typescript
 I.minimum([1, 2, 3])
 // => 1
@@ -648,6 +688,8 @@ I.minimum([])
 
 Like [minimum](#minimum), but `fn` is applied to each value before determining
 their ordering.
+
+**Example:**
 
 ```typescript
 const users = [
@@ -678,6 +720,8 @@ with the accumulated value so far and the current element. The first call to
 
 If the array is empty, `initial` is returned.
 
+**Example:**
+
 ```typescript
 I.reduce((sum, n) => sum + n, 1, [2, 3, 4]) // equal to ((1 + 2) + 3) + 4
 // => 10
@@ -701,6 +745,8 @@ with the current element and the accumulated value so far. The first call to
 
 If the array is empty, `initial` is returned.
 
+**Example:**
+
 ```typescript
 I.reduceRight((n, sum) => n + sum, 4, [1, 2, 3]) // equal to 1 + (2 + (3 + 4))
 // => 10
@@ -721,6 +767,8 @@ Sum an `array` of numbers together. Returns `0` if the array is empty.
 Uses the [Kahan summation
 algorithm](https://en.wikipedia.org/wiki/Kahan_summation_algorithm) for
 minimizing numerical error.
+
+**Example:**
 
 ```typescript
 const numbers = I.repeat(0.1, 10)
@@ -746,6 +794,8 @@ numbers.reduce((sum, n) => sum + n, 0)
 Like [sum](#sum), but each element of the `array` is converted to a number
 by applying `fn`.
 
+**Example:**
+
 ```typescript
 I.sumBy(I.prop('age'), [{ name: 'Alice', age: 10 }, { name: 'Bob', age: 20 }])
 // => 30
@@ -765,6 +815,8 @@ I.sumBy(I.prop('age'), [{ name: 'Alice', age: 10 }, { name: 'Bob', age: 20 }])
 
 Count the number of elements in the `array` the satisfy the `predicate`.
 
+**Example:**
+
 ```typescript
 I.count((n) => n > 1, [1, 2, 3])
 // => 2
@@ -781,6 +833,8 @@ I.count((n) => n > 1, [1, 2, 3])
 ```
 
 Check if every element in the `array` satisfies the `predicate`.
+
+**Example:**
 
 ```typescript
 I.every((n) => n < 10, [1, 2, 3])
@@ -803,6 +857,8 @@ I.every((n) => n < 3, [1, 2, 3])
 
 Return the elements of the `array` that satisfy the `predicate`.
 
+**Example:**
+
 ```typescript
 I.filter((n) => n > 1, [1, 2, 3])
 // => [2, 3]
@@ -820,6 +876,8 @@ I.filter((n) => n > 1, [1, 2, 3])
 
 Like [filter](#filter), but `predicate` also receives the element index as the
 first argument.
+
+**Example:**
 
 ```typescript
 I.filterWithIndex((i, n) => i + n === 3, [1, 2, 3])
@@ -840,6 +898,8 @@ I.filterWithIndex((i, n) => i + n === 3, [1, 2, 3])
 Find the first element in the `array` that satisfies the `predicate`.
 
 Returns `undefined` if none of the elements match.
+
+**Example:**
 
 ```typescript
 I.find((c) => c !== 'a', ['a', 'b', 'c'])
@@ -864,6 +924,8 @@ Find the index of the first element in the `array` that satisfies the
 
 Returns `-1` if none of the elements satisfy the predicate.
 
+**Example:**
+
 ```typescript
 I.findIndex((c) => c !== 'a', ['a', 'b', 'c'])
 // => 1
@@ -886,6 +948,8 @@ I.findIndex((c) => c === 'x', ['a', 'b', 'c'])
 Find the last element in the `array` that satisfies the `predicate`.
 
 Returns `undefined` if none of the elements match.
+
+**Example:**
 
 ```typescript
 I.findLast((c) => c !== 'a', ['a', 'b', 'c'])
@@ -910,6 +974,8 @@ Find the index of the last element in the `array` that satisfies the
 
 Returns `-1` if none of the elements match.
 
+**Example:**
+
 ```typescript
 I.findLastIndex((c) => c !== 'a', ['a', 'b', 'c'])
 // => 2
@@ -929,6 +995,8 @@ I.findLastIndex((c) => c === 'x', ['a', 'b', 'c'])
 ```
 
 Check if none of the elements in the `array` satisfy the `predicate`.
+
+**Example:**
 
 ```typescript
 I.none((n) => n > 5, [1, 2, 3])
@@ -953,6 +1021,8 @@ Partition the `array` into two arrays, the first containing the elements
 that satisfy the `predicate` and the second containing the elements that do
 not.
 
+**Example:**
+
 ```typescript
 const [evens, odds] = I.partition((n) => n % 2 === 0, [1, 2, 3])
 // => [[2], [1, 3]]
@@ -969,6 +1039,8 @@ const [evens, odds] = I.partition((n) => n % 2 === 0, [1, 2, 3])
 ```
 
 Check if some elements in the `array` satisfies the `predicate`.
+
+**Example:**
 
 ```typescript
 I.some((n) => n > 2, [1, 2, 3])
@@ -993,6 +1065,8 @@ I.some((n) => n > 5, [1, 2, 3])
 Check if the `array` includes the specified `value`, using [equals](#equals) for
 determining equality.
 
+**Example:**
+
 ```typescript
 I.includes(1, [1, 2, 3])
 // => true
@@ -1011,6 +1085,8 @@ I.includes(0, [1, 2, 3])
 
 Return the index of the first element equaling `value`, using [equals](#equals)
 for determining equality. Returns `-1` if no match can be found.
+
+**Example:**
 
 ```typescript
 I.indexOf('b', ['a', 'b', 'c', 'a', 'b', 'c'])
@@ -1032,6 +1108,8 @@ I.indexOf('x', ['a', 'b', 'c', 'a', 'b', 'c'])
 
 Return the index of the last element equaling `value`, using [equals](#equals)
 for determining equality. Returns `-1` if no match can be found.
+
+**Example:**
 
 ```typescript
 I.lastIndexOf('b', ['a', 'b', 'c', 'a', 'b', 'c'])
@@ -1056,6 +1134,8 @@ I.lastIndexOf('x', ['a', 'b', 'c', 'a', 'b', 'c'])
 Apply `keyFn` to each element in the `array` and return an object of counts
 by key.
 
+**Example:**
+
 ```typescript
 const users = [
   { name: 'Alice' },
@@ -1078,6 +1158,8 @@ I.countBy(I.prop('name'), users)
 ```
 
 Partition the `array` into an object of arrays according to `keyFn`.
+
+**Example:**
 
 ```typescript
 const users = [
@@ -1103,6 +1185,8 @@ I.groupBy(I.prop('name'), users)
 Like [groupBy](#groupby), but also apply `mapFn` to each element before adding
 it to the corresponding array.
 
+**Example:**
+
 ```typescript
 const users = [
   { name: 'Alice', age: 10 },
@@ -1125,6 +1209,8 @@ const agesByName = I.groupMap(I.prop('age'), I.prop('name'), users)
 
 Like [groupMap](#groupmap), but instead of returning an object of arrays, combine
 elements mapping to the same key with `reducer`.
+
+**Example:**
 
 ```typescript
 const users = [
@@ -1151,6 +1237,8 @@ elements indexed by each key.
 
 If multiple elements map to the same key, the last one is selected.
 
+**Example:**
+
 ```typescript
 const users = [
   { id: 1, name: 'Alice' },
@@ -1175,6 +1263,8 @@ I.indexBy(I.prop('id'), users)
 
 Create a singleton array containing `value`
 
+**Example:**
+
 ```typescript
 I.of(1)
 // => [1]
@@ -1191,6 +1281,8 @@ I.of(1)
 ```
 
 Create two element array containing `first` and `second`.
+
+**Example:**
 
 ```typescript
 I.pair(1, 2)
@@ -1209,6 +1301,8 @@ I.pair(1, 2)
 
 Create an array of numbers between `start` (inclusive) and `end`
 (exclusive).
+
+**Example:**
 
 ```typescript
 I.range(0, 10)
@@ -1230,6 +1324,8 @@ I.range(0, 10)
 
 Repeat the given `value` `n` times.
 
+**Example:**
+
 ```typescript
 I.repeat('a', 5)
 // => ['a', 'a', 'a', 'a', 'a']
@@ -1246,6 +1342,8 @@ I.repeat('a', 5)
 ```
 
 Create an array of length `n` by applying `fn` to the index of each element.
+
+**Example:**
 
 ```typescript
 I.times((n) => n * 10, 3)
@@ -1265,6 +1363,8 @@ I.times((n) => n * 10, 3)
 ```
 
 Drop the first `n` elements of an `array`.
+
+**Example:**
 
 ```typescript
 I.drop(1, [1, 2, 3])
@@ -1286,6 +1386,8 @@ I.drop(2, [1, 2, 3])
 
 Drop the last `n` elements of an `array`.
 
+**Example:**
+
 ```typescript
 I.dropLast(1, [1, 2, 3])
 // => [1, 2]
@@ -1306,6 +1408,8 @@ I.dropLast(2, [1, 2, 3])
 
 Drop elements from the end of an `array` while `predicate` is satisfied.
 
+**Example:**
+
 ```typescript
 I.dropLastWhile((n) => n > 1, [1, 2, 3])
 // => [1]
@@ -1323,6 +1427,8 @@ I.dropLastWhile((n) => n > 1, [1, 2, 3])
 
 Drop elements from the beginning of an `array` while `predicate` is
 satisfied.
+
+**Example:**
 
 ```typescript
 I.dropWhile((n) => n === 1, [1, 2, 3])
@@ -1342,6 +1448,8 @@ I.dropWhile((n) => n === 1, [1, 2, 3])
 Create a copy of `array` containing the elements from `start` (inclusive)
 to `end` (exclusive).
 
+**Example:**
+
 ```typescript
 I.slice(0, 2, [1, 2, 3])
 // => [1, 2]
@@ -1360,6 +1468,8 @@ I.slice(1, 2, [1, 2, 3])
 
 Take the first `n` elements of an `array`.
 
+**Example:**
+
 ```typescript
 I.take(2, [1, 2, 3])
 // => [1, 2]
@@ -1376,6 +1486,8 @@ I.take(2, [1, 2, 3])
 ```
 
 Take the last `n` elements of an `array`.
+
+**Example:**
 
 ```typescript
 I.takeLast(2, [1, 2, 3])
@@ -1394,6 +1506,8 @@ I.takeLast(2, [1, 2, 3])
 
 Take elements from the end of an `array` while `predicate` is satisfied.
 
+**Example:**
+
 ```typescript
 I.takeLastWhile((n) => n >= 2, [1, 2, 3])
 // => [2, 3]
@@ -1411,6 +1525,8 @@ I.takeLastWhile((n) => n >= 2, [1, 2, 3])
 
 Take elements from the beginning of an `array` while `predicate` is
 satisfied.
+
+**Example:**
 
 ```typescript
 I.takeWhile((n) => n <= 2, [1, 2, 3])
@@ -1434,6 +1550,8 @@ ascending comparator function.
 
 **Note:** This function is not curried.
 
+**Example:**
+
 ```typescript
 I.sort(I.ascend(I.prop('age')), [{ name: 'Bob' }, { name: 'Alice' }])
 // => [{ name: 'Alice' }, { name: 'Bob' }]
@@ -1454,6 +1572,8 @@ descending comparator function.
 
 **Note:** This function is not curried.
 
+**Example:**
+
 ```typescript
 I.sort(I.descend(I.prop('name')), [{ name: 'Alice' }, { name: 'Bob' }])
 // => [{ name: 'Bob' }, { name: 'Alice' }]
@@ -1470,6 +1590,8 @@ I.sort(I.descend(I.prop('name')), [{ name: 'Alice' }, { name: 'Bob' }])
 ```
 
 Sort an `array` according to the comparator function.
+
+**Example:**
 
 ```typescript
 I.sort((a, b) => a - b, [3, 2, 1])
@@ -1488,6 +1610,8 @@ I.sort((a, b) => a - b, [3, 2, 1])
 
 Sort an `array` into ascending order by mapping each element of the array
 with `fn`.
+
+**Example:**
 
 ```typescript
 const users = [
@@ -1515,6 +1639,8 @@ I.sortBy(I.prop('age'), users)
 Sort an `array` according to an array of comparator functions.
 
 The comparators are tried in order until an ordering has been found.
+
+**Example:**
 
 ```typescript
 const users = [
@@ -1544,6 +1670,8 @@ Combine the corresponding elements of two arrays into an array of pairs.
 If one of the arrays is longer than the other, the extra elements are
 ignored.
 
+**Example:**
+
 ```typescript
 I.zip(['a', 'b', 'c'], [1, 2, 3])
 // => [['a', 1], ['b', 2], ['c', 3]]
@@ -1564,6 +1692,8 @@ Combine an array of `keys` and `values` into an object.
 If one of the arrays is longer than the other, its extra elements are
 ignored.
 
+**Example:**
+
 ```typescript
 I.zipObject(['a', 'b', 'c'], [1, 2, 3])
 // => { a: 1, b: 2, c: 3 }
@@ -1581,6 +1711,8 @@ I.zipObject(['a', 'b', 'c'], [1, 2, 3])
 
 Like [zip](#zip), but the elements are combined with `fn` instead of
 constructing a pair.
+
+**Example:**
 
 ```typescript
 I.zipWith(I.add, [1, 2, 3], [4, 5, 6])
@@ -1606,6 +1738,8 @@ determining equality.
 
 Will not remove duplicates from the `first` array.
 
+**Example:**
+
 ```typescript
 I.difference([1, 2, 3], [2, 3, 4])
 // => [1]
@@ -1622,6 +1756,8 @@ I.difference([1, 2, 3], [2, 3, 4])
 ```
 
 Like [difference](#difference), but using a custom equality function.
+
+**Example:**
 
 ```typescript
 const users = [
@@ -1656,6 +1792,8 @@ determining equality.
 
 Will not remove duplicates from the first array.
 
+**Example:**
+
 ```typescript
 I.intersection([1, 2, 3], [2, 3, 4])
 // => [2, 3]
@@ -1672,6 +1810,8 @@ I.intersection([1, 2, 3], [2, 3, 4])
 ```
 
 Like [intersection](#intersection), but using a custom equality function.
+
+**Example:**
 
 ```typescript
 const users = [
@@ -1705,6 +1845,8 @@ determining equality.
 
 Will not remove duplicates from the first array.
 
+**Example:**
+
 ```typescript
 I.union([1, 2, 3], [2, 3, 4])
 // => [1, 2, 3, 4]
@@ -1721,6 +1863,8 @@ I.union([1, 2, 3], [2, 3, 4])
 ```
 
 Like [union](#union), but using a custom equality function.
+
+**Example:**
 
 ```typescript
 const users = [
@@ -1751,6 +1895,8 @@ I.unionWith((a, b) => a.id === b.id, users, otherUsers)
 Remove duplicate values from `array`, using [equals](#equals) for determining
 equality.
 
+**Example:**
+
 ```typescript
 I.uniq([1, 2, 3, 1, 2, 3])
 // => [1, 2, 3]
@@ -1767,6 +1913,8 @@ I.uniq([1, 2, 3, 1, 2, 3])
 ```
 
 Like [uniq](#uniq), but using a custom equality function.
+
+**Example:**
 
 ```typescript
 const users = [
@@ -1792,6 +1940,8 @@ I.uniqWith((a, b) => a.id === b.id, users)
 
 Return an array of the own enumerable property key-value pairs of `object`
 
+**Example:**
+
 ```typescript
 I.entries({a: 1, b: 2, c: 3})
 // => [['a', 1], ['b', 2], ['c', 3]]
@@ -1808,6 +1958,8 @@ I.entries({a: 1, b: 2, c: 3})
 ```
 
 Create an object from an array of `[key, value]` pairs.
+
+**Example:**
 
 ```typescript
 I.fromEntries([['a', 1], ['b', 2], ['c', 3]])
@@ -1826,6 +1978,8 @@ I.fromEntries([['a', 1], ['b', 2], ['c', 3]])
 
 Check if `key` is an own property of `object`.
 
+**Example:**
+
 ```typescript
 I.has('a', {a: 1})
 // => true
@@ -1843,6 +1997,8 @@ I.has('toString', {a: 1})
 ```
 
 Return an array of the own enumerable property keys of `object`.
+
+**Example:**
 
 ```typescript
 I.keys({a: 1, b: 2, c: 3})
@@ -1864,6 +2020,8 @@ the original `object`.
 
 If multiple keys map to the same new key, the latest value is selected.
 
+**Example:**
+
 ```typescript
 I.mapKeys((k) => k.toUpperCase(), { a: 1, b: 2, c: 3 })
 // => { A: 1, B: 2, C: 3 }
@@ -1879,6 +2037,8 @@ I.mapKeys((k) => k.toUpperCase(), { a: 1, b: 2, c: 3 })
 
 Return an object containing the results of applying `fn` to each value of
 the original `object`.
+
+**Example:**
 
 ```typescript
 I.mapValues(I.inc, {a: 1, b: 2, c: 3})
@@ -1896,6 +2056,8 @@ I.mapValues(I.inc, {a: 1, b: 2, c: 3})
 Copy the own enumerable properties of two objects, preferring the values from
 `second` in case of duplicate keys.
 
+**Example:**
+
 ```typescript
 I.merge({ a: 1, b: 1 }, { b: 2, c: 2 })
 // => { a: 1, b: 2, c: 2 }
@@ -1910,6 +2072,8 @@ I.merge({ a: 1, b: 1 }, { b: 2, c: 2 })
 ```
 
 Return a copy of `object` without the specified `keys`.
+
+**Example:**
 
 ```typescript
 I.omit(['a', 'b'], { a: 1, b: 2, c: 3 })
@@ -1928,6 +2092,8 @@ I.omit(['a', 'b'], { a: 1, b: 2, c: 3 })
 
 Return a copy of `object` with only the specified `keys`.
 
+**Example:**
+
 ```typescript
 I.pick(['a', 'b'], { a: 1, b: 2, c: 3 })
 // => { a: 1, b: 2 }
@@ -1944,6 +2110,8 @@ I.pick(['a', 'b'], { a: 1, b: 2, c: 3 })
 ```
 
 Return an array of the own enumerable property values of `object`
+
+**Example:**
 ```
 I.keys({a: 1, b: 2, c: 3})
 // => [1, 2, 3]
@@ -1962,6 +2130,8 @@ I.keys({a: 1, b: 2, c: 3})
 ```
 
 Create a version of `fn` that accepts two arguments.
+
+**Example:**
 
 ```typescript
 const fn = (...args) => args
@@ -1985,6 +2155,8 @@ wrapped(1, 2, 3)
 ```
 
 Create a version of a predicate `fn` that flips the returned boolean value.
+
+**Example:**
 
 ```typescript
 const isZero = (v) => v === 0
@@ -2011,6 +2183,8 @@ Right-to-left function composition.
 
 **Note:** This function is not curried.
 
+**Example:**
+
 ```typescript
 const composed = I.compose(I.add(10), I.multiply(2))
 
@@ -2028,6 +2202,8 @@ composed(2)
 
 Create a function that always returns `value`.
 
+**Example:**
+
 ```typescript
 I.map(I.constant(1), [1, 2, 3])
 // => [1, 1, 1]
@@ -2042,6 +2218,8 @@ I.map(I.constant(1), [1, 2, 3])
 ```
 
 Create a curried version of a `fn` taking two arguments.
+
+**Example:**
 
 ```typescript
  const add = I.curry2((a, b) => a + b)
@@ -2065,6 +2243,8 @@ Create a curried version of a `fn` taking two arguments.
 
 Create a curried version of a `fn` taking three arguments.
 
+**Example:**
+
 ```typescript
  const add = I.curry3((a, b, c) => a + b + c)
 
@@ -2086,6 +2266,8 @@ Create a curried version of a `fn` taking three arguments.
 ```
 
 Create a curried version of a `fn` taking four arguments.
+
+**Example:**
 
 ```typescript
  const add = I.curry4((a, b, c, d) => a + b + c + d)
@@ -2109,6 +2291,8 @@ Create a curried version of a `fn` taking four arguments.
 
 Flip the arguments of a binary function.
 
+**Example:**
+
 ```typescript
 const fn = (...args) => args
 const flipped = I.flip(fn)
@@ -2127,6 +2311,8 @@ flipped(1, 2)
 
 Identity function. Returns the first argument.
 
+**Example:**
+
 ```typescript
 I.identity(5)
 // => 5
@@ -2142,6 +2328,8 @@ I.identity(5)
 
 Do nothing an return `undefined`.
 
+**Example:**
+
 ```typescript
  launchMissiles().then(I.noop).catch(I.noop) // Ignore the promise return value
 ```
@@ -2155,6 +2343,8 @@ Do nothing an return `undefined`.
 ```
 
 Logical not. Flip the value of a boolean argument
+
+**Example:**
 
 ```typescript
 I.not(true)
@@ -2184,6 +2374,8 @@ for `fn(...(f2(f1(initial))))`
 
 **Note:** This function is not curried.
 
+**Example:**
+
 ```typescript
 I.pipe(
   [1, 2, 3]
@@ -2205,6 +2397,8 @@ I.pipe(
 
 Return the `second` argument.
 
+**Example:**
+
 ```typescript
 I.second(1, 2)
 // => 2
@@ -2222,6 +2416,8 @@ Create a function that applies `fn` to its argument and returns the
 argument.
 
 Useful for executing a side-effect within a pipeline.
+
+**Example:**
 
 ```typescript
 I.pipe(
@@ -2245,6 +2441,8 @@ I.pipe(
 
 Create a version of `fn` that accepts a single argument.
 
+**Example:**
+
 ```typescript
 ['1', '2', '3'].map(I.unary(parseInt))
 // => [1, 2, 3]
@@ -2263,6 +2461,8 @@ Create a version of `fn` that accepts a single argument.
 ```
 
 Retrieves the element at `index` from `array` or `undefined`.
+
+**Example:**
 
 ```typescript
 I.at(0, [1, 2, 3])
@@ -2284,6 +2484,8 @@ I.at(0, [])
 
 Like [at](#at), but if the resolved value is `undefined`, `defaultValue` is
 returned instead.
+
+**Example:**
 
 ```typescript
 I.atOr(999, 0, [1, 2, 3])
@@ -2312,6 +2514,8 @@ applying `fn` to its current value.
 - If `index` is not within `array` bounds, the `array` is returned
   unchanged.
 - Removes the element if `fn` returns `undefined`.
+
+**Example:**
 
 ```typescript
 I.modifyAt(0, I.inc, [1, 2, 3])
@@ -2344,6 +2548,8 @@ Return a copy of `object` where the property `key` has replaced by applying
   unchanged.
 - If `fn` returns `undefined`, the property is removed.
 
+**Example:**
+
 ```typescript
 I.modifyProp('a', (n) => n + 1, { a: 1, b: 2, c: 3 })
 // => { a: 2, b: 2, c: 3 }
@@ -2367,6 +2573,8 @@ I.modifyProp('d', () => 4, { a: 1, b: 2, c: 3 })
 
 Retrieves the property `key` from `object` or `undefined`.
 
+**Example:**
+
 ```typescript
 I.prop('a', { a: 1, b: 2, c: 3 })
 // => 1
@@ -2387,6 +2595,8 @@ I.prop('a', {})
 
 Like [prop](#prop), but if the resolved value is `undefined`, `defaultValue`
 is returned instead.
+
+**Example:**
 
 ```typescript
 I.propOr(999, 'a', { a: 1, b: 2, c: 3 })
@@ -2414,6 +2624,8 @@ Returns a copy of `array` without the element at `index`.
 - If `index` is not within the `array` bounds, the `array` is returned
   unchanged.
 
+**Example:**
+
 ```typescript
 I.removeAt(0, [1, 2, 3])
 // => [2, 3]
@@ -2440,6 +2652,8 @@ Return a copy of `object` without the property `key`.
 - If `key` is not an own property of `object`, the `object` is returned
   unchanged.
 
+**Example:**
+
 ```typescript
 I.removeProp('a', { a: 1, b: 2, c: 3 })
 // => { b: 2, c: 3 }
@@ -2458,6 +2672,8 @@ Returns a copy of `array` where the element at `index` has been replaced with `v
 - If `index` is not within the `array` bounds, the `array` is returned
   unchanged.
 - Removes the element if `value` is `undefined`.
+
+**Example:**
 
 ```typescript
 I.setAt(0, 999, [1, 2, 3])
@@ -2487,6 +2703,8 @@ Return a copy of `object` with property `key` set to `value`.
 
 - If `value` is `undefined`, the property is removed.
 
+**Example:**
+
 ```typescript
 I.setProp('a', 999, { a: 1, b: 2, c: 3 })
 // => { a: 999, b: 2, c: 3 }
@@ -2508,6 +2726,8 @@ I.setProp('a', undefined, { a: 1, b: 2, c: 3 })
 ```
 
 Clamp a number within the closed interval `[lower, upper]`.
+
+**Example:**
 
 ```typescript
 I.clamp([0, 10], 5)
@@ -2540,6 +2760,8 @@ Check if two values are deeply equal.
 - Supports cyclic references.
 - Does not support WeakMaps, WeakSets or typed arrays.
 
+**Example:**
+
 ```typescript
 I.equals([1, 2, 3], [1, 2, 3])
 // => true
@@ -2558,6 +2780,8 @@ I.equals([1, 2, 3], [4, 5, 6])
 
 Like [equals](#equals), but the function `fn` is applied to both values before
 determining equality.
+
+**Example:**
 
 ```typescript
 I.equalsBy(Math.floor, 1, 1.5)
@@ -2578,6 +2802,8 @@ Check if the `second` argument is greater than the `first`.
 
 Designed to be used as a curried predicate.
 
+**Example:**
+
 ```typescript
 I.filter(I.gt(2), [1, 2, 3])
 // => [3]
@@ -2594,6 +2820,8 @@ I.filter(I.gt(2), [1, 2, 3])
 Check if the `second` argument is greater than or equal to the `first`.
 
 Designed to be used as a curried predicate.
+
+**Example:**
 ```typescript
 I.filter(I.gte(2), [1, 2, 3])
 // => [2, 3]
@@ -2610,6 +2838,8 @@ I.filter(I.gte(2), [1, 2, 3])
 Check if the `second` argument is less than the `first`.
 
 Designed to be used as a curried predicate.
+
+**Example:**
 
 ```typescript
 I.filter(I.lt(2), [1, 2, 3])
@@ -2628,6 +2858,8 @@ Check if the `second` argument is less than or equal to the `first`.
 
 Designed to be used as a curried predicate.
 
+**Example:**
+
 ```typescript
 I.filter(I.lte(2), [1, 2, 3])
 // => [1, 2]
@@ -2642,6 +2874,8 @@ I.filter(I.lte(2), [1, 2, 3])
 ```
 
 Return the larger of two values.
+
+**Example:**
 
 ```typescript
 I.max(1, 2)
@@ -2664,6 +2898,8 @@ I.max('a', 'b')
 Like [max](#max), but apply `fn` to both values before determining their
 ordering.
 
+**Example:**
+
 ```typescript
 I.maxBy(Math.abs, 1, -2)
 // => -2
@@ -2680,6 +2916,8 @@ I.maxBy(Math.abs, 1, -2)
 ```
 
 Return the smaller of two values.
+
+**Example:**
 
 ```typescript
 I.min(1, 2)
@@ -2702,6 +2940,8 @@ I.min('a', 'b')
 Like [min](#min), but apply `fn` to both values before determining their
 ordering.
 
+**Example:**
+
 ```typescript
 I.minBy(Math.abs, -1, 2)
 // => -1
@@ -2721,6 +2961,8 @@ I.minBy(Math.abs, -1, 2)
 
 Add two numbers together.
 
+**Example:**
+
 ```typescript
 I.map(I.add(1), [1, 2, 3])
 // => [2, 3, 4]
@@ -2735,6 +2977,8 @@ I.map(I.add(1), [1, 2, 3])
 ```
 
 Decrement a number by 1.
+
+**Example:**
 
 ```typescript
 I.map(I.dec, [1, 2, 3])
@@ -2753,6 +2997,8 @@ I.map(I.dec, [1, 2, 3])
 
 Divide `dividend` by the `divisor`.
 
+**Example:**
+
 ```typescript
 I.map(I.divideBy(2), [1, 2, 3])
 // => [0.5, 1, 1.5]
@@ -2767,6 +3013,8 @@ I.map(I.divideBy(2), [1, 2, 3])
 ```
 
 Increment a number by 1.
+
+**Example:**
 
 ```typescript
 I.map(I.inc, [1, 2, 3])
@@ -2783,6 +3031,8 @@ I.map(I.inc, [1, 2, 3])
 
 Multiply two numbers together.
 
+**Example:**
+
 ```typescript
 I.map(I.multiply(2), [1, 2, 3])
 // => [2, 4, 6]
@@ -2798,6 +3048,8 @@ I.map(I.multiply(2), [1, 2, 3])
 
 Return `n` with its sign reversed.
 
+**Example:**
+
 ```typescript
 I.map(I.negate, [1, 2, 3])
 // => [-1, -2, -3]
@@ -2812,6 +3064,8 @@ I.map(I.negate, [1, 2, 3])
 ```
 
 Subtract the `subtrahend` from the `minuend`.
+
+**Example:**
 
 ```typescript
 I.map(I.subtractBy(1), [1, 2, 3])
@@ -2831,6 +3085,8 @@ I.map(I.subtractBy(1), [1, 2, 3])
 Apply `fn` to `maybeValue` if it is not `undefined`, return `defaultValue`
 otherwise.
 
+**Example:**
+
 ```typescript
 I.maybe('', (s) => s.toUpperCase(), 'hi')
 // => 'HI'
@@ -2848,6 +3104,8 @@ I.maybe('', (s) => s.toUpperCase(), undefined)
 ```
 
 Return `value` if it is not `undefined`, `defaultValue` otherwise.
+
+**Example:**
 
 ```typescript
 I.valueOr(999, 0)
@@ -2872,6 +3130,8 @@ I.valueOr(999, undefined)
 Convert the first code point of `string` to uppercase and the rest to
 lowercase.
 
+**Example:**
+
 ```typescript
 I.capitalize('aBc')
 // => 'Abc'
@@ -2888,6 +3148,8 @@ I.capitalize('aBc')
 ```
 
 Split the `string` into an array of substrings between each `separator`.
+
+**Example:**
 
 ```typescript
 I.split(', ', 'a, b, c')
@@ -2906,6 +3168,8 @@ I.split(', ', 'a, b, c')
 
 Check if `string` matches the `regexp`.
 
+**Example:**
+
 ```typescript
 I.test(/abc/, 'abc')
 // => true
@@ -2920,6 +3184,8 @@ I.test(/abc/, 'abc')
 ```
 
 Convert `string` to lowercase.
+
+**Example:**
 
 ```typescript
 I.toLowerCase('ABC')
@@ -2938,6 +3204,8 @@ I.toLowerCase('ABC')
 
 Convert `string` to uppercase.
 
+**Example:**
+
 ```typescript
 I.toUpperCase('abc')
 // => 'ABC'
@@ -2954,6 +3222,8 @@ I.toUpperCase('abc')
 ```
 
 Remove whitespace from both ends of a `string`.
+
+**Example:**
 
 ```typescript
 I.trim('  abc  '')
@@ -2972,6 +3242,8 @@ I.trim('  abc  '')
 
 Remove whitespace from the end of a `string`.
 
+**Example:**
+
 ```typescript
 I.trimEnd('  abc  '')
 // => '  abc'
@@ -2988,6 +3260,8 @@ I.trimEnd('  abc  '')
 ```
 
 Remove whitespace from the beginning of a `string`.
+
+**Example:**
 
 ```typescript
 I.trimStart('  abc  '')
