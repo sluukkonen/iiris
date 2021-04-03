@@ -1506,8 +1506,11 @@ export function indexOf<T>(value: T, array: readonly T[]): number
  * @example
  *
  * ```typescript
- * I.tail([1, 2, 3])
+ * I.init([1, 2, 3])
  * // => [1, 2]
+ *
+ * I.init([])
+ * // => []
  * ```
  *
  * @see last
@@ -3151,6 +3154,9 @@ export function sumBy<T>(fn: (value: T) => number, array: readonly T[]): number
  * ```typescript
  * I.tail([1, 2, 3])
  * // => [2, 3]
+ *
+ * I.tail([])
+ * // => []
  * ```
  *
  * @see head

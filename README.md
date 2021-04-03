@@ -353,8 +353,11 @@ I.head([])
 Return all elements of the `array` except the last.
 
 ```typescript
-I.tail([1, 2, 3])
+I.init([1, 2, 3])
 // => [1, 2]
+
+I.init([])
+// => []
 ```
 
 **See also:** [last](#last), [head](#head), [tail](#tail)
@@ -409,6 +412,9 @@ Return all elements of the `array` except the first.
 ```typescript
 I.tail([1, 2, 3])
 // => [2, 3]
+
+I.tail([])
+// => []
 ```
 
 **See also:** [head](#head), [init](#init), [last](#last)
