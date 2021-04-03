@@ -1,4 +1,3 @@
-import { noop } from '../noop'
-import { modifyAtU } from './modifyAtU'
+import { setAtU } from './setAtU'
 
-export const removeAtU = (index, array) => modifyAtU(index, noop, array)
+export const removeAtU = (index, array) => setAtU(index, undefined, array)

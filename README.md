@@ -2299,13 +2299,15 @@ I.atOr(999, 0, [undefined])
 #### modifyAt
 
 ```typescript
-(index: number) => <T>(fn: Function1<T, T>) => (array: T[]) => T[]
+(index: number) => <T>(fn: (value: T) => T) => (array: T[]) => T[]
 ```
 
-Returns a copy of `array` where `fn` has been applied to the element at
-`index`. If `fn` returns `undefined`, the element is removed.
+Returns a copy of `array` where the element at `index` has been replaced by
+applying `fn` to its current value.
 
-Removes the element if `fn` returns `undefined`.
+- If `index` is not within `array` bounds, the `array` is returned
+  unchanged.
+- Removes the element if `fn` returns `undefined`.
 
 ```typescript
 I.modifyAt(0, I.inc, [1, 2, 3])
@@ -2328,13 +2330,15 @@ I.modifyAt(999, I.inc, [1, 2, 3])
 #### modifyProp
 
 ```typescript
-<K extends string>(key: K) => <V1, V2>(fn: (value: V1) => V2) => <T extends Record<string, V1> | Record<string, V1>>(object: T) => SetProp<T, K, V2>
+<K extends string>(key: K) => <V>(fn: (value: V) => V) => <T extends HasKey<K, V>>(object: T) => T
 ```
 
-Return a copy of `object` with the property `key` set to the result of
-applying `fn` to its current value. `key`. If `key` is missing, `fn`
-receives `undefined` as its argument. If `fn` returns `undefined`, the
-property is removed.
+Return a copy of `object` where the property `key` has replaced by applying
+`fn` to its current value.
+
+- If `key` is not an own property of `object`, the `object` is returned
+  unchanged.
+- If `fn` returns `undefined`, the property is removed.
 
 ```typescript
 I.modifyProp('a', (n) => n + 1, { a: 1, b: 2, c: 3 })
@@ -2374,7 +2378,7 @@ I.prop('a', {})
 #### propOr
 
 ```typescript
-<V>(defaultValue: V) => <K extends string>(key: K) => <T extends HasKey<K, V>>(object: T) => Defined<T[K]>
+<V>(defaultValue: V) => <K extends string>(key: K) => <T extends HasKey<K, V>>(object: T) => V | Defined<T[K]>
 ```
 
 Like [prop](#prop), but if the resolved value is `undefined`, `defaultValue`
@@ -2401,7 +2405,10 @@ I.propOr(999, 'a', {a: undefined})
 (index: number) => <T>(array: T[]) => T[]
 ```
 
-Returns a copy of `array` where the element at `index` has been removed.
+Returns a copy of `array` without the element at `index`.
+
+- If `index` is not within the `array` bounds, the `array` is returned
+  unchanged.
 
 ```typescript
 I.removeAt(0, [1, 2, 3])
@@ -2426,6 +2433,9 @@ I.removeAt(999, [1, 2, 3])
 
 Return a copy of `object` without the property `key`.
 
+- If `key` is not an own property of `object`, the `object` is returned
+  unchanged.
+
 ```typescript
 I.removeProp('a', { a: 1, b: 2, c: 3 })
 // => { b: 2, c: 3 }
@@ -2441,7 +2451,9 @@ I.removeProp('a', { a: 1, b: 2, c: 3 })
 
 Returns a copy of `array` where the element at `index` has been replaced with `value`.
 
-Removes the element if `value` is `undefined`.
+- If `index` is not within the `array` bounds, the `array` is returned
+  unchanged.
+- Removes the element if `value` is `undefined`.
 
 ```typescript
 I.setAt(0, 999, [1, 2, 3])
@@ -2464,11 +2476,12 @@ I.setAt(0, undefined, [1, 2, 3])
 #### setProp
 
 ```typescript
-<K extends string>(key: K) => <V>(value: V) => <T extends object>(object: T) => SetProp<T, K, V>
+<K extends string>(key: K) => <V>(value: V) => <T extends HasKey<K, V>>(object: T) => T
 ```
 
-Return a copy of `object` with the property `key` set to `value`. If `value`
-is `undefined`, the property is removed instead.
+Return a copy of `object` with property `key` set to `value`.
+
+- If `value` is `undefined`, the property is removed.
 
 ```typescript
 I.setProp('a', 999, { a: 1, b: 2, c: 3 })

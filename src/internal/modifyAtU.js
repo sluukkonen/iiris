@@ -1,19 +1,12 @@
-import { isUndefined } from '../isUndefined'
-import { copyArray } from './copyArray'
 import { getIndex } from './getIndex'
+import { setArrayIndex } from './setArrayIndex'
 
-export const modifyAtU = (idx, fn, array) => {
-  const result = copyArray(array)
-  const index = getIndex(idx, array)
+export const modifyAtU = (index, fn, array) => {
+  index = getIndex(index, array)
 
   if (index >= 0 && index < array.length) {
-    const value = fn(array[index])
-    if (isUndefined(value)) {
-      result.splice(index, 1)
-    } else {
-      result[index] = value
-    }
+    return setArrayIndex(index, fn(array[index]), array)
   }
 
-  return result
+  return array
 }

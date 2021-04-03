@@ -1,5 +1,12 @@
-import { constant } from '../constant'
-import { modifyAtU } from './modifyAtU'
+import { getIndex } from './getIndex'
+import { setArrayIndex } from './setArrayIndex'
 
-export const setAtU = (index, value, array) =>
-  modifyAtU(index, constant(value), array)
+export const setAtU = (index, value, array) => {
+  index = getIndex(index, array)
+
+  if (index >= 0 && index < array.length) {
+    return setArrayIndex(index, value, array)
+  }
+
+  return array
+}
