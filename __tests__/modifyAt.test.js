@@ -26,11 +26,9 @@ it('removes the element if value is undefined and index is within bounds', () =>
   expect(modifyAt(3, noop, arr)).toEqual([1, 2, 3])
 })
 
-it('throws an error if the target is not an array', () => {
+it('throws an error if the target is nil', () => {
   const one = () => 1
 
   expect(() => modifyAt(0, one, null)).toThrowError(TypeError)
   expect(() => modifyAt(1, one, undefined)).toThrowError(TypeError)
-  expect(() => modifyAt(0, one, {})).toThrowError(TypeError)
-  expect(() => modifyAt(1, one, '')).toThrowError(TypeError)
 })

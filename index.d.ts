@@ -96,27 +96,11 @@ type Widen<T> = T extends number
 
 // Internal helper types
 
-/** Removes undefined from T */
+/** Remove `undefined` from `T` */
 type Defined<T> = T extends undefined ? never : T
 
-type HasKey<K extends string, V = unknown> = { [P in K]?: V }
-
-/** Return true if T is `undefined` */
-type IsUndefined<T> = [T] extends [undefined] ? true : false
-
-/** A helper type that sets the key K to value V in object T. */
-type SetProp<
-  T extends object,
-  K extends string,
-  V
-> = true extends IsUndefined<V>
-  ? Omit<T, K>
-  : Omit<T, K> &
-      (undefined extends V ? { [P in K]?: Defined<V> } : { [P in K]: V })
-
-type Modifiable<K extends string, V> = undefined extends V
-  ? { [P in K]?: V }
-  : { [P in K]: V }
+/** An object that has a property `K` of type `V`. */
+type HasKey<K extends string, V = unknown> = { [P in K]?: V } & object
 
 // Ah shit, here we go again…
 
@@ -2228,10 +2212,12 @@ export function minimumBy<T>(
 ): T | undefined
 
 /**
- * Returns a copy of `array` where `fn` has been applied to the element at
- * `index`. If `fn` returns `undefined`, the element is removed.
+ * Returns a copy of `array` where the element at `index` has been replaced by
+ * applying `fn` to its current value.
  *
- * Removes the element if `fn` returns `undefined`.
+ * - If `index` is not within `array` bounds, the `array` is returned
+ *   unchanged.
+ * - Removes the element if `fn` returns `undefined`.
  *
  * @category Getters and setters
  * @example
@@ -2256,24 +2242,26 @@ export function minimumBy<T>(
 export function modifyAt(
   index: number
 ): {
-  <T>(fn: Function1<T, T>): (array: readonly T[]) => T[]
-  <T>(fn: Function1<T, T>, array: readonly T[]): T[]
+  <T>(fn: (value: T) => T): (array: readonly T[]) => T[]
+  <T>(fn: (value: T) => T, array: readonly T[]): T[]
 }
 export function modifyAt<T>(
   index: number,
-  fn: Function1<T, T>
+  fn: (value: T) => T
 ): (array: readonly T[]) => T[]
 export function modifyAt<T>(
   index: number,
-  fn: Function1<T, T>,
+  fn: (value: T) => T,
   array: readonly T[]
 ): T[]
 
 /**
- * Return a copy of `object` with the property `key` set to the result of
- * applying `fn` to its current value. `key`. If `key` is missing, `fn`
- * receives `undefined` as its argument. If `fn` returns `undefined`, the
- * property is removed.
+ * Return a copy of `object` where the property `key` has replaced by applying
+ * `fn` to its current value.
+ *
+ * - If `key` is not an own property of `object`, the `object` is returned
+ *   unchanged.
+ * - If `fn` returns `undefined`, the property is removed.
  *
  * @category Getters and setters
  * @example
@@ -2295,23 +2283,18 @@ export function modifyAt<T>(
 export function modifyProp<K extends string>(
   key: K
 ): {
-  <V1, V2>(fn: (value: V1) => V2): <T extends Modifiable<K, V1>>(
-    object: T
-  ) => SetProp<T, K, V2>
-  <V, T extends { [P in K]?: unknown }>(
-    fn: (value: T[K]) => V,
-    object: T
-  ): SetProp<T, K, V>
+  <V>(fn: (value: V) => V): <T extends HasKey<K, V>>(object: T) => T
+  <T extends HasKey<K>>(fn: (value: Defined<T[K]>) => T[K], object: T): T
 }
-export function modifyProp<K extends string, V1, V2>(
+export function modifyProp<K extends string, V>(
   key: K,
-  fn: (value: V1) => V2
-): <T extends Modifiable<K, V1>>(object: T) => SetProp<T, K, V2>
-export function modifyProp<K extends keyof T & string, V, T extends object>(
+  fn: (value: V) => V
+): <T extends HasKey<K, V>>(object: T) => T
+export function modifyProp<K extends keyof T & string, T extends object>(
   key: K,
-  fn: (value: T[K]) => V,
+  fn: (value: Defined<T[K]>) => T[K],
   object: T
-): SetProp<T, K, V>
+): T
 
 /**
  * Multiply two numbers together.
@@ -2427,7 +2410,7 @@ export function of<T>(value: T): [T]
 export function omit<K extends string>(
   keys: readonly K[]
 ): <T extends HasKey<K>>(object: T) => Omit<T, Extract<keyof T, K>>
-export function omit<T extends object, K extends keyof T & string>(
+export function omit<K extends keyof T & string, T extends object>(
   keys: readonly K[],
   object: T
 ): Omit<T, K>
@@ -2561,18 +2544,20 @@ export function propOr<V>(
 ): {
   <K extends string>(key: K): <T extends HasKey<K, V>>(
     object: T
-  ) => Defined<T[K]>
-  <K extends string, T extends HasKey<K, V>>(key: K, object: T): Defined<T[K]>
+  ) => Defined<T[K]> | V
+  <K extends string, T extends HasKey<K, V>>(key: K, object: T):
+    | Defined<T[K]>
+    | V
 }
 export function propOr<V, K extends string>(
   defaultValue: V,
   key: K
-): <T extends HasKey<K, V>>(object: T) => Defined<T[K]>
+): <T extends HasKey<K, V>>(object: T) => Defined<T[K]> | V
 export function propOr<V extends T[K], K extends keyof T & string, T>(
   defaultValue: V,
   key: K,
   object: T
-): Defined<T[K]>
+): Defined<T[K]> | V
 
 /**
  * Create an array of numbers between `start` (inclusive) and `end`
@@ -2666,7 +2651,10 @@ export function reduceRight<T, R>(
 ): R
 
 /**
- * Returns a copy of `array` where the element at `index` has been removed.
+ * Returns a copy of `array` without the element at `index`.
+ *
+ * - If `index` is not within the `array` bounds, the `array` is returned
+ *   unchanged.
  *
  * @category Getters and setters
  * @example
@@ -2690,6 +2678,9 @@ export function removeAt<T>(index: number, array: readonly T[]): T[]
 
 /**
  * Return a copy of `object` without the property `key`.
+ *
+ * - If `key` is not an own property of `object`, the `object` is returned
+ *   unchanged.
  *
  * @category Getters and setters
  * @example
@@ -2782,7 +2773,7 @@ export function split(separator: RegExp | string, string: string): string
 export function pick<K extends string>(
   keys: readonly K[]
 ): <T extends HasKey<K>>(object: T) => Pick<T, Extract<keyof T, K>>
-export function pick<T extends object, K extends keyof T & string>(
+export function pick<K extends keyof T & string, T extends object>(
   keys: readonly K[],
   object: T
 ): Pick<T, K>
@@ -2884,7 +2875,9 @@ export function pipe<T1, T2, T3, T4, T5, T6, T7, T8, T9, R>(
 /**
  * Returns a copy of `array` where the element at `index` has been replaced with `value`.
  *
- * Removes the element if `value` is `undefined`.
+ * - If `index` is not within the `array` bounds, the `array` is returned
+ *   unchanged.
+ * - Removes the element if `value` is `undefined`.
  *
  * @category Getters and setters
  * @example
@@ -2923,8 +2916,9 @@ export function setAt<T>(
 ): T[]
 
 /**
- * Return a copy of `object` with the property `key` set to `value`. If `value`
- * is `undefined`, the property is removed instead.
+ * Return a copy of `object` with property `key` set to `value`.
+ *
+ * - If `value` is `undefined`, the property is removed.
  *
  * @category Getters and setters
  * @example
@@ -2943,18 +2937,18 @@ export function setAt<T>(
 export function setProp<K extends string>(
   key: K
 ): {
-  <V>(value: V): <T extends object>(object: T) => SetProp<T, K, V>
-  <V, T extends object>(value: V, object: T): SetProp<T, K, V>
+  <V>(value: V): <T extends HasKey<K, V>>(object: T) => T
+  <T extends HasKey<K>>(value: T[K], object: T): T
 }
 export function setProp<K extends string, V>(
   key: K,
   value: V
-): <T extends object>(object: T) => SetProp<T, K, V>
-export function setProp<K extends string, V, T extends object>(
+): <T extends HasKey<K, V>>(object: T) => T
+export function setProp<K extends keyof T & string, T extends object>(
   key: K,
-  value: V,
+  value: T[K],
   object: T
-): SetProp<T, K, V>
+): T
 
 /**
  * Create a copy of `array` containing the elements from `start` (inclusive)

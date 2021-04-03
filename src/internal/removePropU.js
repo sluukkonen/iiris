@@ -1,4 +1,5 @@
-import { noop } from '../noop'
-import { modifyPropU } from './modifyPropU'
+import { hasOwn } from './hasOwn'
+import { setPropU } from './setPropU'
 
-export const removePropU = (key, object) => modifyPropU(key, noop, object)
+export const removePropU = (key, object) =>
+  hasOwn(object, key) ? setPropU(key, undefined, object) : object
