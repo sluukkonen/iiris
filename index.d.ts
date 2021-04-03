@@ -2332,10 +2332,10 @@ export function negate(n: number): number
  *
  * ```typescript
  * I.none((n) => n > 5, [1, 2, 3])
- * // true
+ * // => true
  *
  * I.none((n) => n > 5, [1, 2, 3])
- * // false
+ * // => false
  * ```
  *
  * @see every

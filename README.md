@@ -932,10 +932,10 @@ Check if none of the elements in the `array` satisfy the `predicate`.
 
 ```typescript
 I.none((n) => n > 5, [1, 2, 3])
-// true
+// => true
 
 I.none((n) => n > 5, [1, 2, 3])
-// false
+// => false
 ```
 
 **See also:** [every](#every), [some](#some)
