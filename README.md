@@ -1856,7 +1856,7 @@ I.keys({a: 1, b: 2, c: 3})
 #### mapKeys
 
 ```typescript
-<K1 extends string, K2 extends string, T>(fn: (value: K1) => K2) => <V>(object: Record<K1, V>) => Record<K2, V>
+<K1 extends string, K2 extends string>(fn: (value: K1) => K2) => <V>(object: Record<K1, V>) => Record<K2, V>
 ```
 
 Return an object containing the results of applying `fn` to each key of
@@ -3171,7 +3171,7 @@ Check if the `value` is a
 #### isSymbol
 
 ```typescript
-<T>(value: T | Symbol) => value is Symbol
+<T>(value: T | symbol) => value is symbol
 ```
 
 Check if the `value` is a

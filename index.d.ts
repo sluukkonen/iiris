@@ -1661,7 +1661,7 @@ export function isError<T>(value: T | Error): value is Error
  *
  * @category Type tests
  */
-export function isFunction<T>(value: T | Function): value is Function
+export function isFunction<T>(value: T | Function): value is Function // eslint-disable-line @typescript-eslint/ban-types
 
 /**
  * Check if the `value` is
@@ -1738,7 +1738,7 @@ export function isString<T>(value: T | string): value is string
  *
  * @category Type tests
  */
-export function isSymbol<T>(value: T | Symbol): value is Symbol
+export function isSymbol<T>(value: T | symbol): value is symbol
 
 /**
  * Check if the `value` is
@@ -2065,7 +2065,7 @@ export function mapMaybe<T, U>(
  * // => { A: 1, B: 2, C: 3 }
  * ```
  */
-export function mapKeys<K1 extends string, K2 extends string, T>(
+export function mapKeys<K1 extends string, K2 extends string>(
   fn: (value: K1) => K2
 ): <V>(object: Record<K1, V>) => Record<K2, V>
 export function mapKeys<K1 extends string, K2 extends string, V>(
