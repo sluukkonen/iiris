@@ -1021,7 +1021,7 @@ export function findLastIndex<T>(
  * // => [2, 3]
  * ```
  *
- * @see filterIndexed
+ * @see filterWithIndex
  * @see count
  * @see partition
  */
@@ -1044,7 +1044,7 @@ export function filter<T, U extends T>(
  * // => [2, 3]
  * ```
  *
- * @see filterIndexed
+ * @see filterWithIndex
  * @see count
  * @see partition
  */
@@ -1064,16 +1064,16 @@ export function filter<T>(
  * @example
  *
  * ```typescript
- * I.filterIndexed((i, n) => i + n === 3, [1, 2, 3])
+ * I.filterWithIndex((i, n) => i + n === 3, [1, 2, 3])
  * // => [2]
  * ```
  *
  * @see filter
  */
-export function filterIndexed<T>(
+export function filterWithIndex<T>(
   predicate: (index: number, value: T) => boolean
 ): (array: readonly T[]) => T[]
-export function filterIndexed<T>(
+export function filterWithIndex<T>(
   predicate: (index: number, value: T) => boolean,
   array: readonly T[]
 ): T[]
@@ -1152,7 +1152,7 @@ export function flip<T, U, R>(fn: Function2<T, U, R>): Function2<U, T, R>
  * // => ['h', 'i', '!']
  * ```
  *
- * @see forEachIndexed
+ * @see forEachWithIndex
  */
 export function forEach<T>(fn: (value: T) => void): (array: readonly T[]) => T[]
 export function forEach<T>(fn: (value: T) => void, array: readonly T[]): T[]
@@ -1165,7 +1165,7 @@ export function forEach<T>(fn: (value: T) => void, array: readonly T[]): T[]
  * @example
  *
  * ```typescript
- * I.forEachIndexed(console.log, ['h', 'i', '!'])
+ * I.forEachWithIndex(console.log, ['h', 'i', '!'])
  * 0 h
  * 1 i
  * 2 !
@@ -1174,10 +1174,10 @@ export function forEach<T>(fn: (value: T) => void, array: readonly T[]): T[]
  *
  * @see forEach
  */
-export function forEachIndexed<T>(
+export function forEachWithIndex<T>(
   fn: (index: number, value: T) => void
 ): (array: readonly T[]) => T[]
-export function forEachIndexed<T>(
+export function forEachWithIndex<T>(
   fn: (index: number, value: T) => void,
   array: readonly T[]
 ): T[]
@@ -1994,7 +1994,7 @@ export function maximumBy<T>(
  * // => [2, 3, 4]
  * ```
  *
- * @see mapIndexed
+ * @see mapWithIndex
  * @see mapMaybe
  * @see flatMap
  */
@@ -2009,16 +2009,16 @@ export function map<T, U>(fn: (value: T) => U, array: readonly T[]): U[]
  * @example
  *
  * ```typescript
- * I.mapIndexed((i, c) => `${i}-${c}`, ['a', 'b', 'c'])
+ * I.mapWithIndex((i, c) => `${i}-${c}`, ['a', 'b', 'c'])
  * // => ['0-a', '1-b', '2-c']
  * ```
  *
  * @see map
  */
-export function mapIndexed<T, U>(
+export function mapWithIndex<T, U>(
   fn: (index: number, value: T) => U
 ): (array: readonly T[]) => U[]
-export function mapIndexed<T, U>(
+export function mapWithIndex<T, U>(
   fn: (index: number, value: T) => U,
   array: readonly T[]
 ): U[]

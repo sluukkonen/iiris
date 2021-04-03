@@ -24,7 +24,7 @@
     - [append](#append)
     - [concat](#concat)
     - [forEach](#foreach)
-    - [forEachIndexed](#foreachindexed)
+    - [forEachWithIndex](#foreachwithindex)
     - [head](#head)
     - [init](#init)
     - [last](#last)
@@ -36,8 +36,8 @@
     - [intersperse](#intersperse)
     - [join](#join)
     - [map](#map)
-    - [mapIndexed](#mapindexed)
     - [mapMaybe](#mapmaybe)
+    - [mapWithIndex](#mapwithindex)
     - [reverse](#reverse)
   - [Reducing arrays](#reducing-arrays)
     - [maximum](#maximum)
@@ -52,7 +52,7 @@
     - [count](#count)
     - [every](#every)
     - [filter](#filter)
-    - [filterIndexed](#filterindexed)
+    - [filterWithIndex](#filterwithindex)
     - [find](#find)
     - [findIndex](#findindex)
     - [findLast](#findlast)
@@ -299,11 +299,11 @@ i
 // => ['h', 'i', '!']
 ```
 
-**See also:** [forEachIndexed](#foreachindexed)
+**See also:** [forEachWithIndex](#foreachwithindex)
 
 ***
 
-#### forEachIndexed
+#### forEachWithIndex
 
 ```typescript
 <T>(fn: (index: number, value: T) => void) => (array: T[]) => T[]
@@ -313,7 +313,7 @@ Like [forEach](#foreach), but `fn` also receives the element index as the first
 argument.
 
 ```typescript
-I.forEachIndexed(console.log, ['h', 'i', '!'])
+I.forEachWithIndex(console.log, ['h', 'i', '!'])
 0 h
 1 i
 2 !
@@ -513,25 +513,7 @@ I.map(I.inc, [1, 2, 3])
 // => [2, 3, 4]
 ```
 
-**See also:** [mapIndexed](#mapindexed), [mapMaybe](#mapmaybe), [flatMap](#flatmap)
-
-***
-
-#### mapIndexed
-
-```typescript
-<T, U>(fn: (index: number, value: T) => U) => (array: T[]) => U[]
-```
-
-Like [map](#map), but `fn` also receives the element index as the first
-argument.
-
-```typescript
-I.mapIndexed((i, c) => `${i}-${c}`, ['a', 'b', 'c'])
-// => ['0-a', '1-b', '2-c']
-```
-
-**See also:** [map](#map)
+**See also:** [mapWithIndex](#mapwithindex), [mapMaybe](#mapmaybe), [flatMap](#flatmap)
 
 ***
 
@@ -553,6 +535,24 @@ const users = [
 
 I.mapMaybe(I.prop('age'), users)
 // => [10, 20]
+```
+
+**See also:** [map](#map)
+
+***
+
+#### mapWithIndex
+
+```typescript
+<T, U>(fn: (index: number, value: T) => U) => (array: T[]) => U[]
+```
+
+Like [map](#map), but `fn` also receives the element index as the first
+argument.
+
+```typescript
+I.mapWithIndex((i, c) => `${i}-${c}`, ['a', 'b', 'c'])
+// => ['0-a', '1-b', '2-c']
 ```
 
 **See also:** [map](#map)
@@ -808,11 +808,11 @@ I.filter((n) => n > 1, [1, 2, 3])
 // => [2, 3]
 ```
 
-**See also:** [filterIndexed](#filterindexed), [count](#count), [partition](#partition)
+**See also:** [filterWithIndex](#filterwithindex), [count](#count), [partition](#partition)
 
 ***
 
-#### filterIndexed
+#### filterWithIndex
 
 ```typescript
 <T>(predicate: (index: number, value: T) => boolean) => (array: T[]) => T[]
@@ -822,7 +822,7 @@ Like [filter](#filter), but `predicate` also receives the element index as the
 first argument.
 
 ```typescript
-I.filterIndexed((i, n) => i + n === 3, [1, 2, 3])
+I.filterWithIndex((i, n) => i + n === 3, [1, 2, 3])
 // => [2]
 ```
 

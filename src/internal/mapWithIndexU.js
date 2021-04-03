@@ -1,6 +1,6 @@
 import { builtinArray } from './builtins'
 
-export const mapIndexedU = (fn, array) => {
+export const mapWithIndexU = (fn, array) => {
   const length = array.length
   const result = new builtinArray(length)
 

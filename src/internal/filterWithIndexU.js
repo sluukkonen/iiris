@@ -1,4 +1,4 @@
-export const filterIndexedU = (fn, array) => {
+export const filterWithIndexU = (fn, array) => {
   const result = []
 
   for (let i = 0; i < array.length; i++) {
