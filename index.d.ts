@@ -1432,7 +1432,7 @@ export function identity<T>(value: T): T
 export function inc(n: number): number
 
 /**
- * Check if the `array` includes the specified `value`. Uses {@link equals} for
+ * Check if the `array` includes the specified `value`, using {@link equals} for
  * determining equality.
  *
  * @category Searching arrays by value
@@ -1480,7 +1480,7 @@ export function indexBy<T, K extends string>(
 
 /**
  * Return the index of the first element equaling `value`, using {@link equals}
- * for determining equality. Returns -1 if no match can be found.
+ * for determining equality. Returns `-1` if no match can be found.
  *
  * @category Searching arrays by value
  * @example

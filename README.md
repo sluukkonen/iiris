@@ -990,7 +990,7 @@ I.some((n) => n > 5, [1, 2, 3])
 <T>(value: T) => (array: T[]) => boolean
 ```
 
-Check if the `array` includes the specified `value`. Uses [equals](#equals) for
+Check if the `array` includes the specified `value`, using [equals](#equals) for
 determining equality.
 
 ```typescript
@@ -1010,7 +1010,7 @@ I.includes(0, [1, 2, 3])
 ```
 
 Return the index of the first element equaling `value`, using [equals](#equals)
-for determining equality. Returns -1 if no match can be found.
+for determining equality. Returns `-1` if no match can be found.
 
 ```typescript
 I.indexOf('b', ['a', 'b', 'c', 'a', 'b', 'c'])
