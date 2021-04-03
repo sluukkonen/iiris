@@ -330,7 +330,7 @@ I.forEachIndexed(console.log, ['h', 'i', '!'])
 <T>(array: T[]) => T | undefined
 ```
 
-Return the first element of the `array` or `undefined` if the array is empty.
+Return the first element of the `array` or `undefined`.
 
 ```typescript
 I.head([1, 2, 3])
@@ -367,7 +367,7 @@ I.tail([1, 2, 3])
 <T>(array: T[]) => T | undefined
 ```
 
-Return the last element of the `array` or `undefined` if the array is empty.
+Return the last element of the `array` or `undefined`.
 
 ```typescript
 I.last([1, 2, 3])
@@ -576,8 +576,7 @@ I.reverse([1, 2, 3])
 <T extends Ordered>(array: T[]) => T | undefined
 ```
 
-Return the largest element of an `array` or `undefined` if the array is
-empty.
+Return the largest element of an `array` or `undefined`.
 
 ```typescript
 I.maximum([1, 2, 3])
@@ -621,7 +620,7 @@ I.maximumBy((u) => u.age, users)
 <T extends Ordered>(array: T[]) => T | undefined
 ```
 
-Return the smallest element of `array` or `undefined` if the array is empty.
+Return the smallest element of `array` or `undefined`.
 
 ```typescript
 I.minimum([1, 2, 3])
@@ -2257,8 +2256,7 @@ Create a version of `fn` that accepts a single argument.
 (index: number) => <T>(array: T[]) => T | undefined
 ```
 
-Retrieves the element at `index` from `array` or `undefined` as the
-fallback.
+Retrieves the element at `index` from `array` or `undefined`.
 
 ```typescript
 I.at(0, [1, 2, 3])
@@ -2361,7 +2359,7 @@ I.modifyProp('d', () => 4, { a: 1, b: 2, c: 3 })
 <K extends string>(key: K) => <T extends HasKey<K>>(object: T) => T[K]
 ```
 
-Retrieves the property `key` from `object` or `undefined` as the fallback.
+Retrieves the property `key` from `object` or `undefined`.
 
 ```typescript
 I.prop('a', { a: 1, b: 2, c: 3 })

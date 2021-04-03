@@ -158,8 +158,7 @@ export function ascend<T>(
 ): (first: T, second: T) => number
 
 /**
- * Retrieves the element at `index` from `array` or `undefined` as the
- * fallback.
+ * Retrieves the element at `index` from `array` or `undefined`.
  *
  * @category Getters and setters
  * @example
@@ -1387,7 +1386,7 @@ export function has<K extends string>(
 ): object is Record<K, unknown>
 
 /**
- * Return the first element of the `array` or `undefined` if the array is empty.
+ * Return the first element of the `array` or `undefined`.
  *
  * @category Basic array operations
  * @example
@@ -1765,7 +1764,7 @@ export function join(separator: string): <T>(array: readonly T[]) => string
 export function join<T>(separator: string, array: readonly T[]): string
 
 /**
- * Return the last element of the `array` or `undefined` if the array is empty.
+ * Return the last element of the `array` or `undefined`.
  *
  * @category Basic array operations
  * @example
@@ -1933,8 +1932,7 @@ export function maxBy<T>(
 ): Widen<T>
 
 /**
- * Return the largest element of an `array` or `undefined` if the array is
- * empty.
+ * Return the largest element of an `array` or `undefined`.
  *
  * @category Reducing arrays
  * @example
@@ -2164,7 +2162,7 @@ export function minBy<T>(
 ): Widen<T>
 
 /**
- * Return the smallest element of `array` or `undefined` if the array is empty.
+ * Return the smallest element of `array` or `undefined`.
  *
  * @category Reducing arrays
  * @example
@@ -2494,7 +2492,7 @@ export function prepend<T>(value: T): (array: readonly T[]) => T[]
 export function prepend<T>(value: T, array: readonly T[]): T[]
 
 /**
- * Retrieves the property `key` from `object` or `undefined` as the fallback.
+ * Retrieves the property `key` from `object` or `undefined`.
  *
  * @category Getters and setters
  * @example
