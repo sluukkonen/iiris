@@ -1788,7 +1788,7 @@ export function last<T>(array: readonly T[]): T | undefined
 
 /**
  * Return the index of the last element equaling `value`, using {@link equals}
- * for determining equality. Returns -1 if no match can be found.
+ * for determining equality. Returns `-1` if no match can be found.
  *
  * @category Searching arrays by value
  * @example

@@ -1031,7 +1031,7 @@ I.indexOf('x', ['a', 'b', 'c', 'a', 'b', 'c'])
 ```
 
 Return the index of the last element equaling `value`, using [equals](#equals)
-for determining equality. Returns -1 if no match can be found.
+for determining equality. Returns `-1` if no match can be found.
 
 ```typescript
 I.lastIndexOf('b', ['a', 'b', 'c', 'a', 'b', 'c'])
