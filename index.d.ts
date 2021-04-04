@@ -1652,6 +1652,24 @@ export function isDate<T>(value: T | Date): value is Date
 export function isDefined<T>(value: T | undefined): value is T
 
 /**
+ * Check if `array` is empty.
+ *
+ * @category Basic array operations
+ * @example
+ *
+ * ```typescript
+ * I.isEmpty([1, 2, 3])
+ * // => false
+ *
+ * I.isEmpty([])
+ * // => true
+ * ```
+ *
+ * @see length
+ */
+export function isEmpty<T>(array: readonly T[]): boolean
+
+/**
  * Check if the `value` is an
  * [`Error`](https://developer.mozilla.org/en-us/docs/Web/JavaScript/Reference/Global_Objects/Error).
  *
@@ -1810,6 +1828,24 @@ export function last<T>(array: readonly T[]): T | undefined
  */
 export function lastIndexOf<T>(value: T): (array: readonly T[]) => number
 export function lastIndexOf<T>(value: T, array: readonly T[]): number
+
+/**
+ * Return the length of an `array`.
+ *
+ * @category Basic array operations
+ * @example
+ *
+ * ```typescript
+ * I.length([1, 2, 3])
+ * // => 3
+ *
+ * I.length([])
+ * // => 0
+ * ```
+ *
+ * @see isEmpty
+ */
+export function length<T>(array: readonly T[]): number
 
 /**
  * Check if the `second` argument is less than the `first`.

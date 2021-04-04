@@ -33,7 +33,9 @@ Iiris is still alpha-quality software, so bugs and heavy changes to the API shou
     - [forEachWithIndex](#foreachwithindex)
     - [head](#head)
     - [init](#init)
+    - [isEmpty](#isempty)
     - [last](#last)
+    - [length](#length)
     - [prepend](#prepend)
     - [tail](#tail)
   - [Transforming arrays](#transforming-arrays)
@@ -423,6 +425,28 @@ I.init([])
 
 ---
 
+#### isEmpty
+
+```typescript
+<T>(array: T[]) => boolean
+```
+
+Check if `array` is empty.
+
+**Example:**
+
+```typescript
+I.isEmpty([1, 2, 3])
+// => false
+
+I.isEmpty([])
+// => true
+```
+
+**See also:** [length](#length)
+
+---
+
 #### last
 
 ```typescript
@@ -442,6 +466,28 @@ I.last([])
 ```
 
 **See also:** [init](#init), [head](#head), [tail](#tail)
+
+---
+
+#### length
+
+```typescript
+<T>(array: T[]) => number
+```
+
+Return the length of an `array`.
+
+**Example:**
+
+```typescript
+I.length([1, 2, 3])
+// => 3
+
+I.length([])
+// => 0
+```
+
+**See also:** [isEmpty](#isempty)
 
 ---
 
