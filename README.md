@@ -3150,7 +3150,7 @@ I.maybe('', (s) => s.toUpperCase(), undefined)
 #### valueOr
 
 ```typescript
-<T>(defaultValue: T) => (value: T | undefined) => T
+<T>(defaultValue: T) => (maybeValue: T | undefined) => T
 ```
 
 Return `value` if it is not `undefined`, `defaultValue` otherwise.

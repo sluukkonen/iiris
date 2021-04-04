@@ -3404,8 +3404,8 @@ export function trimStart(string: string): string
  *
  * @see maybe
  */
-export function valueOr<T>(defaultValue: T): (value: T | undefined) => T
-export function valueOr<T>(defaultValue: T, value: T | undefined): T
+export function valueOr<T>(defaultValue: T): (maybeValue: T | undefined) => T
+export function valueOr<T>(defaultValue: T, maybeValue: T | undefined): T
 
 /**
  * Return an array of the own enumerable property values of `object`
