@@ -72,7 +72,7 @@ ${signatures.map(formatCallSignature).join('\n')}
 
 ${comment ? formatComment(comment) : ''}
 
-***`
+---`
   })
   .join('\n\n')}`
   })

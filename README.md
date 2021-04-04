@@ -313,7 +313,7 @@ I.append(4, [1, 2, 3])
 
 **See also:** [prepend](#prepend), [concat](#concat)
 
-***
+---
 
 #### concat
 
@@ -332,7 +332,7 @@ I.concat([1, 2, 3], [4, 5, 6])
 
 **See also:** [append](#append), [prepend](#prepend)
 
-***
+---
 
 #### forEach
 
@@ -354,7 +354,7 @@ i
 
 **See also:** [forEachWithIndex](#foreachwithindex)
 
-***
+---
 
 #### forEachWithIndex
 
@@ -377,7 +377,7 @@ I.forEachWithIndex(console.log, ['h', 'i', '!'])
 
 **See also:** [forEach](#foreach)
 
-***
+---
 
 #### head
 
@@ -399,7 +399,7 @@ I.head([])
 
 **See also:** [tail](#tail), [init](#init), [last](#last)
 
-***
+---
 
 #### init
 
@@ -421,7 +421,7 @@ I.init([])
 
 **See also:** [last](#last), [head](#head), [tail](#tail)
 
-***
+---
 
 #### last
 
@@ -443,7 +443,7 @@ I.last([])
 
 **See also:** [init](#init), [head](#head), [tail](#tail)
 
-***
+---
 
 #### prepend
 
@@ -462,7 +462,7 @@ I.prepend(0, [1, 2, 3])
 
 **See also:** [append](#append), [concat](#concat)
 
-***
+---
 
 #### tail
 
@@ -484,7 +484,7 @@ I.tail([])
 
 **See also:** [head](#head), [init](#init), [last](#last)
 
-***
+---
 
 ### Transforming arrays
 
@@ -506,7 +506,7 @@ I.flatMap((n) => [n, n], [1, 2, 3])
 
 **See also:** [map](#map), [flatten](#flatten)
 
-***
+---
 
 #### flatten
 
@@ -528,7 +528,7 @@ I.flatten(2, [1, [2, [3]]])
 
 **See also:** [flatMap](#flatmap)
 
-***
+---
 
 #### intersperse
 
@@ -550,7 +550,7 @@ I.intersperse(',', [])
 
 **See also:** [join](#join)
 
-***
+---
 
 #### join
 
@@ -570,7 +570,7 @@ I.join(', ', [1, 2, 3])
 
 **See also:** [split](#split), [intersperse](#intersperse)
 
-***
+---
 
 #### map
 
@@ -590,7 +590,7 @@ I.map(I.inc, [1, 2, 3])
 
 **See also:** [mapWithIndex](#mapwithindex), [mapMaybe](#mapmaybe), [flatMap](#flatmap)
 
-***
+---
 
 #### mapMaybe
 
@@ -616,7 +616,7 @@ I.mapMaybe(I.prop('age'), users)
 
 **See also:** [map](#map)
 
-***
+---
 
 #### mapWithIndex
 
@@ -636,7 +636,7 @@ I.mapWithIndex((i, c) => `${i}-${c}`, ['a', 'b', 'c'])
 
 **See also:** [map](#map)
 
-***
+---
 
 #### reverse
 
@@ -653,7 +653,7 @@ I.reverse([1, 2, 3])
 // => [3, 2, 1]
 ```
 
-***
+---
 
 ### Reducing arrays
 
@@ -677,7 +677,7 @@ I.maximum([])
 
 **See also:** [minimum](#minimum), [maximumBy](#maximumby)
 
-***
+---
 
 #### maximumBy
 
@@ -703,7 +703,7 @@ I.maximumBy((u) => u.age, users)
 
 **See also:** [maximum](#maximum), [minimumBy](#minimumby)
 
-***
+---
 
 #### minimum
 
@@ -725,7 +725,7 @@ I.minimum([])
 
 **See also:** [maximum](#maximum), [minimumBy](#minimumby)
 
-***
+---
 
 #### minimumBy
 
@@ -751,7 +751,7 @@ I.minimumBy((u) => u.age, users)
 
 **See also:** [minimum](#minimum), [maximumBy](#maximumby)
 
-***
+---
 
 #### reduce
 
@@ -776,7 +776,7 @@ I.reduce((sum, n) => sum + n, 1, [2, 3, 4]) // equal to ((1 + 2) + 3) + 4
 
 **See also:** [reduceRight](#reduceright)
 
-***
+---
 
 #### reduceRight
 
@@ -801,7 +801,7 @@ I.reduceRight((n, sum) => n + sum, 4, [1, 2, 3]) // equal to 1 + (2 + (3 + 4))
 
 **See also:** [reduce](#reduce)
 
-***
+---
 
 #### sum
 
@@ -830,7 +830,7 @@ numbers.reduce((sum, n) => sum + n, 0)
 
 **See also:** [sumBy](#sumby)
 
-***
+---
 
 #### sumBy
 
@@ -850,7 +850,7 @@ I.sumBy(I.prop('age'), [{ name: 'Alice', age: 10 }, { name: 'Bob', age: 20 }])
 
 **See also:** [sum](#sum)
 
-***
+---
 
 ### Searching arrays with a predicate
 
@@ -871,7 +871,7 @@ I.count((n) => n > 1, [1, 2, 3])
 
 **See also:** [filter](#filter)
 
-***
+---
 
 #### every
 
@@ -893,7 +893,7 @@ I.every((n) => n < 3, [1, 2, 3])
 
 **See also:** [none](#none), [some](#some)
 
-***
+---
 
 #### filter
 
@@ -913,7 +913,7 @@ I.filter((n) => n > 1, [1, 2, 3])
 
 **See also:** [filterWithIndex](#filterwithindex), [count](#count), [partition](#partition)
 
-***
+---
 
 #### filterWithIndex
 
@@ -933,7 +933,7 @@ I.filterWithIndex((i, n) => i + n === 3, [1, 2, 3])
 
 **See also:** [filter](#filter)
 
-***
+---
 
 #### find
 
@@ -958,7 +958,7 @@ I.find((c) => c === 'x', ['a', 'b', 'c'])
 
 **See also:** [findLast](#findlast), [findIndex](#findindex)
 
-***
+---
 
 #### findIndex
 
@@ -983,7 +983,7 @@ I.findIndex((c) => c === 'x', ['a', 'b', 'c'])
 
 **See also:** [findLastIndex](#findlastindex), [find](#find)
 
-***
+---
 
 #### findLast
 
@@ -1008,7 +1008,7 @@ I.findLast((c) => c === 'x', ['a', 'b', 'c'])
 
 **See also:** [find](#find), [findLastIndex](#findlastindex)
 
-***
+---
 
 #### findLastIndex
 
@@ -1033,7 +1033,7 @@ I.findLastIndex((c) => c === 'x', ['a', 'b', 'c'])
 
 **See also:** [findIndex](#findindex), [findLast](#findlast)
 
-***
+---
 
 #### none
 
@@ -1055,7 +1055,7 @@ I.none((n) => n > 5, [1, 2, 3])
 
 **See also:** [every](#every), [some](#some)
 
-***
+---
 
 #### partition
 
@@ -1077,7 +1077,7 @@ const [evens, odds] = I.partition((n) => n % 2 === 0, [1, 2, 3])
 
 **See also:** [filter](#filter)
 
-***
+---
 
 #### some
 
@@ -1099,7 +1099,7 @@ I.some((n) => n > 5, [1, 2, 3])
 
 **See also:** [every](#every), [none](#none)
 
-***
+---
 
 ### Searching arrays by value
 
@@ -1122,7 +1122,7 @@ I.includes(0, [1, 2, 3])
 // => false
 ```
 
-***
+---
 
 #### indexOf
 
@@ -1145,7 +1145,7 @@ I.indexOf('x', ['a', 'b', 'c', 'a', 'b', 'c'])
 
 **See also:** [lastIndexOf](#lastindexof), [includes](#includes)
 
-***
+---
 
 #### lastIndexOf
 
@@ -1168,7 +1168,7 @@ I.lastIndexOf('x', ['a', 'b', 'c', 'a', 'b', 'c'])
 
 **See also:** [indexOf](#indexof), [includes](#includes)
 
-***
+---
 
 ### Grouping arrays by key
 
@@ -1196,7 +1196,7 @@ I.countBy(I.prop('name'), users)
 
 **See also:** [groupBy](#groupby)
 
-***
+---
 
 #### groupBy
 
@@ -1221,7 +1221,7 @@ I.groupBy(I.prop('name'), users)
 
 **See also:** [indexBy](#indexby), [countBy](#countby), [groupMap](#groupmap), [groupMapReduce](#groupmapreduce)
 
-***
+---
 
 #### groupMap
 
@@ -1246,7 +1246,7 @@ const agesByName = I.groupMap(I.prop('age'), I.prop('name'), users)
 
 **See also:** [groupBy](#groupby), [groupMapReduce](#groupmapreduce)
 
-***
+---
 
 #### groupMapReduce
 
@@ -1271,7 +1271,7 @@ const sumOfAgesByName = I.groupMapReduce(I.add, I.prop('age'), I.prop('name'), u
 
 **See also:** [groupBy](#groupby), [groupMap](#groupmap)
 
-***
+---
 
 #### indexBy
 
@@ -1298,7 +1298,7 @@ I.indexBy(I.prop('id'), users)
 
 **See also:** [groupBy](#groupby)
 
-***
+---
 
 ### Building arrays
 
@@ -1319,7 +1319,7 @@ I.of(1)
 
 **See also:** [pair](#pair)
 
-***
+---
 
 #### pair
 
@@ -1338,7 +1338,7 @@ I.pair(1, 2)
 
 **See also:** [of](#of)
 
-***
+---
 
 #### range
 
@@ -1361,7 +1361,7 @@ I.range(0, 10)
 
 **See also:** [times](#times), [repeat](#repeat)
 
-***
+---
 
 #### repeat
 
@@ -1380,7 +1380,7 @@ I.repeat('a', 5)
 
 **See also:** [range](#range), [times](#times)
 
-***
+---
 
 #### times
 
@@ -1399,7 +1399,7 @@ I.times((n) => n * 10, 3)
 
 **See also:** [range](#range), [repeat](#repeat)
 
-***
+---
 
 ### Slicing arrays
 
@@ -1423,7 +1423,7 @@ I.drop(2, [1, 2, 3])
 
 **See also:** [dropLast](#droplast), [take](#take)
 
-***
+---
 
 #### dropLast
 
@@ -1445,7 +1445,7 @@ I.dropLast(2, [1, 2, 3])
 
 **See also:** [drop](#drop), [takeLast](#takelast)
 
-***
+---
 
 #### dropLastWhile
 
@@ -1464,7 +1464,7 @@ I.dropLastWhile((n) => n > 1, [1, 2, 3])
 
 **See also:** [dropWhile](#dropwhile), [takeLastWhile](#takelastwhile)
 
-***
+---
 
 #### dropWhile
 
@@ -1484,7 +1484,7 @@ I.dropWhile((n) => n === 1, [1, 2, 3])
 
 **See also:** [dropLastWhile](#droplastwhile), [takeWhile](#takewhile)
 
-***
+---
 
 #### slice
 
@@ -1505,7 +1505,7 @@ I.slice(1, 2, [1, 2, 3])
 // => [2]
 ```
 
-***
+---
 
 #### take
 
@@ -1524,7 +1524,7 @@ I.take(2, [1, 2, 3])
 
 **See also:** [drop](#drop), [takeLast](#takelast)
 
-***
+---
 
 #### takeLast
 
@@ -1543,7 +1543,7 @@ I.takeLast(2, [1, 2, 3])
 
 **See also:** [dropLast](#droplast), [take](#take)
 
-***
+---
 
 #### takeLastWhile
 
@@ -1562,7 +1562,7 @@ I.takeLastWhile((n) => n >= 2, [1, 2, 3])
 
 **See also:** [dropLastWhile](#droplastwhile), [takeWhile](#takewhile)
 
-***
+---
 
 #### takeWhile
 
@@ -1582,7 +1582,7 @@ I.takeWhile((n) => n <= 2, [1, 2, 3])
 
 **See also:** [dropWhile](#dropwhile), [takeLastWhile](#takelastwhile)
 
-***
+---
 
 ### Sorting arrays
 
@@ -1606,7 +1606,7 @@ I.sort(I.ascend(I.prop('age')), [{ name: 'Bob' }, { name: 'Alice' }])
 
 **See also:** [descend](#descend), [sort](#sort), [sortWith](#sortwith)
 
-***
+---
 
 #### descend
 
@@ -1628,7 +1628,7 @@ I.sort(I.descend(I.prop('name')), [{ name: 'Alice' }, { name: 'Bob' }])
 
 **See also:** [ascend](#ascend), [sort](#sort), [sortWith](#sortwith)
 
-***
+---
 
 #### sort
 
@@ -1647,7 +1647,7 @@ I.sort((a, b) => a - b, [3, 2, 1])
 
 **See also:** [sortBy](#sortby), [sortWith](#sortwith), [ascend](#ascend), [descend](#descend)
 
-***
+---
 
 #### sortBy
 
@@ -1675,7 +1675,7 @@ I.sortBy(I.prop('age'), users)
 
 **See also:** [sort](#sort), [sortWith](#sortwith)
 
-***
+---
 
 #### sortWith
 
@@ -1702,7 +1702,7 @@ I.sortWith([I.descend(I.prop('age')), I.ascend(I.prop('name'))], users)
 
 **See also:** [sort](#sort), [sortBy](#sortby), [ascend](#ascend), [descend](#descend)
 
-***
+---
 
 ### Zipping arrays
 
@@ -1726,7 +1726,7 @@ I.zip(['a', 'b', 'c'], [1, 2, 3])
 
 **See also:** [zipWith](#zipwith), [zipObject](#zipobject)
 
-***
+---
 
 #### zipObject
 
@@ -1748,7 +1748,7 @@ I.zipObject(['a', 'b', 'c'], [1, 2, 3])
 
 **See also:** [zip](#zip), [fromEntries](#fromentries)
 
-***
+---
 
 #### zipWith
 
@@ -1768,7 +1768,7 @@ I.zipWith(I.add, [1, 2, 3], [4, 5, 6])
 
 **See also:** [zip](#zip)
 
-***
+---
 
 ### Set operations
 
@@ -1794,7 +1794,7 @@ I.difference([1, 2, 3], [2, 3, 4])
 
 **See also:** [differenceWith](#differencewith), [union](#union), [intersection](#intersection)
 
-***
+---
 
 #### differenceWith
 
@@ -1824,7 +1824,7 @@ I.differenceWith((a, b) => a.id === b.id, users, otherUsers)
 
 **See also:** [difference](#difference), [unionWith](#unionwith), [intersectionWith](#intersectionwith)
 
-***
+---
 
 #### intersection
 
@@ -1848,7 +1848,7 @@ I.intersection([1, 2, 3], [2, 3, 4])
 
 **See also:** [intersectionWith](#intersectionwith), [union](#union), [difference](#difference)
 
-***
+---
 
 #### intersectionWith
 
@@ -1878,7 +1878,7 @@ I.intersectionWith((a, b) => a.id === b.id, users, otherUsers)
 
 **See also:** [intersection](#intersection), [unionWith](#unionwith), [differenceWith](#differencewith)
 
-***
+---
 
 #### union
 
@@ -1901,7 +1901,7 @@ I.union([1, 2, 3], [2, 3, 4])
 
 **See also:** [unionWith](#unionwith), [intersection](#intersection), [difference](#difference)
 
-***
+---
 
 #### unionWith
 
@@ -1931,7 +1931,7 @@ I.unionWith((a, b) => a.id === b.id, users, otherUsers)
 
 **See also:** [union](#union), [intersectionWith](#intersectionwith), [differenceWith](#differencewith)
 
-***
+---
 
 #### uniq
 
@@ -1951,7 +1951,7 @@ I.uniq([1, 2, 3, 1, 2, 3])
 
 **See also:** [uniqWith](#uniqwith)
 
-***
+---
 
 #### uniqWith
 
@@ -1975,7 +1975,7 @@ I.uniqWith((a, b) => a.id === b.id, users)
 
 **See also:** [uniq](#uniq)
 
-***
+---
 
 ### Object
 
@@ -1996,7 +1996,7 @@ I.entries({ a: 1, b: 2, c: 3 })
 
 **See also:** [fromEntries](#fromentries), [keys](#keys), [values](#values)
 
-***
+---
 
 #### fromEntries
 
@@ -2015,7 +2015,7 @@ I.fromEntries([['a', 1], ['b', 2], ['c', 3]])
 
 **See also:** [entries](#entries)
 
-***
+---
 
 #### has
 
@@ -2035,7 +2035,7 @@ I.has('toString', { a: 1 })
 // => false
 ```
 
-***
+---
 
 #### keys
 
@@ -2054,7 +2054,7 @@ I.keys({ a: 1, b: 2, c: 3 })
 
 **See also:** [entries](#entries), [values](#values)
 
-***
+---
 
 #### mapKeys
 
@@ -2074,7 +2074,7 @@ I.mapKeys((k) => k.toUpperCase(), { a: 1, b: 2, c: 3 })
 // => { A: 1, B: 2, C: 3 }
 ```
 
-***
+---
 
 #### mapValues
 
@@ -2092,7 +2092,7 @@ I.mapValues(I.inc, { a: 1, b: 2, c: 3 })
 // => { a: 2, b: 3, c: 4 }
 ```
 
-***
+---
 
 #### merge
 
@@ -2110,7 +2110,7 @@ I.merge({ a: 1, b: 1 }, { b: 2, c: 2 })
 // => { a: 1, b: 2, c: 2 }
 ```
 
-***
+---
 
 #### omit
 
@@ -2129,7 +2129,7 @@ I.omit(['a', 'b'], { a: 1, b: 2, c: 3 })
 
 **See also:** [pick](#pick)
 
-***
+---
 
 #### pick
 
@@ -2148,7 +2148,7 @@ I.pick(['a', 'b'], { a: 1, b: 2, c: 3 })
 
 **See also:** [omit](#omit)
 
-***
+---
 
 #### values
 
@@ -2166,7 +2166,7 @@ I.keys({ a: 1, b: 2, c: 3 })
 
 **See also:** [keys](#keys), [entries](#entries)
 
-***
+---
 
 ### Function
 
@@ -2193,7 +2193,7 @@ wrapped(1, 2, 3)
 
 **See also:** [unary](#unary)
 
-***
+---
 
 #### complement
 
@@ -2216,7 +2216,7 @@ notZero(1)
 // => true
 ```
 
-***
+---
 
 #### compose
 
@@ -2239,7 +2239,7 @@ composed(2)
 // => 14
 ```
 
-***
+---
 
 #### constant
 
@@ -2256,7 +2256,7 @@ I.map(I.constant(1), [1, 2, 3])
 // => [1, 1, 1]
 ```
 
-***
+---
 
 #### curry2
 
@@ -2280,7 +2280,7 @@ Create a curried version of a `fn` taking two arguments.
 
 **See also:** [curry3](#curry3), [curry4](#curry4)
 
-***
+---
 
 #### curry3
 
@@ -2304,7 +2304,7 @@ Create a curried version of a `fn` taking three arguments.
 
 **See also:** [curry2](#curry2), [curry4](#curry4)
 
-***
+---
 
 #### curry4
 
@@ -2328,7 +2328,7 @@ Create a curried version of a `fn` taking four arguments.
 
 **See also:** [curry2](#curry2), [curry3](#curry3)
 
-***
+---
 
 #### flip
 
@@ -2348,7 +2348,7 @@ flipped(1, 2)
 // => [2, 1]
 ```
 
-***
+---
 
 #### identity
 
@@ -2365,7 +2365,7 @@ I.identity(5)
 // => 5
 ```
 
-***
+---
 
 #### noop
 
@@ -2382,7 +2382,7 @@ I.map(I.noop, [1, 2, 3])
 // => [undefined, undefined, undefined]
 ```
 
-***
+---
 
 #### not
 
@@ -2404,7 +2404,7 @@ I.not(false)
 
 **See also:** [complement](#complement)
 
-***
+---
 
 #### pipe
 
@@ -2435,7 +2435,7 @@ I.pipe(
 
 **See also:** [compose](#compose)
 
-***
+---
 
 #### second
 
@@ -2452,7 +2452,7 @@ I.second(1, 2)
 // => 2
 ```
 
-***
+---
 
 #### tap
 
@@ -2479,7 +2479,7 @@ I.pipe(
 // => 10
 ```
 
-***
+---
 
 #### unary
 
@@ -2498,7 +2498,7 @@ Create a version of `fn` that accepts a single argument.
 
 **See also:** [binary](#binary)
 
-***
+---
 
 ### Getters and setters
 
@@ -2522,7 +2522,7 @@ I.at(0, [])
 
 **See also:** [atOr](#ator), [prop](#prop)
 
-***
+---
 
 #### atOr
 
@@ -2548,7 +2548,7 @@ I.atOr(999, 0, [undefined])
 
 **See also:** [at](#at), [propOr](#propor)
 
-***
+---
 
 #### modifyAt
 
@@ -2581,7 +2581,7 @@ I.modifyAt(999, I.inc, [1, 2, 3])
 
 **See also:** [setAt](#setat), [removeAt](#removeat)
 
-***
+---
 
 #### modifyProp
 
@@ -2611,7 +2611,7 @@ I.modifyProp('d', () => 4, { a: 1, b: 2, c: 3 })
 
 **See also:** [setProp](#setprop), [removeProp](#removeprop)
 
-***
+---
 
 #### prop
 
@@ -2633,7 +2633,7 @@ I.prop('a', {})
 
 **See also:** [propOr](#propor), [at](#at)
 
-***
+---
 
 #### propOr
 
@@ -2659,7 +2659,7 @@ I.propOr(999, 'a', { a: undefined })
 
 **See also:** [prop](#prop), [atOr](#ator)
 
-***
+---
 
 #### removeAt
 
@@ -2687,7 +2687,7 @@ I.removeAt(999, [1, 2, 3])
 
 **See also:** [modifyAt](#modifyat), [setAt](#setat)
 
-***
+---
 
 #### removeProp
 
@@ -2707,7 +2707,7 @@ I.removeProp('a', { a: 1, b: 2, c: 3 })
 // => { b: 2, c: 3 }
 ```
 
-***
+---
 
 #### setAt
 
@@ -2739,7 +2739,7 @@ I.setAt(0, undefined, [1, 2, 3])
 
 **See also:** [modifyAt](#modifyat), [removeAt](#removeat)
 
-***
+---
 
 #### setProp
 
@@ -2763,7 +2763,7 @@ I.setProp('a', undefined, { a: 1, b: 2, c: 3 })
 
 **See also:** [modifyProp](#modifyprop), [removeProp](#removeprop)
 
-***
+---
 
 ### Relation
 
@@ -2788,7 +2788,7 @@ I.clamp([0, 10], -5)
 // => 0
 ```
 
-***
+---
 
 #### equals
 
@@ -2818,7 +2818,7 @@ I.equals([1, 2, 3], [4, 5, 6])
 // => false
 ```
 
-***
+---
 
 #### equalsBy
 
@@ -2838,7 +2838,7 @@ I.equalsBy(Math.floor, 1, 1.5)
 
 **See also:** [equals](#equals)
 
-***
+---
 
 #### gt
 
@@ -2857,7 +2857,7 @@ I.filter(I.gt(2), [1, 2, 3])
 // => [3]
 ```
 
-***
+---
 
 #### gte
 
@@ -2875,7 +2875,7 @@ I.filter(I.gte(2), [1, 2, 3])
 // => [2, 3]
 ```
 
-***
+---
 
 #### lt
 
@@ -2894,7 +2894,7 @@ I.filter(I.lt(2), [1, 2, 3])
 // => [1]
 ```
 
-***
+---
 
 #### lte
 
@@ -2913,7 +2913,7 @@ I.filter(I.lte(2), [1, 2, 3])
 // => [1, 2]
 ```
 
-***
+---
 
 #### max
 
@@ -2935,7 +2935,7 @@ I.max('a', 'b')
 
 **See also:** [min](#min), [maxBy](#maxby)
 
-***
+---
 
 #### maxBy
 
@@ -2955,7 +2955,7 @@ I.maxBy(Math.abs, 1, -2)
 
 **See also:** [max](#max), [minBy](#minby)
 
-***
+---
 
 #### min
 
@@ -2977,7 +2977,7 @@ I.min('a', 'b')
 
 **See also:** [max](#max), [minBy](#minby)
 
-***
+---
 
 #### minBy
 
@@ -2997,7 +2997,7 @@ I.minBy(Math.abs, -1, 2)
 
 **See also:** [min](#min), [maxBy](#maxby)
 
-***
+---
 
 ### Math
 
@@ -3016,7 +3016,7 @@ I.map(I.add(1), [1, 2, 3])
 // => [2, 3, 4]
 ```
 
-***
+---
 
 #### dec
 
@@ -3035,7 +3035,7 @@ I.map(I.dec, [1, 2, 3])
 
 **See also:** [inc](#inc)
 
-***
+---
 
 #### divideBy
 
@@ -3052,7 +3052,7 @@ I.map(I.divideBy(2), [1, 2, 3])
 // => [0.5, 1, 1.5]
 ```
 
-***
+---
 
 #### inc
 
@@ -3069,7 +3069,7 @@ I.map(I.inc, [1, 2, 3])
 // => [2, 3, 4]
 ```
 
-***
+---
 
 #### multiply
 
@@ -3086,7 +3086,7 @@ I.map(I.multiply(2), [1, 2, 3])
 // => [2, 4, 6]
 ```
 
-***
+---
 
 #### negate
 
@@ -3103,7 +3103,7 @@ I.map(I.negate, [1, 2, 3])
 // => [-1, -2, -3]
 ```
 
-***
+---
 
 #### subtractBy
 
@@ -3120,7 +3120,7 @@ I.map(I.subtractBy(1), [1, 2, 3])
 // => [0, 1, 2]
 ```
 
-***
+---
 
 ### Logic
 
@@ -3143,7 +3143,7 @@ I.maybe('', (s) => s.toUpperCase(), undefined)
 // => ''
 ```
 
-***
+---
 
 #### valueOr
 
@@ -3165,7 +3165,7 @@ I.valueOr(999, undefined)
 
 **See also:** [maybe](#maybe)
 
-***
+---
 
 ### String
 
@@ -3187,7 +3187,7 @@ I.capitalize('aBc')
 
 **See also:** [toLowerCase](#tolowercase), [toUpperCase](#touppercase)
 
-***
+---
 
 #### split
 
@@ -3206,7 +3206,7 @@ I.split(', ', 'a, b, c')
 
 **See also:** [join](#join)
 
-***
+---
 
 #### test
 
@@ -3223,7 +3223,7 @@ I.test(/abc/, 'abc')
 // => true
 ```
 
-***
+---
 
 #### toLowerCase
 
@@ -3242,7 +3242,7 @@ I.toLowerCase('ABC')
 
 **See also:** [toUpperCase](#touppercase), [capitalize](#capitalize)
 
-***
+---
 
 #### toUpperCase
 
@@ -3261,7 +3261,7 @@ I.toUpperCase('abc')
 
 **See also:** [toLowerCase](#tolowercase), [capitalize](#capitalize)
 
-***
+---
 
 #### trim
 
@@ -3280,7 +3280,7 @@ I.trim('  abc  ')
 
 **See also:** [trimStart](#trimstart), [trimEnd](#trimend)
 
-***
+---
 
 #### trimEnd
 
@@ -3299,7 +3299,7 @@ I.trimEnd('  abc  ')
 
 **See also:** [trimStart](#trimstart), [trim](#trim)
 
-***
+---
 
 #### trimStart
 
@@ -3318,7 +3318,7 @@ I.trimStart('  abc  ')
 
 **See also:** [trimEnd](#trimend), [trim](#trim)
 
-***
+---
 
 ### Type tests
 
@@ -3331,7 +3331,7 @@ I.trimStart('  abc  ')
 Check if the `value` is an
 [`Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
 
-***
+---
 
 #### isBigInt
 
@@ -3342,7 +3342,7 @@ Check if the `value` is an
 Check if the `value` is a
 [`BigInt`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt).
 
-***
+---
 
 #### isBoolean
 
@@ -3353,7 +3353,7 @@ Check if the `value` is a
 Check if the `value` is a
 [`boolean`](https://developer.mozilla.org/en-US/docs/Glossary/boolean).
 
-***
+---
 
 #### isDate
 
@@ -3364,7 +3364,7 @@ Check if the `value` is a
 Check if the `value` is a
 [`Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date).
 
-***
+---
 
 #### isDefined
 
@@ -3375,7 +3375,7 @@ Check if the `value` is a
 Check if the `value` is not
 [`undefined`](https://developer.mozilla.org/en-US/docs/Glossary/undefined).
 
-***
+---
 
 #### isError
 
@@ -3386,7 +3386,7 @@ Check if the `value` is not
 Check if the `value` is an
 [`Error`](https://developer.mozilla.org/en-us/docs/Web/JavaScript/Reference/Global_Objects/Error).
 
-***
+---
 
 #### isFunction
 
@@ -3397,7 +3397,7 @@ Check if the `value` is an
 Check if the `value` is a
 [function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions).
 
-***
+---
 
 #### isMap
 
@@ -3408,7 +3408,7 @@ Check if the `value` is a
 Check if the `value` is a
 [`Map`](https://developer.mozilla.org/en-us/docs/Web/JavaScript/Reference/Global_Objects/Map).
 
-***
+---
 
 #### isNil
 
@@ -3420,7 +3420,7 @@ Check if the `value` is
 [`null`](https://developer.mozilla.org/en-US/docs/Glossary/null) or
 [`undefined`](https://developer.mozilla.org/en-US/docs/Glossary/undefined).
 
-***
+---
 
 #### isNull
 
@@ -3431,7 +3431,7 @@ Check if the `value` is
 Check if the `value` is
 [`null`](https://developer.mozilla.org/en-US/docs/Glossary/null).
 
-***
+---
 
 #### isNumber
 
@@ -3442,7 +3442,7 @@ Check if the `value` is
 Check if the `value` is a
 [`number`](https://developer.mozilla.org/en-US/docs/Glossary/number).
 
-***
+---
 
 #### isObject
 
@@ -3455,7 +3455,7 @@ Check if the `value` is an
 
 Note that functions and arrays are also objects.
 
-***
+---
 
 #### isRegExp
 
@@ -3466,7 +3466,7 @@ Note that functions and arrays are also objects.
 Check if the `value` is a
 [`RegExp`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp).
 
-***
+---
 
 #### isSet
 
@@ -3477,7 +3477,7 @@ Check if the `value` is a
 Check if the `value` is a
 [`Set`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set).
 
-***
+---
 
 #### isString
 
@@ -3488,7 +3488,7 @@ Check if the `value` is a
 Check if the `value` is a
 [`string`](https://developer.mozilla.org/en-us/docs/Web/JavaScript/Reference/Global_Objects/String).
 
-***
+---
 
 #### isSymbol
 
@@ -3499,7 +3499,7 @@ Check if the `value` is a
 Check if the `value` is a
 [`Symbol`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol).
 
-***
+---
 
 #### isUndefined
 
@@ -3510,6 +3510,6 @@ Check if the `value` is a
 Check if the `value` is
 [`undefined`](https://developer.mozilla.org/en-US/docs/Glossary/undefined).
 
-***
+---
 <!-- END API -->
 <!-- prettier-ignore-end -->
