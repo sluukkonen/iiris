@@ -3,18 +3,21 @@
 [![CI](https://github.com/sluukkonen/iiris/actions/workflows/ci.yml/badge.svg)](https://github.com/sluukkonen/iiris/actions/workflows/ci.yml)
 ![MIT License](https://img.shields.io/github/license/sluukkonen/iiris)
 
-## Goals
+Iiris is a general purpose utility library, designed to make it easier to manipulate built-in JavaScript data types in a
+functional manner. It is heavily inspired by projects like
+[Ramda](https://github.com/ramda/ramda) and [Lodash](https://github.com/lodash/lodash).
 
-- A functional JavaScript utility library, inspired by projects like [Ramda](https://github.com/ramda/ramda) and [Lodash](https://github.com/lodash/lodash)
-- No mutation of input data
-- Automatically curried, data-last API
-- Performance on par with native JavaScript methods
-- Small footprint (4 kB gzipped) and good tree-shaking support.
-- Supports only native JavaScript data types. No support for transducers, lenses or Fantasy Land data types.
-- Target reasonably current JavaScript environments (Node 10+)
+## Features & Goals
+
+- No mutation of input data.
+- Automatically curried, data-last API.
+- Performance on par with native JavaScript methods.
 - Good out-of-the-box TypeScript typings.
+- Small footprint (4 kB gzipped) and good tree-shaking support.
+- Support only native JavaScript data types.
+- Target reasonably current JavaScript environments (Node 10+)
 
-## Table Of Contents
+## Table of Contents
 
 <!-- prettier-ignore-start -->
 - [Installation](#installation)
@@ -219,7 +222,50 @@ typings, so you don't have to install them separately.
 import * as I from 'iiris'
 ```
 
-By convention, Iiris is imported to a single-letter variable `I`.
+By convention, Iiris is imported to a single-letter variable `I`. Here's a small showcase of its main features:
+
+```typescript
+// Problem: If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9.
+// The sum of these multiples is 23.
+//
+// Find the sum of all the multiples of 3 or 5 below 1000.
+//
+// See https://projecteuler.net/problem=1 for more information
+const sumOfMultiples = I.pipe(
+  I.range(1, 1000),
+  I.filter((n) => n % 3 === 0 || n % 5 === 0),
+  I.sum
+) // => 233168
+```
+
+## Why Iiris?
+
+Iiris is heavily inspired by the excellent work by the authors of libraries like Ramda and Lodash. However, there are a
+few things that make it different:
+
+Compared to lodash:
+
+- Each function is automatically curried and the data the function operates on is always the last argument.
+- Input data is never mutated.
+- Chaining is achieved with function composition instead of special constructs like `_.chain`. 
+- Iiris doesn't support any kind of iteratee shorthands.
+  
+Compared to Ramda:
+
+- Much better TypeScript support. Typically, you don't have to add any extra type annotations when using Iiris, even if
+  writing code in curried point-free style.
+- Iiris functions are less polymorphic. For example, `I.map` operates only on arrays, while `R.map` supports arrays,
+  objects and arbitrary fantasy-land functors. TypeScript doesn't have native support for higher-kinded types
+  ([although some people have tried to work around that](https://github.com/gcanti/fp-ts)), so I made an intentional
+  decision to limit the polymorphism of Iiris functions. This makes code less general but dramatically improves the
+  TypeScript type inference and makes tree-shaking more effective.
+- No support for placeholders. Placeholders add some overhead to each curried function call and make writing TypeScript
+  typings much harder.
+- A bigger focus on performance.
+
+Compared to both:
+
+- Iiris requires a fairly modern JavaScript engine (Node 10+) to run.
 
 ## API Reference
 
