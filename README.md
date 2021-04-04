@@ -245,15 +245,15 @@ Iiris is heavily inspired by libraries like Ramda and Lodash. However, there are
 
 Compared to lodash:
 
-- Each function is automatically curried and the data the function operates on is always the last argument.
+- Each function is automatically curried and input data is always the last argument.
 - Input data is never mutated.
 - Chaining is achieved with function composition instead of special constructs like `_.chain`. 
 - Iiris doesn't support any kind of iteratee shorthands.
   
 Compared to Ramda:
 
-- Much better TypeScript support. Typically, you don't have to add any extra type annotations when using Iiris, even if
-  writing code in curried point-free style.
+- Much better TypeScript support. Typically, you don't have to add any extra type annotations when using Iiris, even
+  when writing code in point-free style.
 - Iiris functions are less polymorphic. For example, `I.map` operates only on arrays, while `R.map` supports arrays,
   objects and arbitrary fantasy-land functors. TypeScript doesn't have native support for higher-kinded types
   ([although some people have tried to work around that](https://github.com/gcanti/fp-ts)), so I made an intentional
