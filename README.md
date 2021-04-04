@@ -26,6 +26,8 @@ Iiris is still alpha-quality software, so bugs and heavy changes to the API shou
 - [Getting Started](#getting-started)
 - [Why Iiris?](#why-iiris)
 - [API Reference](#api-reference) <!-- BEGIN TOC -->
+  - [Getters & Setters](#getters--setters)
+    - [propEquals](#propequals)
   - [Basic array operations](#basic-array-operations)
     - [append](#append)
     - [concat](#concat)
@@ -296,6 +298,31 @@ Many of the type signatures are also simplified. As an example, we don't show th
 
 <!-- prettier-ignore-start -->
 <!-- BEGIN API -->
+### Getters & Setters
+
+#### propEquals
+
+```typescript
+<K extends string>(key: K) => <V>(value: V) => <T extends HasKey<K, V>>(object: T) => boolean
+```
+
+Check if property `key` of `object` equals `value`, using [equals](#equals) for
+determining equality.
+
+**Example:**
+
+```typescript
+const users = [
+  { name: 'Alice' },
+  { name: 'Bob' },
+]
+
+I.find(I.propEquals('name', 'Alice'), users)
+// => true
+```
+
+---
+
 ### Basic array operations
 
 #### append
