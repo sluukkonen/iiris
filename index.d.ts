@@ -19,7 +19,7 @@ type Function1<T, R> = (value: T) => R
 type Function2<T1, T2, R> = (a1: T1, a2: T2) => R
 
 /** A function that takes zero or more arguments. */
-type VariadicFunction0<R> = (...args: unknown[]) => R
+type VariadicFunction0<R> = (...args: any[]) => R // eslint-disable-line @typescript-eslint/no-explicit-any
 /** A function that takes one or more arguments. */
 type VariadicFunction1<T, R> = (a1: T, ...args: unknown[]) => R
 /** A function that takes two or more arguments. */
