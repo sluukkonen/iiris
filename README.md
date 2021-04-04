@@ -244,14 +244,14 @@ const sumOfMultiples = I.pipe(
 
 Iiris is heavily inspired by libraries like Ramda and Lodash. However, there are a few things that make it different:
 
-Compared to lodash:
+Compared to [lodash](https://github.com/lodash/lodash):
 
 - Each function is automatically curried and input data is always the last argument.
 - Input data is never mutated.
 - Chaining is achieved with function composition instead of special constructs like `_.chain`. 
 - Iiris doesn't support any kind of iteratee shorthands.
   
-Compared to Ramda:
+Compared to [Ramda](https://github.com/ramda/ramda):
 
 - Much better TypeScript support. Typically, you don't have to add any extra type annotations when using Iiris, even
   when writing code in point-free style.
