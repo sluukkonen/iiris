@@ -22,6 +22,7 @@ functional manner. It is heavily inspired by projects like
 <!-- prettier-ignore-start -->
 - [Installation](#installation)
 - [Getting Started](#getting-started)
+- [Why Iiris?](#why-iiris)
 - [API Reference](#api-reference) <!-- BEGIN TOC -->
   - [Basic array operations](#basic-array-operations)
     - [append](#append)
@@ -240,8 +241,7 @@ const sumOfMultiples = I.pipe(
 
 ## Why Iiris?
 
-Iiris is heavily inspired by the excellent work by the authors of libraries like Ramda and Lodash. However, there are a
-few things that make it different:
+Iiris is heavily inspired by libraries like Ramda and Lodash. However, there are a few things that make it different:
 
 Compared to lodash:
 
