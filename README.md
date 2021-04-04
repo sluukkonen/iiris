@@ -2746,7 +2746,7 @@ I.clamp([0, 10], -5)
 #### equals
 
 ```typescript
-<T>(value: T) => (other: T) => boolean
+<T>(first: T) => (second: T) => boolean
 ```
 
 Check if two values are deeply equal.
@@ -2776,7 +2776,7 @@ I.equals([1, 2, 3], [4, 5, 6])
 #### equalsBy
 
 ```typescript
-<T, U>(fn: Function1<T, U>) => (value: T) => (other: T) => boolean
+<T, U>(fn: (value: T) => U) => (first: T) => (second: T) => boolean
 ```
 
 Like [equals](#equals), but the function `fn` is applied to both values before
@@ -2871,7 +2871,7 @@ I.filter(I.lte(2), [1, 2, 3])
 #### max
 
 ```typescript
-<T extends Ordered>(value: T) => (other: T) => T
+<T extends Ordered>(first: T) => (second: T) => T
 ```
 
 Return the larger of two values.
@@ -2893,7 +2893,7 @@ I.max('a', 'b')
 #### maxBy
 
 ```typescript
-<T>(fn: (value: T) => Ordered) => (value: T, other: T) => T
+<T>(fn: (value: T) => Ordered) => (first: T, second: T) => T
 ```
 
 Like [max](#max), but apply `fn` to both values before determining their
@@ -2913,7 +2913,7 @@ I.maxBy(Math.abs, 1, -2)
 #### min
 
 ```typescript
-<T extends Ordered>(value: T) => (other: T) => T
+<T extends Ordered>(first: T) => (second: T) => T
 ```
 
 Return the smaller of two values.
@@ -2935,7 +2935,7 @@ I.min('a', 'b')
 #### minBy
 
 ```typescript
-<T>(fn: (value: T) => Ordered) => (value: T) => (other: T) => T
+<T>(fn: (value: T) => Ordered) => (first: T) => (second: T) => T
 ```
 
 Like [min](#min), but apply `fn` to both values before determining their

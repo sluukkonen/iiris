@@ -792,8 +792,8 @@ export function entries<T extends object, K extends keyof T & string>(
  * // => false
  * ```
  */
-export function equals<T>(value: T): (other: T) => boolean
-export function equals<T>(value: T, other: T): boolean
+export function equals<T>(first: T): (second: T) => boolean
+export function equals<T>(first: T, second: T): boolean
 
 /**
  * Like {@link equals}, but the function `fn` is applied to both values before
@@ -810,16 +810,20 @@ export function equals<T>(value: T, other: T): boolean
  * @see equals
  */
 export function equalsBy<T, U>(
-  fn: Function1<T, U>
+  fn: (value: T) => U
 ): {
-  (value: T): (other: T) => boolean
-  (value: T, other: T): boolean
+  (first: T): (second: T) => boolean
+  (first: T, second: T): boolean
 }
 export function equalsBy<T, U>(
-  fn: Function1<T, U>,
-  value: T
-): (other: T) => boolean
-export function equalsBy<T, U>(fn: Function1<T, U>, value: T, other: T): boolean
+  fn: (value: T) => U,
+  first: T
+): (second: T) => boolean
+export function equalsBy<T, U>(
+  fn: (value: T) => U,
+  first: T,
+  second: T
+): boolean
 
 /**
  * Check if every element in the `array` satisfies the `predicate`.
@@ -1903,8 +1907,8 @@ export function maybe<T, R>(
  * @see min
  * @see maxBy
  */
-export function max<T extends Ordered>(value: T): (other: Widen<T>) => Widen<T>
-export function max<T extends Ordered>(value: T, other: T): Widen<T>
+export function max<T extends Ordered>(first: T): (second: Widen<T>) => Widen<T>
+export function max<T extends Ordered>(first: T, second: T): Widen<T>
 
 /**
  * Like {@link max}, but apply `fn` to both values before determining their
@@ -1923,15 +1927,18 @@ export function max<T extends Ordered>(value: T, other: T): Widen<T>
  */
 export function maxBy<T>(
   fn: (value: T) => Ordered
-): { (value: T, other: T): Widen<T>; (value: T): (other: T) => Widen<T> }
+): {
+  (first: T, second: T): Widen<T>
+  (first: T): (second: T) => Widen<T>
+}
 export function maxBy<T>(
   fn: (value: T) => Ordered,
-  value: T
-): (other: Widen<T>) => Widen<T>
+  first: T
+): (second: Widen<T>) => Widen<T>
 export function maxBy<T>(
   fn: (value: T) => Ordered,
-  value: T,
-  other: T
+  first: T,
+  second: T
 ): Widen<T>
 
 /**
@@ -2130,8 +2137,8 @@ export function merge<T extends object, U extends object>(
  * @see max
  * @see minBy
  */
-export function min<T extends Ordered>(value: T): (other: Widen<T>) => Widen<T>
-export function min<T extends Ordered>(value: T, other: T): T
+export function min<T extends Ordered>(first: T): (second: Widen<T>) => Widen<T>
+export function min<T extends Ordered>(first: T, second: T): T
 
 /**
  * Like {@link min}, but apply `fn` to both values before determining their
@@ -2151,17 +2158,17 @@ export function min<T extends Ordered>(value: T, other: T): T
 export function minBy<T>(
   fn: (value: T) => Ordered
 ): {
-  (value: T): (other: T) => Widen<T>
-  (value: T, other: T): Widen<T>
+  (first: T): (second: T) => Widen<T>
+  (first: T, second: T): Widen<T>
 }
 export function minBy<T>(
   fn: (value: T) => Ordered,
-  value: T
-): (other: Widen<T>) => Widen<T>
+  first: T
+): (second: Widen<T>) => Widen<T>
 export function minBy<T>(
   fn: (value: T) => Ordered,
-  value: T,
-  other: T
+  first: T,
+  second: T
 ): Widen<T>
 
 /**
