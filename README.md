@@ -13,9 +13,11 @@ functional manner. It is heavily inspired by projects like
 - Automatically curried, data-last API.
 - Performance on par with native JavaScript methods.
 - Good out-of-the-box TypeScript typings.
-- Small footprint (4 kB gzipped) and good tree-shaking support.
+- Small footprint (4 kB gzipped) and excellent tree-shaking support.
 - Support only native JavaScript data types.
 - Target reasonably current JavaScript environments (Node 10+)
+
+Iiris is still alpha-quality software, so bugs and heavy changes to the API should be expected.
 
 ## Table of Contents
 
@@ -205,17 +207,16 @@ functional manner. It is heavily inspired by projects like
 Run either
 
 ```shell
-$ npm install iiris # (Soon™)
+$ npm install iiris
 ```
 
 or
 
 ```shell
-$ yarn add iiris # (Soon™)
+$ yarn add iiris
 ```
 
-depending on which package manager you use. Iiris includes built-in TypeScript
-typings, so you don't have to install them separately.
+depending on your favourite package manager.
 
 ## Getting started
 
