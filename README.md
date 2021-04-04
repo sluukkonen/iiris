@@ -3143,6 +3143,8 @@ I.maybe('', (s) => s.toUpperCase(), undefined)
 // => ''
 ```
 
+**See also:** [valueOr](#valueor)
+
 ---
 
 #### valueOr

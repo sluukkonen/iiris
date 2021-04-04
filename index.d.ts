@@ -1873,6 +1873,8 @@ export function keys<T extends object>(object: T): Array<keyof T & string>
  * I.maybe('', (s) => s.toUpperCase(), undefined)
  * // => ''
  * ```
+ *
+ * @see valueOr
  */
 export function maybe<R>(
   defaultValue: R
