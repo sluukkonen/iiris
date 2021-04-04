@@ -3556,6 +3556,7 @@ export function uniqWith<T>(
  * ```
  *
  * @see zipWith
+ * @see zipObject
  */
 export function zip<T>(
   first: readonly T[]
@@ -3576,6 +3577,7 @@ export function zip<T, U>(first: readonly T[], second: readonly U[]): [T, U][]
  * // => { a: 1, b: 2, c: 3 }
  * ```
  *
+ * @see zip
  * @see fromEntries
  */
 export function zipObject<K extends string>(

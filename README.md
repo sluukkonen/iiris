@@ -1677,7 +1677,7 @@ I.zip(['a', 'b', 'c'], [1, 2, 3])
 // => [['a', 1], ['b', 2], ['c', 3]]
 ```
 
-**See also:** [zipWith](#zipwith)
+**See also:** [zipWith](#zipwith), [zipObject](#zipobject)
 
 ***
 
@@ -1699,7 +1699,7 @@ I.zipObject(['a', 'b', 'c'], [1, 2, 3])
 // => { a: 1, b: 2, c: 3 }
 ```
 
-**See also:** [fromEntries](#fromentries)
+**See also:** [zip](#zip), [fromEntries](#fromentries)
 
 ***
 
