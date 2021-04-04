@@ -3389,7 +3389,7 @@ export function trimEnd(string: string): string
 export function trimStart(string: string): string
 
 /**
- * Return `value` if it is not `undefined`, `defaultValue` otherwise.
+ * Return `maybeValue` if it is not `undefined`, `defaultValue` otherwise.
  *
  * @category Logic
  * @example

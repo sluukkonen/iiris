@@ -3153,7 +3153,7 @@ I.maybe('', (s) => s.toUpperCase(), undefined)
 <T>(defaultValue: T) => (maybeValue: T | undefined) => T
 ```
 
-Return `value` if it is not `undefined`, `defaultValue` otherwise.
+Return `maybeValue` if it is not `undefined`, `defaultValue` otherwise.
 
 **Example:**
 
