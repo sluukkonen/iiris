@@ -911,7 +911,7 @@ I.maximum([])
 #### maximumBy
 
 ```typescript
-<T>(fn: (value: T) => Ordered) => (array: T[]) => T | undefined
+<T, U extends Ordered>(fn: (value: T) => U) => (array: T[]) => T | undefined
 ```
 
 Like [maximum](#maximum), but apply `fn` to each value before determining
@@ -959,7 +959,7 @@ I.minimum([])
 #### minimumBy
 
 ```typescript
-<T>(fn: (value: T) => Ordered) => (array: T[]) => T | undefined
+<T, U extends Ordered>(fn: (value: T) => U) => (array: T[]) => T | undefined
 ```
 
 Like [minimum](#minimum), but `fn` is applied to each value before determining
@@ -1818,7 +1818,7 @@ I.takeWhile((n) => n <= 2, [1, 2, 3])
 #### ascend
 
 ```typescript
-<T>(fn: (value: T) => Ordered) => (first: T, second: T) => number
+<T, U extends Ordered>(fn: (value: T) => U) => (first: T, second: T) => number
 ```
 
 Given a `fn` that maps a `value` to an Ordered value, create an
@@ -1840,7 +1840,7 @@ I.sort(I.ascend(I.prop('age')), [{ name: 'Bob' }, { name: 'Alice' }])
 #### descend
 
 ```typescript
-<T>(fn: (value: T) => Ordered) => (first: T, second: T) => number
+<T, U extends Ordered>(fn: (value: T) => U) => (first: T, second: T) => number
 ```
 
 Given a `fn` that maps a `value` to an Ordered value, create a
@@ -1881,7 +1881,7 @@ I.sort((a, b) => a - b, [3, 2, 1])
 #### sortBy
 
 ```typescript
-<T>(fn: (value: T) => Ordered) => (array: T[]) => T[]
+<T, U extends Ordered>(fn: (value: T) => U) => (array: T[]) => T[]
 ```
 
 Sort an `array` into ascending order by mapping each element of the array
@@ -3075,7 +3075,7 @@ I.max('a', 'b')
 #### maxBy
 
 ```typescript
-<T>(fn: (value: T) => Ordered) => (first: T, second: T) => T
+<T, U extends Ordered>(fn: (value: T) => U) => (first: T, second: T) => T
 ```
 
 Like [max](#max), but apply `fn` to both values before determining their
@@ -3117,7 +3117,7 @@ I.min('a', 'b')
 #### minBy
 
 ```typescript
-<T>(fn: (value: T) => Ordered) => (first: T) => (second: T) => T
+<T, U extends Ordered>(fn: (value: T) => U) => (first: T) => (second: T) => T
 ```
 
 Like [min](#min), but apply `fn` to both values before determining their

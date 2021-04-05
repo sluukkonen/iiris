@@ -153,8 +153,8 @@ export function append<T>(value: T, array: readonly T[]): T[]
  * @see sort
  * @see sortWith
  */
-export function ascend<T>(
-  fn: (value: T) => Ordered
+export function ascend<T, U extends Ordered>(
+  fn: (value: T) => U
 ): (first: T, second: T) => number
 
 /**
@@ -638,8 +638,8 @@ export function dec(n: number): number
  * @see sort
  * @see sortWith
  */
-export function descend<T>(
-  fn: (value: T) => Ordered
+export function descend<T, U extends Ordered>(
+  fn: (value: T) => U
 ): (first: T, second: T) => number
 
 /**
@@ -2022,18 +2022,18 @@ export function max<T extends Ordered>(first: T, second: T): Widen<T>
  * @see max
  * @see minBy
  */
-export function maxBy<T>(
-  fn: (value: T) => Ordered
+export function maxBy<T, U extends Ordered>(
+  fn: (value: T) => U
 ): {
   (first: T, second: T): Widen<T>
   (first: T): (second: T) => Widen<T>
 }
-export function maxBy<T>(
-  fn: (value: T) => Ordered,
+export function maxBy<T, U extends Ordered>(
+  fn: (value: T) => U,
   first: T
 ): (second: Widen<T>) => Widen<T>
-export function maxBy<T>(
-  fn: (value: T) => Ordered,
+export function maxBy<T, U extends Ordered>(
+  fn: (value: T) => U,
   first: T,
   second: T
 ): Widen<T>
@@ -2078,11 +2078,11 @@ export function maximum<T extends Ordered>(array: readonly T[]): T | undefined
  * @see maximum
  * @see minimumBy
  */
-export function maximumBy<T>(
-  fn: (value: T) => Ordered
+export function maximumBy<T, U extends Ordered>(
+  fn: (value: T) => U
 ): (array: readonly T[]) => T | undefined
-export function maximumBy<T>(
-  fn: (value: T) => Ordered,
+export function maximumBy<T, U extends Ordered>(
+  fn: (value: T) => U,
   array: readonly T[]
 ): T | undefined
 
@@ -2252,18 +2252,18 @@ export function min<T extends Ordered>(first: T, second: T): T
  * @see min
  * @see maxBy
  */
-export function minBy<T>(
-  fn: (value: T) => Ordered
+export function minBy<T, U extends Ordered>(
+  fn: (value: T) => U
 ): {
   (first: T): (second: T) => Widen<T>
   (first: T, second: T): Widen<T>
 }
-export function minBy<T>(
-  fn: (value: T) => Ordered,
+export function minBy<T, U extends Ordered>(
+  fn: (value: T) => U,
   first: T
 ): (second: Widen<T>) => Widen<T>
-export function minBy<T>(
-  fn: (value: T) => Ordered,
+export function minBy<T, U extends Ordered>(
+  fn: (value: T) => U,
   first: T,
   second: T
 ): Widen<T>
@@ -2308,11 +2308,11 @@ export function minimum<T extends Ordered>(array: readonly T[]): T | undefined
  * @see minimum
  * @see maximumBy
  */
-export function minimumBy<T>(
-  fn: (value: T) => Ordered
+export function minimumBy<T, U extends Ordered>(
+  fn: (value: T) => U
 ): (array: readonly T[]) => T | undefined
-export function minimumBy<T>(
-  fn: (value: T) => Ordered,
+export function minimumBy<T, U extends Ordered>(
+  fn: (value: T) => U,
   array: readonly T[]
 ): T | undefined
 
@@ -3224,10 +3224,13 @@ export function sort<T>(
  * @see sort
  * @see sortWith
  */
-export function sortBy<T>(
-  fn: (value: T) => Ordered
+export function sortBy<T, U extends Ordered>(
+  fn: (value: T) => U
 ): (array: readonly T[]) => T[]
-export function sortBy<T>(fn: (value: T) => Ordered, array: readonly T[]): T[]
+export function sortBy<T, U extends Ordered>(
+  fn: (value: T) => U,
+  array: readonly T[]
+): T[]
 
 /**
  * Sort an `array` according to an array of comparator functions.
