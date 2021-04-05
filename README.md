@@ -26,10 +26,12 @@ Iiris is still alpha-quality software, so bugs and heavy changes to the API shou
 - [Getting Started](#getting-started)
 - [Why Iiris?](#why-iiris)
 - [API Reference](#api-reference) <!-- BEGIN TOC -->
-  - [Getters & Setters](#getters--setters)
-    - [propEquals](#propequals)
   - [Basic array operations](#basic-array-operations)
     - [append](#append)
+    - [at](#at)
+    - [atEquals](#atequals)
+    - [atOr](#ator)
+    - [atSatisfies](#atsatisfies)
     - [concat](#concat)
     - [forEach](#foreach)
     - [forEachWithIndex](#foreachwithindex)
@@ -38,7 +40,10 @@ Iiris is still alpha-quality software, so bugs and heavy changes to the API shou
     - [isEmpty](#isempty)
     - [last](#last)
     - [length](#length)
+    - [modifyAt](#modifyat)
     - [prepend](#prepend)
+    - [removeAt](#removeat)
+    - [setAt](#setat)
     - [tail](#tail)
   - [Transforming arrays](#transforming-arrays)
     - [flatMap](#flatmap)
@@ -123,8 +128,15 @@ Iiris is still alpha-quality software, so bugs and heavy changes to the API shou
     - [mapKeys](#mapkeys)
     - [mapValues](#mapvalues)
     - [merge](#merge)
+    - [modifyProp](#modifyprop)
     - [omit](#omit)
     - [pick](#pick)
+    - [prop](#prop)
+    - [propEquals](#propequals)
+    - [propOr](#propor)
+    - [propSatisfies](#propsatisfies)
+    - [removeProp](#removeprop)
+    - [setProp](#setprop)
     - [values](#values)
   - [Function](#function)
     - [binary](#binary)
@@ -142,17 +154,6 @@ Iiris is still alpha-quality software, so bugs and heavy changes to the API shou
     - [second](#second)
     - [tap](#tap)
     - [unary](#unary)
-  - [Getters and setters](#getters-and-setters)
-    - [at](#at)
-    - [atOr](#ator)
-    - [modifyAt](#modifyat)
-    - [modifyProp](#modifyprop)
-    - [prop](#prop)
-    - [propOr](#propor)
-    - [removeAt](#removeat)
-    - [removeProp](#removeprop)
-    - [setAt](#setat)
-    - [setProp](#setprop)
   - [Relation](#relation)
     - [clamp](#clamp)
     - [equals](#equals)
@@ -298,31 +299,6 @@ Many of the type signatures are also simplified. As an example, we don't show th
 
 <!-- prettier-ignore-start -->
 <!-- BEGIN API -->
-### Getters & Setters
-
-#### propEquals
-
-```typescript
-<K extends string>(key: K) => <V>(value: V) => <T extends HasKey<K, V>>(object: T) => boolean
-```
-
-Check if property `key` of `object` equals `value`, using [equals](#equals) for
-determining equality.
-
-**Example:**
-
-```typescript
-const users = [
-  { name: 'Alice' },
-  { name: 'Bob' },
-]
-
-I.find(I.propEquals('name', 'Alice'), users)
-// => true
-```
-
----
-
 ### Basic array operations
 
 #### append
@@ -341,6 +317,93 @@ I.append(4, [1, 2, 3])
 ```
 
 **See also:** [prepend](#prepend), [concat](#concat)
+
+---
+
+#### at
+
+```typescript
+(index: number) => <T>(array: T[]) => T | undefined
+```
+
+Retrieves the element at `index` from `array` or `undefined`.
+
+**Example:**
+
+```typescript
+I.at(0, [1, 2, 3])
+// => 1
+
+I.at(0, [])
+// => undefined
+```
+
+**See also:** [atOr](#ator), [prop](#prop)
+
+---
+
+#### atEquals
+
+```typescript
+<T>(value: T) => (index: number) => (array: T[]) => boolean
+```
+
+Check if the `array` element at `index` equals `value`, using [equals](#equals)
+for determining equality.
+
+**Example:**
+
+```typescript
+I.atEquals('a', 0, ['a', 'b', 'c'])
+// => true
+```
+
+**See also:** [atSatisfies](#atsatisfies)
+
+---
+
+#### atOr
+
+```typescript
+<T>(defaultValue: T) => (index: number) => (array: T[]) => T
+```
+
+Like [at](#at), but if the resolved value is `undefined`, `defaultValue` is
+returned instead.
+
+**Example:**
+
+```typescript
+I.atOr(999, 0, [1, 2, 3])
+// => 1
+
+I.atOr(999, 0, [])
+// => 999
+
+I.atOr(999, 0, [undefined])
+// => 999
+```
+
+**See also:** [at](#at), [propOr](#propor)
+
+---
+
+#### atSatisfies
+
+```typescript
+<T>(predicate: (value: T) => boolean) => (index: number) => (array: T[]) => boolean
+```
+
+Check if the `array` element at `index` satisfies the `predicate`.
+
+**Example:**
+
+```typescript
+I.atSatisfies(I.gt(0), 0, [1, 2, 3])
+// => true
+```
+
+**See also:** [atSatisfies](#atsatisfies)
 
 ---
 
@@ -518,6 +581,39 @@ I.length([])
 
 ---
 
+#### modifyAt
+
+```typescript
+(index: number) => <T>(fn: (value: T) => T) => (array: T[]) => T[]
+```
+
+Returns a copy of `array` where the element at `index` has been replaced by
+applying `fn` to its current value.
+
+- If `index` is not within `array` bounds, the `array` is returned
+  unchanged.
+- Removes the element if `fn` returns `undefined`.
+
+**Example:**
+
+```typescript
+I.modifyAt(0, I.inc, [1, 2, 3])
+// => [2, 2, 3]
+
+I.modifyAt(-1, I.inc, [1, 2, 3])
+// => [1, 2, 4]
+
+I.modifyAt(0, I.noop, [1, 2, 3])
+// => [2, 3]
+
+I.modifyAt(999, I.inc, [1, 2, 3])
+// => [1, 2, 3]
+```
+
+**See also:** [setAt](#setat), [removeAt](#removeat)
+
+---
+
 #### prepend
 
 ```typescript
@@ -534,6 +630,66 @@ I.prepend(0, [1, 2, 3])
 ```
 
 **See also:** [append](#append), [concat](#concat)
+
+---
+
+#### removeAt
+
+```typescript
+(index: number) => <T>(array: T[]) => T[]
+```
+
+Returns a copy of `array` without the element at `index`.
+
+- If `index` is not within the `array` bounds, the `array` is returned
+  unchanged.
+
+**Example:**
+
+```typescript
+I.removeAt(0, [1, 2, 3])
+// => [2, 3]
+
+I.removeAt(-1, [1, 2, 3])
+// => [1, 2]
+
+I.removeAt(999, [1, 2, 3])
+// => [1, 2, 3]
+```
+
+**See also:** [modifyAt](#modifyat), [setAt](#setat)
+
+---
+
+#### setAt
+
+```typescript
+(index: number) => <T>(value: undefined | T) => (array: T[]) => T[]
+```
+
+Returns a copy of `array` where the element at `index` has been replaced with `value`.
+
+- If `index` is not within the `array` bounds, the `array` is returned
+  unchanged.
+- Removes the element if `value` is `undefined`.
+
+**Example:**
+
+```typescript
+I.setAt(0, 999, [1, 2, 3])
+// => [999, 2, 3]
+
+I.setAt(-1, 999, [1, 2, 3])
+// => [1, 2, 999]
+
+I.setAt(999, 999, [1, 2, 3])
+// => [1, 2, 3]
+
+I.setAt(0, undefined, [1, 2, 3])
+// => [2, 3]
+```
+
+**See also:** [modifyAt](#modifyat), [removeAt](#removeat)
 
 ---
 
@@ -2185,6 +2341,36 @@ I.merge({ a: 1, b: 1 }, { b: 2, c: 2 })
 
 ---
 
+#### modifyProp
+
+```typescript
+<K extends string>(key: K) => <V>(fn: (value: V) => V) => <T extends HasKey<K, V>>(object: T) => T
+```
+
+Return a copy of `object` where the property `key` has replaced by applying
+`fn` to its current value.
+
+- If `key` is not an own property of `object`, the `object` is returned
+  unchanged.
+- If `fn` returns `undefined`, the property is removed.
+
+**Example:**
+
+```typescript
+I.modifyProp('a', (n) => n + 1, { a: 1, b: 2, c: 3 })
+// => { a: 2, b: 2, c: 3 }
+
+I.modifyProp('a', () => undefined, { a: 1, b: 2, c: 3 })
+// => { b: 2, c: 3 }
+
+I.modifyProp('d', () => 4, { a: 1, b: 2, c: 3 })
+// => { a: 1, b: 2, c: 3, d: 4 }
+```
+
+**See also:** [setProp](#setprop), [removeProp](#removeprop)
+
+---
+
 #### omit
 
 ```typescript
@@ -2220,6 +2406,147 @@ I.pick(['a', 'b'], { a: 1, b: 2, c: 3 })
 ```
 
 **See also:** [omit](#omit)
+
+---
+
+#### prop
+
+```typescript
+<K extends string>(key: K) => <T extends HasKey<K>>(object: T) => T[K]
+```
+
+Retrieves the property `key` from `object` or `undefined`.
+
+**Example:**
+
+```typescript
+I.prop('a', { a: 1, b: 2, c: 3 })
+// => 1
+
+I.prop('a', {})
+// => undefined
+```
+
+**See also:** [propOr](#propor), [at](#at)
+
+---
+
+#### propEquals
+
+```typescript
+<V>(value: V) => <K extends string>(key: K) => <T extends HasKey<K, V>>(object: T) => boolean
+```
+
+Check if property `key` of `object` equals `value`, using [equals](#equals) for
+determining equality.
+
+**Example:**
+
+```typescript
+const users = [
+  { name: 'Alice' },
+  { name: 'Bob' },
+]
+
+I.some(I.propEquals('Alice', 'name'), users)
+// => true
+```
+
+**See also:** [propEquals](#propequals)
+
+---
+
+#### propOr
+
+```typescript
+<V>(defaultValue: V) => <K extends string>(key: K) => <T extends HasKey<K, V>>(object: T) => V | Defined<T[K]>
+```
+
+Like [prop](#prop), but if the resolved value is `undefined`, `defaultValue`
+is returned instead.
+
+**Example:**
+
+```typescript
+I.propOr(999, 'a', { a: 1, b: 2, c: 3 })
+// => 1
+
+I.propOr(999, 'a', {})
+// => 999
+
+I.propOr(999, 'a', { a: undefined })
+// => 999
+```
+
+**See also:** [prop](#prop), [atOr](#ator)
+
+---
+
+#### propSatisfies
+
+```typescript
+<V>(predicate: (value: V) => boolean) => <K extends string>(key: K) => <T extends HasKey<K, V>>(object: T) => boolean
+```
+
+Check if property `key` of `object` satisfies the `predicate`.
+
+**Example:**
+
+```typescript
+const users = [
+  { name: 'Alice' },
+  { name: 'Bob' },
+]
+
+I.some(I.propSatisfies(I.test(/^A/), 'name'), users)
+// => true
+```
+
+**See also:** [propEquals](#propequals)
+
+---
+
+#### removeProp
+
+```typescript
+<K extends string>(key: K) => <T extends HasKey<K>>(object: T) => Omit<T, K>
+```
+
+Return a copy of `object` without the property `key`.
+
+- If `key` is not an own property of `object`, the `object` is returned
+  unchanged.
+
+**Example:**
+
+```typescript
+I.removeProp('a', { a: 1, b: 2, c: 3 })
+// => { b: 2, c: 3 }
+```
+
+---
+
+#### setProp
+
+```typescript
+<K extends string>(key: K) => <V>(value: V) => <T extends HasKey<K, V>>(object: T) => T
+```
+
+Return a copy of `object` with property `key` set to `value`.
+
+- If `value` is `undefined`, the property is removed.
+
+**Example:**
+
+```typescript
+I.setProp('a', 999, { a: 1, b: 2, c: 3 })
+// => { a: 999, b: 2, c: 3 }
+
+I.setProp('a', undefined, { a: 1, b: 2, c: 3 })
+// => { b: 2, c: 3 }
+```
+
+**See also:** [modifyProp](#modifyprop), [removeProp](#removeprop)
 
 ---
 
@@ -2570,271 +2897,6 @@ Create a version of `fn` that accepts a single argument.
 ```
 
 **See also:** [binary](#binary)
-
----
-
-### Getters and setters
-
-#### at
-
-```typescript
-(index: number) => <T>(array: T[]) => T | undefined
-```
-
-Retrieves the element at `index` from `array` or `undefined`.
-
-**Example:**
-
-```typescript
-I.at(0, [1, 2, 3])
-// => 1
-
-I.at(0, [])
-// => undefined
-```
-
-**See also:** [atOr](#ator), [prop](#prop)
-
----
-
-#### atOr
-
-```typescript
-<T>(defaultValue: T) => (index: number) => (array: T[]) => T
-```
-
-Like [at](#at), but if the resolved value is `undefined`, `defaultValue` is
-returned instead.
-
-**Example:**
-
-```typescript
-I.atOr(999, 0, [1, 2, 3])
-// => 1
-
-I.atOr(999, 0, [])
-// => 999
-
-I.atOr(999, 0, [undefined])
-// => 999
-```
-
-**See also:** [at](#at), [propOr](#propor)
-
----
-
-#### modifyAt
-
-```typescript
-(index: number) => <T>(fn: (value: T) => T) => (array: T[]) => T[]
-```
-
-Returns a copy of `array` where the element at `index` has been replaced by
-applying `fn` to its current value.
-
-- If `index` is not within `array` bounds, the `array` is returned
-  unchanged.
-- Removes the element if `fn` returns `undefined`.
-
-**Example:**
-
-```typescript
-I.modifyAt(0, I.inc, [1, 2, 3])
-// => [2, 2, 3]
-
-I.modifyAt(-1, I.inc, [1, 2, 3])
-// => [1, 2, 4]
-
-I.modifyAt(0, I.noop, [1, 2, 3])
-// => [2, 3]
-
-I.modifyAt(999, I.inc, [1, 2, 3])
-// => [1, 2, 3]
-```
-
-**See also:** [setAt](#setat), [removeAt](#removeat)
-
----
-
-#### modifyProp
-
-```typescript
-<K extends string>(key: K) => <V>(fn: (value: V) => V) => <T extends HasKey<K, V>>(object: T) => T
-```
-
-Return a copy of `object` where the property `key` has replaced by applying
-`fn` to its current value.
-
-- If `key` is not an own property of `object`, the `object` is returned
-  unchanged.
-- If `fn` returns `undefined`, the property is removed.
-
-**Example:**
-
-```typescript
-I.modifyProp('a', (n) => n + 1, { a: 1, b: 2, c: 3 })
-// => { a: 2, b: 2, c: 3 }
-
-I.modifyProp('a', () => undefined, { a: 1, b: 2, c: 3 })
-// => { b: 2, c: 3 }
-
-I.modifyProp('d', () => 4, { a: 1, b: 2, c: 3 })
-// => { a: 1, b: 2, c: 3, d: 4 }
-```
-
-**See also:** [setProp](#setprop), [removeProp](#removeprop)
-
----
-
-#### prop
-
-```typescript
-<K extends string>(key: K) => <T extends HasKey<K>>(object: T) => T[K]
-```
-
-Retrieves the property `key` from `object` or `undefined`.
-
-**Example:**
-
-```typescript
-I.prop('a', { a: 1, b: 2, c: 3 })
-// => 1
-
-I.prop('a', {})
-// => undefined
-```
-
-**See also:** [propOr](#propor), [at](#at)
-
----
-
-#### propOr
-
-```typescript
-<V>(defaultValue: V) => <K extends string>(key: K) => <T extends HasKey<K, V>>(object: T) => V | Defined<T[K]>
-```
-
-Like [prop](#prop), but if the resolved value is `undefined`, `defaultValue`
-is returned instead.
-
-**Example:**
-
-```typescript
-I.propOr(999, 'a', { a: 1, b: 2, c: 3 })
-// => 1
-
-I.propOr(999, 'a', {})
-// => 999
-
-I.propOr(999, 'a', { a: undefined })
-// => 999
-```
-
-**See also:** [prop](#prop), [atOr](#ator)
-
----
-
-#### removeAt
-
-```typescript
-(index: number) => <T>(array: T[]) => T[]
-```
-
-Returns a copy of `array` without the element at `index`.
-
-- If `index` is not within the `array` bounds, the `array` is returned
-  unchanged.
-
-**Example:**
-
-```typescript
-I.removeAt(0, [1, 2, 3])
-// => [2, 3]
-
-I.removeAt(-1, [1, 2, 3])
-// => [1, 2]
-
-I.removeAt(999, [1, 2, 3])
-// => [1, 2, 3]
-```
-
-**See also:** [modifyAt](#modifyat), [setAt](#setat)
-
----
-
-#### removeProp
-
-```typescript
-<K extends string>(key: K) => <T extends HasKey<K>>(object: T) => Omit<T, K>
-```
-
-Return a copy of `object` without the property `key`.
-
-- If `key` is not an own property of `object`, the `object` is returned
-  unchanged.
-
-**Example:**
-
-```typescript
-I.removeProp('a', { a: 1, b: 2, c: 3 })
-// => { b: 2, c: 3 }
-```
-
----
-
-#### setAt
-
-```typescript
-(index: number) => <T>(value: undefined | T) => (array: T[]) => T[]
-```
-
-Returns a copy of `array` where the element at `index` has been replaced with `value`.
-
-- If `index` is not within the `array` bounds, the `array` is returned
-  unchanged.
-- Removes the element if `value` is `undefined`.
-
-**Example:**
-
-```typescript
-I.setAt(0, 999, [1, 2, 3])
-// => [999, 2, 3]
-
-I.setAt(-1, 999, [1, 2, 3])
-// => [1, 2, 999]
-
-I.setAt(999, 999, [1, 2, 3])
-// => [1, 2, 3]
-
-I.setAt(0, undefined, [1, 2, 3])
-// => [2, 3]
-```
-
-**See also:** [modifyAt](#modifyat), [removeAt](#removeat)
-
----
-
-#### setProp
-
-```typescript
-<K extends string>(key: K) => <V>(value: V) => <T extends HasKey<K, V>>(object: T) => T
-```
-
-Return a copy of `object` with property `key` set to `value`.
-
-- If `value` is `undefined`, the property is removed.
-
-**Example:**
-
-```typescript
-I.setProp('a', 999, { a: 1, b: 2, c: 3 })
-// => { a: 999, b: 2, c: 3 }
-
-I.setProp('a', undefined, { a: 1, b: 2, c: 3 })
-// => { b: 2, c: 3 }
-```
-
-**See also:** [modifyProp](#modifyprop), [removeProp](#removeprop)
 
 ---
 

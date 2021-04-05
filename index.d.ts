@@ -160,7 +160,7 @@ export function ascend<T>(
 /**
  * Retrieves the element at `index` from `array` or `undefined`.
  *
- * @category Getters and setters
+ * @category Basic array operations
  * @example
  *
  * ```typescript
@@ -178,10 +178,40 @@ export function at(index: number): <T>(array: readonly T[]) => T | undefined
 export function at<T>(index: number, array: readonly T[]): T | undefined
 
 /**
+ * Check if the `array` element at `index` equals `value`, using {@link equals}
+ * for determining equality.
+ *
+ * @category Basic array operations
+ * @example
+ *
+ * ```typescript
+ * I.atEquals('a', 0, ['a', 'b', 'c'])
+ * // => true
+ * ```
+ *
+ * @see atSatisfies
+ */
+export function atEquals<T>(
+  value: T
+): {
+  (index: number): (array: readonly T[]) => boolean
+  (index: number, array: readonly T[]): boolean
+}
+export function atEquals<T>(
+  value: T,
+  index: number
+): (array: readonly T[]) => boolean
+export function atEquals<T>(
+  value: T,
+  index: number,
+  array: readonly T[]
+): boolean
+
+/**
  * Like {@link at}, but if the resolved value is `undefined`, `defaultValue` is
  * returned instead.
  *
- * @category Getters and setters
+ * @category Basic array operations
  * @example
  *
  * ```typescript
@@ -209,6 +239,35 @@ export function atOr<T>(
   index: number
 ): (array: readonly T[]) => T
 export function atOr<T>(defaultValue: T, index: number, array: readonly T[]): T
+
+/**
+ * Check if the `array` element at `index` satisfies the `predicate`.
+ *
+ * @category Basic array operations
+ * @example
+ *
+ * ```typescript
+ * I.atSatisfies(I.gt(0), 0, [1, 2, 3])
+ * // => true
+ * ```
+ *
+ * @see atSatisfies
+ */
+export function atSatisfies<T>(
+  predicate: (value: T) => boolean
+): {
+  (index: number): (array: readonly T[]) => boolean
+  (index: number, array: readonly T[]): boolean
+}
+export function atSatisfies<T>(
+  predicate: (value: T) => boolean,
+  index: number
+): (array: readonly T[]) => boolean
+export function atSatisfies<T>(
+  predicate: (value: T) => boolean,
+  index: number,
+  array: readonly T[]
+): boolean
 
 /**
  * Create a version of `fn` that accepts two arguments.
@@ -2265,7 +2324,7 @@ export function minimumBy<T>(
  *   unchanged.
  * - Removes the element if `fn` returns `undefined`.
  *
- * @category Getters and setters
+ * @category Basic array operations
  * @example
  *
  * ```typescript
@@ -2309,7 +2368,7 @@ export function modifyAt<T>(
  *   unchanged.
  * - If `fn` returns `undefined`, the property is removed.
  *
- * @category Getters and setters
+ * @category Object
  * @example
  *
  * ```typescript
@@ -2543,7 +2602,7 @@ export function prepend<T>(value: T, array: readonly T[]): T[]
 /**
  * Retrieves the property `key` from `object` or `undefined`.
  *
- * @category Getters and setters
+ * @category Object
  * @example
  *
  * ```typescript
@@ -2566,10 +2625,45 @@ export function prop<K extends keyof T & string, T extends object>(
 ): T[K]
 
 /**
+ * Check if property `key` of `object` equals `value`, using {@link equals} for
+ * determining equality.
+ *
+ * @category Object
+ * @example
+ *
+ * ```typescript
+ * const users = [
+ *   { name: 'Alice' },
+ *   { name: 'Bob' },
+ * ]
+ *
+ * I.some(I.propEquals('Alice', 'name'), users)
+ * // => true
+ * ```
+ *
+ * @see propEquals
+ */
+export function propEquals<V>(
+  value: V
+): {
+  <K extends string>(key: K): <T extends HasKey<K, V>>(object: T) => boolean
+  <K extends string, T extends HasKey<K, V>>(key: K, object: T): boolean
+}
+export function propEquals<V, K extends string>(
+  value: V,
+  key: K
+): <T extends HasKey<K, V>>(object: T) => boolean
+export function propEquals<K extends keyof T & string, T extends object>(
+  value: T[K],
+  key: K,
+  object: T
+): boolean
+
+/**
  * Like {@link prop}, but if the resolved value is `undefined`, `defaultValue`
  * is returned instead.
  *
- * @category Getters and setters
+ * @category Object
  * @example
  *
  * ```typescript
@@ -2605,6 +2699,40 @@ export function propOr<V extends T[K], K extends keyof T & string, T>(
   key: K,
   object: T
 ): Defined<T[K]> | V
+
+/**
+ * Check if property `key` of `object` satisfies the `predicate`.
+ *
+ * @category Object
+ * @example
+ *
+ * ```typescript
+ * const users = [
+ *   { name: 'Alice' },
+ *   { name: 'Bob' },
+ * ]
+ *
+ * I.some(I.propSatisfies(I.test(/^A/), 'name'), users)
+ * // => true
+ * ```
+ *
+ * @see propEquals
+ */
+export function propSatisfies<V>(
+  predicate: (value: V) => boolean
+): {
+  <K extends string>(key: K): <T extends HasKey<K, V>>(object: T) => boolean
+  <K extends string, T extends HasKey<K, V>>(key: K, object: T): boolean
+}
+export function propSatisfies<V, K extends string>(
+  predicate: (value: V) => boolean,
+  key: K
+): <T extends HasKey<K, V>>(object: T) => boolean
+export function propSatisfies<K extends keyof T & string, T extends object>(
+  predicate: (value: Defined<T[K]>) => boolean,
+  key: K,
+  object: T
+): boolean
 
 /**
  * Create an array of numbers between `start` (inclusive) and `end`
@@ -2703,7 +2831,7 @@ export function reduceRight<T, R>(
  * - If `index` is not within the `array` bounds, the `array` is returned
  *   unchanged.
  *
- * @category Getters and setters
+ * @category Basic array operations
  * @example
  *
  * ```typescript
@@ -2729,7 +2857,7 @@ export function removeAt<T>(index: number, array: readonly T[]): T[]
  * - If `key` is not an own property of `object`, the `object` is returned
  *   unchanged.
  *
- * @category Getters and setters
+ * @category Object
  * @example
  *
  * ```typescript
@@ -2926,7 +3054,7 @@ export function pipe<T1, T2, T3, T4, T5, T6, T7, T8, T9, R>(
  *   unchanged.
  * - Removes the element if `value` is `undefined`.
  *
- * @category Getters and setters
+ * @category Basic array operations
  * @example
  *
  * ```typescript
@@ -2967,7 +3095,7 @@ export function setAt<T>(
  *
  * - If `value` is `undefined`, the property is removed.
  *
- * @category Getters and setters
+ * @category Object
  * @example
  *
  * ```typescript

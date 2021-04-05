@@ -20,7 +20,6 @@ const categoryOrdering = [
   'Set operations',
   'Object',
   'Function',
-  'Getters and setters',
   'Relation',
   'Math',
   'Logic',
