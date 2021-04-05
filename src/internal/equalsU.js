@@ -159,7 +159,7 @@ const equalsMap = (a, b, cycles) => {
 
   // As an optimization, try to find a key mismatch before starting to compare
   // the equality of the values.
-  for (const [key] of a) {
+  for (const key of a.keys()) {
     if (!b.has(key)) {
       return false
     }
