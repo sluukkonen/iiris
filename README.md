@@ -264,7 +264,7 @@ Compared to [Ramda](https://github.com/ramda/ramda):
   objects and arbitrary fantasy-land functors. TypeScript doesn't have native support for higher-kinded types
   ([although some people have tried to work around that](https://github.com/gcanti/fp-ts)), so I made an intentional
   decision to limit the polymorphism of Iiris functions. This makes code less general but dramatically improves the
-  TypeScript type inference and makes tree-shaking more effective.
+  TypeScript experience and makes tree-shaking more effective.
 - No support for placeholders. Placeholders add some overhead to each curried function call and make writing TypeScript
   typings much harder.
 - A bigger focus on performance.
