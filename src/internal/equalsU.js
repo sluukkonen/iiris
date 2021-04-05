@@ -44,6 +44,8 @@ export const equalsU = (a, b, cycles) => {
   // Fast path for arrays
   if (isArray(a)) {
     return isArray(b) ? equalsArray(a, b, cycles) : false
+  } else if (isArray(b)) {
+    return false
   }
 
   // Fast paths have failed. We need to perform a tag check.
