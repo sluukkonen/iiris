@@ -304,7 +304,7 @@ Many of the type signatures are also simplified. As an example, we don't show th
 #### append
 
 ```typescript
-<T>(value: T) => (array: T[]) => T[]
+<T>(value: T, array: T[]) => T[]
 ```
 
 Append a new element to the end of an array.
@@ -323,7 +323,7 @@ I.append(4, [1, 2, 3])
 #### at
 
 ```typescript
-(index: number) => <T>(array: T[]) => T | undefined
+<T>(index: number, array: T[]) => T | undefined
 ```
 
 Retrieves the element at `index` from `array` or `undefined`.
@@ -345,7 +345,7 @@ I.at(0, [])
 #### atEquals
 
 ```typescript
-<T>(value: T) => (index: number) => (array: T[]) => boolean
+<T>(value: T, index: number, array: T[]) => boolean
 ```
 
 Check if the `array` element at `index` equals `value`, using [equals](#equals)
@@ -365,7 +365,7 @@ I.atEquals('a', 0, ['a', 'b', 'c'])
 #### atOr
 
 ```typescript
-<T>(defaultValue: T) => (index: number) => (array: T[]) => T
+<T>(defaultValue: T, index: number, array: T[]) => T
 ```
 
 Like [at](#at), but if the resolved value is `undefined`, `defaultValue` is
@@ -391,7 +391,7 @@ I.atOr(999, 0, [undefined])
 #### atSatisfies
 
 ```typescript
-<T>(predicate: (value: T) => boolean) => (index: number) => (array: T[]) => boolean
+<T>(predicate: (value: T) => boolean, index: number, array: T[]) => boolean
 ```
 
 Check if the `array` element at `index` satisfies the `predicate`.
@@ -410,7 +410,7 @@ I.atSatisfies(I.gt(0), 0, [1, 2, 3])
 #### concat
 
 ```typescript
-<T>(array: T[]) => (other: T[]) => T[]
+<T>(array: T[], other: T[]) => T[]
 ```
 
 Concatenate two arrays together.
@@ -429,7 +429,7 @@ I.concat([1, 2, 3], [4, 5, 6])
 #### forEach
 
 ```typescript
-<T>(fn: (value: T) => void) => (array: T[]) => T[]
+<T>(fn: (value: T) => void, array: T[]) => T[]
 ```
 
 Apply `fn` to each element of the `array` and return the `array`.
@@ -451,7 +451,7 @@ i
 #### forEachWithIndex
 
 ```typescript
-<T>(fn: (index: number, value: T) => void) => (array: T[]) => T[]
+<T>(fn: (index: number, value: T) => void, array: T[]) => T[]
 ```
 
 Like [forEach](#foreach), but `fn` also receives the element index as the first
@@ -584,7 +584,7 @@ I.length([])
 #### modifyAt
 
 ```typescript
-(index: number) => <T>(fn: (value: T) => T) => (array: T[]) => T[]
+<T>(index: number, fn: (value: T) => T, array: T[]) => T[]
 ```
 
 Returns a copy of `array` where the element at `index` has been replaced by
@@ -617,7 +617,7 @@ I.modifyAt(999, I.inc, [1, 2, 3])
 #### prepend
 
 ```typescript
-<T>(value: T) => (array: T[]) => T[]
+<T>(value: T, array: T[]) => T[]
 ```
 
 Prepend a new element to the beginning of an array.
@@ -636,7 +636,7 @@ I.prepend(0, [1, 2, 3])
 #### removeAt
 
 ```typescript
-(index: number) => <T>(array: T[]) => T[]
+<T>(index: number, array: T[]) => T[]
 ```
 
 Returns a copy of `array` without the element at `index`.
@@ -664,7 +664,7 @@ I.removeAt(999, [1, 2, 3])
 #### setAt
 
 ```typescript
-(index: number) => <T>(value: undefined | T) => (array: T[]) => T[]
+<T>(index: number, value: T | undefined, array: T[]) => T[]
 ```
 
 Returns a copy of `array` where the element at `index` has been replaced with `value`.
@@ -720,7 +720,7 @@ I.tail([])
 #### flatMap
 
 ```typescript
-<T, U>(fn: (value: T) => U[]) => (array: T[]) => U[]
+<T, U>(fn: (value: T) => U[], array: T[]) => U[]
 ```
 
 Return an array containing the results of applying `fn` to each element in
@@ -740,7 +740,7 @@ I.flatMap((n) => [n, n], [1, 2, 3])
 #### flatten
 
 ```typescript
-<D extends number>(depth: D) => <T extends unknown[]>(array: T) => Array<FlatArray<T, D>>
+<T extends unknown[], D extends number>(depth: D, array: T) => Array<FlatArray<T, D>>
 ```
 
 Flatten a nested `array` by `n` levels.
@@ -762,7 +762,7 @@ I.flatten(2, [1, [2, [3]]])
 #### intersperse
 
 ```typescript
-<T>(separator: T) => (array: T[]) => T[]
+<T>(separator: T, array: T[]) => T[]
 ```
 
 Return a copy of `array` with `separator` inserted between each element.
@@ -784,7 +784,7 @@ I.intersperse(',', [])
 #### join
 
 ```typescript
-(separator: string) => <T>(array: T[]) => string
+<T>(separator: string, array: T[]) => string
 ```
 
 Convert the `array` to a string, inserting the `separator` between each
@@ -804,7 +804,7 @@ I.join(', ', [1, 2, 3])
 #### map
 
 ```typescript
-<T, U>(fn: (value: T) => U) => (array: T[]) => U[]
+<T, U>(fn: (value: T) => U, array: T[]) => U[]
 ```
 
 Return an array containing the results of applying `fn` to each element in
@@ -824,7 +824,7 @@ I.map(I.inc, [1, 2, 3])
 #### mapMaybe
 
 ```typescript
-<T, U>(fn: (value: T) => U | undefined) => (array: T[]) => U[]
+<T, U>(fn: (value: T) => U | undefined, array: T[]) => U[]
 ```
 
 Return an array containing the results of applying `fn` to each element in
@@ -850,7 +850,7 @@ I.mapMaybe(I.prop('age'), users)
 #### mapWithIndex
 
 ```typescript
-<T, U>(fn: (index: number, value: T) => U) => (array: T[]) => U[]
+<T, U>(fn: (index: number, value: T) => U, array: T[]) => U[]
 ```
 
 Like [map](#map), but `fn` also receives the element index as the first
@@ -911,7 +911,7 @@ I.maximum([])
 #### maximumBy
 
 ```typescript
-<T, U extends Ordered>(fn: (value: T) => U) => (array: T[]) => T | undefined
+<T, U extends Ordered>(fn: (value: T) => U, array: T[]) => T | undefined
 ```
 
 Like [maximum](#maximum), but apply `fn` to each value before determining
@@ -959,7 +959,7 @@ I.minimum([])
 #### minimumBy
 
 ```typescript
-<T, U extends Ordered>(fn: (value: T) => U) => (array: T[]) => T | undefined
+<T, U extends Ordered>(fn: (value: T) => U, array: T[]) => T | undefined
 ```
 
 Like [minimum](#minimum), but `fn` is applied to each value before determining
@@ -985,7 +985,7 @@ I.minimumBy((u) => u.age, users)
 #### reduce
 
 ```typescript
-<T, R>(reducer: (accumulator: R, value: T) => R) => (initial: R) => (array: T[]) => R
+<T, R>(reducer: (accumulator: R, value: T) => R, initial: R, array: T[]) => R
 ```
 
 Left-associative fold.
@@ -1010,7 +1010,7 @@ I.reduce((sum, n) => sum + n, 1, [2, 3, 4]) // equal to ((1 + 2) + 3) + 4
 #### reduceRight
 
 ```typescript
-<T, R>(reducer: (value: T, accumulator: R) => R) => (initial: R) => (array: T[]) => R
+<T, R>(reducer: (value: T, accumulator: R) => R, initial: R, array: T[]) => R
 ```
 
 Right-associative fold.
@@ -1064,7 +1064,7 @@ numbers.reduce((sum, n) => sum + n, 0)
 #### sumBy
 
 ```typescript
-<T>(fn: (value: T) => number) => (array: T[]) => number
+<T>(fn: (value: T) => number, array: T[]) => number
 ```
 
 Like [sum](#sum), but each element of the `array` is converted to a number
@@ -1086,7 +1086,7 @@ I.sumBy(I.prop('age'), [{ name: 'Alice', age: 10 }, { name: 'Bob', age: 20 }])
 #### count
 
 ```typescript
-<T>(predicate: (value: T) => boolean) => (array: T[]) => number
+<T>(predicate: (value: T) => boolean, array: T[]) => number
 ```
 
 Count the number of elements in the `array` the satisfy the `predicate`.
@@ -1105,7 +1105,7 @@ I.count((n) => n > 1, [1, 2, 3])
 #### every
 
 ```typescript
-<T>(predicate: (value: T) => boolean) => (array: T[]) => boolean
+<T>(predicate: (value: T) => boolean, array: T[]) => boolean
 ```
 
 Check if every element in the `array` satisfies the `predicate`.
@@ -1127,8 +1127,8 @@ I.every((n) => n < 3, [1, 2, 3])
 #### filter
 
 ```typescript
-<T>(predicate: (value: T) => boolean) => (array: T[]) => T[]
-<T, U>(guard: (value: T) => value is U) => (array: T[]) => U[]
+<T>(predicate: (value: T) => boolean, array: T[]) => T[]
+<T, U>(guard: (value: T) => value is U, array: T[]) => U[]
 ```
 
 Return the elements of the `array` that satisfy the `predicate`.
@@ -1147,7 +1147,7 @@ I.filter((n) => n > 1, [1, 2, 3])
 #### filterWithIndex
 
 ```typescript
-<T>(predicate: (index: number, value: T) => boolean) => (array: T[]) => T[]
+<T>(predicate: (index: number, value: T) => boolean, array: T[]) => T[]
 ```
 
 Like [filter](#filter), but `predicate` also receives the element index as the
@@ -1167,8 +1167,8 @@ I.filterWithIndex((i, n) => i + n === 3, [1, 2, 3])
 #### find
 
 ```typescript
-<T>(predicate: (value: T) => boolean) => (array: T[]) => T | undefined
-<T, U>(guard: (value: T) => value is U) => (array: T[]) => U | undefined
+<T>(predicate: (value: T) => boolean, array: T[]) => T | undefined
+<T, U>(guard: (value: T) => value is U, array: T[]) => U | undefined
 ```
 
 Find the first element in the `array` that satisfies the `predicate`.
@@ -1192,7 +1192,7 @@ I.find((c) => c === 'x', ['a', 'b', 'c'])
 #### findIndex
 
 ```typescript
-<T>(predicate: (value: T) => boolean) => (array: T[]) => number
+<T>(predicate: (value: T) => boolean, array: T[]) => number
 ```
 
 Find the index of the first element in the `array` that satisfies the
@@ -1217,8 +1217,8 @@ I.findIndex((c) => c === 'x', ['a', 'b', 'c'])
 #### findLast
 
 ```typescript
-<T>(predicate: (value: T) => boolean) => (array: T[]) => T | undefined
-<T, U>(guard: (value: T) => value is U) => (array: T[]) => U | undefined
+<T>(predicate: (value: T) => boolean, array: T[]) => T | undefined
+<T, U>(guard: (value: T) => value is U, array: T[]) => U | undefined
 ```
 
 Find the last element in the `array` that satisfies the `predicate`.
@@ -1242,7 +1242,7 @@ I.findLast((c) => c === 'x', ['a', 'b', 'c'])
 #### findLastIndex
 
 ```typescript
-<T>(predicate: (value: T) => boolean) => (array: T[]) => number
+<T>(predicate: (value: T) => boolean, array: T[]) => number
 ```
 
 Find the index of the last element in the `array` that satisfies the
@@ -1267,7 +1267,7 @@ I.findLastIndex((c) => c === 'x', ['a', 'b', 'c'])
 #### none
 
 ```typescript
-<T>(predicate: (value: T) => boolean) => (array: T[]) => boolean
+<T>(predicate: (value: T) => boolean, array: T[]) => boolean
 ```
 
 Check if none of the elements in the `array` satisfy the `predicate`.
@@ -1289,8 +1289,8 @@ I.none((n) => n > 5, [1, 2, 3])
 #### partition
 
 ```typescript
-<T>(predicate: (value: T) => boolean) => (array: T[]) => [T[], T[]]
-<T, U>(guard: (value: T) => value is U) => (array: T[]) => [U[], Array<Exclude<T, U>>]
+<T>(predicate: (value: T) => boolean, array: T[]) => [T[], T[]]
+<T, U>(guard: (value: T) => value is U, array: T[]) => [U[], Array<Exclude<T, U>>]
 ```
 
 Partition the `array` into two arrays, the first containing the elements
@@ -1311,7 +1311,7 @@ const [evens, odds] = I.partition((n) => n % 2 === 0, [1, 2, 3])
 #### some
 
 ```typescript
-<T>(predicate: (value: T) => boolean) => (array: T[]) => boolean
+<T>(predicate: (value: T) => boolean, array: T[]) => boolean
 ```
 
 Check if some elements in the `array` satisfies the `predicate`.
@@ -1335,7 +1335,7 @@ I.some((n) => n > 5, [1, 2, 3])
 #### includes
 
 ```typescript
-<T>(value: T) => (array: T[]) => boolean
+<T>(value: T, array: T[]) => boolean
 ```
 
 Check if the `array` includes the specified `value`, using [equals](#equals) for
@@ -1356,7 +1356,7 @@ I.includes(0, [1, 2, 3])
 #### indexOf
 
 ```typescript
-<T>(value: T) => (array: T[]) => number
+<T>(value: T, array: T[]) => number
 ```
 
 Return the index of the first element equaling `value`, using [equals](#equals)
@@ -1379,7 +1379,7 @@ I.indexOf('x', ['a', 'b', 'c', 'a', 'b', 'c'])
 #### lastIndexOf
 
 ```typescript
-<T>(value: T) => (array: T[]) => number
+<T>(value: T, array: T[]) => number
 ```
 
 Return the index of the last element equaling `value`, using [equals](#equals)
@@ -1404,7 +1404,7 @@ I.lastIndexOf('x', ['a', 'b', 'c', 'a', 'b', 'c'])
 #### countBy
 
 ```typescript
-<T, K extends string>(keyFn: (value: T) => K) => (array: T[]) => Record<K, number>
+<T, K extends string>(keyFn: (value: T) => K, array: T[]) => Record<K, number>
 ```
 
 Apply `keyFn` to each element in the `array` and return an object of counts
@@ -1430,7 +1430,7 @@ I.countBy(I.prop('name'), users)
 #### groupBy
 
 ```typescript
-<T, K extends string>(keyFn: (value: T) => K) => (array: T[]) => Record<K, T[]>
+<T, K extends string>(keyFn: (value: T) => K, array: T[]) => Record<K, T[]>
 ```
 
 Partition the `array` into an object of arrays according to `keyFn`.
@@ -1455,7 +1455,7 @@ I.groupBy(I.prop('name'), users)
 #### groupMap
 
 ```typescript
-<T, U>(mapFn: (value: T) => U) => <K extends string>(keyFn: (value: T) => K) => (array: T[]) => Record<K, U[]>
+<T, U, K extends string>(mapFn: (value: T) => U, keyFn: (value: T) => K, array: T[]) => Record<K, U[]>
 ```
 
 Like [groupBy](#groupby), but also apply `mapFn` to each element before adding
@@ -1480,7 +1480,7 @@ const agesByName = I.groupMap(I.prop('age'), I.prop('name'), users)
 #### groupMapReduce
 
 ```typescript
-<U>(reducer: (accumulator: U, value: U) => U) => <T>(mapFn: (value: T) => U) => <K extends string>(keyFn: (value: T) => K) => (array: T[]) => Record<K, U>
+<U, T, K extends string>(reducer: (accumulator: U, value: U) => U, mapFn: (value: T) => U, keyFn: (value: T) => K, array: T[]) => Record<K, U>
 ```
 
 Like [groupMap](#groupmap), but instead of returning an object of arrays, combine
@@ -1505,7 +1505,7 @@ const sumOfAgesByName = I.groupMapReduce(I.add, I.prop('age'), I.prop('name'), u
 #### indexBy
 
 ```typescript
-<T, K extends string>(keyFn: (value: T) => K) => (array: T[]) => Record<K, T>
+<T, K extends string>(keyFn: (value: T) => K, array: T[]) => Record<K, T>
 ```
 
 Apply `keyFn` to each element in the `array` and return an object of
@@ -1553,7 +1553,7 @@ I.of(1)
 #### pair
 
 ```typescript
-<T>(first: T) => <U>(second: U) => [T, U]
+<T, U>(first: T, second: U) => [T, U]
 ```
 
 Create two element array containing `first` and `second`.
@@ -1572,7 +1572,7 @@ I.pair(1, 2)
 #### range
 
 ```typescript
-(start: number) => (end: number) => number[]
+(start: number, end: number) => number[]
 ```
 
 Create an array of numbers between `start` (inclusive) and `end`
@@ -1595,7 +1595,7 @@ I.range(0, 10)
 #### repeat
 
 ```typescript
-<T>(value: T) => (n: number) => T[]
+<T>(value: T, n: number) => T[]
 ```
 
 Repeat the given `value` `n` times.
@@ -1614,7 +1614,7 @@ I.repeat('a', 5)
 #### times
 
 ```typescript
-<T>(fn: (index: number) => T) => (n: number) => T[]
+<T>(fn: (index: number) => T, n: number) => T[]
 ```
 
 Create an array of length `n` by applying `fn` to the index of each element.
@@ -1635,7 +1635,7 @@ I.times((n) => n * 10, 3)
 #### drop
 
 ```typescript
-(n: number) => <T>(array: T[]) => T[]
+<T>(n: number, array: T[]) => T[]
 ```
 
 Drop the first `n` elements of an `array`.
@@ -1657,7 +1657,7 @@ I.drop(2, [1, 2, 3])
 #### dropLast
 
 ```typescript
-(n: number) => <T>(array: T[]) => T[]
+<T>(n: number, array: T[]) => T[]
 ```
 
 Drop the last `n` elements of an `array`.
@@ -1679,7 +1679,7 @@ I.dropLast(2, [1, 2, 3])
 #### dropLastWhile
 
 ```typescript
-<T>(predicate: (value: T) => boolean) => (array: T[]) => T[]
+<T>(predicate: (value: T) => boolean, array: T[]) => T[]
 ```
 
 Drop elements from the end of an `array` while `predicate` is satisfied.
@@ -1698,7 +1698,7 @@ I.dropLastWhile((n) => n > 1, [1, 2, 3])
 #### dropWhile
 
 ```typescript
-<T>(predicate: (value: T) => boolean) => (array: T[]) => T[]
+<T>(predicate: (value: T) => boolean, array: T[]) => T[]
 ```
 
 Drop elements from the beginning of an `array` while `predicate` is
@@ -1718,7 +1718,7 @@ I.dropWhile((n) => n === 1, [1, 2, 3])
 #### slice
 
 ```typescript
-(start: number) => (end: number) => <T>(array: T[]) => T[]
+<T>(start: number, end: number, array: T[]) => T[]
 ```
 
 Create a copy of `array` containing the elements from `start` (inclusive)
@@ -1739,7 +1739,7 @@ I.slice(1, 2, [1, 2, 3])
 #### take
 
 ```typescript
-(n: number) => <T>(array: T[]) => T[]
+<T>(n: number, array: T[]) => T[]
 ```
 
 Take the first `n` elements of an `array`.
@@ -1758,7 +1758,7 @@ I.take(2, [1, 2, 3])
 #### takeLast
 
 ```typescript
-<T>(n: number) => (array: T[]) => T[]
+<T>(n: number, array: T[]) => T[]
 ```
 
 Take the last `n` elements of an `array`.
@@ -1777,7 +1777,7 @@ I.takeLast(2, [1, 2, 3])
 #### takeLastWhile
 
 ```typescript
-<T>(predicate: (value: T) => boolean) => (array: T[]) => T[]
+<T>(predicate: (value: T) => boolean, array: T[]) => T[]
 ```
 
 Take elements from the end of an `array` while `predicate` is satisfied.
@@ -1796,7 +1796,7 @@ I.takeLastWhile((n) => n >= 2, [1, 2, 3])
 #### takeWhile
 
 ```typescript
-<T>(predicate: (value: T) => boolean) => (array: T[]) => T[]
+<T>(predicate: (value: T) => boolean, array: T[]) => T[]
 ```
 
 Take elements from the beginning of an `array` while `predicate` is
@@ -1881,7 +1881,7 @@ I.sort((a, b) => a - b, [3, 2, 1])
 #### sortBy
 
 ```typescript
-<T, U extends Ordered>(fn: (value: T) => U) => (array: T[]) => T[]
+<T, U extends Ordered>(fn: (value: T) => U, array: T[]) => T[]
 ```
 
 Sort an `array` into ascending order by mapping each element of the array
@@ -1909,7 +1909,7 @@ I.sortBy(I.prop('age'), users)
 #### sortWith
 
 ```typescript
-<T>(comparators: Array<(first: T, second: T) => number>) => (array: T[]) => T[]
+<T>(comparators: Array<(first: T, second: T) => number>, array: T[]) => T[]
 ```
 
 Sort an `array` according to an array of comparator functions.
@@ -1938,7 +1938,7 @@ I.sortWith([I.descend(I.prop('age')), I.ascend(I.prop('name'))], users)
 #### zip
 
 ```typescript
-<T>(first: T[]) => <U>(second: U[]) => Array<[T, U]>
+<T, U>(first: T[], second: U[]) => Array<[T, U]>
 ```
 
 Combine the corresponding elements of two arrays into an array of pairs.
@@ -1960,7 +1960,7 @@ I.zip(['a', 'b', 'c'], [1, 2, 3])
 #### zipObject
 
 ```typescript
-<K extends string>(keys: K[]) => <T>(values: T[]) => Record<K, T>
+<K extends string, T>(keys: K[], values: T[]) => Record<K, T>
 ```
 
 Combine an array of `keys` and `values` into an object.
@@ -1982,7 +1982,7 @@ I.zipObject(['a', 'b', 'c'], [1, 2, 3])
 #### zipWith
 
 ```typescript
-<T, U, R>(fn: (value: T, other: U) => R) => (first: T[]) => (second: U[]) => R[]
+<T, U, R>(fn: (value: T, other: U) => R, first: T[], second: U[]) => R[]
 ```
 
 Like [zip](#zip), but the elements are combined with `fn` instead of
@@ -2004,7 +2004,7 @@ I.zipWith(I.add, [1, 2, 3], [4, 5, 6])
 #### difference
 
 ```typescript
-<T>(first: T[], second: T[]) => T[]
+<T>(first: T[]) => (second: T[]) => T[]
 ```
 
 Calculate the [set
@@ -2028,7 +2028,7 @@ I.difference([1, 2, 3], [2, 3, 4])
 #### differenceWith
 
 ```typescript
-<T>(equals: (value: T, other: T) => boolean) => (array: T[]) => (other: T[]) => T[]
+<T>(equals: (value: T, other: T) => boolean, array: T[], other: T[]) => T[]
 ```
 
 Like [difference](#difference), but using a custom equality function.
@@ -2058,7 +2058,7 @@ I.differenceWith((a, b) => a.id === b.id, users, otherUsers)
 #### intersection
 
 ```typescript
-<T>(first: T[]) => (second: T[]) => T[]
+<T>(first: T[], second: T[]) => T[]
 ```
 
 Calculate the [set
@@ -2082,7 +2082,7 @@ I.intersection([1, 2, 3], [2, 3, 4])
 #### intersectionWith
 
 ```typescript
-<T>(equals: (value: T, other: T) => boolean) => (array: T[]) => (other: T[]) => T[]
+<T>(equals: (value: T, other: T) => boolean, array: T[], other: T[]) => T[]
 ```
 
 Like [intersection](#intersection), but using a custom equality function.
@@ -2112,7 +2112,7 @@ I.intersectionWith((a, b) => a.id === b.id, users, otherUsers)
 #### union
 
 ```typescript
-<T>(first: T[]) => (second: T[]) => T[]
+<T>(first: T[], second: T[]) => T[]
 ```
 
 Calculate the [set union](https://en.wikipedia.org/wiki/Union_(set_theory))
@@ -2135,7 +2135,7 @@ I.union([1, 2, 3], [2, 3, 4])
 #### unionWith
 
 ```typescript
-<T>(equals: (value: T, other: T) => boolean) => (array: T[]) => (other: T[]) => T[]
+<T>(equals: (value: T, other: T) => boolean, array: T[], other: T[]) => T[]
 ```
 
 Like [union](#union), but using a custom equality function.
@@ -2185,7 +2185,7 @@ I.uniq([1, 2, 3, 1, 2, 3])
 #### uniqWith
 
 ```typescript
-<T>(equals: (value: T, other: T) => boolean) => (array: T[]) => T[]
+<T>(equals: (value: T, other: T) => boolean, array: T[]) => T[]
 ```
 
 Like [uniq](#uniq), but using a custom equality function.
@@ -2249,7 +2249,7 @@ I.fromEntries([['a', 1], ['b', 2], ['c', 3]])
 #### has
 
 ```typescript
-<K extends string>(key: K) => (object: unknown) => object is Record<K, unknown>
+<K extends string>(key: K, object: unknown) => object is Record<K, unknown>
 ```
 
 Check if `key` is an own property of `object`.
@@ -2288,7 +2288,7 @@ I.keys({ a: 1, b: 2, c: 3 })
 #### mapKeys
 
 ```typescript
-<K1 extends string, K2 extends string>(fn: (value: K1) => K2) => <V>(object: Record<K1, V>) => Record<K2, V>
+<K1 extends string, K2 extends string, V>(fn: (key: K1) => K2, object: Record<K1, V>) => Record<K2, V>
 ```
 
 Return an object containing the results of applying `fn` to each key of
@@ -2308,7 +2308,7 @@ I.mapKeys((k) => k.toUpperCase(), { a: 1, b: 2, c: 3 })
 #### mapValues
 
 ```typescript
-<V1, V2>(fn: (value: V1) => V2) => <K extends string>(object: Record<K, V1>) => Record<K, V2>
+<V1, V2, K extends string>(fn: (value: V1) => V2, object: Record<K, V1>) => Record<K, V2>
 ```
 
 Return an object containing the results of applying `fn` to each value of
@@ -2326,7 +2326,7 @@ I.mapValues(I.inc, { a: 1, b: 2, c: 3 })
 #### merge
 
 ```typescript
-<T extends object>(first: T) => <U extends object>(second: U) => T & U
+<T extends object, U extends object>(first: T, second: U) => T & U
 ```
 
 Copy the own enumerable properties of two objects, preferring the values from
@@ -2344,7 +2344,7 @@ I.merge({ a: 1, b: 1 }, { b: 2, c: 2 })
 #### modifyProp
 
 ```typescript
-<K extends string>(key: K) => <V>(fn: (value: V) => V) => <T extends HasKey<K, V>>(object: T) => T
+<K extends string, T extends object>(key: K, fn: (value: Defined<T[K]>) => T[K], object: T) => T
 ```
 
 Return a copy of `object` where the property `key` has replaced by applying
@@ -2374,7 +2374,7 @@ I.modifyProp('d', () => 4, { a: 1, b: 2, c: 3 })
 #### omit
 
 ```typescript
-<K extends string>(keys: K[]) => <T extends HasKey<K>>(object: T) => Omit<T, Extract<keyof T, K>>
+<K extends string, T extends object>(keys: K[], object: T) => Omit<T, K>
 ```
 
 Return a copy of `object` without the specified `keys`.
@@ -2393,7 +2393,7 @@ I.omit(['a', 'b'], { a: 1, b: 2, c: 3 })
 #### pick
 
 ```typescript
-<K extends string>(keys: K[]) => <T extends HasKey<K>>(object: T) => Pick<T, Extract<keyof T, K>>
+<K extends string, T extends object>(keys: K[], object: T) => Pick<T, K>
 ```
 
 Return a copy of `object` with only the specified `keys`.
@@ -2412,7 +2412,7 @@ I.pick(['a', 'b'], { a: 1, b: 2, c: 3 })
 #### prop
 
 ```typescript
-<K extends string>(key: K) => <T extends HasKey<K>>(object: T) => T[K]
+<K extends string, T extends object>(key: K, object: T) => T[K]
 ```
 
 Retrieves the property `key` from `object` or `undefined`.
@@ -2434,7 +2434,7 @@ I.prop('a', {})
 #### propEquals
 
 ```typescript
-<V>(value: V) => <K extends string>(key: K) => <T extends HasKey<K, V>>(object: T) => boolean
+<K extends string, T extends object>(value: T[K], key: K, object: T) => boolean
 ```
 
 Check if property `key` of `object` equals `value`, using [equals](#equals) for
@@ -2459,7 +2459,7 @@ I.some(I.propEquals('Alice', 'name'), users)
 #### propOr
 
 ```typescript
-<V>(defaultValue: V) => <K extends string>(key: K) => <T extends HasKey<K, V>>(object: T) => V | Defined<T[K]>
+<V, K extends string, T>(defaultValue: V, key: K, object: T) => Defined<T[K]> | V
 ```
 
 Like [prop](#prop), but if the resolved value is `undefined`, `defaultValue`
@@ -2485,7 +2485,7 @@ I.propOr(999, 'a', { a: undefined })
 #### propSatisfies
 
 ```typescript
-<V>(predicate: (value: V) => boolean) => <K extends string>(key: K) => <T extends HasKey<K, V>>(object: T) => boolean
+<K extends string, T extends object>(predicate: (value: Defined<T[K]>) => boolean, key: K, object: T) => boolean
 ```
 
 Check if property `key` of `object` satisfies the `predicate`.
@@ -2509,7 +2509,7 @@ I.some(I.propSatisfies(I.test(/^A/), 'name'), users)
 #### removeProp
 
 ```typescript
-<K extends string>(key: K) => <T extends HasKey<K>>(object: T) => Omit<T, K>
+<K extends string, T extends object>(key: K, object: T) => Omit<T, K>
 ```
 
 Return a copy of `object` without the property `key`.
@@ -2529,7 +2529,7 @@ I.removeProp('a', { a: 1, b: 2, c: 3 })
 #### setProp
 
 ```typescript
-<K extends string>(key: K) => <V>(value: V) => <T extends HasKey<K, V>>(object: T) => T
+<K extends string, T extends object>(key: K, value: T[K], object: T) => T
 ```
 
 Return a copy of `object` with property `key` set to `value`.
@@ -2905,7 +2905,7 @@ Create a version of `fn` that accepts a single argument.
 #### clamp
 
 ```typescript
-<T extends Ordered>(interval: [lower: T, upper: T]) => (value: T) => T
+<T extends Ordered>(interval: [lower: T, upper: T], value: T) => T
 ```
 
 Clamp a number within the closed interval `[lower, upper]`.
@@ -2928,7 +2928,7 @@ I.clamp([0, 10], -5)
 #### equals
 
 ```typescript
-<T>(first: T) => (second: T) => boolean
+<T>(first: T, second: T) => boolean
 ```
 
 Check if two values are deeply equal.
@@ -2958,7 +2958,7 @@ I.equals([1, 2, 3], [4, 5, 6])
 #### equalsBy
 
 ```typescript
-<T, U>(fn: (value: T) => U) => (first: T) => (second: T) => boolean
+<T, U>(fn: (value: T) => U, first: T, second: T) => boolean
 ```
 
 Like [equals](#equals), but the function `fn` is applied to both values before
@@ -2978,7 +2978,7 @@ I.equalsBy(Math.floor, 1, 1.5)
 #### gt
 
 ```typescript
-<T extends Ordered>(first: T) => (second: T) => boolean
+<T extends Ordered>(first: T, second: T) => boolean
 ```
 
 Check if the `second` argument is greater than the `first`.
@@ -2997,7 +2997,7 @@ I.filter(I.gt(2), [1, 2, 3])
 #### gte
 
 ```typescript
-<T extends Ordered>(first: T) => (second: T) => boolean
+<T extends Ordered>(first: T, second: T) => boolean
 ```
 
 Check if the `second` argument is greater than or equal to the `first`.
@@ -3015,7 +3015,7 @@ I.filter(I.gte(2), [1, 2, 3])
 #### lt
 
 ```typescript
-<T extends Ordered>(first: T) => (second: T) => boolean
+<T extends Ordered>(first: T, second: T) => boolean
 ```
 
 Check if the `second` argument is less than the `first`.
@@ -3034,7 +3034,7 @@ I.filter(I.lt(2), [1, 2, 3])
 #### lte
 
 ```typescript
-<T extends Ordered>(first: T) => (second: T) => boolean
+<T extends Ordered>(first: T, second: T) => boolean
 ```
 
 Check if the `second` argument is less than or equal to the `first`.
@@ -3053,7 +3053,7 @@ I.filter(I.lte(2), [1, 2, 3])
 #### max
 
 ```typescript
-<T extends Ordered>(first: T) => (second: T) => T
+<T extends Ordered>(first: T, second: T) => T
 ```
 
 Return the larger of two values.
@@ -3075,7 +3075,7 @@ I.max('a', 'b')
 #### maxBy
 
 ```typescript
-<T, U extends Ordered>(fn: (value: T) => U) => (first: T, second: T) => T
+<T, U extends Ordered>(fn: (value: T) => U, first: T, second: T) => T
 ```
 
 Like [max](#max), but apply `fn` to both values before determining their
@@ -3095,7 +3095,7 @@ I.maxBy(Math.abs, 1, -2)
 #### min
 
 ```typescript
-<T extends Ordered>(first: T) => (second: T) => T
+<T extends Ordered>(first: T, second: T) => T
 ```
 
 Return the smaller of two values.
@@ -3117,7 +3117,7 @@ I.min('a', 'b')
 #### minBy
 
 ```typescript
-<T, U extends Ordered>(fn: (value: T) => U) => (first: T) => (second: T) => T
+<T, U extends Ordered>(fn: (value: T) => U, first: T, second: T) => T
 ```
 
 Like [min](#min), but apply `fn` to both values before determining their
@@ -3139,7 +3139,7 @@ I.minBy(Math.abs, -1, 2)
 #### add
 
 ```typescript
-(n: number) => (m: number) => number
+(n: number, m: number) => number
 ```
 
 Add two numbers together.
@@ -3175,7 +3175,7 @@ I.map(I.dec, [1, 2, 3])
 #### divideBy
 
 ```typescript
-(divisor: number) => (dividend: number) => number
+(divisor: number, dividend: number) => number
 ```
 
 Divide `dividend` by the `divisor`.
@@ -3209,7 +3209,7 @@ I.map(I.inc, [1, 2, 3])
 #### multiply
 
 ```typescript
-(multiplicand: number) => (multiplier: number) => number
+(multiplicand: number, multiplier: number) => number
 ```
 
 Multiply two numbers together.
@@ -3243,7 +3243,7 @@ I.map(I.negate, [1, 2, 3])
 #### subtractBy
 
 ```typescript
-(subtrahend: number) => (minuend: number) => number
+(subtrahend: number, minuend: number) => number
 ```
 
 Subtract the `subtrahend` from the `minuend`.
@@ -3262,7 +3262,7 @@ I.map(I.subtractBy(1), [1, 2, 3])
 #### maybe
 
 ```typescript
-<R>(defaultValue: R) => <T>(fn: (value: T) => R) => (maybeValue: undefined | T) => R
+<T, R>(defaultValue: R, fn: (value: T) => R, maybeValue: T | undefined) => R
 ```
 
 Apply `fn` to `maybeValue` if it is not `undefined`, return `defaultValue`
@@ -3285,7 +3285,7 @@ I.maybe('', (s) => s.toUpperCase(), undefined)
 #### valueOr
 
 ```typescript
-<T>(defaultValue: T) => (maybeValue: T | undefined) => T
+<T>(defaultValue: T, maybeValue: T | undefined) => T
 ```
 
 Return `maybeValue` if it is not `undefined`, `defaultValue` otherwise.
@@ -3329,7 +3329,7 @@ I.capitalize('aBc')
 #### split
 
 ```typescript
-(separator: RegExp | string) => (string: string) => string
+(separator: RegExp | string, string: string) => string
 ```
 
 Split the `string` into an array of substrings between each `separator`.
@@ -3348,7 +3348,7 @@ I.split(', ', 'a, b, c')
 #### test
 
 ```typescript
-(regexp: RegExp) => (string: string) => boolean
+(regexp: RegExp, string: string) => boolean
 ```
 
 Check if `string` matches the `regexp`.

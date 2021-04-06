@@ -115,8 +115,8 @@ type HasKey<K extends string, V = unknown> = { [P in K]?: V } & object
  * // => [2, 3, 4]
  * ```
  */
-export function add(n: number): (m: number) => number
 export function add(n: number, m: number): number
+export function add(n: number): (m: number) => number
 
 /**
  * Append a new element to the end of an array.
@@ -132,8 +132,8 @@ export function add(n: number, m: number): number
  * @see prepend
  * @see concat
  */
-export function append<T>(value: T): (array: readonly T[]) => T[]
 export function append<T>(value: T, array: readonly T[]): T[]
+export function append<T>(value: T): (array: readonly T[]) => T[]
 
 /**
  * Given a `fn` that maps a `value` to an {@link Ordered} value, create an
@@ -174,8 +174,8 @@ export function ascend<T, U extends Ordered>(
  * @see atOr
  * @see prop
  */
-export function at(index: number): <T>(array: readonly T[]) => T | undefined
 export function at<T>(index: number, array: readonly T[]): T | undefined
+export function at(index: number): <T>(array: readonly T[]) => T | undefined
 
 /**
  * Check if the `array` element at `index` equals `value`, using {@link equals}
@@ -192,20 +192,20 @@ export function at<T>(index: number, array: readonly T[]): T | undefined
  * @see atSatisfies
  */
 export function atEquals<T>(
-  value: T
-): {
-  (index: number): (array: readonly T[]) => boolean
-  (index: number, array: readonly T[]): boolean
-}
+  value: T,
+  index: number,
+  array: readonly T[]
+): boolean
 export function atEquals<T>(
   value: T,
   index: number
 ): (array: readonly T[]) => boolean
 export function atEquals<T>(
-  value: T,
-  index: number,
-  array: readonly T[]
-): boolean
+  value: T
+): {
+  (index: number, array: readonly T[]): boolean
+  (index: number): (array: readonly T[]) => boolean
+}
 
 /**
  * Like {@link at}, but if the resolved value is `undefined`, `defaultValue` is
@@ -228,17 +228,17 @@ export function atEquals<T>(
  * @see at
  * @see propOr
  */
-export function atOr<T>(
-  defaultValue: T
-): {
-  (index: number): (array: readonly T[]) => T
-  (index: number, array: readonly T[]): T
-}
+export function atOr<T>(defaultValue: T, index: number, array: readonly T[]): T
 export function atOr<T>(
   defaultValue: T,
   index: number
 ): (array: readonly T[]) => T
-export function atOr<T>(defaultValue: T, index: number, array: readonly T[]): T
+export function atOr<T>(
+  defaultValue: T
+): {
+  (index: number, array: readonly T[]): T
+  (index: number): (array: readonly T[]) => T
+}
 
 /**
  * Check if the `array` element at `index` satisfies the `predicate`.
@@ -254,20 +254,20 @@ export function atOr<T>(defaultValue: T, index: number, array: readonly T[]): T
  * @see atSatisfies
  */
 export function atSatisfies<T>(
-  predicate: (value: T) => boolean
-): {
-  (index: number): (array: readonly T[]) => boolean
-  (index: number, array: readonly T[]): boolean
-}
+  predicate: (value: T) => boolean,
+  index: number,
+  array: readonly T[]
+): boolean
 export function atSatisfies<T>(
   predicate: (value: T) => boolean,
   index: number
 ): (array: readonly T[]) => boolean
 export function atSatisfies<T>(
-  predicate: (value: T) => boolean,
-  index: number,
-  array: readonly T[]
-): boolean
+  predicate: (value: T) => boolean
+): {
+  (index: number, array: readonly T[]): boolean
+  (index: number): (array: readonly T[]) => boolean
+}
 
 /**
  * Create a version of `fn` that accepts two arguments.
@@ -327,12 +327,12 @@ export function capitalize(string: string): string
  * ```
  */
 export function clamp<T extends Ordered>(
-  interval: [lower: T, upper: T]
-): (value: Widen<T>) => Widen<T>
-export function clamp<T extends Ordered>(
   interval: [lower: T, upper: T],
   value: T
 ): Widen<T>
+export function clamp<T extends Ordered>(
+  interval: [lower: T, upper: T]
+): (value: Widen<T>) => Widen<T>
 
 /**
  * Create a version of a predicate `fn` that flips the returned boolean value.
@@ -471,8 +471,8 @@ export function compose<
  * @see append
  * @see prepend
  */
-export function concat<T>(array: readonly T[]): (other: readonly T[]) => T[]
 export function concat<T>(array: readonly T[], other: readonly T[]): T[]
+export function concat<T>(array: readonly T[]): (other: readonly T[]) => T[]
 
 /**
  * Create a function that always returns `value`.
@@ -501,12 +501,12 @@ export function constant<T>(value: T): () => T
  * @see filter
  */
 export function count<T>(
-  predicate: (value: T) => boolean
-): (array: readonly T[]) => number
-export function count<T>(
   predicate: (value: T) => boolean,
   array: readonly T[]
 ): number
+export function count<T>(
+  predicate: (value: T) => boolean
+): (array: readonly T[]) => number
 
 /**
  * Apply `keyFn` to each element in the `array` and return an object of counts
@@ -529,12 +529,12 @@ export function count<T>(
  * @see groupBy
  */
 export function countBy<T, K extends string>(
-  keyFn: (value: T) => K
-): (array: readonly T[]) => Record<K, number>
-export function countBy<T, K extends string>(
   keyFn: (value: T) => K,
   array: readonly T[]
 ): Record<K, number>
+export function countBy<T, K extends string>(
+  keyFn: (value: T) => K
+): (array: readonly T[]) => Record<K, number>
 
 /**
  * Create a curried version of a `fn` taking two arguments.
@@ -662,10 +662,10 @@ export function descend<T, U extends Ordered>(
  * @see union
  * @see intersection
  */
-export function difference<T>(first: readonly T[], second: readonly T[]): T[]
 export function difference<T>(
   first: readonly T[]
 ): (second: readonly T[]) => T[]
+export function difference<T>(first: readonly T[], second: readonly T[]): T[]
 
 /**
  * Like {@link difference}, but using a custom equality function.
@@ -694,20 +694,20 @@ export function difference<T>(
  * @see intersectionWith
  */
 export function differenceWith<T>(
-  equals: (value: T, other: T) => boolean
-): {
-  (array: readonly T[]): (other: readonly T[]) => T[]
-  (array: readonly T[], other: readonly T[]): T[]
-}
+  equals: (value: T, other: T) => boolean,
+  array: readonly T[],
+  other: readonly T[]
+): T[]
 export function differenceWith<T>(
   equals: (value: T, other: T) => boolean,
   array: readonly T[]
 ): (other: readonly T[]) => T[]
 export function differenceWith<T>(
-  equals: (value: T, other: T) => boolean,
-  array: readonly T[],
-  other: readonly T[]
-): T[]
+  equals: (value: T, other: T) => boolean
+): {
+  (array: readonly T[], other: readonly T[]): T[]
+  (array: readonly T[]): (other: readonly T[]) => T[]
+}
 
 /**
  * Divide `dividend` by the `divisor`.
@@ -720,8 +720,8 @@ export function differenceWith<T>(
  * // => [0.5, 1, 1.5]
  * ```
  */
-export function divideBy(divisor: number): (dividend: number) => number
 export function divideBy(divisor: number, dividend: number): number
+export function divideBy(divisor: number): (dividend: number) => number
 
 /**
  * Drop the first `n` elements of an `array`.
@@ -740,8 +740,8 @@ export function divideBy(divisor: number, dividend: number): number
  * @see dropLast
  * @see take
  */
-export function drop(n: number): <T>(array: readonly T[]) => T[]
 export function drop<T>(n: number, array: readonly T[]): T[]
+export function drop(n: number): <T>(array: readonly T[]) => T[]
 
 /**
  * Drop the last `n` elements of an `array`.
@@ -760,8 +760,8 @@ export function drop<T>(n: number, array: readonly T[]): T[]
  * @see drop
  * @see takeLast
  */
-export function dropLast(n: number): <T>(array: readonly T[]) => T[]
 export function dropLast<T>(n: number, array: readonly T[]): T[]
+export function dropLast(n: number): <T>(array: readonly T[]) => T[]
 
 /**
  * Drop elements from the end of an `array` while `predicate` is satisfied.
@@ -778,12 +778,12 @@ export function dropLast<T>(n: number, array: readonly T[]): T[]
  * @see takeLastWhile
  */
 export function dropLastWhile<T>(
-  predicate: (value: T) => boolean
-): (array: readonly T[]) => T[]
-export function dropLastWhile<T>(
   predicate: (value: T) => boolean,
   array: readonly T[]
 ): T[]
+export function dropLastWhile<T>(
+  predicate: (value: T) => boolean
+): (array: readonly T[]) => T[]
 
 /**
  * Drop elements from the beginning of an `array` while `predicate` is
@@ -801,12 +801,12 @@ export function dropLastWhile<T>(
  * @see takeWhile
  */
 export function dropWhile<T>(
-  predicate: (value: T) => boolean
-): (array: readonly T[]) => T[]
-export function dropWhile<T>(
   predicate: (value: T) => boolean,
   array: readonly T[]
 ): T[]
+export function dropWhile<T>(
+  predicate: (value: T) => boolean
+): (array: readonly T[]) => T[]
 
 /**
  * Return an array of the own enumerable property key-value pairs of `object`
@@ -851,8 +851,8 @@ export function entries<T extends object, K extends keyof T & string>(
  * // => false
  * ```
  */
-export function equals<T>(first: T): (second: T) => boolean
 export function equals<T>(first: T, second: T): boolean
+export function equals<T>(first: T): (second: T) => boolean
 
 /**
  * Like {@link equals}, but the function `fn` is applied to both values before
@@ -869,20 +869,20 @@ export function equals<T>(first: T, second: T): boolean
  * @see equals
  */
 export function equalsBy<T, U>(
-  fn: (value: T) => U
-): {
-  (first: T): (second: T) => boolean
-  (first: T, second: T): boolean
-}
+  fn: (value: T) => U,
+  first: T,
+  second: T
+): boolean
 export function equalsBy<T, U>(
   fn: (value: T) => U,
   first: T
 ): (second: T) => boolean
 export function equalsBy<T, U>(
-  fn: (value: T) => U,
-  first: T,
-  second: T
-): boolean
+  fn: (value: T) => U
+): {
+  (first: T, second: T): boolean
+  (first: T): (second: T) => boolean
+}
 
 /**
  * Check if every element in the `array` satisfies the `predicate`.
@@ -902,12 +902,12 @@ export function equalsBy<T, U>(
  * @see some
  */
 export function every<T>(
-  predicate: (value: T) => boolean
-): (array: readonly T[]) => boolean
-export function every<T>(
   predicate: (value: T) => boolean,
   array: readonly T[]
 ): boolean
+export function every<T>(
+  predicate: (value: T) => boolean
+): (array: readonly T[]) => boolean
 
 /**
  * Find the first element in the `array` that satisfies the `guard`.
@@ -929,12 +929,12 @@ export function every<T>(
  * @see findIndex
  */
 export function find<T, U extends T>(
-  guard: (value: T) => value is U
-): (array: readonly T[]) => U | undefined
-export function find<T, U extends T>(
   guard: (value: T) => value is U,
   array: readonly T[]
 ): U | undefined
+export function find<T, U extends T>(
+  guard: (value: T) => value is U
+): (array: readonly T[]) => U | undefined
 
 /**
  * Find the first element in the `array` that satisfies the `predicate`.
@@ -956,12 +956,12 @@ export function find<T, U extends T>(
  * @see findIndex
  */
 export function find<T>(
-  predicate: (value: T) => boolean
-): (array: readonly T[]) => T | undefined
-export function find<T>(
   predicate: (value: T) => boolean,
   array: readonly T[]
 ): T | undefined
+export function find<T>(
+  predicate: (value: T) => boolean
+): (array: readonly T[]) => T | undefined
 
 /**
  * Find the index of the first element in the `array` that satisfies the
@@ -984,12 +984,12 @@ export function find<T>(
  * @see find
  */
 export function findIndex<T>(
-  predicate: (value: T) => boolean
-): (array: readonly T[]) => number
-export function findIndex<T>(
   predicate: (value: T) => boolean,
   array: readonly T[]
 ): number
+export function findIndex<T>(
+  predicate: (value: T) => boolean
+): (array: readonly T[]) => number
 
 /**
  * Find the last element in the `array` that satisfies the `guard`.
@@ -1011,12 +1011,12 @@ export function findIndex<T>(
  * @see findLastIndex
  */
 export function findLast<T, U extends T>(
-  guard: (value: T) => value is U
-): (array: readonly T[]) => U | undefined
-export function findLast<T, U extends T>(
   guard: (value: T) => value is U,
   array: readonly T[]
 ): U | undefined
+export function findLast<T, U extends T>(
+  guard: (value: T) => value is U
+): (array: readonly T[]) => U | undefined
 
 /**
  * Find the last element in the `array` that satisfies the `predicate`.
@@ -1038,12 +1038,12 @@ export function findLast<T, U extends T>(
  * @see findLastIndex
  */
 export function findLast<T>(
-  predicate: (value: T) => boolean
-): (array: readonly T[]) => T | undefined
-export function findLast<T>(
   predicate: (value: T) => boolean,
   array: readonly T[]
 ): T | undefined
+export function findLast<T>(
+  predicate: (value: T) => boolean
+): (array: readonly T[]) => T | undefined
 
 /**
  * Find the index of the last element in the `array` that satisfies the
@@ -1066,12 +1066,12 @@ export function findLast<T>(
  * @see findLast
  */
 export function findLastIndex<T>(
-  predicate: (value: T) => boolean
-): (array: readonly T[]) => number
-export function findLastIndex<T>(
   predicate: (value: T) => boolean,
   array: readonly T[]
 ): number
+export function findLastIndex<T>(
+  predicate: (value: T) => boolean
+): (array: readonly T[]) => number
 
 /**
  * Return the elements of the `array` that satisfy the `guard`.
@@ -1089,12 +1089,12 @@ export function findLastIndex<T>(
  * @see partition
  */
 export function filter<T, U extends T>(
-  guard: (value: T) => value is U
-): (array: readonly T[]) => U[]
-export function filter<T, U extends T>(
   guard: (value: T) => value is U,
   array: readonly T[]
 ): U[]
+export function filter<T, U extends T>(
+  guard: (value: T) => value is U
+): (array: readonly T[]) => U[]
 
 /**
  * Return the elements of the `array` that satisfy the `predicate`.
@@ -1112,12 +1112,12 @@ export function filter<T, U extends T>(
  * @see partition
  */
 export function filter<T>(
-  predicate: (value: T) => boolean
-): (array: readonly T[]) => T[]
-export function filter<T>(
   predicate: (value: T) => boolean,
   array: readonly T[]
 ): T[]
+export function filter<T>(
+  predicate: (value: T) => boolean
+): (array: readonly T[]) => T[]
 
 /**
  * Like {@link filter}, but `predicate` also receives the element index as the
@@ -1134,12 +1134,12 @@ export function filter<T>(
  * @see filter
  */
 export function filterWithIndex<T>(
-  predicate: (index: number, value: T) => boolean
-): (array: readonly T[]) => T[]
-export function filterWithIndex<T>(
   predicate: (index: number, value: T) => boolean,
   array: readonly T[]
 ): T[]
+export function filterWithIndex<T>(
+  predicate: (index: number, value: T) => boolean
+): (array: readonly T[]) => T[]
 
 /**
  * Return an array containing the results of applying `fn` to each element in
@@ -1156,10 +1156,10 @@ export function filterWithIndex<T>(
  * @see map
  * @see flatten
  */
+export function flatMap<T, U>(fn: (value: T) => U[], array: readonly T[]): U[]
 export function flatMap<T, U>(
   fn: (value: T) => U[]
 ): (array: readonly T[]) => U[]
-export function flatMap<T, U>(fn: (value: T) => U[], array: readonly T[]): U[]
 
 /**
  * Flatten a nested `array` by `n` levels.
@@ -1177,13 +1177,13 @@ export function flatMap<T, U>(fn: (value: T) => U[], array: readonly T[]): U[]
  *
  * @see flatMap
  */
-export function flatten<D extends number>(
-  depth: D
-): <T extends readonly unknown[]>(array: T) => FlatArray<T, D>[]
 export function flatten<T extends readonly unknown[], D extends number>(
   depth: D,
   array: T
 ): FlatArray<T, D>[]
+export function flatten<D extends number>(
+  depth: D
+): <T extends readonly unknown[]>(array: T) => FlatArray<T, D>[]
 
 /**
  * Flip the arguments of a binary function.
@@ -1217,8 +1217,8 @@ export function flip<T, U, R>(fn: Function2<T, U, R>): Function2<U, T, R>
  *
  * @see forEachWithIndex
  */
-export function forEach<T>(fn: (value: T) => void): (array: readonly T[]) => T[]
 export function forEach<T>(fn: (value: T) => void, array: readonly T[]): T[]
+export function forEach<T>(fn: (value: T) => void): (array: readonly T[]) => T[]
 
 /**
  * Like {@link forEach}, but `fn` also receives the element index as the first
@@ -1238,12 +1238,12 @@ export function forEach<T>(fn: (value: T) => void, array: readonly T[]): T[]
  * @see forEach
  */
 export function forEachWithIndex<T>(
-  fn: (index: number, value: T) => void
-): (array: readonly T[]) => T[]
-export function forEachWithIndex<T>(
   fn: (index: number, value: T) => void,
   array: readonly T[]
 ): T[]
+export function forEachWithIndex<T>(
+  fn: (index: number, value: T) => void
+): (array: readonly T[]) => T[]
 
 /**
  * Create an object from an array of `[key, value]` pairs.
@@ -1285,12 +1285,12 @@ export function fromEntries<K extends string, T>(
  * @see groupMapReduce
  */
 export function groupBy<T, K extends string>(
-  keyFn: (value: T) => K
-): (array: readonly T[]) => Record<K, T[]>
-export function groupBy<T, K extends string>(
   keyFn: (value: T) => K,
   array: readonly T[]
 ): Record<K, T[]>
+export function groupBy<T, K extends string>(
+  keyFn: (value: T) => K
+): (array: readonly T[]) => Record<K, T[]>
 
 /**
  * Like {@link groupBy}, but also apply `mapFn` to each element before adding
@@ -1312,26 +1312,26 @@ export function groupBy<T, K extends string>(
  * @see groupBy
  * @see groupMapReduce
  */
-export function groupMap<T, U>(
-  mapFn: (value: T) => U
-): {
-  <K extends string>(keyFn: (value: T) => K): (
-    array: readonly T[]
-  ) => Record<K, U[]>
-  <K extends string>(keyFn: (value: T) => K, array: readonly T[]): Record<
-    K,
-    U[]
-  >
-}
-export function groupMap<T, U, K extends string>(
-  mapFn: (value: T) => U,
-  keyFn: (value: T) => K
-): (array: readonly T[]) => Record<K, U[]>
 export function groupMap<T, U, K extends string>(
   mapFn: (value: T) => U,
   keyFn: (value: T) => K,
   array: readonly T[]
 ): Record<K, U[]>
+export function groupMap<T, U, K extends string>(
+  mapFn: (value: T) => U,
+  keyFn: (value: T) => K
+): (array: readonly T[]) => Record<K, U[]>
+export function groupMap<T, U>(
+  mapFn: (value: T) => U
+): {
+  <K extends string>(keyFn: (value: T) => K, array: readonly T[]): Record<
+    K,
+    U[]
+  >
+  <K extends string>(keyFn: (value: T) => K): (
+    array: readonly T[]
+  ) => Record<K, U[]>
+}
 
 /**
  * Like {@link groupMap}, but instead of returning an object of arrays, combine
@@ -1353,47 +1353,47 @@ export function groupMap<T, U, K extends string>(
  * @see groupBy
  * @see groupMap
  */
-export function groupMapReduce<U>(
-  reducer: (accumulator: U, value: U) => U
-): {
-  <T>(mapFn: (value: T) => U): {
-    <K extends string>(keyFn: (value: T) => K): (
-      array: readonly T[]
-    ) => Record<K, U>
-    <K extends string>(keyFn: (value: T) => K, array: readonly T[]): Record<
-      K,
-      U
-    >
-  }
-  <T, K extends string>(mapFn: (value: T) => U, keyFn: (value: T) => K): (
-    array: readonly T[]
-  ) => Record<K, U>
-  <T, K extends string>(
-    mapFn: (value: T) => U,
-    keyFn: (value: T) => K,
-    array: readonly T[]
-  ): Record<K, U>
-}
-export function groupMapReduce<U, T>(
-  reducer: (accumulator: U, value: U) => U,
-  mapFn: (value: T) => U
-): {
-  <K extends string>(keyFn: (value: T) => K): (
-    array: readonly T[]
-  ) => Record<K, U>
-  <K extends string>(keyFn: (value: T) => K, array: readonly T[]): Record<K, U>
-}
-export function groupMapReduce<U, T, K extends string>(
-  reducer: (accumulator: U, value: U) => U,
-  mapFn: (value: T) => U,
-  keyFn: (value: T) => K
-): (array: readonly T[]) => Record<K, U>
 export function groupMapReduce<U, T, K extends string>(
   reducer: (accumulator: U, value: U) => U,
   mapFn: (value: T) => U,
   keyFn: (value: T) => K,
   array: readonly T[]
 ): Record<K, U>
+export function groupMapReduce<U, T, K extends string>(
+  reducer: (accumulator: U, value: U) => U,
+  mapFn: (value: T) => U,
+  keyFn: (value: T) => K
+): (array: readonly T[]) => Record<K, U>
+export function groupMapReduce<U, T>(
+  reducer: (accumulator: U, value: U) => U,
+  mapFn: (value: T) => U
+): {
+  <K extends string>(keyFn: (value: T) => K, array: readonly T[]): Record<K, U>
+  <K extends string>(keyFn: (value: T) => K): (
+    array: readonly T[]
+  ) => Record<K, U>
+}
+export function groupMapReduce<U>(
+  reducer: (accumulator: U, value: U) => U
+): {
+  <T, K extends string>(
+    mapFn: (value: T) => U,
+    keyFn: (value: T) => K,
+    array: readonly T[]
+  ): Record<K, U>
+  <T, K extends string>(mapFn: (value: T) => U, keyFn: (value: T) => K): (
+    array: readonly T[]
+  ) => Record<K, U>
+  <T>(mapFn: (value: T) => U): {
+    <K extends string>(keyFn: (value: T) => K, array: readonly T[]): Record<
+      K,
+      U
+    >
+    <K extends string>(keyFn: (value: T) => K): (
+      array: readonly T[]
+    ) => Record<K, U>
+  }
+}
 
 /**
  * Check if the `second` argument is greater than the `first`.
@@ -1408,8 +1408,8 @@ export function groupMapReduce<U, T, K extends string>(
  * // => [3]
  * ```
  */
-export function gt<T extends Ordered>(first: T): (second: Widen<T>) => boolean
 export function gt<T extends Ordered>(first: T, second: T): boolean
+export function gt<T extends Ordered>(first: T): (second: Widen<T>) => boolean
 
 /**
  * Check if the `second` argument is greater than or equal to the `first`.
@@ -1423,8 +1423,8 @@ export function gt<T extends Ordered>(first: T, second: T): boolean
  * // => [2, 3]
  * ```
  */
-export function gte<T extends Ordered>(first: T): (second: Widen<T>) => boolean
 export function gte<T extends Ordered>(first: T, second: T): boolean
+export function gte<T extends Ordered>(first: T): (second: Widen<T>) => boolean
 
 /**
  * Check if `key` is an own property of `object`.
@@ -1441,12 +1441,12 @@ export function gte<T extends Ordered>(first: T, second: T): boolean
  * ```
  */
 export function has<K extends string>(
-  key: K
-): (object: unknown) => object is Record<K, unknown>
-export function has<K extends string>(
   key: K,
   object: unknown
 ): object is Record<K, unknown>
+export function has<K extends string>(
+  key: K
+): (object: unknown) => object is Record<K, unknown>
 
 /**
  * Return the first element of the `array` or `undefined`.
@@ -1509,8 +1509,8 @@ export function inc(n: number): number
  * // => false
  * ```
  */
-export function includes<T>(value: T): (array: readonly T[]) => boolean
 export function includes<T>(value: T, array: readonly T[]): boolean
+export function includes<T>(value: T): (array: readonly T[]) => boolean
 
 /**
  * Apply `keyFn` to each element in the `array` and return an object of
@@ -1534,12 +1534,12 @@ export function includes<T>(value: T, array: readonly T[]): boolean
  * @see groupBy
  */
 export function indexBy<T, K extends string>(
-  keyFn: (value: T) => K
-): (array: readonly T[]) => Record<K, T>
-export function indexBy<T, K extends string>(
   keyFn: (value: T) => K,
   array: readonly T[]
 ): Record<K, T>
+export function indexBy<T, K extends string>(
+  keyFn: (value: T) => K
+): (array: readonly T[]) => Record<K, T>
 
 /**
  * Return the index of the first element equaling `value`, using {@link equals}
@@ -1559,8 +1559,8 @@ export function indexBy<T, K extends string>(
  * @see lastIndexOf
  * @see includes
  */
-export function indexOf<T>(value: T): (array: readonly T[]) => number
 export function indexOf<T>(value: T, array: readonly T[]): number
+export function indexOf<T>(value: T): (array: readonly T[]) => number
 
 /**
  * Return all elements of the `array` except the last.
@@ -1602,10 +1602,10 @@ export function init<T>(array: readonly T[]): T[]
  * @see union
  * @see difference
  */
+export function intersection<T>(first: readonly T[], second: readonly T[]): T[]
 export function intersection<T>(
   first: readonly T[]
 ): (second: readonly T[]) => T[]
-export function intersection<T>(first: readonly T[], second: readonly T[]): T[]
 
 /**
  * Like {@link intersection}, but using a custom equality function.
@@ -1634,20 +1634,20 @@ export function intersection<T>(first: readonly T[], second: readonly T[]): T[]
  * @see differenceWith
  */
 export function intersectionWith<T>(
-  equals: (value: T, other: T) => boolean
-): {
-  (array: readonly T[]): (other: readonly T[]) => T[]
-  (array: readonly T[], other: readonly T[]): T[]
-}
+  equals: (value: T, other: T) => boolean,
+  array: readonly T[],
+  other: readonly T[]
+): T[]
 export function intersectionWith<T>(
   equals: (value: T, other: T) => boolean,
   array: readonly T[]
 ): (other: readonly T[]) => T[]
 export function intersectionWith<T>(
-  equals: (value: T, other: T) => boolean,
-  array: readonly T[],
-  other: readonly T[]
-): T[]
+  equals: (value: T, other: T) => boolean
+): {
+  (array: readonly T[], other: readonly T[]): T[]
+  (array: readonly T[]): (other: readonly T[]) => T[]
+}
 
 /**
  * Return a copy of `array` with `separator` inserted between each element.
@@ -1665,8 +1665,8 @@ export function intersectionWith<T>(
  *
  * @see join
  */
-export function intersperse<T>(separator: T): (array: readonly T[]) => T[]
 export function intersperse<T>(separator: T, array: readonly T[]): T[]
+export function intersperse<T>(separator: T): (array: readonly T[]) => T[]
 
 /**
  * Check if the `value` is an
@@ -1844,8 +1844,8 @@ export function isUndefined<T>(value: T | undefined): value is undefined
  * @see split
  * @see intersperse
  */
-export function join(separator: string): <T>(array: readonly T[]) => string
 export function join<T>(separator: string, array: readonly T[]): string
+export function join(separator: string): <T>(array: readonly T[]) => string
 
 /**
  * Return the last element of the `array` or `undefined`.
@@ -1885,8 +1885,8 @@ export function last<T>(array: readonly T[]): T | undefined
  * @see indexOf
  * @see includes
  */
-export function lastIndexOf<T>(value: T): (array: readonly T[]) => number
 export function lastIndexOf<T>(value: T, array: readonly T[]): number
+export function lastIndexOf<T>(value: T): (array: readonly T[]) => number
 
 /**
  * Return the length of an `array`.
@@ -1919,8 +1919,8 @@ export function length<T>(array: readonly T[]): number
  * // => [1]
  * ```
  */
-export function lt<T extends Ordered>(first: T): (second: Widen<T>) => boolean
 export function lt<T extends Ordered>(first: T, second: T): boolean
+export function lt<T extends Ordered>(first: T): (second: Widen<T>) => boolean
 
 /**
  * Check if the `second` argument is less than or equal to the `first`.
@@ -1935,8 +1935,8 @@ export function lt<T extends Ordered>(first: T, second: T): boolean
  * // => [1, 2]
  * ```
  */
-export function lte<T extends Ordered>(first: T): (second: Widen<T>) => boolean
 export function lte<T extends Ordered>(first: T, second: T): boolean
+export function lte<T extends Ordered>(first: T): (second: Widen<T>) => boolean
 
 /**
  * Return an array of the own enumerable property keys of `object`.
@@ -1971,21 +1971,21 @@ export function keys<T extends object>(object: T): Array<keyof T & string>
  *
  * @see valueOr
  */
-export function maybe<R>(
-  defaultValue: R
-): {
-  <T>(fn: (value: T) => R): (maybeValue: T | undefined) => R
-  <T>(fn: (value: T) => R, maybeValue: T | undefined): R
-}
-export function maybe<T, R>(
-  defaultValue: R,
-  fn: (value: T) => R
-): (maybeValue: T | undefined) => R
 export function maybe<T, R>(
   defaultValue: R,
   fn: (value: T) => R,
   maybeValue: T | undefined
 ): R
+export function maybe<T, R>(
+  defaultValue: R,
+  fn: (value: T) => R
+): (maybeValue: T | undefined) => R
+export function maybe<R>(
+  defaultValue: R
+): {
+  <T>(fn: (value: T) => R, maybeValue: T | undefined): R
+  <T>(fn: (value: T) => R): (maybeValue: T | undefined) => R
+}
 
 /**
  * Return the larger of two values.
@@ -2004,8 +2004,8 @@ export function maybe<T, R>(
  * @see min
  * @see maxBy
  */
-export function max<T extends Ordered>(first: T): (second: Widen<T>) => Widen<T>
 export function max<T extends Ordered>(first: T, second: T): Widen<T>
+export function max<T extends Ordered>(first: T): (second: Widen<T>) => Widen<T>
 
 /**
  * Like {@link max}, but apply `fn` to both values before determining their
@@ -2023,20 +2023,20 @@ export function max<T extends Ordered>(first: T, second: T): Widen<T>
  * @see minBy
  */
 export function maxBy<T, U extends Ordered>(
-  fn: (value: T) => U
-): {
-  (first: T, second: T): Widen<T>
-  (first: T): (second: T) => Widen<T>
-}
+  fn: (value: T) => U,
+  first: T,
+  second: T
+): Widen<T>
 export function maxBy<T, U extends Ordered>(
   fn: (value: T) => U,
   first: T
 ): (second: Widen<T>) => Widen<T>
 export function maxBy<T, U extends Ordered>(
-  fn: (value: T) => U,
-  first: T,
-  second: T
-): Widen<T>
+  fn: (value: T) => U
+): {
+  (first: T, second: T): Widen<T>
+  (first: T): (second: T) => Widen<T>
+}
 
 /**
  * Return the largest element of an `array` or `undefined`.
@@ -2079,12 +2079,12 @@ export function maximum<T extends Ordered>(array: readonly T[]): T | undefined
  * @see minimumBy
  */
 export function maximumBy<T, U extends Ordered>(
-  fn: (value: T) => U
-): (array: readonly T[]) => T | undefined
-export function maximumBy<T, U extends Ordered>(
   fn: (value: T) => U,
   array: readonly T[]
 ): T | undefined
+export function maximumBy<T, U extends Ordered>(
+  fn: (value: T) => U
+): (array: readonly T[]) => T | undefined
 
 /**
  * Return an array containing the results of applying `fn` to each element in
@@ -2102,8 +2102,8 @@ export function maximumBy<T, U extends Ordered>(
  * @see mapMaybe
  * @see flatMap
  */
-export function map<T, U>(fn: (value: T) => U): (array: readonly T[]) => U[]
 export function map<T, U>(fn: (value: T) => U, array: readonly T[]): U[]
+export function map<T, U>(fn: (value: T) => U): (array: readonly T[]) => U[]
 
 /**
  * Like {@link map}, but `fn` also receives the element index as the first
@@ -2120,12 +2120,12 @@ export function map<T, U>(fn: (value: T) => U, array: readonly T[]): U[]
  * @see map
  */
 export function mapWithIndex<T, U>(
-  fn: (index: number, value: T) => U
-): (array: readonly T[]) => U[]
-export function mapWithIndex<T, U>(
   fn: (index: number, value: T) => U,
   array: readonly T[]
 ): U[]
+export function mapWithIndex<T, U>(
+  fn: (index: number, value: T) => U
+): (array: readonly T[]) => U[]
 
 /**
  * Return an array containing the results of applying `fn` to each element in
@@ -2148,12 +2148,12 @@ export function mapWithIndex<T, U>(
  * @see map
  */
 export function mapMaybe<T, U>(
-  fn: (value: T) => U | undefined
-): (array: readonly T[]) => U[]
-export function mapMaybe<T, U>(
   fn: (value: T) => U | undefined,
   array: readonly T[]
 ): U[]
+export function mapMaybe<T, U>(
+  fn: (value: T) => U | undefined
+): (array: readonly T[]) => U[]
 
 /**
  * Return an object containing the results of applying `fn` to each key of
@@ -2169,13 +2169,13 @@ export function mapMaybe<T, U>(
  * // => { A: 1, B: 2, C: 3 }
  * ```
  */
-export function mapKeys<K1 extends string, K2 extends string>(
-  fn: (value: K1) => K2
-): <V>(object: Record<K1, V>) => Record<K2, V>
 export function mapKeys<K1 extends string, K2 extends string, V>(
   fn: (key: K1) => K2,
   object: Record<K1, V>
 ): Record<K2, V>
+export function mapKeys<K1 extends string, K2 extends string>(
+  fn: (value: K1) => K2
+): <V>(object: Record<K1, V>) => Record<K2, V>
 
 /**
  * Return an object containing the results of applying `fn` to each value of
@@ -2189,13 +2189,13 @@ export function mapKeys<K1 extends string, K2 extends string, V>(
  * // => { a: 2, b: 3, c: 4 }
  * ```
  */
-export function mapValues<V1, V2>(
-  fn: (value: V1) => V2
-): <K extends string>(object: Record<K, V1>) => Record<K, V2>
 export function mapValues<V1, V2, K extends string>(
   fn: (value: V1) => V2,
   object: Record<K, V1>
 ): Record<K, V2>
+export function mapValues<V1, V2>(
+  fn: (value: V1) => V2
+): <K extends string>(object: Record<K, V1>) => Record<K, V2>
 
 /**
  * Copy the own enumerable properties of two objects, preferring the values from
@@ -2209,13 +2209,13 @@ export function mapValues<V1, V2, K extends string>(
  * // => { a: 1, b: 2, c: 2 }
  * ```
  */
-export function merge<T extends object>(
-  first: T
-): <U extends object>(second: U) => T & U
 export function merge<T extends object, U extends object>(
   first: T,
   second: U
 ): T & U
+export function merge<T extends object>(
+  first: T
+): <U extends object>(second: U) => T & U
 
 /**
  * Return the smaller of two values.
@@ -2234,8 +2234,8 @@ export function merge<T extends object, U extends object>(
  * @see max
  * @see minBy
  */
-export function min<T extends Ordered>(first: T): (second: Widen<T>) => Widen<T>
 export function min<T extends Ordered>(first: T, second: T): T
+export function min<T extends Ordered>(first: T): (second: Widen<T>) => Widen<T>
 
 /**
  * Like {@link min}, but apply `fn` to both values before determining their
@@ -2253,20 +2253,20 @@ export function min<T extends Ordered>(first: T, second: T): T
  * @see maxBy
  */
 export function minBy<T, U extends Ordered>(
-  fn: (value: T) => U
-): {
-  (first: T): (second: T) => Widen<T>
-  (first: T, second: T): Widen<T>
-}
+  fn: (value: T) => U,
+  first: T,
+  second: T
+): Widen<T>
 export function minBy<T, U extends Ordered>(
   fn: (value: T) => U,
   first: T
 ): (second: Widen<T>) => Widen<T>
 export function minBy<T, U extends Ordered>(
-  fn: (value: T) => U,
-  first: T,
-  second: T
-): Widen<T>
+  fn: (value: T) => U
+): {
+  (first: T, second: T): Widen<T>
+  (first: T): (second: T) => Widen<T>
+}
 
 /**
  * Return the smallest element of `array` or `undefined`.
@@ -2309,12 +2309,12 @@ export function minimum<T extends Ordered>(array: readonly T[]): T | undefined
  * @see maximumBy
  */
 export function minimumBy<T, U extends Ordered>(
-  fn: (value: T) => U
-): (array: readonly T[]) => T | undefined
-export function minimumBy<T, U extends Ordered>(
   fn: (value: T) => U,
   array: readonly T[]
 ): T | undefined
+export function minimumBy<T, U extends Ordered>(
+  fn: (value: T) => U
+): (array: readonly T[]) => T | undefined
 
 /**
  * Returns a copy of `array` where the element at `index` has been replaced by
@@ -2344,21 +2344,21 @@ export function minimumBy<T, U extends Ordered>(
  * @see setAt
  * @see removeAt
  */
-export function modifyAt(
-  index: number
-): {
-  <T>(fn: (value: T) => T): (array: readonly T[]) => T[]
-  <T>(fn: (value: T) => T, array: readonly T[]): T[]
-}
-export function modifyAt<T>(
-  index: number,
-  fn: (value: T) => T
-): (array: readonly T[]) => T[]
 export function modifyAt<T>(
   index: number,
   fn: (value: T) => T,
   array: readonly T[]
 ): T[]
+export function modifyAt<T>(
+  index: number,
+  fn: (value: T) => T
+): (array: readonly T[]) => T[]
+export function modifyAt(
+  index: number
+): {
+  <T>(fn: (value: T) => T, array: readonly T[]): T[]
+  <T>(fn: (value: T) => T): (array: readonly T[]) => T[]
+}
 
 /**
  * Return a copy of `object` where the property `key` has replaced by applying
@@ -2385,21 +2385,21 @@ export function modifyAt<T>(
  * @see setProp
  * @see removeProp
  */
-export function modifyProp<K extends string>(
-  key: K
-): {
-  <V>(fn: (value: V) => V): <T extends HasKey<K, V>>(object: T) => T
-  <T extends HasKey<K>>(fn: (value: Defined<T[K]>) => T[K], object: T): T
-}
-export function modifyProp<K extends string, V>(
-  key: K,
-  fn: (value: V) => V
-): <T extends HasKey<K, V>>(object: T) => T
 export function modifyProp<K extends keyof T & string, T extends object>(
   key: K,
   fn: (value: Defined<T[K]>) => T[K],
   object: T
 ): T
+export function modifyProp<K extends string, V>(
+  key: K,
+  fn: (value: V) => V
+): <T extends HasKey<K, V>>(object: T) => T
+export function modifyProp<K extends string>(
+  key: K
+): {
+  <T extends HasKey<K>>(fn: (value: Defined<T[K]>) => T[K], object: T): T
+  <V>(fn: (value: V) => V): <T extends HasKey<K, V>>(object: T) => T
+}
 
 /**
  * Multiply two numbers together.
@@ -2412,8 +2412,8 @@ export function modifyProp<K extends keyof T & string, T extends object>(
  * // => [2, 4, 6]
  * ```
  */
-export function multiply(multiplicand: number): (multiplier: number) => number
 export function multiply(multiplicand: number, multiplier: number): number
+export function multiply(multiplicand: number): (multiplier: number) => number
 
 /**
  * Return `n` with its sign reversed.
@@ -2446,12 +2446,12 @@ export function negate(n: number): number
  * @see some
  */
 export function none<T>(
-  predicate: (value: T) => boolean
-): (array: readonly T[]) => boolean
-export function none<T>(
   predicate: (value: T) => boolean,
   array: readonly T[]
 ): boolean
+export function none<T>(
+  predicate: (value: T) => boolean
+): (array: readonly T[]) => boolean
 
 /**
  * Logical not. Flip the value of a boolean argument
@@ -2513,13 +2513,13 @@ export function of<T>(value: T): [T]
  *
  * @see pick
  */
-export function omit<K extends string>(
-  keys: readonly K[]
-): <T extends HasKey<K>>(object: T) => Omit<T, Extract<keyof T, K>>
 export function omit<K extends keyof T & string, T extends object>(
   keys: readonly K[],
   object: T
 ): Omit<T, K>
+export function omit<K extends string>(
+  keys: readonly K[]
+): <T extends HasKey<K>>(object: T) => Omit<T, Extract<keyof T, K>>
 
 /**
  * Create two element array containing `first` and `second`.
@@ -2534,8 +2534,8 @@ export function omit<K extends keyof T & string, T extends object>(
  *
  * @see of
  */
-export function pair<T>(first: T): <U>(second: U) => [T, U]
 export function pair<T, U>(first: T, second: U): [T, U]
+export function pair<T>(first: T): <U>(second: U) => [T, U]
 
 /**
  * Partition the `array` into two arrays, the first containing the elements
@@ -2552,12 +2552,12 @@ export function pair<T, U>(first: T, second: U): [T, U]
  * @see filter
  */
 export function partition<T, U extends T>(
-  guard: (value: T) => value is U
-): (array: readonly T[]) => [U[], Exclude<T, U>[]]
-export function partition<T, U extends T>(
   guard: (value: T) => value is U,
   array: readonly T[]
 ): [U[], Exclude<T, U>[]]
+export function partition<T, U extends T>(
+  guard: (value: T) => value is U
+): (array: readonly T[]) => [U[], Exclude<T, U>[]]
 
 /**
  * Partition the `array` into two arrays, the first containing the elements
@@ -2575,12 +2575,12 @@ export function partition<T, U extends T>(
  * @see filter
  */
 export function partition<T>(
-  predicate: (value: T) => boolean
-): (array: readonly T[]) => [T[], T[]]
-export function partition<T>(
   predicate: (value: T) => boolean,
   array: readonly T[]
 ): [T[], T[]]
+export function partition<T>(
+  predicate: (value: T) => boolean
+): (array: readonly T[]) => [T[], T[]]
 
 /**
  * Prepend a new element to the beginning of an array.
@@ -2596,8 +2596,8 @@ export function partition<T>(
  * @see append
  * @see concat
  */
-export function prepend<T>(value: T): (array: readonly T[]) => T[]
 export function prepend<T>(value: T, array: readonly T[]): T[]
+export function prepend<T>(value: T): (array: readonly T[]) => T[]
 
 /**
  * Retrieves the property `key` from `object` or `undefined`.
@@ -2616,13 +2616,13 @@ export function prepend<T>(value: T, array: readonly T[]): T[]
  * @see propOr
  * @see at
  */
-export function prop<K extends string>(
-  key: K
-): <T extends HasKey<K>>(object: T) => T[K]
 export function prop<K extends keyof T & string, T extends object>(
   key: K,
   object: T
 ): T[K]
+export function prop<K extends string>(
+  key: K
+): <T extends HasKey<K>>(object: T) => T[K]
 
 /**
  * Check if property `key` of `object` equals `value`, using {@link equals} for
@@ -2643,21 +2643,21 @@ export function prop<K extends keyof T & string, T extends object>(
  *
  * @see propEquals
  */
+export function propEquals<K extends keyof T & string, T extends object>(
+  value: T[K],
+  key: K,
+  object: T
+): boolean
+export function propEquals<V, K extends string>(
+  value: V,
+  key: K
+): <T extends HasKey<K, V>>(object: T) => boolean
 export function propEquals<V>(
   value: V
 ): {
   <K extends string>(key: K): <T extends HasKey<K, V>>(object: T) => boolean
   <K extends string, T extends HasKey<K, V>>(key: K, object: T): boolean
 }
-export function propEquals<V, K extends string>(
-  value: V,
-  key: K
-): <T extends HasKey<K, V>>(object: T) => boolean
-export function propEquals<K extends keyof T & string, T extends object>(
-  value: T[K],
-  key: K,
-  object: T
-): boolean
 
 /**
  * Like {@link prop}, but if the resolved value is `undefined`, `defaultValue`
@@ -2680,25 +2680,25 @@ export function propEquals<K extends keyof T & string, T extends object>(
  * @see prop
  * @see atOr
  */
-export function propOr<V>(
-  defaultValue: V
-): {
-  <K extends string>(key: K): <T extends HasKey<K, V>>(
-    object: T
-  ) => Defined<T[K]> | V
-  <K extends string, T extends HasKey<K, V>>(key: K, object: T):
-    | Defined<T[K]>
-    | V
-}
-export function propOr<V, K extends string>(
-  defaultValue: V,
-  key: K
-): <T extends HasKey<K, V>>(object: T) => Defined<T[K]> | V
 export function propOr<V extends T[K], K extends keyof T & string, T>(
   defaultValue: V,
   key: K,
   object: T
 ): Defined<T[K]> | V
+export function propOr<V, K extends string>(
+  defaultValue: V,
+  key: K
+): <T extends HasKey<K, V>>(object: T) => Defined<T[K]> | V
+export function propOr<V>(
+  defaultValue: V
+): {
+  <K extends string, T extends HasKey<K, V>>(key: K, object: T):
+    | Defined<T[K]>
+    | V
+  <K extends string>(key: K): <T extends HasKey<K, V>>(
+    object: T
+  ) => Defined<T[K]> | V
+}
 
 /**
  * Check if property `key` of `object` satisfies the `predicate`.
@@ -2718,21 +2718,21 @@ export function propOr<V extends T[K], K extends keyof T & string, T>(
  *
  * @see propEquals
  */
-export function propSatisfies<V>(
-  predicate: (value: V) => boolean
-): {
-  <K extends string>(key: K): <T extends HasKey<K, V>>(object: T) => boolean
-  <K extends string, T extends HasKey<K, V>>(key: K, object: T): boolean
-}
-export function propSatisfies<V, K extends string>(
-  predicate: (value: V) => boolean,
-  key: K
-): <T extends HasKey<K, V>>(object: T) => boolean
 export function propSatisfies<K extends keyof T & string, T extends object>(
   predicate: (value: Defined<T[K]>) => boolean,
   key: K,
   object: T
 ): boolean
+export function propSatisfies<V, K extends string>(
+  predicate: (value: V) => boolean,
+  key: K
+): <T extends HasKey<K, V>>(object: T) => boolean
+export function propSatisfies<V>(
+  predicate: (value: V) => boolean
+): {
+  <K extends string, T extends HasKey<K, V>>(key: K, object: T): boolean
+  <K extends string>(key: K): <T extends HasKey<K, V>>(object: T) => boolean
+}
 
 /**
  * Create an array of numbers between `start` (inclusive) and `end`
@@ -2752,8 +2752,8 @@ export function propSatisfies<K extends keyof T & string, T extends object>(
  * @see times
  * @see repeat
  */
-export function range(start: number): (end: number) => number[]
 export function range(start: number, end: number): number[]
+export function range(start: number): (end: number) => number[]
 
 /**
  * Left-associative fold.
@@ -2775,20 +2775,20 @@ export function range(start: number, end: number): number[]
  * @see reduceRight
  */
 export function reduce<T, R>(
-  reducer: (accumulator: R, value: T) => R
-): {
-  (initial: R): (array: readonly T[]) => R
-  (initial: R, array: readonly T[]): R
-}
+  reducer: (accumulator: R, value: T) => R,
+  initial: R,
+  array: readonly T[]
+): R
 export function reduce<T, R>(
   reducer: (accumulator: R, value: T) => R,
   initial: R
 ): (array: readonly T[]) => R
 export function reduce<T, R>(
-  reducer: (accumulator: R, value: T) => R,
-  initial: R,
-  array: readonly T[]
-): R
+  reducer: (accumulator: R, value: T) => R
+): {
+  (initial: R, array: readonly T[]): R
+  (initial: R): (array: readonly T[]) => R
+}
 
 /**
  * Right-associative fold.
@@ -2810,20 +2810,20 @@ export function reduce<T, R>(
  * @see reduce
  */
 export function reduceRight<T, R>(
-  reducer: (value: T, accumulator: R) => R
-): {
-  (initial: R): (array: readonly T[]) => R
-  (initial: R, array: readonly T[]): R
-}
+  reducer: (value: T, accumulator: R) => R,
+  initial: R,
+  array: readonly T[]
+): R
 export function reduceRight<T, R>(
   reducer: (value: T, accumulator: R) => R,
   initial: R
 ): (array: readonly T[]) => R
 export function reduceRight<T, R>(
-  reducer: (value: T, accumulator: R) => R,
-  initial: R,
-  array: readonly T[]
-): R
+  reducer: (value: T, accumulator: R) => R
+): {
+  (initial: R, array: readonly T[]): R
+  (initial: R): (array: readonly T[]) => R
+}
 
 /**
  * Returns a copy of `array` without the element at `index`.
@@ -2848,8 +2848,8 @@ export function reduceRight<T, R>(
  * @see modifyAt
  * @see setAt
  */
-export function removeAt(index: number): <T>(array: readonly T[]) => T[]
 export function removeAt<T>(index: number, array: readonly T[]): T[]
+export function removeAt(index: number): <T>(array: readonly T[]) => T[]
 
 /**
  * Return a copy of `object` without the property `key`.
@@ -2865,13 +2865,13 @@ export function removeAt<T>(index: number, array: readonly T[]): T[]
  * // => { b: 2, c: 3 }
  * ```
  */
-export function removeProp<K extends string>(
-  key: K
-): <T extends HasKey<K>>(object: T) => Omit<T, K>
 export function removeProp<K extends keyof T & string, T extends object>(
   key: K,
   object: T
 ): Omit<T, K>
+export function removeProp<K extends string>(
+  key: K
+): <T extends HasKey<K>>(object: T) => Omit<T, K>
 
 /**
  * Repeat the given `value` `n` times.
@@ -2887,8 +2887,8 @@ export function removeProp<K extends keyof T & string, T extends object>(
  * @see range
  * @see times
  */
-export function repeat<T>(value: T): (n: number) => T[]
 export function repeat<T>(value: T, n: number): T[]
+export function repeat<T>(value: T): (n: number) => T[]
 
 /**
  * Reverse an `array`.
@@ -2929,8 +2929,8 @@ export function second<T>(first: unknown, second: T): T
  *
  * @see join
  */
-export function split(separator: RegExp | string): (string: string) => string
 export function split(separator: RegExp | string, string: string): string
+export function split(separator: RegExp | string): (string: string) => string
 
 /**
  * Return a copy of `object` with only the specified `keys`.
@@ -2945,13 +2945,13 @@ export function split(separator: RegExp | string, string: string): string
  *
  * @see omit
  */
-export function pick<K extends string>(
-  keys: readonly K[]
-): <T extends HasKey<K>>(object: T) => Pick<T, Extract<keyof T, K>>
 export function pick<K extends keyof T & string, T extends object>(
   keys: readonly K[],
   object: T
 ): Pick<T, K>
+export function pick<K extends string>(
+  keys: readonly K[]
+): <T extends HasKey<K>>(object: T) => Pick<T, Extract<keyof T, K>>
 
 /**
  * Pipe an `initial` value through one or more functions in left-to-right order,
@@ -3074,21 +3074,21 @@ export function pipe<T1, T2, T3, T4, T5, T6, T7, T8, T9, R>(
  * @see modifyAt
  * @see removeAt
  */
-export function setAt(
-  index: number
-): {
-  <T>(value: T | undefined): (array: readonly T[]) => T[]
-  <T>(value: T | undefined, array: readonly T[]): T[]
-}
-export function setAt<T>(
-  index: number,
-  value: T | undefined
-): (array: readonly T[]) => T[]
 export function setAt<T>(
   index: number,
   value: T | undefined,
   array: readonly T[]
 ): T[]
+export function setAt<T>(
+  index: number,
+  value: T | undefined
+): (array: readonly T[]) => T[]
+export function setAt(
+  index: number
+): {
+  <T>(value: T | undefined, array: readonly T[]): T[]
+  <T>(value: T | undefined): (array: readonly T[]) => T[]
+}
 
 /**
  * Return a copy of `object` with property `key` set to `value`.
@@ -3109,21 +3109,21 @@ export function setAt<T>(
  * @see modifyProp
  * @see removeProp
  */
-export function setProp<K extends string>(
-  key: K
-): {
-  <V>(value: V): <T extends HasKey<K, V>>(object: T) => T
-  <T extends HasKey<K>>(value: T[K], object: T): T
-}
-export function setProp<K extends string, V>(
-  key: K,
-  value: V
-): <T extends HasKey<K, V>>(object: T) => T
 export function setProp<K extends keyof T & string, T extends object>(
   key: K,
   value: T[K],
   object: T
 ): T
+export function setProp<K extends string, V>(
+  key: K,
+  value: V
+): <T extends HasKey<K, V>>(object: T) => T
+export function setProp<K extends string>(
+  key: K
+): {
+  <T extends HasKey<K>>(value: T[K], object: T): T
+  <V>(value: V): <T extends HasKey<K, V>>(object: T) => T
+}
 
 /**
  * Create a copy of `array` containing the elements from `start` (inclusive)
@@ -3140,17 +3140,17 @@ export function setProp<K extends keyof T & string, T extends object>(
  * // => [2]
  * ```
  */
-export function slice(
-  start: number
-): {
-  (end: number): <T>(array: readonly T[]) => T[]
-  <T>(end: number, array: readonly T[]): T[]
-}
+export function slice<T>(start: number, end: number, array: readonly T[]): T[]
 export function slice(
   start: number,
   end: number
 ): <T>(array: readonly T[]) => T[]
-export function slice<T>(start: number, end: number, array: readonly T[]): T[]
+export function slice(
+  start: number
+): {
+  <T>(end: number, array: readonly T[]): T[]
+  (end: number): <T>(array: readonly T[]) => T[]
+}
 
 /**
  * Check if some elements in the `array` satisfies the `predicate`.
@@ -3170,12 +3170,12 @@ export function slice<T>(start: number, end: number, array: readonly T[]): T[]
  * @see none
  */
 export function some<T>(
-  predicate: (value: T) => boolean
-): (array: readonly T[]) => boolean
-export function some<T>(
   predicate: (value: T) => boolean,
   array: readonly T[]
 ): boolean
+export function some<T>(
+  predicate: (value: T) => boolean
+): (array: readonly T[]) => boolean
 
 /**
  * Sort an `array` according to the comparator function.
@@ -3225,12 +3225,12 @@ export function sort<T>(
  * @see sortWith
  */
 export function sortBy<T, U extends Ordered>(
-  fn: (value: T) => U
-): (array: readonly T[]) => T[]
-export function sortBy<T, U extends Ordered>(
   fn: (value: T) => U,
   array: readonly T[]
 ): T[]
+export function sortBy<T, U extends Ordered>(
+  fn: (value: T) => U
+): (array: readonly T[]) => T[]
 
 /**
  * Sort an `array` according to an array of comparator functions.
@@ -3257,12 +3257,12 @@ export function sortBy<T, U extends Ordered>(
  * @see descend
  */
 export function sortWith<T>(
-  comparators: readonly ((first: T, second: T) => number)[]
-): (array: readonly T[]) => T[]
-export function sortWith<T>(
   comparators: readonly ((first: T, second: T) => number)[],
   array: readonly T[]
 ): T[]
+export function sortWith<T>(
+  comparators: readonly ((first: T, second: T) => number)[]
+): (array: readonly T[]) => T[]
 
 /**
  * Subtract the `subtrahend` from the `minuend`.
@@ -3275,8 +3275,8 @@ export function sortWith<T>(
  * // => [0, 1, 2]
  * ```
  */
-export function subtractBy(subtrahend: number): (minuend: number) => number
 export function subtractBy(subtrahend: number, minuend: number): number
+export function subtractBy(subtrahend: number): (minuend: number) => number
 
 /**
  * Sum an `array` of numbers together. Returns `0` if the array is empty.
@@ -3317,10 +3317,10 @@ export function sum(numbers: readonly number[]): number
  *
  * @see sum
  */
+export function sumBy<T>(fn: (value: T) => number, array: readonly T[]): number
 export function sumBy<T>(
   fn: (value: T) => number
 ): (array: readonly T[]) => number
-export function sumBy<T>(fn: (value: T) => number, array: readonly T[]): number
 
 /**
  * Return all elements of the `array` except the first.
@@ -3356,8 +3356,8 @@ export function tail<T>(array: readonly T[]): T[]
  * @see drop
  * @see takeLast
  */
-export function take(n: number): <T>(array: readonly T[]) => T[]
 export function take<T>(n: number, array: readonly T[]): T[]
+export function take(n: number): <T>(array: readonly T[]) => T[]
 
 /**
  * Take the last `n` elements of an `array`.
@@ -3373,8 +3373,8 @@ export function take<T>(n: number, array: readonly T[]): T[]
  * @see dropLast
  * @see take
  */
-export function takeLast<T>(n: number): (array: readonly T[]) => T[]
 export function takeLast<T>(n: number, array: readonly T[]): T[]
+export function takeLast<T>(n: number): (array: readonly T[]) => T[]
 
 /**
  * Take elements from the end of an `array` while `predicate` is satisfied.
@@ -3391,12 +3391,12 @@ export function takeLast<T>(n: number, array: readonly T[]): T[]
  * @see takeWhile
  */
 export function takeLastWhile<T>(
-  predicate: (value: T) => boolean
-): (array: readonly T[]) => T[]
-export function takeLastWhile<T>(
   predicate: (value: T) => boolean,
   array: readonly T[]
 ): T[]
+export function takeLastWhile<T>(
+  predicate: (value: T) => boolean
+): (array: readonly T[]) => T[]
 
 /**
  * Take elements from the beginning of an `array` while `predicate` is
@@ -3414,12 +3414,12 @@ export function takeLastWhile<T>(
  * @see takeLastWhile
  */
 export function takeWhile<T>(
-  predicate: (value: T) => boolean
-): (array: readonly T[]) => T[]
-export function takeWhile<T>(
   predicate: (value: T) => boolean,
   array: readonly T[]
 ): T[]
+export function takeWhile<T>(
+  predicate: (value: T) => boolean
+): (array: readonly T[]) => T[]
 
 /**
  * Create a function that applies `fn` to its argument and returns the
@@ -3455,8 +3455,8 @@ export function tap<T>(fn: (value: T) => void): (value: T) => T
  * // => true
  * ```
  */
-export function test(regexp: RegExp): (string: string) => boolean
 export function test(regexp: RegExp, string: string): boolean
+export function test(regexp: RegExp): (string: string) => boolean
 
 /**
  * Create an array of length `n` by applying `fn` to the index of each element.
@@ -3472,8 +3472,8 @@ export function test(regexp: RegExp, string: string): boolean
  * @see range
  * @see repeat
  */
-export function times<T>(fn: (index: number) => T): (n: number) => T[]
 export function times<T>(fn: (index: number) => T, n: number): T[]
+export function times<T>(fn: (index: number) => T): (n: number) => T[]
 
 /**
  * Convert `string` to lowercase.
@@ -3571,8 +3571,8 @@ export function trimStart(string: string): string
  *
  * @see maybe
  */
-export function valueOr<T>(defaultValue: T): (maybeValue: T | undefined) => T
 export function valueOr<T>(defaultValue: T, maybeValue: T | undefined): T
+export function valueOr<T>(defaultValue: T): (maybeValue: T | undefined) => T
 
 /**
  * Return an array of the own enumerable property values of `object`
@@ -3623,8 +3623,8 @@ export function unary<T, R>(fn: VariadicFunction1<T, R>): Function1<T, R>
  * @see intersection
  * @see difference
  */
-export function union<T>(first: readonly T[]): (second: readonly T[]) => T[]
 export function union<T>(first: readonly T[], second: readonly T[]): T[]
+export function union<T>(first: readonly T[]): (second: readonly T[]) => T[]
 
 /**
  * Like {@link union}, but using a custom equality function.
@@ -3653,20 +3653,20 @@ export function union<T>(first: readonly T[], second: readonly T[]): T[]
  * @see differenceWith
  */
 export function unionWith<T>(
-  equals: (value: T, other: T) => boolean
-): {
-  (array: readonly T[]): (other: readonly T[]) => T[]
-  (array: readonly T[], other: readonly T[]): T[]
-}
+  equals: (value: T, other: T) => boolean,
+  array: readonly T[],
+  other: readonly T[]
+): T[]
 export function unionWith<T>(
   equals: (value: T, other: T) => boolean,
   array: readonly T[]
 ): (other: readonly T[]) => T[]
 export function unionWith<T>(
-  equals: (value: T, other: T) => boolean,
-  array: readonly T[],
-  other: readonly T[]
-): T[]
+  equals: (value: T, other: T) => boolean
+): {
+  (array: readonly T[], other: readonly T[]): T[]
+  (array: readonly T[]): (other: readonly T[]) => T[]
+}
 
 /**
  * Remove duplicate values from `array`, using {@link equals} for determining
@@ -3703,12 +3703,12 @@ export function uniq<T>(array: readonly T[]): T[]
  * @see uniq
  */
 export function uniqWith<T>(
-  equals: (value: T, other: T) => boolean
-): (array: readonly T[]) => T[]
-export function uniqWith<T>(
   equals: (value: T, other: T) => boolean,
   array: readonly T[]
 ): T[]
+export function uniqWith<T>(
+  equals: (value: T, other: T) => boolean
+): (array: readonly T[]) => T[]
 
 /**
  * Combine the corresponding elements of two arrays into an array of pairs.
@@ -3727,10 +3727,10 @@ export function uniqWith<T>(
  * @see zipWith
  * @see zipObject
  */
+export function zip<T, U>(first: readonly T[], second: readonly U[]): [T, U][]
 export function zip<T>(
   first: readonly T[]
 ): <U>(second: readonly U[]) => [T, U][]
-export function zip<T, U>(first: readonly T[], second: readonly U[]): [T, U][]
 
 /**
  * Combine an array of `keys` and `values` into an object.
@@ -3749,13 +3749,13 @@ export function zip<T, U>(first: readonly T[], second: readonly U[]): [T, U][]
  * @see zip
  * @see fromEntries
  */
-export function zipObject<K extends string>(
-  keys: readonly K[]
-): <T>(values: readonly T[]) => Record<K, T>
 export function zipObject<K extends string, T>(
   keys: readonly K[],
   values: readonly T[]
 ): Record<K, T>
+export function zipObject<K extends string>(
+  keys: readonly K[]
+): <T>(values: readonly T[]) => Record<K, T>
 
 /**
  * Like {@link zip}, but the elements are combined with `fn` instead of
@@ -3772,17 +3772,17 @@ export function zipObject<K extends string, T>(
  * @see zip
  */
 export function zipWith<T, U, R>(
-  fn: (value: T, other: U) => R
-): {
-  (first: readonly T[]): (second: readonly U[]) => R[]
-  (first: readonly T[], second: readonly U[]): R[]
-}
+  fn: (value: T, other: U) => R,
+  first: readonly T[],
+  second: readonly U[]
+): R[]
 export function zipWith<T, U, R>(
   fn: (value: T, other: U) => R,
   first: readonly T[]
 ): (second: readonly U[]) => R[]
 export function zipWith<T, U, R>(
-  fn: (value: T, other: U) => R,
-  first: readonly T[],
-  second: readonly U[]
-): R[]
+  fn: (value: T, other: U) => R
+): {
+  (first: readonly T[], second: readonly U[]): R[]
+  (first: readonly T[]): (second: readonly U[]) => R[]
+}
