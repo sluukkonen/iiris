@@ -17,7 +17,9 @@ functional manner. It is heavily inspired by projects like
 - Support only native JavaScript data types.
 - Target reasonably current JavaScript environments (Node 10+)
 
-Iiris is still alpha-quality software, so bugs and heavy changes to the API should be expected.
+Iiris is still alpha-quality software, so bugs and heavy changes to the API should be expected. 
+
+If you've tried Iiris and something doesn't seem to be working as expected, [let me know](https://github.com/sluukkonen/iiris/issues/new/choose)!
 
 ## Table of Contents
 
