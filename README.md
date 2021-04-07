@@ -2,6 +2,7 @@
 
 [![CI](https://github.com/sluukkonen/iiris/actions/workflows/ci.yml/badge.svg)](https://github.com/sluukkonen/iiris/actions/workflows/ci.yml)
 ![MIT License](https://img.shields.io/github/license/sluukkonen/iiris)
+[![NPM](https://img.shields.io/npm/v/iiris)](https://www.npmjs.com/package/iiris)
 
 Iiris is a general purpose utility library, designed to make it easier to manipulate built-in JavaScript data types in a
 functional manner. It is heavily inspired by projects like
