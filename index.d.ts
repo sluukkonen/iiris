@@ -139,7 +139,7 @@ export function append<T>(value: T, array: readonly T[]): T[]
  * Given a `fn` that maps a `value` to an {@link Ordered} value, create an
  * ascending comparator function.
  *
- * **Note:** This function is not curried.
+ * **Note:** The returned function is not curried.
  *
  * @category Sorting arrays
  * @example
@@ -159,6 +159,8 @@ export function ascend<T, U extends Ordered>(
 
 /**
  * Create a version of `fn` that accepts two arguments.
+ *
+ * **Note:** The returned function is not curried.
  *
  * @category Function
  * @example
@@ -512,7 +514,7 @@ export function dec(n: number): number
  * Given a `fn` that maps a `value` to an {@link Ordered} value, create a
  * descending comparator function.
  *
- * **Note:** This function is not curried.
+ * **Note:** The returned function is not curried.
  *
  * @category Sorting arrays
  * @example
@@ -1075,6 +1077,8 @@ export function flatten<T extends readonly unknown[], D extends number>(
 
 /**
  * Flip the arguments of a binary function.
+ *
+ * **Note:** The returned function is not curried.
  *
  * @category Function
  * @example

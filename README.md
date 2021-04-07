@@ -1827,7 +1827,7 @@ I.takeWhile((n) => n <= 2, [1, 2, 3])
 Given a `fn` that maps a `value` to an Ordered value, create an
 ascending comparator function.
 
-**Note:** This function is not curried.
+**Note:** The returned function is not curried.
 
 **Example:**
 
@@ -1849,7 +1849,7 @@ I.sort(I.ascend(I.prop('age')), [{ name: 'Bob' }, { name: 'Alice' }])
 Given a `fn` that maps a `value` to an Ordered value, create a
 descending comparator function.
 
-**Note:** This function is not curried.
+**Note:** The returned function is not curried.
 
 **Example:**
 
@@ -2581,6 +2581,8 @@ I.keys({ a: 1, b: 2, c: 3 })
 
 Create a version of `fn` that accepts two arguments.
 
+**Note:** The returned function is not curried.
+
 **Example:**
 
 ```typescript
@@ -2740,6 +2742,8 @@ Create a curried version of a `fn` taking four arguments.
 ```
 
 Flip the arguments of a binary function.
+
+**Note:** The returned function is not curried.
 
 **Example:**
 
