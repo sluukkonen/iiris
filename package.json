@@ -1,11 +1,14 @@
 {
   "name": "iiris",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A functional JavaScript utility library",
   "engines": {
     "node": ">=10"
   },
-  "files": ["dist", "index.d.ts"],
+  "files": [
+    "dist",
+    "index.d.ts"
+  ],
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "index.d.ts",
