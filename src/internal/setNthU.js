@@ -2,7 +2,7 @@ import { getIndex } from './getIndex'
 import { setArrayIndex } from './setArrayIndex'
 import { hasIndex } from './hasIndex'
 
-export const setAtU = (index, value, array) => {
+export const setNthU = (index, value, array) => {
   index = getIndex(index, array)
 
   if (hasIndex(index, array)) {

@@ -30,10 +30,6 @@ If you've tried Iiris and something doesn't seem to be working as expected, [let
 - [API Reference](#api-reference) <!-- BEGIN TOC -->
   - [Basic array operations](#basic-array-operations)
     - [append](#append)
-    - [at](#at)
-    - [atEquals](#atequals)
-    - [atOr](#ator)
-    - [atSatisfies](#atsatisfies)
     - [concat](#concat)
     - [forEach](#foreach)
     - [forEachWithIndex](#foreachwithindex)
@@ -42,10 +38,14 @@ If you've tried Iiris and something doesn't seem to be working as expected, [let
     - [isEmpty](#isempty)
     - [last](#last)
     - [length](#length)
-    - [modifyAt](#modifyat)
+    - [modifyNth](#modifynth)
+    - [nth](#nth)
+    - [nthEquals](#nthequals)
+    - [nthOr](#nthor)
+    - [nthSatisfies](#nthsatisfies)
     - [prepend](#prepend)
-    - [removeAt](#removeat)
-    - [setAt](#setat)
+    - [removeNth](#removenth)
+    - [setNth](#setnth)
     - [tail](#tail)
   - [Transforming arrays](#transforming-arrays)
     - [flatMap](#flatmap)
@@ -322,93 +322,6 @@ I.append(4, [1, 2, 3])
 
 ---
 
-#### at
-
-```typescript
-(index: number) => <T>(array: T[]) => T | undefined
-```
-
-Retrieves the element at `index` from `array` or `undefined`.
-
-**Example:**
-
-```typescript
-I.at(0, [1, 2, 3])
-// => 1
-
-I.at(0, [])
-// => undefined
-```
-
-**See also:** [atOr](#ator), [prop](#prop)
-
----
-
-#### atEquals
-
-```typescript
-<T>(value: T) => (index: number) => (array: T[]) => boolean
-```
-
-Check if the `array` element at `index` equals `value`, using [equals](#equals)
-for determining equality.
-
-**Example:**
-
-```typescript
-I.atEquals('a', 0, ['a', 'b', 'c'])
-// => true
-```
-
-**See also:** [atSatisfies](#atsatisfies)
-
----
-
-#### atOr
-
-```typescript
-<T>(defaultValue: T) => (index: number) => (array: T[]) => T
-```
-
-Like [at](#at), but if the resolved value is `undefined`, `defaultValue` is
-returned instead.
-
-**Example:**
-
-```typescript
-I.atOr(999, 0, [1, 2, 3])
-// => 1
-
-I.atOr(999, 0, [])
-// => 999
-
-I.atOr(999, 0, [undefined])
-// => 999
-```
-
-**See also:** [at](#at), [propOr](#propor)
-
----
-
-#### atSatisfies
-
-```typescript
-<T>(predicate: (value: T) => boolean) => (index: number) => (array: T[]) => boolean
-```
-
-Check if the `array` element at `index` satisfies the `predicate`.
-
-**Example:**
-
-```typescript
-I.atSatisfies(I.gt(0), 0, [1, 2, 3])
-// => true
-```
-
-**See also:** [atSatisfies](#atsatisfies)
-
----
-
 #### concat
 
 ```typescript
@@ -583,14 +496,14 @@ I.length([])
 
 ---
 
-#### modifyAt
+#### modifyNth
 
 ```typescript
 (index: number) => <T>(fn: (value: T) => T) => (array: T[]) => T[]
 ```
 
-Returns a copy of `array` where the element at `index` has been replaced by
-applying `fn` to its current value.
+Returns a copy of `array` where the nth element has been replaced by applying
+`fn` to its current value.
 
 - If `index` is not within `array` bounds, the `array` is returned
   unchanged.
@@ -599,20 +512,107 @@ applying `fn` to its current value.
 **Example:**
 
 ```typescript
-I.modifyAt(0, I.inc, [1, 2, 3])
+I.modifyNth(0, I.inc, [1, 2, 3])
 // => [2, 2, 3]
 
-I.modifyAt(-1, I.inc, [1, 2, 3])
+I.modifyNth(-1, I.inc, [1, 2, 3])
 // => [1, 2, 4]
 
-I.modifyAt(0, I.noop, [1, 2, 3])
+I.modifyNth(0, I.noop, [1, 2, 3])
 // => [2, 3]
 
-I.modifyAt(999, I.inc, [1, 2, 3])
+I.modifyNth(999, I.inc, [1, 2, 3])
 // => [1, 2, 3]
 ```
 
-**See also:** [setAt](#setat), [removeAt](#removeat)
+**See also:** [setNth](#setnth), [removeNth](#removenth)
+
+---
+
+#### nth
+
+```typescript
+(index: number) => <T>(array: T[]) => T | undefined
+```
+
+Return the nth element from `array` or `undefined`.
+
+**Example:**
+
+```typescript
+I.nth(0, [1, 2, 3])
+// => 1
+
+I.nth(0, [])
+// => undefined
+```
+
+**See also:** [nthOr](#nthor), [prop](#prop)
+
+---
+
+#### nthEquals
+
+```typescript
+<T>(value: T) => (index: number) => (array: T[]) => boolean
+```
+
+Check if the nth element of `array` equals `value`, using [equals](#equals) for
+determining equality.
+
+**Example:**
+
+```typescript
+I.nthEquals('a', 0, ['a', 'b', 'c'])
+// => true
+```
+
+**See also:** [nthSatisfies](#nthsatisfies)
+
+---
+
+#### nthOr
+
+```typescript
+<T>(defaultValue: T) => (index: number) => (array: T[]) => T
+```
+
+Like [nth](#nth), but if the resolved value is `undefined`, `defaultValue` is
+returned instead.
+
+**Example:**
+
+```typescript
+I.nthOr(999, 0, [1, 2, 3])
+// => 1
+
+I.nthOr(999, 0, [])
+// => 999
+
+I.nthOr(999, 0, [undefined])
+// => 999
+```
+
+**See also:** [nth](#nth), [propOr](#propor)
+
+---
+
+#### nthSatisfies
+
+```typescript
+<T>(predicate: (value: T) => boolean) => (index: number) => (array: T[]) => boolean
+```
+
+Check if the nth element of `array` satisfies the `predicate`.
+
+**Example:**
+
+```typescript
+I.nthSatisfies(I.gt(0), 0, [1, 2, 3])
+// => true
+```
+
+**See also:** [nthSatisfies](#nthsatisfies)
 
 ---
 
@@ -635,13 +635,13 @@ I.prepend(0, [1, 2, 3])
 
 ---
 
-#### removeAt
+#### removeNth
 
 ```typescript
 (index: number) => <T>(array: T[]) => T[]
 ```
 
-Returns a copy of `array` without the element at `index`.
+Returns a copy of `array` without the nth element.
 
 - If `index` is not within the `array` bounds, the `array` is returned
   unchanged.
@@ -649,27 +649,27 @@ Returns a copy of `array` without the element at `index`.
 **Example:**
 
 ```typescript
-I.removeAt(0, [1, 2, 3])
+I.removeNth(0, [1, 2, 3])
 // => [2, 3]
 
-I.removeAt(-1, [1, 2, 3])
+I.removeNth(-1, [1, 2, 3])
 // => [1, 2]
 
-I.removeAt(999, [1, 2, 3])
+I.removeNth(999, [1, 2, 3])
 // => [1, 2, 3]
 ```
 
-**See also:** [modifyAt](#modifyat), [setAt](#setat)
+**See also:** [modifyNth](#modifynth), [setNth](#setnth)
 
 ---
 
-#### setAt
+#### setNth
 
 ```typescript
 (index: number) => <T>(value: undefined | T) => (array: T[]) => T[]
 ```
 
-Returns a copy of `array` where the element at `index` has been replaced with `value`.
+Returns a copy of `array` where nth element has been replaced with `value`.
 
 - If `index` is not within the `array` bounds, the `array` is returned
   unchanged.
@@ -678,20 +678,20 @@ Returns a copy of `array` where the element at `index` has been replaced with `v
 **Example:**
 
 ```typescript
-I.setAt(0, 999, [1, 2, 3])
+I.setNth(0, 999, [1, 2, 3])
 // => [999, 2, 3]
 
-I.setAt(-1, 999, [1, 2, 3])
+I.setNth(-1, 999, [1, 2, 3])
 // => [1, 2, 999]
 
-I.setAt(999, 999, [1, 2, 3])
+I.setNth(999, 999, [1, 2, 3])
 // => [1, 2, 3]
 
-I.setAt(0, undefined, [1, 2, 3])
+I.setNth(0, undefined, [1, 2, 3])
 // => [2, 3]
 ```
 
-**See also:** [modifyAt](#modifyat), [removeAt](#removeat)
+**See also:** [modifyNth](#modifynth), [removeNth](#removenth)
 
 ---
 
@@ -2480,7 +2480,7 @@ I.propOr(999, 'a', { a: undefined })
 // => 999
 ```
 
-**See also:** [prop](#prop), [atOr](#ator)
+**See also:** [prop](#prop), [nthOr](#nthor)
 
 ---
 
