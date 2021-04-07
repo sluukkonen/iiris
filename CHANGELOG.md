@@ -22,6 +22,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | `atEquals`    | `nthEquals`    |
 | `atSatisfies` | `nthSatisfies` |
 
+- Changed the parameter order of `propEquals`, `propSatisfies`, `nthEquals` and `nthSatisfies`. Now the key or index is
+  the first parameter while the value or predicate is the second
+  parameter. ([#239](https://github.com/sluukkonen/iiris/pull/239))
+
 ## [0.0.1] - 2021-04-06
 
 - Initial public release

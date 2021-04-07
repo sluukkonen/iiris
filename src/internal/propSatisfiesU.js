@@ -1,4 +1,4 @@
 import { hasOwn } from './hasOwn'
 
-export const propSatisfiesU = (fn, key, object) =>
+export const propSatisfiesU = (key, fn, object) =>
   hasOwn(object, key) && fn(object[key])

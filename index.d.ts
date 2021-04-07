@@ -2406,25 +2406,25 @@ export function nthOr<T>(defaultValue: T, index: number, array: readonly T[]): T
  * @example
  *
  * ```typescript
- * I.nthSatisfies(I.gt(0), 0, [1, 2, 3])
+ * I.nthSatisfies(0, I.gt(0), [1, 2, 3])
  * // => true
  * ```
  *
  * @see nthSatisfies
  */
-export function nthSatisfies<T>(
-  predicate: (value: T) => boolean
+export function nthSatisfies(
+  index: number
 ): {
-  (index: number): (array: readonly T[]) => boolean
-  (index: number, array: readonly T[]): boolean
+  <T>(predicate: (value: T) => boolean): (array: readonly T[]) => boolean
+  <T>(predicate: (value: T) => boolean, array: readonly T[]): boolean
 }
 export function nthSatisfies<T>(
-  predicate: (value: T) => boolean,
-  index: number
+  index: number,
+  predicate: (value: T) => boolean
 ): (array: readonly T[]) => boolean
 export function nthSatisfies<T>(
-  predicate: (value: T) => boolean,
   index: number,
+  predicate: (value: T) => boolean,
   array: readonly T[]
 ): boolean
 
@@ -2712,25 +2712,30 @@ export function propOr<V extends T[K], K extends keyof T & string, T>(
  *   { name: 'Bob' },
  * ]
  *
- * I.some(I.propSatisfies(I.test(/^A/), 'name'), users)
+ * I.some(I.propSatisfies('name', I.test(/^A/)), users)
  * // => true
  * ```
  *
  * @see propEquals
  */
-export function propSatisfies<V>(
-  predicate: (value: V) => boolean
-): {
-  <K extends string>(key: K): <T extends HasKey<K, V>>(object: T) => boolean
-  <K extends string, T extends HasKey<K, V>>(key: K, object: T): boolean
-}
-export function propSatisfies<V, K extends string>(
-  predicate: (value: V) => boolean,
+export function propSatisfies<K extends string>(
   key: K
+): {
+  <V>(predicate: (value: V) => boolean): <T extends HasKey<K, V>>(
+    object: T
+  ) => boolean
+  <T extends HasKey<K>>(
+    predicate: (value: Defined<T[K]>) => boolean,
+    object: T
+  ): boolean
+}
+export function propSatisfies<K extends string, V>(
+  key: K,
+  predicate: (value: V) => boolean
 ): <T extends HasKey<K, V>>(object: T) => boolean
 export function propSatisfies<K extends keyof T & string, T extends object>(
-  predicate: (value: Defined<T[K]>) => boolean,
   key: K,
+  predicate: (value: Defined<T[K]>) => boolean,
   object: T
 ): boolean
 
