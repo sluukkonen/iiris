@@ -563,7 +563,7 @@ const benchmarks = [
   {
     name: 'at',
     benchmarks: () => ({
-      iiris: () => I.at(0, num100),
+      iiris: () => I.nth(0, num100),
       ramda: () => R.nth(0, num100),
       lodash: () => _.nth(num100, 0),
       native: () => num100?.[0],
@@ -572,7 +572,7 @@ const benchmarks = [
   {
     name: 'at.curried',
     benchmarks: () => {
-      const iirisHead = I.at(0)
+      const iirisHead = I.nth(0)
       const ramdaHead = R.nth(0)
       const nativeHead = (array) => array?.[0]
 
@@ -595,7 +595,7 @@ const benchmarks = [
   {
     name: 'atOr',
     benchmarks: () => ({
-      iiris: () => I.atOr(0, 150, num100),
+      iiris: () => I.nthOr(0, 150, num100),
       ramda: () => R.propOr(0, 150, num100),
       native: () => num100?.[150] ?? 0,
     }),
@@ -609,9 +609,9 @@ const benchmarks = [
     }),
   },
   {
-    name: 'setAt',
+    name: 'setNth',
     benchmarks: () => ({
-      iiris: () => I.setAt(0, 0, num1),
+      iiris: () => I.setNth(0, 0, num1),
       ramda: () => R.update(0, 0, num1),
     }),
   },
@@ -626,12 +626,12 @@ const benchmarks = [
     },
   },
   {
-    name: 'modifyAt',
+    name: 'modifyNth',
     benchmarks: () => {
       const iirisCallback = (x) => x + 1
       const ramdaCallback = (x) => x + 1
       return {
-        iiris: () => I.modifyAt(0, iirisCallback, num1),
+        iiris: () => I.modifyNth(0, iirisCallback, num1),
         ramda: () => R.adjust(0, ramdaCallback, num1),
       }
     },

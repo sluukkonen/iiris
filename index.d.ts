@@ -158,118 +158,6 @@ export function ascend<T, U extends Ordered>(
 ): (first: T, second: T) => number
 
 /**
- * Retrieves the element at `index` from `array` or `undefined`.
- *
- * @category Basic array operations
- * @example
- *
- * ```typescript
- * I.at(0, [1, 2, 3])
- * // => 1
- *
- * I.at(0, [])
- * // => undefined
- * ```
- *
- * @see atOr
- * @see prop
- */
-export function at(index: number): <T>(array: readonly T[]) => T | undefined
-export function at<T>(index: number, array: readonly T[]): T | undefined
-
-/**
- * Check if the `array` element at `index` equals `value`, using {@link equals}
- * for determining equality.
- *
- * @category Basic array operations
- * @example
- *
- * ```typescript
- * I.atEquals('a', 0, ['a', 'b', 'c'])
- * // => true
- * ```
- *
- * @see atSatisfies
- */
-export function atEquals<T>(
-  value: T
-): {
-  (index: number): (array: readonly T[]) => boolean
-  (index: number, array: readonly T[]): boolean
-}
-export function atEquals<T>(
-  value: T,
-  index: number
-): (array: readonly T[]) => boolean
-export function atEquals<T>(
-  value: T,
-  index: number,
-  array: readonly T[]
-): boolean
-
-/**
- * Like {@link at}, but if the resolved value is `undefined`, `defaultValue` is
- * returned instead.
- *
- * @category Basic array operations
- * @example
- *
- * ```typescript
- * I.atOr(999, 0, [1, 2, 3])
- * // => 1
- *
- * I.atOr(999, 0, [])
- * // => 999
- *
- * I.atOr(999, 0, [undefined])
- * // => 999
- * ```
- *
- * @see at
- * @see propOr
- */
-export function atOr<T>(
-  defaultValue: T
-): {
-  (index: number): (array: readonly T[]) => T
-  (index: number, array: readonly T[]): T
-}
-export function atOr<T>(
-  defaultValue: T,
-  index: number
-): (array: readonly T[]) => T
-export function atOr<T>(defaultValue: T, index: number, array: readonly T[]): T
-
-/**
- * Check if the `array` element at `index` satisfies the `predicate`.
- *
- * @category Basic array operations
- * @example
- *
- * ```typescript
- * I.atSatisfies(I.gt(0), 0, [1, 2, 3])
- * // => true
- * ```
- *
- * @see atSatisfies
- */
-export function atSatisfies<T>(
-  predicate: (value: T) => boolean
-): {
-  (index: number): (array: readonly T[]) => boolean
-  (index: number, array: readonly T[]): boolean
-}
-export function atSatisfies<T>(
-  predicate: (value: T) => boolean,
-  index: number
-): (array: readonly T[]) => boolean
-export function atSatisfies<T>(
-  predicate: (value: T) => boolean,
-  index: number,
-  array: readonly T[]
-): boolean
-
-/**
  * Create a version of `fn` that accepts two arguments.
  *
  * @category Function
@@ -2317,8 +2205,8 @@ export function minimumBy<T, U extends Ordered>(
 ): T | undefined
 
 /**
- * Returns a copy of `array` where the element at `index` has been replaced by
- * applying `fn` to its current value.
+ * Returns a copy of `array` where the nth element has been replaced by applying
+ * `fn` to its current value.
  *
  * - If `index` is not within `array` bounds, the `array` is returned
  *   unchanged.
@@ -2328,33 +2216,33 @@ export function minimumBy<T, U extends Ordered>(
  * @example
  *
  * ```typescript
- * I.modifyAt(0, I.inc, [1, 2, 3])
+ * I.modifyNth(0, I.inc, [1, 2, 3])
  * // => [2, 2, 3]
  *
- * I.modifyAt(-1, I.inc, [1, 2, 3])
+ * I.modifyNth(-1, I.inc, [1, 2, 3])
  * // => [1, 2, 4]
  *
- * I.modifyAt(0, I.noop, [1, 2, 3])
+ * I.modifyNth(0, I.noop, [1, 2, 3])
  * // => [2, 3]
  *
- * I.modifyAt(999, I.inc, [1, 2, 3])
+ * I.modifyNth(999, I.inc, [1, 2, 3])
  * // => [1, 2, 3]
  * ```
  *
- * @see setAt
- * @see removeAt
+ * @see setNth
+ * @see removeNth
  */
-export function modifyAt(
+export function modifyNth(
   index: number
 ): {
   <T>(fn: (value: T) => T): (array: readonly T[]) => T[]
   <T>(fn: (value: T) => T, array: readonly T[]): T[]
 }
-export function modifyAt<T>(
+export function modifyNth<T>(
   index: number,
   fn: (value: T) => T
 ): (array: readonly T[]) => T[]
-export function modifyAt<T>(
+export function modifyNth<T>(
   index: number,
   fn: (value: T) => T,
   array: readonly T[]
@@ -2427,6 +2315,118 @@ export function multiply(multiplicand: number, multiplier: number): number
  * ```
  */
 export function negate(n: number): number
+
+/**
+ * Return the nth element from `array` or `undefined`.
+ *
+ * @category Basic array operations
+ * @example
+ *
+ * ```typescript
+ * I.nth(0, [1, 2, 3])
+ * // => 1
+ *
+ * I.nth(0, [])
+ * // => undefined
+ * ```
+ *
+ * @see nthOr
+ * @see prop
+ */
+export function nth(index: number): <T>(array: readonly T[]) => T | undefined
+export function nth<T>(index: number, array: readonly T[]): T | undefined
+
+/**
+ * Check if the nth element of `array` equals `value`, using {@link equals} for
+ * determining equality.
+ *
+ * @category Basic array operations
+ * @example
+ *
+ * ```typescript
+ * I.nthEquals('a', 0, ['a', 'b', 'c'])
+ * // => true
+ * ```
+ *
+ * @see nthSatisfies
+ */
+export function nthEquals<T>(
+  value: T
+): {
+  (index: number): (array: readonly T[]) => boolean
+  (index: number, array: readonly T[]): boolean
+}
+export function nthEquals<T>(
+  value: T,
+  index: number
+): (array: readonly T[]) => boolean
+export function nthEquals<T>(
+  value: T,
+  index: number,
+  array: readonly T[]
+): boolean
+
+/**
+ * Like {@link nth}, but if the resolved value is `undefined`, `defaultValue` is
+ * returned instead.
+ *
+ * @category Basic array operations
+ * @example
+ *
+ * ```typescript
+ * I.nthOr(999, 0, [1, 2, 3])
+ * // => 1
+ *
+ * I.nthOr(999, 0, [])
+ * // => 999
+ *
+ * I.nthOr(999, 0, [undefined])
+ * // => 999
+ * ```
+ *
+ * @see nth
+ * @see propOr
+ */
+export function nthOr<T>(
+  defaultValue: T
+): {
+  (index: number): (array: readonly T[]) => T
+  (index: number, array: readonly T[]): T
+}
+export function nthOr<T>(
+  defaultValue: T,
+  index: number
+): (array: readonly T[]) => T
+export function nthOr<T>(defaultValue: T, index: number, array: readonly T[]): T
+
+/**
+ * Check if the nth element of `array` satisfies the `predicate`.
+ *
+ * @category Basic array operations
+ * @example
+ *
+ * ```typescript
+ * I.nthSatisfies(I.gt(0), 0, [1, 2, 3])
+ * // => true
+ * ```
+ *
+ * @see nthSatisfies
+ */
+export function nthSatisfies<T>(
+  predicate: (value: T) => boolean
+): {
+  (index: number): (array: readonly T[]) => boolean
+  (index: number, array: readonly T[]): boolean
+}
+export function nthSatisfies<T>(
+  predicate: (value: T) => boolean,
+  index: number
+): (array: readonly T[]) => boolean
+export function nthSatisfies<T>(
+  predicate: (value: T) => boolean,
+  index: number,
+  array: readonly T[]
+): boolean
 
 /**
  * Check if none of the elements in the `array` satisfy the `predicate`.
@@ -2678,7 +2678,7 @@ export function propEquals<K extends keyof T & string, T extends object>(
  * ```
  *
  * @see prop
- * @see atOr
+ * @see nthOr
  */
 export function propOr<V>(
   defaultValue: V
@@ -2826,7 +2826,7 @@ export function reduceRight<T, R>(
 ): R
 
 /**
- * Returns a copy of `array` without the element at `index`.
+ * Returns a copy of `array` without the nth element.
  *
  * - If `index` is not within the `array` bounds, the `array` is returned
  *   unchanged.
@@ -2835,21 +2835,21 @@ export function reduceRight<T, R>(
  * @example
  *
  * ```typescript
- * I.removeAt(0, [1, 2, 3])
+ * I.removeNth(0, [1, 2, 3])
  * // => [2, 3]
  *
- * I.removeAt(-1, [1, 2, 3])
+ * I.removeNth(-1, [1, 2, 3])
  * // => [1, 2]
  *
- * I.removeAt(999, [1, 2, 3])
+ * I.removeNth(999, [1, 2, 3])
  * // => [1, 2, 3]
  * ```
  *
- * @see modifyAt
- * @see setAt
+ * @see modifyNth
+ * @see setNth
  */
-export function removeAt(index: number): <T>(array: readonly T[]) => T[]
-export function removeAt<T>(index: number, array: readonly T[]): T[]
+export function removeNth(index: number): <T>(array: readonly T[]) => T[]
+export function removeNth<T>(index: number, array: readonly T[]): T[]
 
 /**
  * Return a copy of `object` without the property `key`.
@@ -3048,7 +3048,7 @@ export function pipe<T1, T2, T3, T4, T5, T6, T7, T8, T9, R>(
 ): R
 
 /**
- * Returns a copy of `array` where the element at `index` has been replaced with `value`.
+ * Returns a copy of `array` where nth element has been replaced with `value`.
  *
  * - If `index` is not within the `array` bounds, the `array` is returned
  *   unchanged.
@@ -3058,33 +3058,33 @@ export function pipe<T1, T2, T3, T4, T5, T6, T7, T8, T9, R>(
  * @example
  *
  * ```typescript
- * I.setAt(0, 999, [1, 2, 3])
+ * I.setNth(0, 999, [1, 2, 3])
  * // => [999, 2, 3]
  *
- * I.setAt(-1, 999, [1, 2, 3])
+ * I.setNth(-1, 999, [1, 2, 3])
  * // => [1, 2, 999]
  *
- * I.setAt(999, 999, [1, 2, 3])
+ * I.setNth(999, 999, [1, 2, 3])
  * // => [1, 2, 3]
  *
- * I.setAt(0, undefined, [1, 2, 3])
+ * I.setNth(0, undefined, [1, 2, 3])
  * // => [2, 3]
  * ```
  *
- * @see modifyAt
- * @see removeAt
+ * @see modifyNth
+ * @see removeNth
  */
-export function setAt(
+export function setNth(
   index: number
 ): {
   <T>(value: T | undefined): (array: readonly T[]) => T[]
   <T>(value: T | undefined, array: readonly T[]): T[]
 }
-export function setAt<T>(
+export function setNth<T>(
   index: number,
   value: T | undefined
 ): (array: readonly T[]) => T[]
-export function setAt<T>(
+export function setNth<T>(
   index: number,
   value: T | undefined,
   array: readonly T[]
