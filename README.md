@@ -600,7 +600,7 @@ I.nthOr(999, 0, [undefined])
 #### nthSatisfies
 
 ```typescript
-<T>(predicate: (value: T) => boolean) => (index: number) => (array: T[]) => boolean
+(index: number) => <T>(predicate: (value: T) => boolean) => (array: T[]) => boolean
 ```
 
 Check if the nth element of `array` satisfies the `predicate`.
@@ -608,7 +608,7 @@ Check if the nth element of `array` satisfies the `predicate`.
 **Example:**
 
 ```typescript
-I.nthSatisfies(I.gt(0), 0, [1, 2, 3])
+I.nthSatisfies(0, I.gt(0), [1, 2, 3])
 // => true
 ```
 
@@ -2487,7 +2487,7 @@ I.propOr(999, 'a', { a: undefined })
 #### propSatisfies
 
 ```typescript
-<V>(predicate: (value: V) => boolean) => <K extends string>(key: K) => <T extends HasKey<K, V>>(object: T) => boolean
+<K extends string>(key: K) => <V>(predicate: (value: V) => boolean) => <T extends HasKey<K, V>>(object: T) => boolean
 ```
 
 Check if property `key` of `object` satisfies the `predicate`.
@@ -2500,7 +2500,7 @@ const users = [
   { name: 'Bob' },
 ]
 
-I.some(I.propSatisfies(I.test(/^A/), 'name'), users)
+I.some(I.propSatisfies('name', I.test(/^A/)), users)
 // => true
 ```
 
