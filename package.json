@@ -9,6 +9,14 @@
     "dist",
     "index.d.ts"
   ],
+  "keywords": [
+    "curried",
+    "fp",
+    "functional",
+    "library",
+    "typescript",
+    "utility"
+  ],
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "index.d.ts",
