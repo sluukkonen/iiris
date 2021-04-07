@@ -11,7 +11,7 @@
     "@types/lodash": "^4.14.159",
     "@types/ramda": "^0.27.39",
     "benchmark": "^2.1.4",
-    "lodash": "^4.17.20",
+    "lodash": "^4.17.21",
     "microtime": "^3.0.0",
     "ramda": "^0.27.1"
   }
