@@ -4,7 +4,7 @@
 ![MIT License](https://img.shields.io/github/license/sluukkonen/iiris)
 [![NPM](https://img.shields.io/npm/v/iiris)](https://www.npmjs.com/package/iiris)
 
-Iiris is a general purpose utility library, designed to make it easier to manipulate built-in JavaScript data types like
+Iiris is an experimental utility library, designed to make it easier to manipulate built-in JavaScript data types like
 arrays, objects and strings in a functional manner. It is heavily inspired by projects like
 [Ramda](https://github.com/ramda/ramda) and [Lodash](https://github.com/lodash/lodash).
 
