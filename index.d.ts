@@ -100,7 +100,7 @@ type Widen<T> = T extends number
 type Defined<T> = T extends undefined ? never : T
 
 /** An object that has a property `K` of type `V`. */
-type HasKey<K extends string, V = unknown> = { [P in K]?: V } & object
+type HasKey<K extends string, V = unknown> = { [P in K]?: V }
 
 // Ah shit, here we go again…
 
