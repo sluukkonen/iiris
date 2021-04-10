@@ -2348,25 +2348,25 @@ export function nth<T>(index: number, array: readonly T[]): T | undefined
  * @example
  *
  * ```typescript
- * I.nthEquals('a', 0, ['a', 'b', 'c'])
+ * I.nthEquals(0, 'a', ['a', 'b', 'c'])
  * // => true
  * ```
  *
  * @see nthSatisfies
  */
-export function nthEquals<T>(
-  value: T
+export function nthEquals(
+  index: number
 ): {
-  (index: number): (array: readonly T[]) => boolean
-  (index: number, array: readonly T[]): boolean
+  <T>(value: T): (array: readonly T[]) => boolean
+  <T>(value: T, array: readonly T[]): boolean
 }
 export function nthEquals<T>(
-  value: T,
-  index: number
+  index: number,
+  value: T
 ): (array: readonly T[]) => boolean
 export function nthEquals<T>(
-  value: T,
   index: number,
+  value: T,
   array: readonly T[]
 ): boolean
 
@@ -2641,25 +2641,25 @@ export function prop<K extends keyof T & string, T extends object>(
  *   { name: 'Bob' },
  * ]
  *
- * I.some(I.propEquals('Alice', 'name'), users)
+ * I.some(I.propEquals('name', 'Alice'), users)
  * // => true
  * ```
  *
  * @see propEquals
  */
-export function propEquals<V>(
-  value: V
-): {
-  <K extends string>(key: K): <T extends HasKey<K, V>>(object: T) => boolean
-  <K extends string, T extends HasKey<K, V>>(key: K, object: T): boolean
-}
-export function propEquals<V, K extends string>(
-  value: V,
+export function propEquals<K extends string>(
   key: K
+): {
+  <V>(value: V): <T extends HasKey<K, V>>(object: T) => boolean
+  <T extends HasKey<K>>(value: T[K], object: T): boolean
+}
+export function propEquals<K extends string, V>(
+  key: K,
+  value: V
 ): <T extends HasKey<K, V>>(object: T) => boolean
 export function propEquals<K extends keyof T & string, T extends object>(
-  value: T[K],
   key: K,
+  value: T[K],
   object: T
 ): boolean
 

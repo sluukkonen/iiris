@@ -1,5 +1,5 @@
 import { equalsU } from './equalsU'
 import { hasOwn } from './hasOwn'
 
-export const propEqualsU = (value, key, object) =>
+export const propEqualsU = (key, value, object) =>
   hasOwn(object, key) && equalsU(value, object[key])

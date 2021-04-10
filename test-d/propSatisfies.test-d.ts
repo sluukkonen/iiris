@@ -11,9 +11,9 @@ expectType<boolean>(I.propSatisfies('name')(startsWithA, user))
 expectType<boolean>(I.propSatisfies('name')(startsWithA)(user))
 
 // Nullable value
-expectType<boolean>(I.propSatisfies('age', I.gt(0), user))
+expectType<boolean>(I.propSatisfies('age', I.maybe(false, I.gt(0)), user))
 expectType<boolean>(I.propSatisfies('age', I.gt(0))(user))
-expectType<boolean>(I.propSatisfies('age')(I.gt(0), user))
+expectType<boolean>(I.propSatisfies('age')(I.maybe(false, I.gt(0)), user))
 expectType<boolean>(I.propSatisfies('age')(I.gt(0))(user))
 
 // Wrong type

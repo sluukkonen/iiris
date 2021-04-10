@@ -555,7 +555,7 @@ I.nth(0, [])
 #### nthEquals
 
 ```typescript
-<T>(value: T) => (index: number) => (array: T[]) => boolean
+(index: number) => <T>(value: T) => (array: T[]) => boolean
 ```
 
 Check if the nth element of `array` equals `value`, using [equals](#equals) for
@@ -564,7 +564,7 @@ determining equality.
 **Example:**
 
 ```typescript
-I.nthEquals('a', 0, ['a', 'b', 'c'])
+I.nthEquals(0, 'a', ['a', 'b', 'c'])
 // => true
 ```
 
@@ -2437,7 +2437,7 @@ I.prop('a', {})
 #### propEquals
 
 ```typescript
-<V>(value: V) => <K extends string>(key: K) => <T extends HasKey<K, V>>(object: T) => boolean
+<K extends string>(key: K) => <V>(value: V) => <T extends HasKey<K, V>>(object: T) => boolean
 ```
 
 Check if property `key` of `object` equals `value`, using [equals](#equals) for
@@ -2451,7 +2451,7 @@ const users = [
   { name: 'Bob' },
 ]
 
-I.some(I.propEquals('Alice', 'name'), users)
+I.some(I.propEquals('name', 'Alice'), users)
 // => true
 ```
 

@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - The `HasKey<K, V>` helper type erroneously accepted types that didn't have
   the key `K`.
+- The parameter order of `propEquals` and `nthEquals` wasn't actually changed in
+  [#239](https://github.com/sluukkonen/iiris/pull/239). This is now fixed.
 
 ## [0.1.0] - 2021-04-07
 
