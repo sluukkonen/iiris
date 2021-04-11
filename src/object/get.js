@@ -1,5 +1,5 @@
 import { setName } from '../core/internal/index.js'
 import { curry2 } from '../function/index.js'
-import { propU } from './internal/index.js'
+import { getU } from './internal/index.js'
 
-export const prop = setName(curry2(propU), 'prop')
+export const get = setName(curry2(getU), 'get')

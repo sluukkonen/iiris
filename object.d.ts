@@ -11,7 +11,7 @@ type Defined<T> = T extends undefined ? never : T
  * @example
  *
  * ```typescript
- * I.entries({ a: 1, b: 2, c: 3 })
+ * O.entries({ a: 1, b: 2, c: 3 })
  * // => [['a', 1], ['b', 2], ['c', 3]]
  * ```
  *
@@ -30,7 +30,7 @@ export function entries<T extends object>(
  * @example
  *
  * ```typescript
- * I.fromEntries([['a', 1], ['b', 2], ['c', 3]])
+ * O.fromEntries([['a', 1], ['b', 2], ['c', 3]])
  * // => { a: 1, b: 2, c: 3 }
  * ```
  *
@@ -47,10 +47,10 @@ export function fromEntries<K extends string, T>(
  * @example
  *
  * ```typescript
- * I.has('a', { a: 1 })
+ * O.has('a', { a: 1 })
  * // => true
  *
- * I.has('toString', { a: 1 })
+ * O.has('toString', { a: 1 })
  * // => false
  * ```
  */
@@ -69,7 +69,7 @@ export function has<K extends string>(
  * @example
  *
  * ```typescript
- * I.keys({ a: 1, b: 2, c: 3 })
+ * O.keys({ a: 1, b: 2, c: 3 })
  * // => ['a', 'b', 'c']
  * ```
  *
@@ -88,7 +88,7 @@ export function keys<T extends object>(object: T): Array<keyof T & string>
  * @example
  *
  * ```typescript
- * I.mapKeys((k) => k.toUpperCase(), { a: 1, b: 2, c: 3 })
+ * O.mapKeys((k) => k.toUpperCase(), { a: 1, b: 2, c: 3 })
  * // => { A: 1, B: 2, C: 3 }
  * ```
  */
@@ -108,7 +108,7 @@ export function mapKeys<K1 extends string, K2 extends string, V>(
  * @example
  *
  * ```typescript
- * I.mapValues(I.inc, { a: 1, b: 2, c: 3 })
+ * O.mapValues((n) => n + 1, { a: 1, b: 2, c: 3 })
  * // => { a: 2, b: 3, c: 4 }
  * ```
  */
@@ -128,7 +128,7 @@ export function mapValues<V1, V2, K extends string>(
  * @example
  *
  * ```typescript
- * I.merge({ a: 1, b: 1 }, { b: 2, c: 2 })
+ * O.merge({ a: 1, b: 1 }, { b: 2, c: 2 })
  * // => { a: 1, b: 2, c: 2 }
  * ```
  */
@@ -152,30 +152,30 @@ export function merge<T extends object, U extends object>(
  * @example
  *
  * ```typescript
- * I.modifyProp('a', (n) => n + 1, { a: 1, b: 2, c: 3 })
+ * O.modifyProp('a', (n) => n + 1, { a: 1, b: 2, c: 3 })
  * // => { a: 2, b: 2, c: 3 }
  *
- * I.modifyProp('a', () => undefined, { a: 1, b: 2, c: 3 })
+ * O.modifyProp('a', () => undefined, { a: 1, b: 2, c: 3 })
  * // => { b: 2, c: 3 }
  *
- * I.modifyProp('d', () => 4, { a: 1, b: 2, c: 3 })
+ * O.modifyProp('d', () => 4, { a: 1, b: 2, c: 3 })
  * // => { a: 1, b: 2, c: 3, d: 4 }
  * ```
  *
- * @see setProp
- * @see removeProp
+ * @see set
+ * @see remove
  */
-export function modifyProp<K extends string>(
+export function modify<K extends string>(
   key: K
 ): {
   <V>(fn: (value: V) => V): <T extends HasKey<K, V>>(object: T) => T
   <T extends HasKey<K>>(fn: (value: Defined<T[K]>) => T[K], object: T): T
 }
-export function modifyProp<K extends string, V>(
+export function modify<K extends string, V>(
   key: K,
   fn: (value: V) => V
 ): <T extends HasKey<K, V>>(object: T) => T
-export function modifyProp<K extends keyof T & string, T extends object>(
+export function modify<K extends keyof T & string, T extends object>(
   key: K,
   fn: (value: Defined<T[K]>) => T[K],
   object: T
@@ -188,7 +188,7 @@ export function modifyProp<K extends keyof T & string, T extends object>(
  * @example
  *
  * ```typescript
- * I.omit(['a', 'b'], { a: 1, b: 2, c: 3 })
+ * O.omit(['a', 'b'], { a: 1, b: 2, c: 3 })
  * // => { c: 3 }
  * ```
  *
@@ -209,46 +209,44 @@ export function omit<K extends keyof T & string, T extends object>(
  * @example
  *
  * ```typescript
- * I.prop('a', { a: 1, b: 2, c: 3 })
+ * O.get('a', { a: 1, b: 2, c: 3 })
  * // => 1
  *
- * I.prop('a', {})
+ * O.get('a', {})
  * // => undefined
  * ```
  *
- * @see propOr
- * @see at
+ * @see getOr
  */
-export function prop<K extends string>(
+export function get<K extends string>(
   key: K
 ): <T extends HasKey<K>>(object: T) => T[K]
-export function prop<K extends keyof T & string, T extends object>(
+export function get<K extends keyof T & string, T extends object>(
   key: K,
   object: T
 ): T[K]
 
 /**
- * Like {@link prop}, but if the resolved value is `undefined`, `defaultValue`
+ * Like {@link get}, but if the resolved value is `undefined`, `defaultValue`
  * is returned instead.
  *
  * @category Object
  * @example
  *
  * ```typescript
- * I.propOr(999, 'a', { a: 1, b: 2, c: 3 })
+ * O.getOr(999, 'a', { a: 1, b: 2, c: 3 })
  * // => 1
  *
- * I.propOr(999, 'a', {})
+ * O.getOr(999, 'a', {})
  * // => 999
  *
- * I.propOr(999, 'a', { a: undefined })
+ * O.getOr(999, 'a', { a: undefined })
  * // => 999
  * ```
  *
- * @see prop
- * @see nthOr
+ * @see get
  */
-export function propOr<V>(
+export function getOr<V>(
   defaultValue: V
 ): {
   <K extends string>(key: K): <T extends HasKey<K, V>>(
@@ -258,11 +256,11 @@ export function propOr<V>(
     | Defined<T[K]>
     | V
 }
-export function propOr<V, K extends string>(
+export function getOr<V, K extends string>(
   defaultValue: V,
   key: K
 ): <T extends HasKey<K, V>>(object: T) => Defined<T[K]> | V
-export function propOr<V extends T[K], K extends keyof T & string, T>(
+export function getOr<V extends T[K], K extends keyof T & string, T>(
   defaultValue: V,
   key: K,
   object: T
@@ -278,14 +276,14 @@ export function propOr<V extends T[K], K extends keyof T & string, T>(
  * @example
  *
  * ```typescript
- * I.removeProp('a', { a: 1, b: 2, c: 3 })
+ * O.remove('a', { a: 1, b: 2, c: 3 })
  * // => { b: 2, c: 3 }
  * ```
  */
-export function removeProp<K extends string>(
+export function remove<K extends string>(
   key: K
 ): <T extends HasKey<K>>(object: T) => Omit<T, K>
-export function removeProp<K extends keyof T & string, T extends object>(
+export function remove<K extends keyof T & string, T extends object>(
   key: K,
   object: T
 ): Omit<T, K>
@@ -297,7 +295,7 @@ export function removeProp<K extends keyof T & string, T extends object>(
  * @example
  *
  * ```typescript
- * I.pick(['a', 'b'], { a: 1, b: 2, c: 3 })
+ * O.pick(['a', 'b'], { a: 1, b: 2, c: 3 })
  * // => { a: 1, b: 2 }
  * ```
  *
@@ -320,27 +318,27 @@ export function pick<K extends keyof T & string, T extends object>(
  * @example
  *
  * ```typescript
- * I.setProp('a', 999, { a: 1, b: 2, c: 3 })
+ * O.setProp('a', 999, { a: 1, b: 2, c: 3 })
  * // => { a: 999, b: 2, c: 3 }
  *
- * I.setProp('a', undefined, { a: 1, b: 2, c: 3 })
+ * O.setProp('a', undefined, { a: 1, b: 2, c: 3 })
  * // => { b: 2, c: 3 }
  * ```
  *
- * @see modifyProp
- * @see removeProp
+ * @see modify
+ * @see remove
  */
-export function setProp<K extends string>(
+export function set<K extends string>(
   key: K
 ): {
   <V>(value: V): <T extends HasKey<K, V>>(object: T) => T
   <T extends HasKey<K>>(value: T[K], object: T): T
 }
-export function setProp<K extends string, V>(
+export function set<K extends string, V>(
   key: K,
   value: V
 ): <T extends HasKey<K, V>>(object: T) => T
-export function setProp<K extends keyof T & string, T extends object>(
+export function set<K extends keyof T & string, T extends object>(
   key: K,
   value: T[K],
   object: T
@@ -352,7 +350,7 @@ export function setProp<K extends keyof T & string, T extends object>(
  * @category Object
  * @example
  * ```
- * I.keys({ a: 1, b: 2, c: 3 })
+ * O.keys({ a: 1, b: 2, c: 3 })
  * // => [1, 2, 3]
  * ```
  *
