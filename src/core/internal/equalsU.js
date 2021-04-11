@@ -112,7 +112,7 @@ const equalsObject = (a, b, cycles) => {
   // As an optimization, try to find a key mismatch before starting to compare
   // the equality of the values.
   for (const key of aKeys) {
-    if (!hasOwn(b, key)) {
+    if (!hasOwn(key, b)) {
       return false
     }
   }

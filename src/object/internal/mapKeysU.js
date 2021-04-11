@@ -4,7 +4,7 @@ export const mapKeysU = (fn, object) => {
   const result = {}
 
   for (const key in object) {
-    if (hasOwn(object, key)) {
+    if (hasOwn(key, object)) {
       result[fn(key)] = object[key]
     }
   }

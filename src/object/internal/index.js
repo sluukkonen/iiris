@@ -1,6 +1,5 @@
 export * from './getOrU.js'
 export * from './getU.js'
-export * from './hasU.js'
 export * from './mapKeysU.js'
 export * from './mapValuesU.js'
 export * from './mergeU.js'
