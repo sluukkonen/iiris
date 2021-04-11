@@ -1181,36 +1181,6 @@ export function nth(index: number): <T>(array: readonly T[]) => T | undefined
 export function nth<T>(index: number, array: readonly T[]): T | undefined
 
 /**
- * Check if the nth element of `array` equals `value`, using {@link equals} for
- * determining equality.
- *
- * @category Basic array operations
- * @example
- *
- * ```typescript
- * I.nthEquals(0, 'a', ['a', 'b', 'c'])
- * // => true
- * ```
- *
- * @see nthSatisfies
- */
-export function nthEquals(
-  index: number
-): {
-  <T>(value: T): (array: readonly T[]) => boolean
-  <T>(value: T, array: readonly T[]): boolean
-}
-export function nthEquals<T>(
-  index: number,
-  value: T
-): (array: readonly T[]) => boolean
-export function nthEquals<T>(
-  index: number,
-  value: T,
-  array: readonly T[]
-): boolean
-
-/**
  * Like {@link nth}, but if the resolved value is `undefined`, `defaultValue` is
  * returned instead.
  *
@@ -1242,35 +1212,6 @@ export function nthOr<T>(
   index: number
 ): (array: readonly T[]) => T
 export function nthOr<T>(defaultValue: T, index: number, array: readonly T[]): T
-
-/**
- * Check if the nth element of `array` satisfies the `predicate`.
- *
- * @category Basic array operations
- * @example
- *
- * ```typescript
- * I.nthSatisfies(0, I.gt(0), [1, 2, 3])
- * // => true
- * ```
- *
- * @see nthSatisfies
- */
-export function nthSatisfies(
-  index: number
-): {
-  <T>(predicate: (value: T) => boolean): (array: readonly T[]) => boolean
-  <T>(predicate: (value: T) => boolean, array: readonly T[]): boolean
-}
-export function nthSatisfies<T>(
-  index: number,
-  predicate: (value: T) => boolean
-): (array: readonly T[]) => boolean
-export function nthSatisfies<T>(
-  index: number,
-  predicate: (value: T) => boolean,
-  array: readonly T[]
-): boolean
 
 /**
  * Check if none of the elements in the `array` satisfy the `predicate`.
