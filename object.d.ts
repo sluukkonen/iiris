@@ -228,41 +228,6 @@ export function prop<K extends keyof T & string, T extends object>(
 ): T[K]
 
 /**
- * Check if property `key` of `object` equals `value`, using {@link equals} for
- * determining equality.
- *
- * @category Object
- * @example
- *
- * ```typescript
- * const users = [
- *   { name: 'Alice' },
- *   { name: 'Bob' },
- * ]
- *
- * I.some(I.propEquals('name', 'Alice'), users)
- * // => true
- * ```
- *
- * @see propEquals
- */
-export function propEquals<K extends string>(
-  key: K
-): {
-  <V>(value: V): <T extends HasKey<K, V>>(object: T) => boolean
-  <T extends HasKey<K>>(value: T[K], object: T): boolean
-}
-export function propEquals<K extends string, V>(
-  key: K,
-  value: V
-): <T extends HasKey<K, V>>(object: T) => boolean
-export function propEquals<K extends keyof T & string, T extends object>(
-  key: K,
-  value: T[K],
-  object: T
-): boolean
-
-/**
  * Like {@link prop}, but if the resolved value is `undefined`, `defaultValue`
  * is returned instead.
  *
@@ -302,45 +267,6 @@ export function propOr<V extends T[K], K extends keyof T & string, T>(
   key: K,
   object: T
 ): Defined<T[K]> | V
-
-/**
- * Check if property `key` of `object` satisfies the `predicate`.
- *
- * @category Object
- * @example
- *
- * ```typescript
- * const users = [
- *   { name: 'Alice' },
- *   { name: 'Bob' },
- * ]
- *
- * I.some(I.propSatisfies('name', I.test(/^A/)), users)
- * // => true
- * ```
- *
- * @see propEquals
- */
-export function propSatisfies<K extends string>(
-  key: K
-): {
-  <V>(predicate: (value: V) => boolean): <T extends HasKey<K, V>>(
-    object: T
-  ) => boolean
-  <T extends HasKey<K>>(
-    predicate: (value: Defined<T[K]>) => boolean,
-    object: T
-  ): boolean
-}
-export function propSatisfies<K extends string, V>(
-  key: K,
-  predicate: (value: V) => boolean
-): <T extends HasKey<K, V>>(object: T) => boolean
-export function propSatisfies<K extends keyof T & string, T extends object>(
-  key: K,
-  predicate: (value: Defined<T[K]>) => boolean,
-  object: T
-): boolean
 
 /**
  * Return a copy of `object` without the property `key`.
