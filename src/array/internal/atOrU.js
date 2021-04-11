@@ -2,7 +2,7 @@ import { isUndefined } from '../../core/index.js'
 import { getIndex } from './getIndex.js'
 import { hasIndex } from './hasIndex.js'
 
-export const nthOrU = (defaultValue, index, array) => {
+export const atOrU = (defaultValue, index, array) => {
   index = getIndex(index, array)
 
   if (hasIndex(index, array)) {
