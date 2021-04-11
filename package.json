@@ -19,6 +19,7 @@
   ],
   "main": "dist/index.js",
   "module": "dist/index.mjs",
+  "type": "commonjs",
   "types": "index.d.ts",
   "repository": "https://github.com/sluukkonen/iiris",
   "author": "Sakumatti Luukkonen <sakumatti.luukkonen@gmail.com>",
