@@ -7,7 +7,7 @@ import { Ordered } from './core.js'
  * @example
  *
  * ```typescript
- * I.append(4, [1, 2, 3])
+ * A.append(4, [1, 2, 3])
  * // => [1, 2, 3, 4]
  * ```
  *
@@ -24,7 +24,7 @@ export function append<T>(value: T, array: readonly T[]): T[]
  * @example
  *
  * ```typescript
- * I.concat([1, 2, 3], [4, 5, 6])
+ * A.concat([1, 2, 3], [4, 5, 6])
  * // => [1, 2, 3, 4, 5, 6]
  * ```
  *
@@ -41,7 +41,7 @@ export function concat<T>(array: readonly T[], other: readonly T[]): T[]
  * @example
  *
  * ```typescript
- * I.count((n) => n > 1, [1, 2, 3])
+ * A.count((n) => n > 1, [1, 2, 3])
  * // => 2
  * ```
  *
@@ -69,7 +69,7 @@ export function count<T>(
  *   { name: 'Alice' }
  * ]
  *
- * I.countBy(I.prop('name'), users)
+ * A.countBy((u) => u.name, users)
  * // => { Alice: 2, Bob: 1 }
  * ```
  *
@@ -95,7 +95,7 @@ export function countBy<T, K extends string>(
  * @example
  *
  * ```typescript
- * I.difference([1, 2, 3], [2, 3, 4])
+ * A.difference([1, 2, 3], [2, 3, 4])
  * // => [1]
  * ```
  *
@@ -126,7 +126,7 @@ export function difference<T>(
  *   { id: 4, name: 'Dan' }
  * ]
  *
- * I.differenceWith((a, b) => a.id === b.id, users, otherUsers)
+ * A.differenceWith((a, b) => a.id === b.id, users, otherUsers)
  * // => [ { id: 1, name: 'Alice' } ]
  * ```
  *
@@ -157,10 +157,10 @@ export function differenceWith<T>(
  * @example
  *
  * ```typescript
- * I.drop(1, [1, 2, 3])
+ * A.drop(1, [1, 2, 3])
  * // => [2, 3]
  *
- * I.drop(2, [1, 2, 3])
+ * A.drop(2, [1, 2, 3])
  * // => [3]
  * ```
  *
@@ -177,10 +177,10 @@ export function drop<T>(n: number, array: readonly T[]): T[]
  * @example
  *
  * ```typescript
- * I.dropLast(1, [1, 2, 3])
+ * A.dropLast(1, [1, 2, 3])
  * // => [1, 2]
  *
- * I.dropLast(2, [1, 2, 3])
+ * A.dropLast(2, [1, 2, 3])
  * // => [1]
  * ```
  *
@@ -197,7 +197,7 @@ export function dropLast<T>(n: number, array: readonly T[]): T[]
  * @example
  *
  * ```typescript
- * I.dropLastWhile((n) => n > 1, [1, 2, 3])
+ * A.dropLastWhile((n) => n > 1, [1, 2, 3])
  * // => [1]
  * ```
  *
@@ -220,7 +220,7 @@ export function dropLastWhile<T>(
  * @example
  *
  * ```typescript
- * I.dropWhile((n) => n === 1, [1, 2, 3])
+ * A.dropWhile((n) => n === 1, [1, 2, 3])
  * // => [2, 3]
  * ```
  *
@@ -242,10 +242,10 @@ export function dropWhile<T>(
  * @example
  *
  * ```typescript
- * I.every((n) => n < 10, [1, 2, 3])
+ * A.every((n) => n < 10, [1, 2, 3])
  * // => true
  *
- * I.every((n) => n < 3, [1, 2, 3])
+ * A.every((n) => n < 3, [1, 2, 3])
  * // => false
  * ```
  *
@@ -269,10 +269,10 @@ export function every<T>(
  * @example
  *
  * ```typescript
- * I.find((c) => c !== 'a', ['a', 'b', 'c'])
+ * A.find((c) => c !== 'a', ['a', 'b', 'c'])
  * // => 'b'
  *
- * I.find((c) => c === 'x', ['a', 'b', 'c'])
+ * A.find((c) => c === 'x', ['a', 'b', 'c'])
  * // => undefined
  * ```
  *
@@ -295,10 +295,10 @@ export function find<T, U extends T>(
  * @example
  *
  * ```typescript
- * I.find((c) => c !== 'a', ['a', 'b', 'c'])
+ * A.find((c) => c !== 'a', ['a', 'b', 'c'])
  * // => 'b'
  *
- * I.find((c) => c === 'x', ['a', 'b', 'c'])
+ * A.find((c) => c === 'x', ['a', 'b', 'c'])
  * // => undefined
  * ```
  *
@@ -323,10 +323,10 @@ export function find<T>(
  * @example
  *
  * ```typescript
- * I.findIndex((c) => c !== 'a', ['a', 'b', 'c'])
+ * A.findIndex((c) => c !== 'a', ['a', 'b', 'c'])
  * // => 1
  *
- * I.findIndex((c) => c === 'x', ['a', 'b', 'c'])
+ * A.findIndex((c) => c === 'x', ['a', 'b', 'c'])
  * // => -1
  * ```
  *
@@ -350,10 +350,10 @@ export function findIndex<T>(
  * @example
  *
  * ```typescript
- * I.findLast((c) => c !== 'a', ['a', 'b', 'c'])
+ * A.findLast((c) => c !== 'a', ['a', 'b', 'c'])
  * // => 'c'
  *
- * I.findLast((c) => c === 'x', ['a', 'b', 'c'])
+ * A.findLast((c) => c === 'x', ['a', 'b', 'c'])
  * // => undefined
  * ```
  *
@@ -376,10 +376,10 @@ export function findLast<T, U extends T>(
  * @example
  *
  * ```typescript
- * I.findLast((c) => c !== 'a', ['a', 'b', 'c'])
+ * A.findLast((c) => c !== 'a', ['a', 'b', 'c'])
  * // => 'c'
  *
- * I.findLast((c) => c === 'x', ['a', 'b', 'c'])
+ * A.findLast((c) => c === 'x', ['a', 'b', 'c'])
  * // => undefined
  * ```
  *
@@ -404,10 +404,10 @@ export function findLast<T>(
  * @example
  *
  * ```typescript
- * I.findLastIndex((c) => c !== 'a', ['a', 'b', 'c'])
+ * A.findLastIndex((c) => c !== 'a', ['a', 'b', 'c'])
  * // => 2
  *
- * I.findLastIndex((c) => c === 'x', ['a', 'b', 'c'])
+ * A.findLastIndex((c) => c === 'x', ['a', 'b', 'c'])
  * // => -1
  * ```
  *
@@ -429,7 +429,7 @@ export function findLastIndex<T>(
  * @example
  *
  * ```typescript
- * I.filter((n) => n > 1, [1, 2, 3])
+ * A.filter((n) => n > 1, [1, 2, 3])
  * // => [2, 3]
  * ```
  *
@@ -451,7 +451,7 @@ export function filter<T, U extends T>(
  * @example
  *
  * ```typescript
- * I.filter((n) => n > 1, [1, 2, 3])
+ * A.filter((n) => n > 1, [1, 2, 3])
  * // => [2, 3]
  * ```
  *
@@ -475,7 +475,7 @@ export function filter<T>(
  * @example
  *
  * ```typescript
- * I.filterWithIndex((i, n) => i + n === 3, [1, 2, 3])
+ * A.filterWithIndex((i, n) => i + n === 3, [1, 2, 3])
  * // => [2]
  * ```
  *
@@ -497,7 +497,7 @@ export function filterWithIndex<T>(
  * @example
  *
  * ```typescript
- * I.flatMap((n) => [n, n], [1, 2, 3])
+ * A.flatMap((n) => [n, n], [1, 2, 3])
  * // => [1, 1, 2, 2, 3, 3]
  * ```
  *
@@ -516,10 +516,10 @@ export function flatMap<T, U>(fn: (value: T) => U[], array: readonly T[]): U[]
  * @example
  *
  * ```typescript
- * I.flatten(1, [1, [2, [3]]])
+ * A.flatten(1, [1, [2, [3]]])
  * // => [1, 2, [3]]
  *
- * I.flatten(2, [1, [2, [3]]])
+ * A.flatten(2, [1, [2, [3]]])
  * // => [1, 2, 3]
  * ```
  *
@@ -540,7 +540,7 @@ export function flatten<T extends readonly unknown[], D extends number>(
  * @example
  *
  * ```typescript
- * I.forEach(console.log, ['h', 'i', '!'])
+ * A.forEach(console.log, ['h', 'i', '!'])
  * h
  * i
  * !
@@ -560,7 +560,7 @@ export function forEach<T>(fn: (value: T) => void, array: readonly T[]): T[]
  * @example
  *
  * ```typescript
- * I.forEachWithIndex(console.log, ['h', 'i', '!'])
+ * A.forEachWithIndex(console.log, ['h', 'i', '!'])
  * 0 h
  * 1 i
  * 2 !
@@ -590,7 +590,7 @@ export function forEachWithIndex<T>(
  *   { name: 'Alice' },
  * ]
 
- * I.groupBy(I.prop('name'), users)
+ * A.groupBy((u) => u.name, users)
  * // => { Alice: [{ name: 'Alice' }, { name: 'Alice' }], Bob: [{ name: 'Bob' }] }
  * ```
  *
@@ -620,7 +620,7 @@ export function groupBy<T, K extends string>(
  *   { name: 'Bob', age: 20 },
  *   { name: 'Alice', age: 30 }
  * ]
- * const agesByName = I.groupMap(I.prop('age'), I.prop('name'), users)
+ * const agesByName = A.groupMap((u) => u.age, (u) => u.name, users)
  * // => { Alice: [10, 30], Bob: [20] }
  * ```
  *
@@ -661,8 +661,12 @@ export function groupMap<T, U, K extends string>(
  *   { name: 'Bob', age: 20 },
  *   { name: 'Alice', age: 30 }
  * ]
- * const sumOfAgesByName = I.groupMapReduce(I.add, I.prop('age'), I.prop('name'), users)
- * // => { Alice: 40, Bob: 20 }
+ * const sumOfAgesByName = A.groupMapReduce(
+ *   (sum, n) => sum + n,
+ *   (u) => u.age,
+ *   (u) => u.name,
+ *   users
+ * ) // => { Alice: 40, Bob: 20 }
  * ```
  *
  * @see groupBy
@@ -717,10 +721,10 @@ export function groupMapReduce<U, T, K extends string>(
  * @example
  *
  * ```typescript
- * I.head([1, 2, 3])
+ * A.head([1, 2, 3])
  * // => 1
  *
- * I.head([])
+ * A.head([])
  * // => undefined
  * ```
  *
@@ -738,10 +742,10 @@ export function head<T>(array: readonly T[]): T | undefined
  * @example
  *
  * ```typescript
- * I.includes(1, [1, 2, 3])
+ * A.includes(1, [1, 2, 3])
  * // => true
  *
- * I.includes(0, [1, 2, 3])
+ * A.includes(0, [1, 2, 3])
  * // => false
  * ```
  */
@@ -763,7 +767,7 @@ export function includes<T>(value: T, array: readonly T[]): boolean
  *   { id: 2, name: 'Bob' },
  *   { id: 1, name: 'Carol' }
  * ]
- * I.indexBy(I.prop('id'), users)
+ * A.indexBy((u) => u.id, users)
  * // => { '1': { id: 1, name: 'Carol' }, '2': { id: 2, name: 'Bob' } }
  * ```
  *
@@ -785,10 +789,10 @@ export function indexBy<T, K extends string>(
  * @example
  *
  * ```typescript
- * I.indexOf('b', ['a', 'b', 'c', 'a', 'b', 'c'])
+ * A.indexOf('b', ['a', 'b', 'c', 'a', 'b', 'c'])
  * // => 1
  *
- * I.indexOf('x', ['a', 'b', 'c', 'a', 'b', 'c'])
+ * A.indexOf('x', ['a', 'b', 'c', 'a', 'b', 'c'])
  * // => -1
  * ```
  *
@@ -805,10 +809,10 @@ export function indexOf<T>(value: T, array: readonly T[]): number
  * @example
  *
  * ```typescript
- * I.init([1, 2, 3])
+ * A.init([1, 2, 3])
  * // => [1, 2]
  *
- * I.init([])
+ * A.init([])
  * // => []
  * ```
  *
@@ -830,7 +834,7 @@ export function init<T>(array: readonly T[]): T[]
  * @example
  *
  * ```typescript
- * I.intersection([1, 2, 3], [2, 3, 4])
+ * A.intersection([1, 2, 3], [2, 3, 4])
  * // => [2, 3]
  * ```
  *
@@ -861,7 +865,7 @@ export function intersection<T>(first: readonly T[], second: readonly T[]): T[]
  *   { id: 4, name: 'Dan' }
  * ]
  *
- * I.intersectionWith((a, b) => a.id === b.id, users, otherUsers)
+ * A.intersectionWith((a, b) => a.id === b.id, users, otherUsers)
  * // => [ { id: 2, name: 'Bob' }, { id: 3, name: 'Carol' } ]
  * ```
  *
@@ -892,10 +896,10 @@ export function intersectionWith<T>(
  * @example
  *
  * ```typescript
- * I.intersperse(',', ['a', 'b', 'c'])
+ * A.intersperse(',', ['a', 'b', 'c'])
  * // => ['a', ',', 'b', ',', 'c']
  *
- * I.intersperse(',', [])
+ * A.intersperse(',', [])
  * // => []
  * ```
  *
@@ -911,10 +915,10 @@ export function intersperse<T>(separator: T, array: readonly T[]): T[]
  * @example
  *
  * ```typescript
- * I.isEmpty([1, 2, 3])
+ * A.isEmpty([1, 2, 3])
  * // => false
  *
- * I.isEmpty([])
+ * A.isEmpty([])
  * // => true
  * ```
  *
@@ -930,7 +934,7 @@ export function isEmpty<T>(array: readonly T[]): boolean
  * @example
  *
  * ```typescript
- * I.join(', ', [1, 2, 3])
+ * A.join(', ', [1, 2, 3])
  * // => '1, 2, 3'
  * ```
  *
@@ -947,10 +951,10 @@ export function join<T>(separator: string, array: readonly T[]): string
  * @example
  *
  * ```typescript
- * I.last([1, 2, 3])
+ * A.last([1, 2, 3])
  * // => 3
  *
- * I.last([])
+ * A.last([])
  * // => undefined
  * ```
  *
@@ -968,10 +972,10 @@ export function last<T>(array: readonly T[]): T | undefined
  * @example
  *
  * ```typescript
- * I.lastIndexOf('b', ['a', 'b', 'c', 'a', 'b', 'c'])
+ * A.lastIndexOf('b', ['a', 'b', 'c', 'a', 'b', 'c'])
  * // => 4
  *
- * I.lastIndexOf('x', ['a', 'b', 'c', 'a', 'b', 'c'])
+ * A.lastIndexOf('x', ['a', 'b', 'c', 'a', 'b', 'c'])
  * // => -1
  * ```
  *
@@ -988,10 +992,10 @@ export function lastIndexOf<T>(value: T, array: readonly T[]): number
  * @example
  *
  * ```typescript
- * I.length([1, 2, 3])
+ * A.length([1, 2, 3])
  * // => 3
  *
- * I.length([])
+ * A.length([])
  * // => 0
  * ```
  *
@@ -1007,7 +1011,7 @@ export function length<T>(array: readonly T[]): number
  * @example
  *
  * ```typescript
- * I.map(I.inc, [1, 2, 3])
+ * A.map((n) => n + 1, [1, 2, 3])
  * // => [2, 3, 4]
  * ```
  *
@@ -1026,7 +1030,7 @@ export function map<T, U>(fn: (value: T) => U, array: readonly T[]): U[]
  * @example
  *
  * ```typescript
- * I.mapWithIndex((i, c) => `${i}-${c}`, ['a', 'b', 'c'])
+ * A.mapWithIndex((i, c) => `${i}-${c}`, ['a', 'b', 'c'])
  * // => ['0-a', '1-b', '2-c']
  * ```
  *
@@ -1054,7 +1058,7 @@ export function mapWithIndex<T, U>(
  *   { name: 'Carol', age: 20 }
  * ]
  *
- * I.mapMaybe(I.prop('age'), users)
+ * A.mapMaybe((u) => u.age, users)
  * // => [10, 20]
  * ```
  *
@@ -1075,10 +1079,10 @@ export function mapMaybe<T, U>(
  * @example
  *
  * ```typescript
- * I.minimum([1, 2, 3])
+ * A.minimum([1, 2, 3])
  * // => 1
  *
- * I.minimum([])
+ * A.minimum([])
  * // => undefined
  * ```
  *
@@ -1101,7 +1105,7 @@ export function minimum<T extends Ordered>(array: readonly T[]): T | undefined
  *   { name: 'Carol', age: 30 },
  * ]
  *
- * I.minimumBy((u) => u.age, users)
+ * A.minimumBy((u) => u.age, users)
  * // => { name: 'Alice', age: 10 }
  * ```
  *
@@ -1117,8 +1121,8 @@ export function minimumBy<T, U extends Ordered>(
 ): T | undefined
 
 /**
- * Returns a copy of `array` where the nth element has been replaced by applying
- * `fn` to its current value.
+ * Returns a copy of `array` where the element at `index` has been replaced by
+ * applying `fn` to its current value.
  *
  * - If `index` is not within `array` bounds, the `array` is returned
  *   unchanged.
@@ -1128,90 +1132,88 @@ export function minimumBy<T, U extends Ordered>(
  * @example
  *
  * ```typescript
- * I.modifyNth(0, I.inc, [1, 2, 3])
+ * A.modify(0, (n) => n + 1, [1, 2, 3])
  * // => [2, 2, 3]
  *
- * I.modifyNth(-1, I.inc, [1, 2, 3])
+ * A.modify(-1, (n) => n + 1, [1, 2, 3])
  * // => [1, 2, 4]
  *
- * I.modifyNth(0, I.noop, [1, 2, 3])
+ * A.modify(0, () => undefined, [1, 2, 3])
  * // => [2, 3]
  *
- * I.modifyNth(999, I.inc, [1, 2, 3])
+ * A.modify(999, (n) => n + 1, [1, 2, 3])
  * // => [1, 2, 3]
  * ```
  *
- * @see setNth
- * @see removeNth
+ * @see set
+ * @see remove
  */
-export function modifyNth(
+export function modify(
   index: number
 ): {
   <T>(fn: (value: T) => T): (array: readonly T[]) => T[]
   <T>(fn: (value: T) => T, array: readonly T[]): T[]
 }
-export function modifyNth<T>(
+export function modify<T>(
   index: number,
   fn: (value: T) => T
 ): (array: readonly T[]) => T[]
-export function modifyNth<T>(
+export function modify<T>(
   index: number,
   fn: (value: T) => T,
   array: readonly T[]
 ): T[]
 
 /**
- * Return the nth element from `array` or `undefined`.
+ * Return the element at `index` from `array` or `undefined`.
  *
  * @category Basic array operations
  * @example
  *
  * ```typescript
- * I.nth(0, [1, 2, 3])
+ * A.at(0, [1, 2, 3])
  * // => 1
  *
- * I.nth(0, [])
+ * A.at(0, [])
  * // => undefined
  * ```
  *
- * @see nthOr
- * @see prop
+ * @see atOr
  */
-export function nth(index: number): <T>(array: readonly T[]) => T | undefined
-export function nth<T>(index: number, array: readonly T[]): T | undefined
+export function at(index: number): <T>(array: readonly T[]) => T | undefined
+export function at<T>(index: number, array: readonly T[]): T | undefined
 
 /**
- * Like {@link nth}, but if the resolved value is `undefined`, `defaultValue` is
+ * Like {@link at}, but if the resolved value is `undefined`, `defaultValue` is
  * returned instead.
  *
  * @category Basic array operations
  * @example
  *
  * ```typescript
- * I.nthOr(999, 0, [1, 2, 3])
+ * A.atOr(999, 0, [1, 2, 3])
  * // => 1
  *
- * I.nthOr(999, 0, [])
+ * A.atOr(999, 0, [])
  * // => 999
  *
- * I.nthOr(999, 0, [undefined])
+ * A.atOr(999, 0, [undefined])
  * // => 999
  * ```
  *
- * @see nth
- * @see propOr
+ * @see at
  */
-export function nthOr<T>(
+export function atOr<T>(
   defaultValue: T
 ): {
   (index: number): (array: readonly T[]) => T
   (index: number, array: readonly T[]): T
 }
-export function nthOr<T>(
+export function atOr<T>(
   defaultValue: T,
   index: number
 ): (array: readonly T[]) => T
-export function nthOr<T>(defaultValue: T, index: number, array: readonly T[]): T
+export function atOr<T>(defaultValue: T, index: number, array: readonly T[]): T
 
 /**
  * Check if none of the elements in the `array` satisfy the `predicate`.
@@ -1220,10 +1222,10 @@ export function nthOr<T>(defaultValue: T, index: number, array: readonly T[]): T
  * @example
  *
  * ```typescript
- * I.none((n) => n > 5, [1, 2, 3])
+ * A.none((n) => n > 5, [1, 2, 3])
  * // => true
  *
- * I.none((n) => n > 5, [1, 2, 3])
+ * A.none((n) => n > 5, [1, 2, 3])
  * // => false
  * ```
  *
@@ -1245,7 +1247,7 @@ export function none<T>(
  * @example
  *
  * ```typescript
- * I.of(1)
+ * A.of(1)
  * // => [1]
  * ```
  *
@@ -1260,7 +1262,7 @@ export function of<T>(value: T): [T]
  * @example
  *
  * ```typescript
- * I.pair(1, 2)
+ * A.pair(1, 2)
  * // => [1, 2]
  * ```
  *
@@ -1277,7 +1279,7 @@ export function pair<T, U>(first: T, second: U): [T, U]
  * @example
  *
  * ```typescript
- * const [evens, odds] = I.partition((n) => n % 2 === 0, [1, 2, 3])
+ * const [evens, odds] = A.partition((n) => n % 2 === 0, [1, 2, 3])
  * // => [[2], [1, 3]]
  * ```
  *
@@ -1299,7 +1301,7 @@ export function partition<T, U extends T>(
  * @example
  *
  * ```typescript
- * const [evens, odds] = I.partition((n) => n % 2 === 0, [1, 2, 3])
+ * const [evens, odds] = A.partition((n) => n % 2 === 0, [1, 2, 3])
  * // => [[2], [1, 3]]
  * ```
  *
@@ -1320,7 +1322,7 @@ export function partition<T>(
  * @example
  *
  * ```typescript
- * I.prepend(0, [1, 2, 3])
+ * A.prepend(0, [1, 2, 3])
  * // => [0, 1, 2, 3]
  * ```
  *
@@ -1338,10 +1340,10 @@ export function prepend<T>(value: T, array: readonly T[]): T[]
  * @example
  *
  * ```typescript
- * I.range(0, 10)
+ * A.range(0, 10)
  * // => [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
  *
- * // I.range(0, 0)
+ * A.range(0, 0)
  * // => []
  * ```
  *
@@ -1364,7 +1366,7 @@ export function range(start: number, end: number): number[]
  * @example
  *
  * ```typescript
- * I.reduce((sum, n) => sum + n, 1, [2, 3, 4]) // equal to ((1 + 2) + 3) + 4
+ * A.reduce((sum, n) => sum + n, 1, [2, 3, 4]) // equal to ((1 + 2) + 3) + 4
  * // => 10
  * ```
  *
@@ -1399,7 +1401,7 @@ export function reduce<T, R>(
  * @example
  *
  * ```typescript
- * I.reduceRight((n, sum) => n + sum, 4, [1, 2, 3]) // equal to 1 + (2 + (3 + 4))
+ * A.reduceRight((n, sum) => n + sum, 4, [1, 2, 3]) // equal to 1 + (2 + (3 + 4))
  * // => 10
  * ```
  *
@@ -1422,7 +1424,7 @@ export function reduceRight<T, R>(
 ): R
 
 /**
- * Returns a copy of `array` without the nth element.
+ * Return a copy of `array` without the element at `index`.
  *
  * - If `index` is not within the `array` bounds, the `array` is returned
  *   unchanged.
@@ -1431,21 +1433,21 @@ export function reduceRight<T, R>(
  * @example
  *
  * ```typescript
- * I.removeNth(0, [1, 2, 3])
+ * A.remove(0, [1, 2, 3])
  * // => [2, 3]
  *
- * I.removeNth(-1, [1, 2, 3])
+ * A.remove(-1, [1, 2, 3])
  * // => [1, 2]
  *
- * I.removeNth(999, [1, 2, 3])
+ * A.remove(999, [1, 2, 3])
  * // => [1, 2, 3]
  * ```
  *
- * @see modifyNth
- * @see setNth
+ * @see modify
+ * @see set
  */
-export function removeNth(index: number): <T>(array: readonly T[]) => T[]
-export function removeNth<T>(index: number, array: readonly T[]): T[]
+export function remove(index: number): <T>(array: readonly T[]) => T[]
+export function remove<T>(index: number, array: readonly T[]): T[]
 
 /**
  * Repeat the given `value` `n` times.
@@ -1454,7 +1456,7 @@ export function removeNth<T>(index: number, array: readonly T[]): T[]
  * @example
  *
  * ```typescript
- * I.repeat('a', 5)
+ * A.repeat('a', 5)
  * // => ['a', 'a', 'a', 'a', 'a']
  * ```
  *
@@ -1471,14 +1473,15 @@ export function repeat<T>(value: T, n: number): T[]
  * @example
  *
  * ```typescript
- * I.reverse([1, 2, 3])
+ * A.reverse([1, 2, 3])
  * // => [3, 2, 1]
  * ```
  */
 export function reverse<T>(array: readonly T[]): T[]
 
 /**
- * Returns a copy of `array` where nth element has been replaced with `value`.
+ * Returns a copy of `array` where the element at `index` has been replaced with
+ * `value`.
  *
  * - If `index` is not within the `array` bounds, the `array` is returned
  *   unchanged.
@@ -1488,33 +1491,33 @@ export function reverse<T>(array: readonly T[]): T[]
  * @example
  *
  * ```typescript
- * I.setNth(0, 999, [1, 2, 3])
+ * A.set(0, 999, [1, 2, 3])
  * // => [999, 2, 3]
  *
- * I.setNth(-1, 999, [1, 2, 3])
+ * A.set(-1, 999, [1, 2, 3])
  * // => [1, 2, 999]
  *
- * I.setNth(999, 999, [1, 2, 3])
+ * A.set(999, 999, [1, 2, 3])
  * // => [1, 2, 3]
  *
- * I.setNth(0, undefined, [1, 2, 3])
+ * A.set(0, undefined, [1, 2, 3])
  * // => [2, 3]
  * ```
  *
- * @see modifyNth
- * @see removeNth
+ * @see modify
+ * @see remove
  */
-export function setNth(
+export function set(
   index: number
 ): {
   <T>(value: T | undefined): (array: readonly T[]) => T[]
   <T>(value: T | undefined, array: readonly T[]): T[]
 }
-export function setNth<T>(
+export function set<T>(
   index: number,
   value: T | undefined
 ): (array: readonly T[]) => T[]
-export function setNth<T>(
+export function set<T>(
   index: number,
   value: T | undefined,
   array: readonly T[]
@@ -1528,10 +1531,10 @@ export function setNth<T>(
  * @example
  *
  * ```typescript
- * I.slice(0, 2, [1, 2, 3])
+ * A.slice(0, 2, [1, 2, 3])
  * // => [1, 2]
  *
- * I.slice(1, 2, [1, 2, 3])
+ * A.slice(1, 2, [1, 2, 3])
  * // => [2]
  * ```
  */
@@ -1554,10 +1557,10 @@ export function slice<T>(start: number, end: number, array: readonly T[]): T[]
  * @example
  *
  * ```typescript
- * I.some((n) => n > 2, [1, 2, 3])
+ * A.some((n) => n > 2, [1, 2, 3])
  * // true
  *
- * I.some((n) => n > 5, [1, 2, 3])
+ * A.some((n) => n > 5, [1, 2, 3])
  * // false
  * ```
  *
@@ -1579,7 +1582,7 @@ export function some<T>(
  * @example
  *
  * ```typescript
- * I.sort((a, b) => a - b, [3, 2, 1])
+ * A.sort((a, b) => a - b, [3, 2, 1])
  * // => [1, 2, 3]
  * ```
  *
@@ -1609,10 +1612,10 @@ export function sort<T>(
  *   { name: 'Alice', age: 20 }
  * ]
  *
- * I.sortBy(I.prop('name'), users)
+ * A.sortBy((u) => u.name, users)
  * // => [{ name: 'Alice', age: 20 }, { name: 'Bob', age: 10 }]
  *
- * I.sortBy(I.prop('age'), users)
+ * A.sortBy((u) => u.age, users)
  * // => [{ name: 'Bob', age: 10 }, { name: 'Alice', age: 20 }]
  * ```
  *
@@ -1642,7 +1645,7 @@ export function sortBy<T, U extends Ordered>(
  *   { name: 'Alice', age: 20 },
  * ]
  *
- * I.sortWith([I.descend(I.prop('age')), I.ascend(I.prop('name'))], users)
+ * A.sortWith([F.descend((u) => u.age), F.ascend((u) => u.name)], users)
  * // => [{ name: 'Alice', age: 20 }, { name: 'Bob', age: 20 }, { name: 'Alice', age: 10 }]
  * ```
  *
@@ -1670,10 +1673,10 @@ export function sortWith<T>(
  * @example
  *
  * ```typescript
- * const numbers = I.repeat(0.1, 10)
+ * const numbers = A.repeat(0.1, 10)
  * // => [0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1]
  *
- * I.sum(numbers)
+ * A.sum(numbers)
  * // => 1
  *
  * numbers.reduce((sum, n) => sum + n, 0)
@@ -1692,7 +1695,7 @@ export function sum(numbers: readonly number[]): number
  * @example
  *
  * ```typescript
- * I.sumBy(I.prop('age'), [{ name: 'Alice', age: 10 }, { name: 'Bob', age: 20 }])
+ * A.sumBy((u) => u.age, [{ name: 'Alice', age: 10 }, { name: 'Bob', age: 20 }])
  * // => 30
  * ```
  *
@@ -1710,10 +1713,10 @@ export function sumBy<T>(fn: (value: T) => number, array: readonly T[]): number
  * @example
  *
  * ```typescript
- * I.tail([1, 2, 3])
+ * A.tail([1, 2, 3])
  * // => [2, 3]
  *
- * I.tail([])
+ * A.tail([])
  * // => []
  * ```
  *
@@ -1730,7 +1733,7 @@ export function tail<T>(array: readonly T[]): T[]
  * @example
  *
  * ```typescript
- * I.take(2, [1, 2, 3])
+ * A.take(2, [1, 2, 3])
  * // => [1, 2]
  * ```
  *
@@ -1747,7 +1750,7 @@ export function take<T>(n: number, array: readonly T[]): T[]
  * @example
  *
  * ```typescript
- * I.takeLast(2, [1, 2, 3])
+ * A.takeLast(2, [1, 2, 3])
  * // => [2, 3]
  * ```
  *
@@ -1764,7 +1767,7 @@ export function takeLast<T>(n: number, array: readonly T[]): T[]
  * @example
  *
  * ```typescript
- * I.takeLastWhile((n) => n >= 2, [1, 2, 3])
+ * A.takeLastWhile((n) => n >= 2, [1, 2, 3])
  * // => [2, 3]
  * ```
  *
@@ -1787,7 +1790,7 @@ export function takeLastWhile<T>(
  * @example
  *
  * ```typescript
- * I.takeWhile((n) => n <= 2, [1, 2, 3])
+ * A.takeWhile((n) => n <= 2, [1, 2, 3])
  * // => [1, 2]
  * ```
  *
@@ -1809,7 +1812,7 @@ export function takeWhile<T>(
  * @example
  *
  * ```typescript
- * I.times((n) => n * 10, 3)
+ * A.times((n) => n * 10, 3)
  * // => [0, 10, 20]
  * ```
  *
@@ -1830,7 +1833,7 @@ export function times<T>(fn: (index: number) => T, n: number): T[]
  * @example
  *
  * ```typescript
- * I.union([1, 2, 3], [2, 3, 4])
+ * A.union([1, 2, 3], [2, 3, 4])
  * // => [1, 2, 3, 4]
  * ```
  *
@@ -1859,7 +1862,7 @@ export function union<T>(first: readonly T[], second: readonly T[]): T[]
  *   { id: 4, name: 'Dan' }
  * ]
  *
- * I.unionWith((a, b) => a.id === b.id, users, otherUsers)
+ * A.unionWith((a, b) => a.id === b.id, users, otherUsers)
  * // => [ { id: 1, name: 'Alice' },  { id: 2, name: 'Bob' }, { id: 3, name: 'Carol' }, { id: 4, name: 'Dan' } ]
  * ```
  *
@@ -1891,7 +1894,7 @@ export function unionWith<T>(
  * @example
  *
  * ```typescript
- * I.uniq([1, 2, 3, 1, 2, 3])
+ * A.uniq([1, 2, 3, 1, 2, 3])
  * // => [1, 2, 3]
  * ```
  *
@@ -1911,7 +1914,7 @@ export function uniq<T>(array: readonly T[]): T[]
  *   { id: 1, name: 'Alice' },
  *   { id: 2, name: 'Bob' },
  * ]
- * I.uniqWith((a, b) => a.id === b.id, users)
+ * A.uniqWith((a, b) => a.id === b.id, users)
  * // => [{ id: 1, name: 'Alice' }, { id: 2, name: 'Bob' }]
  * ```
  *
@@ -1935,7 +1938,7 @@ export function uniqWith<T>(
  * @example
  *
  * ```typescript
- * I.zip(['a', 'b', 'c'], [1, 2, 3])
+ * A.zip(['a', 'b', 'c'], [1, 2, 3])
  * // => [['a', 1], ['b', 2], ['c', 3]]
  * ```
  *
@@ -1957,7 +1960,7 @@ export function zip<T, U>(first: readonly T[], second: readonly U[]): [T, U][]
  * @example
  *
  * ```typescript
- * I.zipObject(['a', 'b', 'c'], [1, 2, 3])
+ * A.zipObject(['a', 'b', 'c'], [1, 2, 3])
  * // => { a: 1, b: 2, c: 3 }
  * ```
  *
@@ -1980,7 +1983,7 @@ export function zipObject<K extends string, T>(
  * @example
  *
  * ```typescript
- * I.zipWith(I.add, [1, 2, 3], [4, 5, 6])
+ * A.zipWith((a, b) => a + b, [1, 2, 3], [4, 5, 6])
  * // => [5, 7, 9]
  * ```
  *
