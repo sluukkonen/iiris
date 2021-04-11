@@ -13,6 +13,6 @@ it('supports symbols', () => {
   expect(has(sym, { [sym]: 1 })).toBe(true)
 })
 
-it('returns false for null or undefined', () => {
-  expect(has('a', null)).toBe(false)
+it('throws an error for null or undefined', () => {
+  expect(() => has('a', null)).toThrowError(TypeError)
 })

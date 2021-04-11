@@ -5,7 +5,7 @@ export const groupMapU = (mapFn, keyFn, array) => {
 
   for (const value of array) {
     const key = keyFn(value)
-    if (hasOwn(result, key)) {
+    if (hasOwn(key, result)) {
       result[key].push(mapFn(value))
     } else {
       result[key] = [mapFn(value)]

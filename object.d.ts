@@ -56,11 +56,11 @@ export function fromEntries<K extends string, T>(
  */
 export function has<K extends string>(
   key: K
-): (object: unknown) => object is Record<K, unknown>
-export function has<K extends string>(
+): <T extends HasKey<K>>(object: T) => boolean
+export function has<K extends keyof T & string, T extends object>(
   key: K,
-  object: unknown
-): object is Record<K, unknown>
+  object: T
+): boolean
 
 /**
  * Return an array of the own enumerable property keys of `object`.

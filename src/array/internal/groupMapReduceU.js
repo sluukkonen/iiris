@@ -5,7 +5,7 @@ export const groupMapReduceU = (reducer, mapFn, keyFn, array) => {
 
   for (const value of array) {
     const key = keyFn(value)
-    result[key] = hasOwn(result, key)
+    result[key] = hasOwn(key, result)
       ? reducer(result[key], mapFn(value))
       : mapFn(value)
   }
