@@ -7,7 +7,7 @@
   },
   "files": [
     "dist",
-    "index.d.ts"
+    "*.d.ts"
   ],
   "keywords": [
     "curried",
@@ -22,11 +22,31 @@
   "type": "commonjs",
   "exports": {
     ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "import": "./dist/core/index.mjs",
+      "require": "./dist/core/index.js"
+    },
+    "./array": {
+      "import": "./dist/array/index.mjs",
+      "require": "./dist/array/index.js"
+    },
+    "./function": {
+      "import": "./dist/function/index.mjs",
+      "require": "./dist/function/index.js"
+    },
+    "./math": {
+      "import": "./dist/math/index.mjs",
+      "require": "./dist/math/index.js"
+    },
+    "./object": {
+      "import": "./dist/object/index.mjs",
+      "require": "./dist/object/index.js"
+    },
+    "./string": {
+      "import": "./dist/string/index.mjs",
+      "require": "./dist/string/index.js"
     }
   },
-  "types": "index.d.ts",
+  "types": "core.d.ts",
   "repository": "https://github.com/sluukkonen/iiris",
   "author": "Sakumatti Luukkonen <sakumatti.luukkonen@gmail.com>",
   "license": "MIT",
@@ -61,11 +81,11 @@
   "scripts": {
     "benchmark": "yarn build && NODE_ENV=production node benchmark",
     "build": "rm -rf dist/* && node generate-index.js && rollup --config",
-    "bundlewatch": "yarn build --environment MINIFY && bundlewatch --config bundlewatch.config.json",
-    "docs": "typedoc --json .reflection.json index.d.ts && node generate-docs.js",
+    "bundlewatch": "yarn build --environment MINIFY && bundlewatch --config .bundlewatch.config.json",
+    "docs": "typedoc --json .reflection.json core.d.ts && node generate-docs.js",
     "lint": "eslint .",
     "prepare": "yarn build && git config core.hooksPath .githooks",
-    "repl": "yarn build && node -i -e 'I = require(\".\")'",
+    "repl": "yarn build && node -i -e 'I = require(`iiris`); A = require(`iiris/array`); O = require(`iiris/object`); M = require(`iiris/math`); F = require(`iiris/function`); S = require(`iiris/string`)'",
     "test": "jest --coverage",
     "tsd": "tsd"
   }

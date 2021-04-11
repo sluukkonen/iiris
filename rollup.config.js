@@ -1,3 +1,4 @@
+import path from 'path'
 import replace from '@rollup/plugin-replace'
 import { terser } from 'rollup-plugin-terser'
 
@@ -13,21 +14,37 @@ const plugins = !minify
         compress: { passes: 2, module: true, unsafe: true },
       }),
     ]
-const output = !minify
-  ? [
-      {
-        file: './dist/index.js',
-        format: 'cjs',
-      },
-      {
-        file: './dist/index.mjs',
-        format: 'es',
-      },
-    ]
-  : [{ file: './dist/index.min.mjs' }]
 
-export default {
-  input: './src/index.js',
-  output,
+const modules = [
+  'core/internal',
+  'core',
+  'array/internal',
+  'array',
+  'function',
+  'math/internal',
+  'math',
+  'object/internal',
+  'object',
+  'string/internal',
+  'string',
+]
+
+const mkConfig = (module) => ({
+  input: `./src/${module}/index.js`,
+  output: [
+    {
+      file: `./dist/${module}/index.js`,
+      format: 'cjs',
+    },
+    {
+      file: `./dist/${module}/index.mjs`,
+      format: 'es',
+    },
+  ],
+  external: modules.map((module) =>
+    path.resolve(__dirname, 'src', module, 'index.js')
+  ),
   plugins,
-}
+})
+
+export default modules.map(mkConfig)

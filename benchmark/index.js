@@ -4,7 +4,7 @@ const Benchmark = require('benchmark')
 
 const _ = require('lodash')
 const R = require('ramda')
-const I = require('../')
+const I = require('../dist/core')
 const util = require('util')
 const fs = require('fs')
 const path = require('path')
