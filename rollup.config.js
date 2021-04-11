@@ -25,6 +25,8 @@ const modules = [
   'math',
   'object/internal',
   'object',
+  'set',
+  'set/internal',
   'string/internal',
   'string',
 ]

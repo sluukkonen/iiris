@@ -84,73 +84,6 @@ export function countBy<T, K extends string>(
 ): Record<K, number>
 
 /**
- * Calculate the [set
- * difference](https://en.wikipedia.org/wiki/Complement_(set_theory)#Relative_complement)
- * between the `first` array and the `second` array, using {@link equals} for
- * determining equality.
- *
- * Will not remove duplicates from the `first` array.
- *
- * @category Set operations
- * @example
- *
- * ```typescript
- * A.difference([1, 2, 3], [2, 3, 4])
- * // => [1]
- * ```
- *
- * @see differenceWith
- * @see union
- * @see intersection
- */
-export function difference<T>(first: readonly T[], second: readonly T[]): T[]
-export function difference<T>(
-  first: readonly T[]
-): (second: readonly T[]) => T[]
-
-/**
- * Like {@link difference}, but using a custom equality function.
- *
- * @category Set operations
- * @example
- *
- * ```typescript
- * const users = [
- *   { id: 1, name: 'Alice' },
- *   { id: 2, name: 'Bob' },
- *   { id: 3, name: 'Carol' },
- * ]
- * const otherUsers = [
- *   { id: 2, name: 'Bob' },
- *   { id: 3, name: 'Carol' },
- *   { id: 4, name: 'Dan' }
- * ]
- *
- * A.differenceWith((a, b) => a.id === b.id, users, otherUsers)
- * // => [ { id: 1, name: 'Alice' } ]
- * ```
- *
- * @see difference
- * @see unionWith
- * @see intersectionWith
- */
-export function differenceWith<T>(
-  equals: (value: T, other: T) => boolean
-): {
-  (array: readonly T[]): (other: readonly T[]) => T[]
-  (array: readonly T[], other: readonly T[]): T[]
-}
-export function differenceWith<T>(
-  equals: (value: T, other: T) => boolean,
-  array: readonly T[]
-): (other: readonly T[]) => T[]
-export function differenceWith<T>(
-  equals: (value: T, other: T) => boolean,
-  array: readonly T[],
-  other: readonly T[]
-): T[]
-
-/**
  * Drop the first `n` elements of an `array`.
  *
  * @category Slicing arrays
@@ -234,6 +167,21 @@ export function dropWhile<T>(
   predicate: (value: T) => boolean,
   array: readonly T[]
 ): T[]
+
+/**
+ * Create an empty array.
+ *
+ * @category Building arrays
+ * @example
+ *
+ * ```typescript
+ * A.empty()
+ * // => []
+ * ```
+ * @see from
+ * @see singleton
+ */
+export function empty<T>(): T[]
 
 /**
  * Check if every element in the `array` satisfies the `predicate`.
@@ -590,7 +538,8 @@ export function forEachWithIndex<T>(
  * // => [1, 2, 3]
  * ```
  *
- * @see of
+ * @see empty
+ * @see singleton
  */
 export function from<T>(iterable: Iterable<T>): T[]
 
@@ -838,73 +787,6 @@ export function indexOf<T>(value: T, array: readonly T[]): number
  * @see tail
  */
 export function init<T>(array: readonly T[]): T[]
-
-/**
- * Calculate the [set
- * intersection](https://en.wikipedia.org/wiki/Intersection_(set_theory))
- * between the `first` array and the `second` array, using {@link equals} for
- * determining equality.
- *
- * Will not remove duplicates from the first array.
- *
- * @category Set operations
- * @example
- *
- * ```typescript
- * A.intersection([1, 2, 3], [2, 3, 4])
- * // => [2, 3]
- * ```
- *
- * @see intersectionWith
- * @see union
- * @see difference
- */
-export function intersection<T>(
-  first: readonly T[]
-): (second: readonly T[]) => T[]
-export function intersection<T>(first: readonly T[], second: readonly T[]): T[]
-
-/**
- * Like {@link intersection}, but using a custom equality function.
- *
- * @category Set operations
- * @example
- *
- * ```typescript
- * const users = [
- *   { id: 1, name: 'Alice' },
- *   { id: 2, name: 'Bob' },
- *   { id: 3, name: 'Carol' },
- * ]
- * const otherUsers = [
- *   { id: 2, name: 'Bob' },
- *   { id: 3, name: 'Carol' },
- *   { id: 4, name: 'Dan' }
- * ]
- *
- * A.intersectionWith((a, b) => a.id === b.id, users, otherUsers)
- * // => [ { id: 2, name: 'Bob' }, { id: 3, name: 'Carol' } ]
- * ```
- *
- * @see intersection
- * @see unionWith
- * @see differenceWith
- */
-export function intersectionWith<T>(
-  equals: (value: T, other: T) => boolean
-): {
-  (array: readonly T[]): (other: readonly T[]) => T[]
-  (array: readonly T[], other: readonly T[]): T[]
-}
-export function intersectionWith<T>(
-  equals: (value: T, other: T) => boolean,
-  array: readonly T[]
-): (other: readonly T[]) => T[]
-export function intersectionWith<T>(
-  equals: (value: T, other: T) => boolean,
-  array: readonly T[],
-  other: readonly T[]
-): T[]
 
 /**
  * Return a copy of `array` with `separator` inserted between each element.
@@ -1524,6 +1406,7 @@ export function set<T>(
  * ```
  *
  * @see from
+ * @see empty
  */
 export function singleton<T>(values: T): [T]
 
@@ -1825,112 +1708,6 @@ export function takeWhile<T>(
  */
 export function times<T>(fn: (index: number) => T): (n: number) => T[]
 export function times<T>(fn: (index: number) => T, n: number): T[]
-
-/**
- * Calculate the [set union](https://en.wikipedia.org/wiki/Union_(set_theory))
- * between the `first` array and the `second` array, using {@link equals} for
- * determining equality.
- *
- * Will not remove duplicates from the first array.
- *
- * @category Set operations
- * @example
- *
- * ```typescript
- * A.union([1, 2, 3], [2, 3, 4])
- * // => [1, 2, 3, 4]
- * ```
- *
- * @see unionWith
- * @see intersection
- * @see difference
- */
-export function union<T>(first: readonly T[]): (second: readonly T[]) => T[]
-export function union<T>(first: readonly T[], second: readonly T[]): T[]
-
-/**
- * Like {@link union}, but using a custom equality function.
- *
- * @category Set operations
- * @example
- *
- * ```typescript
- * const users = [
- *   { id: 1, name: 'Alice' },
- *   { id: 2, name: 'Bob' },
- *   { id: 3, name: 'Carol' },
- * ]
- * const otherUsers = [
- *   { id: 2, name: 'Bob' },
- *   { id: 3, name: 'Carol' },
- *   { id: 4, name: 'Dan' }
- * ]
- *
- * A.unionWith((a, b) => a.id === b.id, users, otherUsers)
- * // => [ { id: 1, name: 'Alice' },  { id: 2, name: 'Bob' }, { id: 3, name: 'Carol' }, { id: 4, name: 'Dan' } ]
- * ```
- *
- * @see union
- * @see intersectionWith
- * @see differenceWith
- */
-export function unionWith<T>(
-  equals: (value: T, other: T) => boolean
-): {
-  (array: readonly T[]): (other: readonly T[]) => T[]
-  (array: readonly T[], other: readonly T[]): T[]
-}
-export function unionWith<T>(
-  equals: (value: T, other: T) => boolean,
-  array: readonly T[]
-): (other: readonly T[]) => T[]
-export function unionWith<T>(
-  equals: (value: T, other: T) => boolean,
-  array: readonly T[],
-  other: readonly T[]
-): T[]
-
-/**
- * Remove duplicate values from `array`, using {@link equals} for determining
- * equality.
- *
- * @category Set operations
- * @example
- *
- * ```typescript
- * A.uniq([1, 2, 3, 1, 2, 3])
- * // => [1, 2, 3]
- * ```
- *
- * @see uniqWith
- */
-export function uniq<T>(array: readonly T[]): T[]
-
-/**
- * Like {@link uniq}, but using a custom equality function.
- *
- * @category Set operations
- * @example
- *
- * ```typescript
- * const users = [
- *   { id: 1, name: 'Alice' },
- *   { id: 1, name: 'Alice' },
- *   { id: 2, name: 'Bob' },
- * ]
- * A.uniqWith((a, b) => a.id === b.id, users)
- * // => [{ id: 1, name: 'Alice' }, { id: 2, name: 'Bob' }]
- * ```
- *
- * @see uniq
- */
-export function uniqWith<T>(
-  equals: (value: T, other: T) => boolean
-): (array: readonly T[]) => T[]
-export function uniqWith<T>(
-  equals: (value: T, other: T) => boolean,
-  array: readonly T[]
-): T[]
 
 /**
  * Combine the corresponding elements of two arrays into an array of pairs.
