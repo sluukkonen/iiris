@@ -578,6 +578,23 @@ export function forEachWithIndex<T>(
 ): T[]
 
 /**
+ * Convert an `iterable` into an array.
+ *
+ * `A.from` is like `Array.from` but without support for mapping the values.
+ *
+ * @category Building arrays
+ * @example
+ *
+ * ```typescript
+ * A.from(new Set([1, 2, 3))
+ * // => [1, 2, 3]
+ * ```
+ *
+ * @see of
+ */
+export function from<T>(iterable: Iterable<T>): T[]
+
+/**
  * Partition the `array` into an object of arrays according to `keyFn`.
  *
  * @category Grouping arrays by key

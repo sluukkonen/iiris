@@ -1,5 +1,6 @@
 export const builtinArray = Array
 export const builtinIsArray = builtinArray.isArray
+export const builtinArrayFrom = builtinArray.from
 
 export const builtinIsNaN = Number.isNaN
 
