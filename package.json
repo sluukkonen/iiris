@@ -20,6 +20,12 @@
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "type": "commonjs",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
   "types": "index.d.ts",
   "repository": "https://github.com/sluukkonen/iiris",
   "author": "Sakumatti Luukkonen <sakumatti.luukkonen@gmail.com>",
