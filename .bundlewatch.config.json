@@ -1,0 +1,8 @@
+{
+  "files": [
+    {
+      "path": "dist/*/index.mjs",
+      "maxSize": "5kB"
+    }
+  ]
+}

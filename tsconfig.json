@@ -5,8 +5,8 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "outDir": "./dist",
-    "strict": true,
+    "strict": true
   },
-  "include": ["index.d.ts"],
+  "include": ["*.d.ts"],
   "exclude": ["node_modules", "dist"]
 }

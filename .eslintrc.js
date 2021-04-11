@@ -12,12 +12,13 @@ module.exports = {
   ],
   ignorePatterns: ['node_modules', 'dist'],
   rules: {
+    'import/extensions': ['error', 'always'],
     'import/no-commonjs': 'error',
     'jest/expect-expect': [1, { assertFunctionNames: ['expect*'] }],
   },
   overrides: [
     {
-      files: ['index.d.ts'],
+      files: ['core.d.ts'],
       extends: ['plugin:@typescript-eslint/recommended'],
       parser: '@typescript-eslint/parser',
       parserOptions: {

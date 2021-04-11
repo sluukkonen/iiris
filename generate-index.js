@@ -7,13 +7,27 @@ const path = require('path')
 const { promisify } = require('util')
 const glob = promisify(require('glob').glob)
 
-glob(path.join(__dirname, 'src/*.js')).then((files) => {
-  const functions = files
-    .map((f) => path.basename(f, '.js'))
-    .filter((f) => f !== 'index')
-  const index = functions
-    .map((fn) => `export { ${fn} } from './${fn}'`)
+async function generateIndex(directory) {
+  const fullPath = path.join(__dirname, 'src', directory)
+  const files = await glob(path.join(fullPath, '*.js'))
+  const index = files
+    .filter((file) => !file.endsWith('index.js') && !file.endsWith('.test.js'))
+    .map((file) => `export * from './${path.relative(fullPath, file)}'`)
     .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
     .join('\n')
-  return fs.writeFile(path.join(__dirname, 'src', 'index.js'), index + '\n')
-})
+  return fs.writeFile(path.join(fullPath, 'index.js'), index + '\n')
+}
+
+Promise.all([
+  generateIndex('array'),
+  generateIndex('array/internal'),
+  generateIndex('core'),
+  generateIndex('core/internal'),
+  generateIndex('function'),
+  generateIndex('math'),
+  generateIndex('math/internal'),
+  generateIndex('object'),
+  generateIndex('object/internal'),
+  generateIndex('string'),
+  generateIndex('string/internal'),
+]).catch(console.error)
