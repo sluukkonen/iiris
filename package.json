@@ -41,6 +41,10 @@
       "import": "./dist/object/index.mjs",
       "require": "./dist/object/index.js"
     },
+    "./set": {
+      "import": "./dist/set/index.mjs",
+      "require": "./dist/set/index.js"
+    },
     "./string": {
       "import": "./dist/string/index.mjs",
       "require": "./dist/string/index.js"
@@ -85,7 +89,7 @@
     "docs": "typedoc --json .reflection.json core.d.ts && node generate-docs.js",
     "lint": "eslint .",
     "prepare": "yarn build && git config core.hooksPath .githooks",
-    "repl": "yarn build && node -i -e 'I = require(`iiris`); A = require(`iiris/array`); O = require(`iiris/object`); M = require(`iiris/math`); F = require(`iiris/function`); S = require(`iiris/string`)'",
+    "repl": "yarn build && node -i -e 'I = require(`iiris`); A = require(`iiris/array`); O = require(`iiris/object`); M = require(`iiris/math`); F = require(`iiris/function`); S = require(`iiris/set`)'",
     "test": "jest --coverage",
     "tsd": "tsd"
   }

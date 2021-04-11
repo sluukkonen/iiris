@@ -17,3 +17,5 @@ export const builtinHasOwnProperty = builtinObjectProto.hasOwnProperty
 export const builtinObjectProtoToString = builtinObjectProto.toString
 
 export const builtinString = String
+
+export const builtinSet = Set

@@ -7,8 +7,10 @@ const R = require('ramda')
 const I = require('../dist/core')
 const A = require('../dist/array')
 const O = require('../dist/object')
-const F = require('../dist/function')
-const S = require('../dist/string')
+const Fn = require('../dist/function')
+const Str = require('../dist/string')
+const S = require('../dist/set')
+
 const util = require('util')
 const fs = require('fs')
 const path = require('path')
@@ -41,7 +43,7 @@ const benchmarks = [
   {
     name: 'unary',
     benchmarks: () => {
-      const iirisUnary = F.unary((a, b) => b)
+      const iirisUnary = Fn.unary((a, b) => b)
       const lodashUnary = _.unary((a, b) => b)
       const ramdaUnary = R.unary((a, b) => b)
       const nativeUnary = ((fn) => (x) => fn(x))((a, b) => b)
@@ -57,7 +59,7 @@ const benchmarks = [
   {
     name: 'curry.partial',
     benchmarks: () => {
-      const iirisAdd = F.curry3((a, b, c) => a + b + c)
+      const iirisAdd = Fn.curry3((a, b, c) => a + b + c)
       const lodashAdd = _.curry((a, b, c) => a + b + c)
       const ramdaAdd = R.curry((a, b, c) => a + b + c)
       const nativeAdd = (a) => (b) => (c) => a + b + c
@@ -73,7 +75,7 @@ const benchmarks = [
   {
     name: 'curry.full',
     benchmarks: () => {
-      const iirisAdd = F.curry3((a, b, c) => a + b + c)
+      const iirisAdd = Fn.curry3((a, b, c) => a + b + c)
       const lodashAdd = _.curry((a, b, c) => a + b + c)
       const ramdaAdd = R.curry((a, b, c) => a + b + c)
       const nativeAdd = (a, b, c) => a + b + c
@@ -89,7 +91,7 @@ const benchmarks = [
   {
     name: 'curry.last',
     benchmarks: () => {
-      const iirisAdd = F.curry3((a, b, c) => a + b + c)(1, 2)
+      const iirisAdd = Fn.curry3((a, b, c) => a + b + c)(1, 2)
       const lodashAdd = _.curry((a, b, c) => a + b + c)(1, 2)
       const ramdaAdd = R.curry((a, b, c) => a + b + c)(1, 2)
       const nativeAdd = ((a, b) => (c) => a + b + c)(1, 2)
@@ -107,7 +109,7 @@ const benchmarks = [
     benchmarks: () => {
       const inc = (x) => x + 1
       return {
-        iiris: () => F.pipe(1, inc, inc, inc, inc),
+        iiris: () => Fn.pipe(1, inc, inc, inc, inc),
         lodash: () => _.flow([inc, inc, inc, inc])(1),
         ramda: () => R.pipe(inc, inc, inc, inc)(1),
         native: () => inc(inc(inc(inc(1)))),
@@ -118,7 +120,7 @@ const benchmarks = [
     name: 'compose.specialized',
     benchmarks: () => {
       const inc = (x) => x + 1
-      const iirisComposed = F.compose(inc, inc, inc)
+      const iirisComposed = Fn.compose(inc, inc, inc)
       const ramdaComposed = R.compose(inc, inc, inc)
       const nativeComposed = (...args) => inc(inc(inc(...args)))
 
@@ -133,7 +135,7 @@ const benchmarks = [
     name: 'compose.generic',
     benchmarks: () => {
       const inc = (x) => x + 1
-      const iirisComposed = F.compose(inc, inc, inc, inc)
+      const iirisComposed = Fn.compose(inc, inc, inc, inc)
       const ramdaComposed = R.compose(inc, inc, inc, inc)
       const nativeComposed = (...args) => inc(inc(inc(inc(...args))))
 
@@ -489,9 +491,9 @@ const benchmarks = [
     benchmarks: (array) => {
       const shuffled = _.shuffle(array)
       const iirisComparators = [
-        F.ascend((obj) => obj.kConstant),
-        F.descend((obj) => obj.kConstant),
-        F.ascend((obj) => obj.k1),
+        Fn.ascend((obj) => obj.kConstant),
+        Fn.descend((obj) => obj.kConstant),
+        Fn.ascend((obj) => obj.k1),
       ]
       const lodashIteratees = [
         (obj) => obj.kConstant,
@@ -641,12 +643,12 @@ const benchmarks = [
     },
   },
   {
-    name: 'uniq.primitive.different',
+    name: 'uniq.different',
     params: [num1, num10, num100, num1000],
     benchmarks: (array) => {
       const nativeUniq = (xs) => Array.from(new Set(xs))
       return {
-        iiris: () => A.uniq(array),
+        iiris: () => A.from(S.from(array)),
         ramda: () => R.uniq(array),
         lodash: () => _.uniq(array),
         native: () => nativeUniq(array),
@@ -654,27 +656,18 @@ const benchmarks = [
     },
   },
   {
-    name: 'uniq.primitive.similar',
+    name: 'uniq.similar',
     params: [num1, num10, num100, num1000],
     benchmarks: (array) => {
       const oneToTen = array.map((n) => n % 10)
       const nativeUniq = (xs) => Array.from(new Set(xs))
       return {
-        iiris: () => A.uniq(oneToTen),
+        iiris: () => A.from(S.from(oneToTen)),
         ramda: () => R.uniq(oneToTen),
         lodash: () => _.uniq(oneToTen),
         native: () => nativeUniq(oneToTen),
       }
     },
-  },
-  {
-    name: 'uniq.object',
-    params: [obj1, obj10, obj100, obj1000],
-    benchmarks: (array) => ({
-      iiris: () => A.uniq(array),
-      ramda: () => R.uniq(array),
-      lodash: () => _.uniqWith(array, _.isEqual),
-    }),
   },
   {
     name: 'mapValues',
@@ -690,13 +683,13 @@ const benchmarks = [
     },
   },
   {
-    name: 'union.primitive',
+    name: 'union',
     params: [num10, num100, num1000],
     benchmarks: (arr) => {
       const clone = _.clone(arr)
       const nativeUnion = (xs, ys) => Array.from(new Set([...xs, ...ys]))
       return {
-        iiris: () => A.union(arr, clone),
+        iiris: () => A.from(S.union(S.from(arr), S.from(clone))),
         ramda: () => R.union(arr, clone),
         lodash: () => _.union(arr, clone),
         native: () => nativeUnion(arr, clone),
@@ -704,19 +697,7 @@ const benchmarks = [
     },
   },
   {
-    name: 'union.object',
-    params: [obj10, obj100],
-    benchmarks: (arr) => {
-      const clone = _.clone(arr)
-      return {
-        iiris: () => A.union(arr, clone),
-        ramda: () => R.union(arr, clone),
-        lodash: () => _.unionWith(arr, clone, _.isEqual),
-      }
-    },
-  },
-  {
-    name: 'intersection.primitive',
+    name: 'intersection',
     params: [num10, num100, num1000],
     benchmarks: (arr) => {
       const clone = _.clone(arr)
@@ -725,7 +706,7 @@ const benchmarks = [
         return xs.filter((x) => ysSet.has(x))
       }
       return {
-        iiris: () => A.intersection(arr, clone),
+        iiris: () => A.from(S.intersection(S.from(arr), S.from(clone))),
         ramda: () => R.intersection(arr, clone),
         lodash: () => _.intersection(arr, clone),
         native: () => nativeIntersection(arr, clone),
@@ -733,19 +714,7 @@ const benchmarks = [
     },
   },
   {
-    name: 'intersection.object',
-    params: [obj10, obj100, obj1000],
-    benchmarks: (arr) => {
-      const clone = _.clone(arr)
-      return {
-        iiris: () => A.intersection(arr, clone),
-        ramda: () => R.intersection(arr, clone),
-        lodash: () => _.intersectionWith(arr, clone, _.isEqual),
-      }
-    },
-  },
-  {
-    name: 'difference.primitive',
+    name: 'difference',
     params: [num10, num100, num1000],
     benchmarks: (arr) => {
       const clone = _.clone(arr)
@@ -754,22 +723,10 @@ const benchmarks = [
         return xs.filter((x) => !ysSet.has(x))
       }
       return {
-        iiris: () => A.difference(arr, clone),
+        iiris: () => A.from(S.difference(S.from(arr), S.from(clone))),
         ramda: () => R.difference(arr, clone),
         lodash: () => _.difference(arr, clone),
         native: () => nativeDifference(arr, clone),
-      }
-    },
-  },
-  {
-    name: 'difference.object',
-    params: [obj10, obj100, obj1000],
-    benchmarks: (arr) => {
-      const clone = _.clone(arr)
-      return {
-        iiris: () => A.difference(arr, clone),
-        ramda: () => R.difference(arr, clone),
-        lodash: () => _.differenceWith(arr, clone, _.isEqual),
       }
     },
   },
@@ -783,7 +740,7 @@ const benchmarks = [
         return first.toUpperCase() + rest.join('')
       }
       return {
-        iiris: () => S.capitalize(str),
+        iiris: () => Str.capitalize(str),
         lodash: () => _.capitalize(str),
         native: () => nativeCapitalize(str),
       }

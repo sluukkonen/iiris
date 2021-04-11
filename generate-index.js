@@ -28,6 +28,8 @@ Promise.all([
   generateIndex('math/internal'),
   generateIndex('object'),
   generateIndex('object/internal'),
+  generateIndex('set'),
+  generateIndex('set/internal'),
   generateIndex('string'),
   generateIndex('string/internal'),
 ]).catch(console.error)
