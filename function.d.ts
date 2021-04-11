@@ -416,19 +416,6 @@ export function identity<T>(value: T): T
 export function noop(): undefined
 
 /**
- * Return the `second` argument.
- *
- * @category Function
- * @example
- *
- * ```typescript
- * I.second(1, 2)
- * // => 2
- * ```
- */
-export function second<T>(first: unknown, second: T): T
-
-/**
  * Pipe an `initial` value through one or more functions in left-to-right order,
  * allowing the programmer to chain operations in a readable manner.
  *
