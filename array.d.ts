@@ -1241,21 +1241,6 @@ export function none<T>(
 ): boolean
 
 /**
- * Create a singleton array containing `value`
- *
- * @category Building arrays
- * @example
- *
- * ```typescript
- * A.of(1)
- * // => [1]
- * ```
- *
- * @see pair
- */
-export function of<T>(value: T): [T]
-
-/**
  * Partition the `array` into two arrays, the first containing the elements
  * that satisfy the `guard` and the second containing the elements that do not.
  *
@@ -1506,6 +1491,24 @@ export function set<T>(
   value: T | undefined,
   array: readonly T[]
 ): T[]
+
+/**
+ * Create a singleton array containing `value`
+ *
+ * @category Building arrays
+ * @example
+ *
+ * ```typescript
+ * A.of(1)
+ * // => [1]
+ *
+ * A.of(1, 2, 3)
+ * // => [1, 2, 3]
+ * ```
+ *
+ * @see from
+ */
+export function singleton<T>(values: T): [T]
 
 /**
  * Create a copy of `array` containing the elements from `start` (inclusive)
