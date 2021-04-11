@@ -1256,22 +1256,6 @@ export function none<T>(
 export function of<T>(value: T): [T]
 
 /**
- * Create two element array containing `first` and `second`.
- *
- * @category Building arrays
- * @example
- *
- * ```typescript
- * A.pair(1, 2)
- * // => [1, 2]
- * ```
- *
- * @see of
- */
-export function pair<T>(first: T): <U>(second: U) => [T, U]
-export function pair<T, U>(first: T, second: U): [T, U]
-
-/**
  * Partition the `array` into two arrays, the first containing the elements
  * that satisfy the `guard` and the second containing the elements that do not.
  *
