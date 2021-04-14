@@ -1,4 +1,4 @@
-import { sliceU } from './sliceU.js'
+import { sliceU } from '../slice.js'
 
 export const takeDropWhile = (fn, array, take, last) => {
   const length = array.length

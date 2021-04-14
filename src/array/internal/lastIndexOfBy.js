@@ -1,5 +1,5 @@
+import { equalsU } from '../../equals.js'
 import { builtinIsNaN } from '../../internal/builtins.js'
-import { equalsU } from '../../internal/equalsU.js'
 import { isObjectLike } from '../../internal/isObjectLike.js'
 
 export const lastIndexOfBy = (eq, value, array) => {

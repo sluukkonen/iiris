@@ -1,5 +1,6 @@
-import { setName } from '../internal/setName.js'
 import { curry2 } from '../curry2.js'
-import { testU } from './internal/testU.js'
+import { setName } from '../internal/setName.js'
+
+const testU = (regexp, str) => regexp.test(str)
 
 export const test = setName(curry2(testU), 'test')
