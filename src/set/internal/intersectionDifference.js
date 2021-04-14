@@ -1,5 +1,5 @@
 import { empty } from '../empty.js'
-import { hasU } from './hasU.js'
+import { hasU } from '../has.js'
 
 export const intersectionDifference = (xs, ys, intersection) => {
   const result = empty()
