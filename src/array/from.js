@@ -1,3 +1,3 @@
-import { builtinArrayFrom } from '../core/internal/builtins.js'
+import { builtinArrayFrom } from '../internal/builtins.js'
 
 export const from = (iterable) => builtinArrayFrom(iterable)

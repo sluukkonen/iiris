@@ -1,4 +1,4 @@
-import { isSet } from '../../src/core/isSet.js'
+import { isSet } from '../../src/isSet.js'
 
 it('returns whether the value is a Set', () => {
   expect(isSet(new Set())).toBe(true)

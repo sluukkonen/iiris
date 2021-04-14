@@ -1,4 +1,4 @@
-import { isSymbol } from '../../src/core/isSymbol.js'
+import { isSymbol } from '../../src/isSymbol.js'
 
 it('returns if the value is a symbol', () => {
   expect(isSymbol('')).toBe(false)

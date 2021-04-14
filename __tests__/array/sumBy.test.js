@@ -1,4 +1,4 @@
-import { identity } from '../../src/function/identity.js'
+import { identity } from '../../src/identity.js'
 import { sumBy } from '../../src/array/sumBy.js'
 import { times } from '../../src/array/times.js'
 

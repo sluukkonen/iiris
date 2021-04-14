@@ -1,5 +1,5 @@
-import { builtinArray } from '../../core/internal/builtins.js'
-import { maxU } from '../../core/internal/maxU.js'
+import { builtinArray } from '../../internal/builtins.js'
+import { maxU } from '../../internal/maxU.js'
 
 export const timesU = (fn, n) => {
   const result = new builtinArray(maxU(n, 0))

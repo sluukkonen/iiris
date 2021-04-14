@@ -1,4 +1,4 @@
-import { hasOwn } from '../../core/internal/hasOwn.js'
+import { hasOwn } from '../../internal/hasOwn.js'
 import { setU } from './setU.js'
 
 export const removeU = (key, object) =>

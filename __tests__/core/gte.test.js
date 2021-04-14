@@ -1,4 +1,4 @@
-import { gte } from '../../src/core/gte.js'
+import { gte } from '../../src/gte.js'
 
 it('returns whether the second value is greater than or equal to the first', () => {
   expect(gte(1, 0)).toBe(false)

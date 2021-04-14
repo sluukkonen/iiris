@@ -1,4 +1,4 @@
-import { gt } from '../../src/core/gt.js'
+import { gt } from '../../src/gt.js'
 
 it('returns whether the second value is greater than the first', () => {
   expect(gt(1, 0)).toBe(false)

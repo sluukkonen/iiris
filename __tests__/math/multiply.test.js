@@ -1,4 +1,4 @@
-import { multiply } from '../../src/math/multiply.js'
+import { multiply } from '../../src/multiply.js'
 
 it('multiplies two numbers together', () => {
   expect(multiply(3, 4)).toEqual(12)

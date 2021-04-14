@@ -1,3 +1,3 @@
-import { builtinSet } from '../../core/internal/builtins.js'
+import { builtinSet } from '../../internal/builtins.js'
 
 export const copySet = (set) => new builtinSet(set)

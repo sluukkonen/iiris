@@ -1,4 +1,4 @@
-import { lt } from '../../src/core/lt.js'
+import { lt } from '../../src/lt.js'
 import { dropWhile } from '../../src/array/dropWhile.js'
 
 it('drops elements matching a predicate from the begining of array', () => {

@@ -1,4 +1,4 @@
-import { noop } from '../../src/function/noop.js'
+import { noop } from '../../src/noop.js'
 
 it('returns undefined', () => {
   expect(noop(1)).toBeUndefined()

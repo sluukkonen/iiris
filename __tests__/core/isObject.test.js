@@ -1,4 +1,4 @@
-import { isObject } from '../../src/core/isObject.js'
+import { isObject } from '../../src/isObject.js'
 
 it('returns if the value is a non-null object', () => {
   expect(isObject('')).toBe(false)

@@ -1,4 +1,4 @@
-import { clamp } from '../../src/core/clamp.js'
+import { clamp } from '../../src/clamp.js'
 
 it('clamps an ordered value to a range', () => {
   expect(clamp([0, 1], 2)).toBe(1)

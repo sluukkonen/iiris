@@ -1,4 +1,4 @@
-import { dec } from '../../src/math/dec.js'
+import { dec } from '../../src/dec.js'
 
 it('decrements a number', () => {
   expect(dec(0)).toBe(-1)

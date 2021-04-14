@@ -1,4 +1,4 @@
-import { identity } from '../../src/function/identity.js'
+import { identity } from '../../src/identity.js'
 
 it('returns the first argument', () => {
   expect(identity(1, 2)).toEqual(1)

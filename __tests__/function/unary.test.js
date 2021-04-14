@@ -1,4 +1,4 @@
-import { unary } from '../../src/function/unary.js'
+import { unary } from '../../src/unary.js'
 
 it('returns an unary version of a function', () => {
   const fn = (a, b, c) => [a, b, c]

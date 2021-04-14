@@ -1,4 +1,4 @@
-import { constant } from '../../src/function/constant.js'
+import { constant } from '../../src/constant.js'
 
 it('returns a function that always returns the first argument', () => {
   expect(constant(1).name).toBe('constant1')

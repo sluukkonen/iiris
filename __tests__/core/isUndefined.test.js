@@ -1,4 +1,4 @@
-import { isUndefined } from '../../src/core/isUndefined.js'
+import { isUndefined } from '../../src/isUndefined.js'
 
 it('returns true if the value is undefined', () => {
   expect(isUndefined('')).toBe(false)

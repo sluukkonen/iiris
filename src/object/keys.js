@@ -1,3 +1,3 @@
-import { builtinKeys } from '../core/internal/builtins.js'
+import { builtinKeys } from '../internal/builtins.js'
 
 export const keys = builtinKeys

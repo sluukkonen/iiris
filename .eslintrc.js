@@ -18,7 +18,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['core.d.ts'],
+      files: ['index.d.ts'],
       extends: ['plugin:@typescript-eslint/recommended'],
       parser: '@typescript-eslint/parser',
       parserOptions: {

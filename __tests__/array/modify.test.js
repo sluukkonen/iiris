@@ -1,5 +1,5 @@
-import { noop } from '../../src/function/noop.js'
-import { inc } from '../../src/math/inc.js'
+import { noop } from '../../src/noop.js'
+import { inc } from '../../src/inc.js'
 import { modify } from '../../src/array/modify.js'
 
 it('sets the element at an index to the specified value', () => {

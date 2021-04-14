@@ -1,5 +1,5 @@
-import { inc } from '../../src/math/inc.js'
-import { pipe } from '../../src/function/pipe.js'
+import { inc } from '../../src/inc.js'
+import { pipe } from '../../src/pipe.js'
 
 it('sequentially applies each function to the initial value', () => {
   const toString = (x) => x.toString()

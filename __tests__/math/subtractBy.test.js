@@ -1,4 +1,4 @@
-import { subtractBy } from '../../src/math/subtractBy.js'
+import { subtractBy } from '../../src/subtractBy.js'
 
 it('subtractBy()', () => {
   expect(subtractBy(1, 0)).toBe(-1)

@@ -1,4 +1,4 @@
-import { ascend } from '../../src/function/ascend.js'
+import { ascend } from '../../src/ascend.js'
 
 it('returns an ascending comparator for a function', () => {
   const age = (x) => x.age

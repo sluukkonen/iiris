@@ -1,5 +1,5 @@
-import { add } from '../../src/math/add.js'
-import { inc } from '../../src/math/inc.js'
+import { add } from '../../src/add.js'
+import { inc } from '../../src/inc.js'
 import { groupMapReduce } from '../../src/array/groupMapReduce.js'
 
 it('partitions an array with keyFn, maps each value with mapFn and combines the mapped values with reducer', () => {

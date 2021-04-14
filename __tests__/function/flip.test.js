@@ -1,4 +1,4 @@
-import { flip } from '../../src/function/flip.js'
+import { flip } from '../../src/flip.js'
 
 it('flips the first two arguments', () => {
   const fn = (...args) => args

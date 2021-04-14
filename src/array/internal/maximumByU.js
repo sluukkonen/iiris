@@ -1,4 +1,4 @@
-import { maxByU } from '../../core/internal/maxByU.js'
+import { maxByU } from '../../internal/maxByU.js'
 import { reduce1 } from './reduce1.js'
 
 export const maximumByU = (fn, array) =>

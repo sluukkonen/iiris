@@ -1,6 +1,6 @@
-import { builtinIsNaN } from '../../core/internal/builtins.js'
-import { equalsU } from '../../core/internal/equalsU.js'
-import { isObjectLike } from '../../core/internal/isObjectLike.js'
+import { builtinIsNaN } from '../../internal/builtins.js'
+import { equalsU } from '../../internal/equalsU.js'
+import { isObjectLike } from '../../internal/isObjectLike.js'
 
 export const lastIndexOfBy = (eq, value, array) => {
   if (eq === equalsU && !isObjectLike(value) && !builtinIsNaN(value)) {

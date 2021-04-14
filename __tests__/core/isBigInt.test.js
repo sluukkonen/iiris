@@ -1,4 +1,4 @@
-import { isBigInt } from '../../src/core/isBigInt.js'
+import { isBigInt } from '../../src/isBigInt.js'
 
 it('returns if the value is a bigint', () => {
   expect(isBigInt('')).toBe(false)

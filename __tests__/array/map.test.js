@@ -1,4 +1,4 @@
-import { inc } from '../../src/math/inc.js'
+import { inc } from '../../src/inc.js'
 import { map } from '../../src/array/map.js'
 
 it('applies a function to each element of an array', () => {

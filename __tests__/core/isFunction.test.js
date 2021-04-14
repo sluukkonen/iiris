@@ -1,4 +1,4 @@
-import { isFunction } from '../../src/core/isFunction.js'
+import { isFunction } from '../../src/isFunction.js'
 
 it('returns whether the value is a function', () => {
   expect(isFunction(isFunction)).toBe(true)

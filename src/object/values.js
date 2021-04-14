@@ -1,3 +1,3 @@
-import { builtinValues } from '../core/internal/builtins.js'
+import { builtinValues } from '../internal/builtins.js'
 
 export const values = builtinValues
