@@ -1,5 +1,5 @@
-import { setName } from '../core/internal/index.js'
-import { curry2 } from '../function/index.js'
-import { sumByU } from './internal/index.js'
+import { setName } from '../core/internal/setName.js'
+import { curry2 } from '../function/curry2.js'
+import { sumByU } from './internal/sumByU.js'
 
 export const sumBy = setName(curry2(sumByU), 'sumBy')

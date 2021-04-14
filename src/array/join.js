@@ -1,5 +1,5 @@
-import { setName } from '../core/internal/index.js'
-import { curry2 } from '../function/index.js'
-import { joinU } from './internal/index.js'
+import { setName } from '../core/internal/setName.js'
+import { curry2 } from '../function/curry2.js'
+import { joinU } from './internal/joinU.js'
 
 export const join = setName(curry2(joinU), 'join')

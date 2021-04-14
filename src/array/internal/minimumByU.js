@@ -1,4 +1,4 @@
-import { minByU } from '../../core/internal/index.js'
+import { minByU } from '../../core/internal/minByU.js'
 import { reduce1 } from './reduce1.js'
 
 export const minimumByU = (fn, array) =>

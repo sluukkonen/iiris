@@ -1,6 +1,6 @@
-import { setName } from '../core/internal/index.js'
-import { curry2 } from '../function/index.js'
-import { filterWithIndexU } from './internal/index.js'
+import { setName } from '../core/internal/setName.js'
+import { curry2 } from '../function/curry2.js'
+import { filterWithIndexU } from './internal/filterWithIndexU.js'
 
 export const filterWithIndex = setName(
   curry2(filterWithIndexU),

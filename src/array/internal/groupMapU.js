@@ -1,4 +1,4 @@
-import { hasOwn } from '../../core/internal/index.js'
+import { hasOwn } from '../../core/internal/hasOwn.js'
 
 export const groupMapU = (mapFn, keyFn, array) => {
   let result = {}

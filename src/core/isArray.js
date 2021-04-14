@@ -1,3 +1,3 @@
-import { builtinIsArray } from './internal/index.js'
+import { builtinIsArray } from './internal/builtins.js'
 
 export const isArray = builtinIsArray

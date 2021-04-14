@@ -1,4 +1,4 @@
-import { isDefined } from '../../core/index.js'
+import { isDefined } from '../../core/isDefined.js'
 
 export const mapMaybeU = (fn, array) => {
   const result = []

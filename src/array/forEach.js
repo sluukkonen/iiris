@@ -1,5 +1,5 @@
-import { setName } from '../core/internal/index.js'
-import { curry2 } from '../function/index.js'
-import { forEachU } from './internal/index.js'
+import { setName } from '../core/internal/setName.js'
+import { curry2 } from '../function/curry2.js'
+import { forEachU } from './internal/forEachU.js'
 
 export const forEach = setName(curry2(forEachU), 'forEach')

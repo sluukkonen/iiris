@@ -1,4 +1,5 @@
-import { builtinArray, minU } from '../../core/internal/index.js'
+import { builtinArray } from '../../core/internal/builtins.js'
+import { minU } from '../../core/internal/minU.js'
 
 export const zipWithU = (fn, array1, array2) => {
   const length = minU(array1.length, array2.length)

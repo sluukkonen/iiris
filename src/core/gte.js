@@ -1,4 +1,5 @@
-import { curry2 } from '../function/index.js'
-import { gteU, setName } from './internal/index.js'
+import { curry2 } from '../function/curry2.js'
+import { gteU } from './internal/gteU.js'
+import { setName } from './internal/setName.js'
 
 export const gte = setName(curry2(gteU), 'gte')

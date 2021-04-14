@@ -1,3 +1,3 @@
-import { builtinEntries } from '../core/internal/index.js'
+import { builtinEntries } from '../core/internal/builtins.js'
 
 export const entries = builtinEntries

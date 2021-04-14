@@ -1,5 +1,5 @@
-import { setName } from '../core/internal/index.js'
-import { curry2 } from '../function/index.js'
-import { intersperseU } from './internal/index.js'
+import { setName } from '../core/internal/setName.js'
+import { curry2 } from '../function/curry2.js'
+import { intersperseU } from './internal/intersperseU.js'
 
 export const intersperse = setName(curry2(intersperseU), 'intersperse')

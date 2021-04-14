@@ -1,5 +1,5 @@
-import { setName } from '../core/internal/index.js'
-import { curry2 } from '../function/index.js'
-import { partitionU } from './internal/index.js'
+import { setName } from '../core/internal/setName.js'
+import { curry2 } from '../function/curry2.js'
+import { partitionU } from './internal/partitionU.js'
 
 export const partition = setName(curry2(partitionU), 'partition')

@@ -1,4 +1,4 @@
-import { isUndefined } from '../../core/index.js'
+import { isUndefined } from '../../core/isUndefined.js'
 
 export const getOrU = (defaultValue, key, object) => {
   const maybeValue = object[key]

@@ -1,5 +1,5 @@
-import { setName } from '../core/internal/index.js'
-import { curry2 } from '../function/index.js'
-import { findLastIndexU } from './internal/index.js'
+import { setName } from '../core/internal/setName.js'
+import { curry2 } from '../function/curry2.js'
+import { findLastIndexU } from './internal/findLastIndexU.js'
 
 export const findLastIndex = setName(curry2(findLastIndexU), 'findLastIndex')
