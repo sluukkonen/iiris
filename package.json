@@ -22,32 +22,32 @@
   "type": "commonjs",
   "exports": {
     ".": {
-      "import": "./dist/core/index.mjs",
-      "require": "./dist/core/index.js"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
     },
     "./array": {
-      "import": "./dist/array/index.mjs",
-      "require": "./dist/array/index.js"
+      "import": "./dist/array.mjs",
+      "require": "./dist/array.js"
     },
     "./function": {
-      "import": "./dist/function/index.mjs",
-      "require": "./dist/function/index.js"
+      "import": "./dist/function.mjs",
+      "require": "./dist/function.js"
     },
     "./math": {
-      "import": "./dist/math/index.mjs",
-      "require": "./dist/math/index.js"
+      "import": "./dist/math.mjs",
+      "require": "./dist/math.js"
     },
     "./object": {
-      "import": "./dist/object/index.mjs",
-      "require": "./dist/object/index.js"
+      "import": "./dist/object.mjs",
+      "require": "./dist/object.js"
     },
     "./set": {
-      "import": "./dist/set/index.mjs",
-      "require": "./dist/set/index.js"
+      "import": "./dist/set.mjs",
+      "require": "./dist/set.js"
     },
     "./string": {
-      "import": "./dist/string/index.mjs",
-      "require": "./dist/string/index.js"
+      "import": "./dist/string.mjs",
+      "require": "./dist/string.js"
     }
   },
   "types": "core.d.ts",
@@ -60,12 +60,12 @@
     "@babel/core": "7.17.8",
     "@babel/preset-env": "7.16.11",
     "@rollup/plugin-replace": "2.4.2",
+    "@rollup/plugin-virtual": "^2.0.3",
     "@types/benchmark": "2.1.1",
     "@types/jest": "26.0.24",
     "@typescript-eslint/eslint-plugin": "4.33.0",
     "@typescript-eslint/parser": "4.33.0",
     "babel-jest": "26.6.3",
-    "bundlewatch": "0.3.3",
     "eslint": "7.24.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-import": "2.25.4",
@@ -84,8 +84,7 @@
   },
   "scripts": {
     "benchmark": "yarn build && NODE_ENV=production node benchmark",
-    "build": "rm -rf dist/* && node generate-index.js && rollup --config",
-    "bundlewatch": "yarn build --environment MINIFY && bundlewatch --config .bundlewatch.config.json",
+    "build": "rm -rf dist/* && rollup --config",
     "docs": "typedoc --json .reflection.json core.d.ts && node generate-docs.js",
     "lint": "eslint .",
     "prepare": "yarn build && git config core.hooksPath .githooks",

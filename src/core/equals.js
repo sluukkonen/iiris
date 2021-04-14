@@ -1,4 +1,6 @@
-import { equalsU, isObjectLike, isSameValueZero } from './internal/index.js'
+import { equalsU } from './internal/equalsU.js'
+import { isObjectLike } from './internal/isObjectLike.js'
+import { isSameValueZero } from './internal/isSameValueZero.js'
 
 export function equals(a, b) {
   // Optimize the curried equals(...) case.

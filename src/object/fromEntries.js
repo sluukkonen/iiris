@@ -1,5 +1,5 @@
-import { isFunction } from '../core/index.js'
-import { builtinFromEntries } from '../core/internal/index.js'
+import { isFunction } from '../core/isFunction.js'
+import { builtinFromEntries } from '../core/internal/builtins.js'
 
 export const fromEntries = isFunction(builtinFromEntries)
   ? /* istanbul ignore next */ builtinFromEntries

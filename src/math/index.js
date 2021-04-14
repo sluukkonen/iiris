@@ -1,7 +1,0 @@
-export * from './add.js'
-export * from './dec.js'
-export * from './divideBy.js'
-export * from './inc.js'
-export * from './multiply.js'
-export * from './negate.js'
-export * from './subtractBy.js'

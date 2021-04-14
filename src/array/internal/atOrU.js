@@ -1,4 +1,4 @@
-import { isUndefined } from '../../core/index.js'
+import { isUndefined } from '../../core/isUndefined.js'
 import { getIndex } from './getIndex.js'
 import { hasIndex } from './hasIndex.js'
 

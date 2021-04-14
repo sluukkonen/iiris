@@ -1,4 +1,4 @@
-import { isUndefined } from '../../core/index.js'
+import { isUndefined } from '../../core/isUndefined.js'
 
 export const setU = (key, value, object) => {
   if (isUndefined(value)) {

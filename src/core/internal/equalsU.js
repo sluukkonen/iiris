@@ -1,4 +1,3 @@
-import { isBoolean } from '../isBoolean.js'
 import {
   builtinGetPrototypeOf,
   builtinIsArray,
@@ -200,3 +199,5 @@ const clearCycles = (a, b, cycles) => {
   cycles.delete(a)
   cycles.delete(b)
 }
+
+const isBoolean = (value) => typeof value === 'boolean'

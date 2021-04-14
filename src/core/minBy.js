@@ -1,4 +1,5 @@
-import { curry3 } from '../function/index.js'
-import { minByU, setName } from './internal/index.js'
+import { curry3 } from '../function/curry3.js'
+import { minByU } from './internal/minByU.js'
+import { setName } from './internal/setName.js'
 
 export const minBy = setName(curry3(minByU), 'minBy')

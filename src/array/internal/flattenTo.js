@@ -1,4 +1,4 @@
-import { builtinIsArray } from '../../core/internal/index.js'
+import { builtinIsArray } from '../../core/internal/builtins.js'
 
 export const flattenTo = (depth, array, to) => {
   for (const value of array) {

@@ -1,4 +1,4 @@
-import { builtinArray } from '../../core/internal/index.js'
+import { builtinArray } from '../../core/internal/builtins.js'
 
 export const mapWithIndexU = (fn, array) => {
   const length = array.length
