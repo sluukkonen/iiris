@@ -1,4 +1,4 @@
-import { minBy } from '../../src/core/minBy.js'
+import { minBy } from '../../src/minBy.js'
 
 it('returns the smaller of two values with respect to a function', () => {
   const getX = (foo) => foo.x

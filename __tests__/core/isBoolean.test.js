@@ -1,4 +1,4 @@
-import { isBoolean } from '../../src/core/isBoolean.js'
+import { isBoolean } from '../../src/isBoolean.js'
 
 it('returns if the value is a boolean', () => {
   expect(isBoolean('')).toBe(false)

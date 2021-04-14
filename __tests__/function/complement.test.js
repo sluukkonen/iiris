@@ -1,5 +1,5 @@
-import { complement } from '../../src/function/complement.js'
-import { identity } from '../../src/function/identity.js'
+import { complement } from '../../src/complement.js'
+import { identity } from '../../src/identity.js'
 
 it('returns the complement of a predicate function', () => {
   expect(complement(identity)(true)).toBe(false)

@@ -32,8 +32,24 @@ If you've tried Iiris and something doesn't seem to be working as expected, [let
   - [Reducing arrays](#reducing-arrays)
     - [maximum](#maximum)
     - [maximumBy](#maximumby)
+  - [Sorting arrays](#sorting-arrays)
+    - [ascend](#ascend)
+    - [descend](#descend)
   - [Function](#function)
+    - [binary](#binary)
+    - [complement](#complement)
+    - [compose](#compose)
+    - [constant](#constant)
+    - [curry2](#curry2)
+    - [curry3](#curry3)
+    - [curry4](#curry4)
+    - [flip](#flip)
+    - [identity](#identity)
+    - [noop](#noop)
     - [not](#not)
+    - [pipe](#pipe)
+    - [tap](#tap)
+    - [unary](#unary)
   - [Relation](#relation)
     - [clamp](#clamp)
     - [equals](#equals)
@@ -46,6 +62,14 @@ If you've tried Iiris and something doesn't seem to be working as expected, [let
     - [maxBy](#maxby)
     - [min](#min)
     - [minBy](#minby)
+  - [Math](#math)
+    - [add](#add)
+    - [dec](#dec)
+    - [divideBy](#divideby)
+    - [inc](#inc)
+    - [multiply](#multiply)
+    - [negate](#negate)
+    - [subtractBy](#subtractby)
   - [Logic](#logic)
     - [maybe](#maybe)
     - [valueOr](#valueor)
@@ -212,7 +236,271 @@ I.maximumBy((u) => u.age, users)
 
 ---
 
+### Sorting arrays
+
+#### ascend
+
+```typescript
+<T, U extends Ordered>(fn: (value: T) => U) => (first: T, second: T) => number
+```
+
+Given a `fn` that maps a `value` to an Ordered value, create an
+ascending comparator function.
+
+**Note:** The returned function is not curried.
+
+**Example:**
+
+```typescript
+I.sort(I.ascend(I.prop('age')), [{ name: 'Bob' }, { name: 'Alice' }])
+// => [{ name: 'Alice' }, { name: 'Bob' }]
+```
+
+**See also:** [descend](#descend), [sort](#sort), [sortWith](#sortwith)
+
+---
+
+#### descend
+
+```typescript
+<T, U extends Ordered>(fn: (value: T) => U) => (first: T, second: T) => number
+```
+
+Given a `fn` that maps a `value` to an Ordered value, create a
+descending comparator function.
+
+**Note:** The returned function is not curried.
+
+**Example:**
+
+```typescript
+I.sort(I.descend(I.prop('name')), [{ name: 'Alice' }, { name: 'Bob' }])
+// => [{ name: 'Bob' }, { name: 'Alice' }]
+```
+
+**See also:** [ascend](#ascend), [sort](#sort), [sortWith](#sortwith)
+
+---
+
 ### Function
+
+#### binary
+
+```typescript
+<T1, T2, R>(fn: VariadicFunction2<T1, T2, R>) => Function2<T1, T2, R>
+```
+
+Create a version of `fn` that accepts two arguments.
+
+**Note:** The returned function is not curried.
+
+**Example:**
+
+```typescript
+const fn = (...args) => args
+const wrapped = I.binary(fn)
+
+fn(1, 2, 3)
+// => [1, 2, 3]
+
+wrapped(1, 2, 3)
+// => [1, 2]
+```
+
+**See also:** [unary](#unary)
+
+---
+
+#### complement
+
+```typescript
+<T extends VariadicFunction0<boolean>>(fn: T) => T
+```
+
+Create a version of a predicate `fn` that flips the returned boolean value.
+
+**Example:**
+
+```typescript
+const isZero = (v) => v === 0
+const notZero = I.complement(isZero)
+
+notZero(0)
+// => false
+
+notZero(1)
+// => true
+```
+
+---
+
+#### compose
+
+```typescript
+<T extends unknown[], R>(fn: (args: ...T) => R) => (args: ...T) => R
+<T extends unknown[], T1, R>(fn1: Function1<T1, R>, fn2: (args: ...T) => T1) => (args: ...T) => R
+<T extends unknown[], T1, T2, R>(fn1: Function1<T2, R>, fn2: Function1<T1, T2>, fn3: (args: ...T) => T1) => (args: ...T) => R
+```
+
+Right-to-left function composition.
+
+**Note:** This function is not curried.
+
+**Example:**
+
+```typescript
+const composed = I.compose(I.add(10), I.multiply(2))
+
+composed(2)
+// => 14
+```
+
+---
+
+#### constant
+
+```typescript
+<T>(value: T) => () => T
+```
+
+Create a function that always returns `value`.
+
+**Example:**
+
+```typescript
+I.map(I.constant(1), [1, 2, 3])
+// => [1, 1, 1]
+```
+
+---
+
+#### curry2
+
+```typescript
+<T extends [unknown, unknown], R>(fn: (args: ...T) => R) => CurriedFunction2<T, R>
+```
+
+Create a curried version of a `fn` taking two arguments.
+
+**Example:**
+
+```typescript
+ const add = I.curry2((a, b) => a + b)
+
+ add(1)(2)
+ // => 3
+
+ add(1, 2)
+ // => 3
+```
+
+**See also:** [curry3](#curry3), [curry4](#curry4)
+
+---
+
+#### curry3
+
+```typescript
+<T extends [unknown, unknown, unknown], R>(fn: (args: ...T) => R) => CurriedFunction3<T, R>
+```
+
+Create a curried version of a `fn` taking three arguments.
+
+**Example:**
+
+```typescript
+ const add = I.curry3((a, b, c) => a + b + c)
+
+ add(1)(2)(3)
+ // => 6
+
+ add(1, 2, 3)
+ // => 6
+```
+
+**See also:** [curry2](#curry2), [curry4](#curry4)
+
+---
+
+#### curry4
+
+```typescript
+<T extends [unknown, unknown, unknown, unknown], R>(fn: (args: ...T) => R) => CurriedFunction4<T, R>
+```
+
+Create a curried version of a `fn` taking four arguments.
+
+**Example:**
+
+```typescript
+ const add = I.curry4((a, b, c, d) => a + b + c + d)
+
+ add(1)(2)(3)(4)
+ // => 10
+
+ add(1, 2, 3, 4)
+ // => 10
+```
+
+**See also:** [curry2](#curry2), [curry3](#curry3)
+
+---
+
+#### flip
+
+```typescript
+<T, U, R>(fn: Function2<T, U, R>) => Function2<U, T, R>
+```
+
+Flip the arguments of a binary function.
+
+**Note:** The returned function is not curried.
+
+**Example:**
+
+```typescript
+const fn = (...args) => args
+const flipped = I.flip(fn)
+
+flipped(1, 2)
+// => [2, 1]
+```
+
+---
+
+#### identity
+
+```typescript
+<T>(value: T) => T
+```
+
+Identity function. Returns the first argument.
+
+**Example:**
+
+```typescript
+I.identity(5)
+// => 5
+```
+
+---
+
+#### noop
+
+```typescript
+() => undefined
+```
+
+Do nothing an return `undefined`.
+
+**Example:**
+
+```typescript
+I.map(I.noop, [1, 2, 3])
+// => [undefined, undefined, undefined]
+```
+
+---
 
 #### not
 
@@ -233,6 +521,83 @@ I.not(false)
 ```
 
 **See also:** [complement](#complement)
+
+---
+
+#### pipe
+
+```typescript
+<T>(initial: T) => T
+<T, R>(initial: T, fn1: Function1<T, R>) => R
+<T1, T2, R>(initial: T1, fn1: Function1<T1, T2>, fn2: Function1<T2, R>) => R
+```
+
+Pipe an `initial` value through one or more functions in left-to-right order,
+allowing the programmer to chain operations in a readable manner.
+
+`I.pipe(initial, f1, f2, ...fn)` can be thought as syntax sugar
+for `fn(...(f2(f1(initial))))`
+
+**Note:** This function is not curried.
+
+**Example:**
+
+```typescript
+I.pipe(
+  [1, 2, 3],
+  I.map((n) => n * 2),
+  I.sum
+)
+// => 12
+```
+
+**See also:** [compose](#compose)
+
+---
+
+#### tap
+
+```typescript
+<T>(fn: (value: T) => void) => (value: T) => T
+```
+
+Create a function that applies `fn` to its argument and returns the
+argument.
+
+Useful for executing a side-effect within a pipeline.
+
+**Example:**
+
+```typescript
+I.pipe(
+  [1, 2, 3],
+  I.map(I.multiply(2)),
+  I.filter(I.gt(2)),
+  I.tap(console.log),
+  I.sum
+)
+// Prints: [ 4, 6 ]
+// => 10
+```
+
+---
+
+#### unary
+
+```typescript
+<T, R>(fn: VariadicFunction1<T, R>) => Function1<T, R>
+```
+
+Create a version of `fn` that accepts a single argument.
+
+**Example:**
+
+```typescript
+['1', '2', '3'].map(I.unary(parseInt))
+// => [1, 2, 3]
+```
+
+**See also:** [binary](#binary)
 
 ---
 
@@ -467,6 +832,129 @@ I.minBy(Math.abs, -1, 2)
 ```
 
 **See also:** [min](#min), [maxBy](#maxby)
+
+---
+
+### Math
+
+#### add
+
+```typescript
+(n: number) => (m: number) => number
+```
+
+Add two numbers together.
+
+**Example:**
+
+```typescript
+I.map(I.add(1), [1, 2, 3])
+// => [2, 3, 4]
+```
+
+---
+
+#### dec
+
+```typescript
+(n: number) => number
+```
+
+Decrement a number by 1.
+
+**Example:**
+
+```typescript
+I.map(I.dec, [1, 2, 3])
+// => [0, 1, 2]
+```
+
+**See also:** [inc](#inc)
+
+---
+
+#### divideBy
+
+```typescript
+(divisor: number) => (dividend: number) => number
+```
+
+Divide `dividend` by the `divisor`.
+
+**Example:**
+
+```typescript
+I.map(I.divideBy(2), [1, 2, 3])
+// => [0.5, 1, 1.5]
+```
+
+---
+
+#### inc
+
+```typescript
+(n: number) => number
+```
+
+Increment a number by 1.
+
+**Example:**
+
+```typescript
+I.map(I.inc, [1, 2, 3])
+// => [2, 3, 4]
+```
+
+---
+
+#### multiply
+
+```typescript
+(multiplicand: number) => (multiplier: number) => number
+```
+
+Multiply two numbers together.
+
+**Example:**
+
+```typescript
+I.map(I.multiply(2), [1, 2, 3])
+// => [2, 4, 6]
+```
+
+---
+
+#### negate
+
+```typescript
+(n: number) => number
+```
+
+Return `n` with its sign reversed.
+
+**Example:**
+
+```typescript
+I.map(I.negate, [1, 2, 3])
+// => [-1, -2, -3]
+```
+
+---
+
+#### subtractBy
+
+```typescript
+(subtrahend: number) => (minuend: number) => number
+```
+
+Subtract the `subtrahend` from the `minuend`.
+
+**Example:**
+
+```typescript
+I.map(I.subtractBy(1), [1, 2, 3])
+// => [0, 1, 2]
+```
 
 ---
 

@@ -1,4 +1,4 @@
-import { isNull } from '../../src/core/isNull.js'
+import { isNull } from '../../src/isNull.js'
 
 it('returns if the value is null', () => {
   expect(isNull('')).toBe(false)

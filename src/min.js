@@ -1,4 +1,4 @@
-import { curry2 } from '../function/curry2.js'
+import { curry2 } from './curry2.js'
 import { minU } from './internal/minU.js'
 import { setName } from './internal/setName.js'
 

@@ -1,4 +1,4 @@
-import { minU } from '../../core/internal/minU.js'
+import { minU } from '../../internal/minU.js'
 
 export const zipObjectU = (keys, values) => {
   const result = {}

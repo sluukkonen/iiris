@@ -1,5 +1,5 @@
-import { ascend } from '../../src/function/ascend.js'
-import { descend } from '../../src/function/descend.js'
+import { ascend } from '../../src/ascend.js'
+import { descend } from '../../src/descend.js'
 import { sortWith } from '../../src/array/sortWith.js'
 
 it('sorts an array with the help of an array of comparators', () => {

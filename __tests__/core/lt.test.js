@@ -1,4 +1,4 @@
-import { lt } from '../../src/core/lt.js'
+import { lt } from '../../src/lt.js'
 
 it('returns whether the second value is less than the first', () => {
   expect(lt(1, 0)).toBe(true)

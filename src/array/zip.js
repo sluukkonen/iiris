@@ -1,4 +1,4 @@
-import { setName } from '../core/internal/setName.js'
+import { setName } from '../internal/setName.js'
 import { zipWith } from './zipWith.js'
 
 export const zip = setName(

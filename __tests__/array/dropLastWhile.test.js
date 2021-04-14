@@ -1,4 +1,4 @@
-import { gt } from '../../src/core/gt.js'
+import { gt } from '../../src/gt.js'
 import { dropLastWhile } from '../../src/array/dropLastWhile.js'
 
 it('drops elements matching a predicate from the begining of array', () => {

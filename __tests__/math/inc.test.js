@@ -1,4 +1,4 @@
-import { inc } from '../../src/math/inc.js'
+import { inc } from '../../src/inc.js'
 
 it('increments a number', () => {
   expect(inc(0)).toBe(1)

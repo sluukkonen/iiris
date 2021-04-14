@@ -1,4 +1,4 @@
-import { inc } from '../../src/math/inc.js'
+import { inc } from '../../src/inc.js'
 import { groupMap } from '../../src/array/groupMap.js'
 
 it('partitions an array into separate arrays based on keyFn and maps each value with mapFn', () => {

@@ -1,4 +1,4 @@
-import { isNil } from '../../src/core/isNil.js'
+import { isNil } from '../../src/isNil.js'
 
 it('returns if the value is null or undefined', () => {
   expect(isNil('')).toBe(false)

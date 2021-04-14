@@ -1,4 +1,4 @@
-import { Ordered } from './core.js'
+import { Ordered } from './index.js'
 
 /**
  * Append a new element to the end of an array.

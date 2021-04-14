@@ -1,5 +1,5 @@
-import { identity } from '../../src/function/identity.js'
-import { inc } from '../../src/math/inc.js'
+import { identity } from '../../src/identity.js'
+import { inc } from '../../src/inc.js'
 import { times } from '../../src/array/times.js'
 
 it('creates an array with the specified function', () => {

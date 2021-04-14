@@ -1,4 +1,4 @@
-import { hasOwn } from '../../core/internal/hasOwn.js'
+import { hasOwn } from '../../internal/hasOwn.js'
 
 export const mapKeysU = (fn, object) => {
   const result = {}

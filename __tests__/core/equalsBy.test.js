@@ -1,4 +1,4 @@
-import { equalsBy } from '../../src/core/equalsBy.js'
+import { equalsBy } from '../../src/equalsBy.js'
 
 it('maps two values with the function and checks if the results are equal', () => {
   expect(equalsBy(Math.abs, 5, -5)).toBe(true)

@@ -1,4 +1,4 @@
-import { ascend } from '../../src/function/ascend.js'
+import { ascend } from '../../src/ascend.js'
 import { sort } from '../../src/array/sort.js'
 
 it('sorts an array with the help of an comparator', () => {

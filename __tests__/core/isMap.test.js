@@ -1,4 +1,4 @@
-import { isMap } from '../../src/core/isMap.js'
+import { isMap } from '../../src/isMap.js'
 
 it('returns whether the value is a Map', () => {
   expect(isMap(new Map())).toBe(true)

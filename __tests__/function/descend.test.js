@@ -1,4 +1,4 @@
-import { descend } from '../../src/function/descend.js'
+import { descend } from '../../src/descend.js'
 
 it('returns a descending comparator for a function', () => {
   const age = (x) => x.age

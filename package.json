@@ -50,7 +50,7 @@
       "require": "./dist/string.js"
     }
   },
-  "types": "core.d.ts",
+  "types": "index.d.ts",
   "repository": "https://github.com/sluukkonen/iiris",
   "author": "Sakumatti Luukkonen <sakumatti.luukkonen@gmail.com>",
   "license": "MIT",
@@ -85,10 +85,10 @@
   "scripts": {
     "benchmark": "yarn build && NODE_ENV=production node benchmark",
     "build": "rm -rf dist/* && rollup --config",
-    "docs": "typedoc --json .reflection.json core.d.ts && node generate-docs.js",
+    "docs": "typedoc --json .reflection.json index.d.ts && node generate-docs.js",
     "lint": "eslint .",
     "prepare": "yarn build && git config core.hooksPath .githooks",
-    "repl": "yarn build && node -i -e 'I = require(`iiris`); A = require(`iiris/array`); O = require(`iiris/object`); M = require(`iiris/math`); F = require(`iiris/function`); S = require(`iiris/set`)'",
+    "repl": "yarn build && node -i -e 'I = require(`iiris`); A = require(`iiris/array`); O = require(`iiris/object`); S = require(`iiris/set`)'",
     "test": "jest --coverage",
     "tsd": "tsd"
   }

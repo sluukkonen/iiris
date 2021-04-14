@@ -1,4 +1,4 @@
-import { gt } from '../../src/core/gt.js'
+import { gt } from '../../src/gt.js'
 import { takeLastWhile } from '../../src/array/takeLastWhile.js'
 
 it('takes elements matching a predicate from the end of array', () => {

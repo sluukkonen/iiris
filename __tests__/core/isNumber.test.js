@@ -1,4 +1,4 @@
-import { isNumber } from '../../src/core/isNumber.js'
+import { isNumber } from '../../src/isNumber.js'
 
 it('returns if the value is a number', () => {
   expect(isNumber('')).toBe(false)

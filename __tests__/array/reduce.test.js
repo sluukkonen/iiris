@@ -1,4 +1,4 @@
-import { add } from '../../src/math/add.js'
+import { add } from '../../src/add.js'
 import { reduce } from '../../src/array/reduce.js'
 
 it('reduces an array from left to right', () => {

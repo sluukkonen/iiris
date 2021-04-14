@@ -9,8 +9,6 @@ import { terser } from 'rollup-plugin-terser'
 const entryPoints = [
   './src/index.js',
   './src/array.js',
-  './src/function.js',
-  './src/math.js',
   './src/object.js',
   './src/set.js',
   './src/string.js',
@@ -23,12 +21,14 @@ const plugins = [
 
 function createEntryPoint(file) {
   const basename = path.basename(file, '.js')
-  const directory =
-    basename === 'index'
-      ? path.resolve(__dirname, 'src', 'core') // TODO: Move these the root of `src`.
-      : path.resolve(__dirname, 'src', basename)
+  const directory = path.resolve(
+    __dirname,
+    'src',
+    basename === 'index' ? '' : basename
+  )
   return glob
     .sync(path.join(directory, '*.js'))
+    .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
     .map((f) => `export { ${path.basename(f, '.js')} } from '${f}'`)
     .join('\n')
 }

@@ -1,4 +1,4 @@
-import { isDefined } from '../../src/core/isDefined.js'
+import { isDefined } from '../../src/isDefined.js'
 
 it('returns true if the value is not undefined', () => {
   expect(isDefined('')).toBe(true)

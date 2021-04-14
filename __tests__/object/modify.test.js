@@ -1,5 +1,5 @@
-import { noop } from '../../src/function/noop.js'
-import { inc } from '../../src/math/inc.js'
+import { noop } from '../../src/noop.js'
+import { inc } from '../../src/inc.js'
 import { modify } from '../../src/object/modify.js'
 
 it('modifies a property at the specified value', () => {

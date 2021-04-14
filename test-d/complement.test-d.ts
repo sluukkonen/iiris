@@ -1,5 +1,5 @@
 import { expectType } from 'tsd'
+import * as I from '..'
 import * as A from '../array'
-import * as F from '../function'
 
-expectType<<T>(value: readonly T[]) => boolean>(F.complement(A.isEmpty))
+expectType<<T>(value: readonly T[]) => boolean>(I.complement(A.isEmpty))

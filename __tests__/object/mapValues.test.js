@@ -1,4 +1,4 @@
-import { inc } from '../../src/math/inc.js'
+import { inc } from '../../src/inc.js'
 import { mapValues } from '../../src/object/mapValues.js'
 
 it('maps the values of an object', () => {

@@ -1,4 +1,4 @@
-import { divideBy } from '../../src/math/divideBy.js'
+import { divideBy } from '../../src/divideBy.js'
 
 it('divideBy()', () => {
   expect(divideBy(2, 4)).toBe(2)

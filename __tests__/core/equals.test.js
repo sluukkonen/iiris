@@ -1,4 +1,4 @@
-import { equals } from '../../src/core/equals.js'
+import { equals } from '../../src/equals.js'
 
 const expectEquals = (a, b, result) => {
   expect(equals(a, b)).toBe(result)

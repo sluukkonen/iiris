@@ -1,4 +1,4 @@
-import { isError } from '../../src/core/isError.js'
+import { isError } from '../../src/isError.js'
 
 it('returns whether the value is an Error', () => {
   expect(isError(new Error('Hi!'))).toBe(true)
