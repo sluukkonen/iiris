@@ -2,6 +2,7 @@
 
 module.exports = {
   clearMocks: true,
+  collectCoverageFrom: ['./src/**/*.js'],
   coverageDirectory: 'coverage',
   coverageReporters: ['text'],
   coverageThreshold: {

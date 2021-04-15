@@ -36,9 +36,22 @@ export function entries<T extends object>(
  *
  * @see entries
  */
-export function fromEntries<K extends string, T>(
-  entries: [K, T][]
-): Record<K, T>
+export function fromEntries<K extends string, V>(
+  entries: [K, V][]
+): Record<K, V>
+
+/**
+ * Convert a `map` with string keys to an object.
+ *
+ * @category Object
+ * @example
+ *
+ * ```typescript
+ * O.fromMap(new Map([['a', 1], ['b', 2], ['c', 3]]))
+ * // => { a: 1, b: 2, c: 3 }
+ * ```
+ */
+export function fromMap<K extends string, V>(map: Map<K, V>): Record<K, V>
 
 /**
  * Check if `key` is an own property of `object`.
