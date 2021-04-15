@@ -9,6 +9,7 @@ import { terser } from 'rollup-plugin-terser'
 const entryPoints = [
   './src/index.js',
   './src/array.js',
+  './src/map.js',
   './src/object.js',
   './src/set.js',
   './src/string.js',

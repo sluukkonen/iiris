@@ -19,3 +19,5 @@ export const builtinObjectProtoToString = builtinObjectProto.toString
 export const builtinString = String
 
 export const builtinSet = Set
+
+export const builtinMap = Map
