@@ -16,7 +16,12 @@ const entryPoints = [
 
 const plugins = [
   // Create a virtual entry points for each subdirectory.
-  virtual(Object.fromEntries(entryPoints.map((e) => [e, createEntryPoint(e)]))),
+  virtual(
+    entryPoints.reduce((obj, e) => {
+      obj[e] = createEntryPoint(e)
+      return obj
+    }, {})
+  ),
 ]
 
 function createEntryPoint(file) {
