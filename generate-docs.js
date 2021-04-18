@@ -2,94 +2,76 @@
 
 const fs = require('fs')
 const path = require('path')
+const glob = require('glob')
 const { children } = require('./.reflection.json')
 
-const README = path.resolve(__dirname, 'README.md')
-
-const modules = [
-  { name: 'index', title: 'Core (iiris)', categories: [] },
-  { name: 'array', title: 'Array (iiris/array)', categories: [] },
-  { name: 'object', title: 'Object (iiris/object)', categories: [] },
-  { name: 'map', title: 'Map (iiris/map)', categories: [] },
-  { name: 'set', title: 'Set (iiris/set)', categories: [] },
-  { name: 'string', title: 'String (iiris/string)', categories: [] },
-].map((m) => {
-  const child = children.find((c) => c.name === m.name)
+const modules = glob.sync(path.resolve(__dirname, '*.d.ts')).map((module) => {
+  const name = path.basename(module, '.d.ts')
+  const child = children.find((c) => c.name === name)
   return {
-    ...m,
+    name,
     comment: child.comment,
     functions: child.groups.find((g) => g.title === 'Functions'),
     children: child.children,
   }
 })
 
-// We show more than one overload for these functions.
-const variadicFunctions = ['compose', 'pipe']
+for (const module of modules) {
+  fs.writeFileSync(
+    path.resolve(__dirname, 'docs', `${module.name}.md`),
+    formatModule(module),
+    'utf-8'
+  )
+}
 
-const findChild = (children) => (i) => children.find((c) => c.id === i)
+function formatTableOfContents(module) {
+  const categories = module.functions.categories.map((category) => {
+    const entries = category.children
+      .map((i) => module.children.find((c) => c.id === i))
+      .map((child) => li(createLink(child.name), 2))
 
-const tableOfContents = modules
-  .map((module) => {
-    const categories = module.functions.categories.map((category) => {
-      const entries = category.children
-        .map(findChild(module.children))
-        .map((child) => '\n' + li(createLink(child.name), 3))
-
-      return '\n' + li(createLink(category.title), 2) + entries.join('')
-    })
-
-    return li(createLink(module.title), 1) + categories.join('')
+    return li(createLink(category.title), 1) + '\n' + entries.join('\n')
   })
-  .join('\n')
 
-const apiReference = modules
-  .map((module) => {
-    const categories = module.functions.categories.map((category) => {
-      const contents = category.children
-        .map(findChild(module.children))
-        .map((c) => {
-          const isVariadic = variadicFunctions.includes(c.name)
-          const signatures = isVariadic
-            ? c.signatures.slice(0, 3)
-            : // Right now, the only normal functions that have multiple signatures
-              // are predicates that also support type guards. In those cases, we want
-              // to show the normal signature first, so we reverse the results.
-              c.signatures.filter((s) => s.comment != null).reverse()
-          const comment = signatures[0] && signatures[0].comment
-          return (
-            h(c.name, 5) +
-            '\n\n```typescript\n' +
-            signatures.map(formatCallSignature).join('\n') +
-            '\n```\n\n' +
-            (comment ? formatComment(comment) : '') +
-            '\n\n---'
-          )
-        })
+  return h('Table of contents', 2) + '\n\n' + categories.join('\n')
+}
 
-      return h(category.title, 4) + '\n\n' + contents.join('\n\n')
-    })
-    return (
-      h(module.title, 3) +
-      (module.comment ? '\n\n' + formatComment(module.comment) : '') +
-      '\n\n' +
-      categories.join('\n\n')
-    )
+function formatModule(module) {
+  const categories = module.functions.categories.map((category) => {
+    const contents = category.children
+      .map((i) => module.children.find((c) => c.id === i))
+      .map((c) => {
+        const isVariadic = ['compose', 'pipe'].includes(c.name)
+        const signatures = isVariadic
+          ? c.signatures.slice(0, 3)
+          : // Right now, the only normal functions that have multiple signatures
+            // are predicates that also support type guards. In those cases, we want
+            // to show the normal signature first, so we reverse the results.
+            c.signatures.filter((s) => s.comment != null).reverse()
+        const comment = signatures[0] && signatures[0].comment
+        return (
+          h(c.name, 4) +
+          '\n\n```typescript\n' +
+          signatures.map(formatCallSignature).join('\n') +
+          '\n```\n\n' +
+          (comment ? formatComment(comment) : '') +
+          '\n\n---'
+        )
+      })
+
+    return h(category.title, 3) + '\n\n' + contents.join('\n\n')
   })
-  .join('\n\n')
+  const moduleName = module.name === 'index' ? 'iiris' : `iiris/${module.name}`
 
-fs.writeFileSync(
-  README,
-  fs
-    .readFileSync(README, 'utf-8')
-    .replace(
-      /(<!-- BEGIN TOC -->)(.*)(<!-- END TOC -->)/ms,
-      `$1\n${tableOfContents}\n$3`
-    )
-    .replace(
-      /(<!-- BEGIN API -->)(.*)(<!-- END API -->)/ms,
-      `$1\n${apiReference}\n$3`
-    )
-)
+  return (
+    h(`Module \`${moduleName}\``, 1) +
+    '\n\n' +
+    (module.comment ? formatComment(module.comment) + '\n\n' : '') +
+    formatTableOfContents(module) +
+    '\n\n' +
+    categories.join('\n\n')
+  )
+}
 
 function createLink(linkText) {
   let anchor = linkText
@@ -196,7 +178,7 @@ function formatComment(comment) {
 }
 
 function li(content, level) {
-  return ' '.repeat(level * 2) + '- ' + content
+  return ' '.repeat((level - 1) * 2) + '- ' + content
 }
 
 function h(content, level) {
