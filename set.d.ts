@@ -1,4 +1,15 @@
 /**
+ * The `iiris/set` module includes functions for working with Sets.
+ * It is designed to be imported with a wildcard, e.g.
+ *
+ * ```typescript
+ * import * as S from 'iiris/array'
+ * ```
+ *
+ * @module
+ */
+
+/**
  * Return a copy of `set` with `value`.
  *
  * - If `set` already contains `value`, it is returned unchanged.

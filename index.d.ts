@@ -1,3 +1,16 @@
+/**
+ * The `iiris` module contains the core functionality of Iiris. It contains
+ * various utility functions that work with a wide variety of data types, while
+ * more specialized functions are stored in separate modules. It is designed
+ * to be imported with a wildcard, e.g.
+ *
+ * ```typescript
+ * import * as I from 'iiris'
+ * ```
+ *
+ * @module
+ */
+
 /** A function that takes no arguments. */
 type Function0<R> = () => R
 /** A function that takes one argument. */
@@ -114,7 +127,7 @@ export function add(n: number, m: number): number
  *
  * **Note:** The returned function is not curried.
  *
- * @category Sorting arrays
+ * @category Sorting
  * @example
  *
  * ```typescript
@@ -406,7 +419,7 @@ export function dec(n: number): number
  *
  * **Note:** The returned function is not curried.
  *
- * @category Sorting arrays
+ * @category Sorting
  * @example
  *
  * ```typescript

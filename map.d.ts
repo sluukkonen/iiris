@@ -1,4 +1,15 @@
 /**
+ * The `iiris/map` module includes functions for working with Maps.
+ * It is designed to be imported with a wildcard, e.g.
+ *
+ * ```typescript
+ * import * as M from 'iiris/map'
+ * ```
+ *
+ * @module
+ */
+
+/**
  * Create an empty map.
  *
  * @category Map
@@ -292,7 +303,7 @@ export function singleton<K, V>(key: K, value: V): Map<K, V>
 /**
  * Return the number of entries in the `map`.
  *
- * @category map
+ * @category Map
  * @example
  *
  * ```typescript

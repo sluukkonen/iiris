@@ -1,3 +1,14 @@
+/**
+ * The `iiris/set` module includes functions for working with Objects.
+ * It is designed to be imported with a wildcard, e.g.
+ *
+ * ```typescript
+ * import * as O from 'iiris/object'
+ * ```
+ *
+ * @module
+ */
+
 /** An object that has a property `K` of type `V`. */
 
 type HasKey<K extends string, V = unknown> = { [P in K]?: V }

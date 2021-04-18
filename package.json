@@ -82,7 +82,7 @@
   "scripts": {
     "benchmark": "yarn build && NODE_ENV=production node benchmark",
     "build": "rm -rf dist/* && rollup --config",
-    "docs": "typedoc --json .reflection.json index.d.ts && node generate-docs.js",
+    "docs": "typedoc --json .reflection.json *.d.ts && node generate-docs.js",
     "lint": "eslint .",
     "prepare": "yarn build && git config core.hooksPath .githooks",
     "repl": "yarn build && node -i -e 'I = require(`iiris`); A = require(`iiris/array`); O = require(`iiris/object`); S = require(`iiris/set`); M = require(`iiris/map`)'",
