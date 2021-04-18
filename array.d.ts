@@ -1,3 +1,14 @@
+/**
+ * The `iiris/array` module includes functions for working with Arrays.
+ * It is designed to be imported with a wildcard, e.g.
+ *
+ * ```typescript
+ * import * as A from 'iiris/array'
+ * ```
+ *
+ * @module
+ */
+
 import { Ordered } from './index.js'
 
 /**

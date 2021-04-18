@@ -2,78 +2,78 @@
 
 const fs = require('fs')
 const path = require('path')
-const { children, groups } = require('./.reflection.json')
+const { children } = require('./.reflection.json')
 
 const README = path.resolve(__dirname, 'README.md')
 
-const categoryOrdering = [
-  'Basic array operations',
-  'Transforming arrays',
-  'Reducing arrays',
-  'Searching arrays with a predicate',
-  'Searching arrays by value',
-  'Grouping arrays by key',
-  'Building arrays',
-  'Slicing arrays',
-  'Sorting arrays',
-  'Zipping arrays',
-  'Set operations',
-  'Object',
-  'Function',
-  'Relation',
-  'Math',
-  'Logic',
-  'String',
-  'Type tests',
-]
+const modules = [
+  { name: 'index', title: 'Core (iiris)', categories: [] },
+  { name: 'array', title: 'Array (iiris/array)', categories: [] },
+  { name: 'object', title: 'Object (iiris/object)', categories: [] },
+  { name: 'map', title: 'Map (iiris/map)', categories: [] },
+  { name: 'set', title: 'Set (iiris/set)', categories: [] },
+  { name: 'string', title: 'String (iiris/string)', categories: [] },
+].map((m) => {
+  const child = children.find((c) => c.name === m.name)
+  return {
+    ...m,
+    comment: child.comment,
+    functions: child.groups.find((g) => g.title === 'Functions'),
+    children: child.children,
+  }
+})
 
 // We show more than one overload for these functions.
 const variadicFunctions = ['compose', 'pipe']
 
-const categories = groups
-  .find((g) => g.title === 'Functions')
-  .categories.sort(
-    (c1, c2) =>
-      categoryOrdering.indexOf(c1.title) - categoryOrdering.indexOf(c2.title)
-  )
+const findChild = (children) => (i) => children.find((c) => c.id === i)
 
-const tableOfContents = categories
-  .map((category) => {
-    const entries = category.children
-      .map(findChild)
-      .map((c) => createLink(c.name))
+const tableOfContents = modules
+  .map((module) => {
+    const categories = module.functions.categories.map((category) => {
+      const entries = category.children
+        .map(findChild(module.children))
+        .map((child) => '\n' + li(createLink(child.name), 3))
 
-    return `  - ${createLink(category.title)}
-${entries.map((e) => `    - ${e}`).join('\n')}`
+      return '\n' + li(createLink(category.title), 2) + entries.join('')
+    })
+
+    return li(createLink(module.title), 1) + categories.join('')
   })
   .join('\n')
 
-const apiReference = categories
-  .map((category) => {
-    return `### ${category.title}
+const apiReference = modules
+  .map((module) => {
+    const categories = module.functions.categories.map((category) => {
+      const contents = category.children
+        .map(findChild(module.children))
+        .map((c) => {
+          const isVariadic = variadicFunctions.includes(c.name)
+          const signatures = isVariadic
+            ? c.signatures.slice(0, 3)
+            : // Right now, the only normal functions that have multiple signatures
+              // are predicates that also support type guards. In those cases, we want
+              // to show the normal signature first, so we reverse the results.
+              c.signatures.filter((s) => s.comment != null).reverse()
+          const comment = signatures[0] && signatures[0].comment
+          return (
+            h(c.name, 5) +
+            '\n\n```typescript\n' +
+            signatures.map(formatCallSignature).join('\n') +
+            '\n```\n\n' +
+            (comment ? formatComment(comment) : '') +
+            '\n\n---'
+          )
+        })
 
-${category.children
-  .map(findChild)
-  .map((c) => {
-    const isVariadic = variadicFunctions.includes(c.name)
-    const signatures = isVariadic
-      ? c.signatures.slice(0, 3)
-      : // Right now, the only normal functions that have multiple signatures
-        // are predicates that also support type guards. In those cases, we want
-        // to show the normal signature first, so we reverse the results.
-        c.signatures.filter((s) => s.comment != null).reverse()
-    const comment = signatures[0] && signatures[0].comment
-    return `#### ${c.name}
-
-\`\`\`typescript
-${signatures.map(formatCallSignature).join('\n')}
-\`\`\`
-
-${comment ? formatComment(comment) : ''}
-
----`
-  })
-  .join('\n\n')}`
+      return h(category.title, 4) + '\n\n' + contents.join('\n\n')
+    })
+    return (
+      h(module.title, 3) +
+      (module.comment ? '\n\n' + formatComment(module.comment) : '') +
+      '\n\n' +
+      categories.join('\n\n')
+    )
   })
   .join('\n\n')
 
@@ -97,10 +97,6 @@ function createLink(linkText) {
     .replace(/\s+/g, '-')
     .replace(/[^-\w]+/, '')
   return `[${linkText}](#${anchor})`
-}
-
-function findChild(i) {
-  return children.find((c) => c.id === i)
 }
 
 function formatCallSignature(signature) {
@@ -187,25 +183,40 @@ function formatTypeOperator(type) {
 function formatComment(comment) {
   const render = (text) =>
     text
-      .trimEnd()
+      .trim()
       .replace(/{@link ([^}]*)}/g, (_, target) =>
         target[0] === target[0].toLowerCase() ? createLink(target) : target
       )
 
-  return `${render(comment.shortText)}${
-    comment.text ? `\n\n${render(comment.text)}` : ''
-  }${comment.tags ? formatCommentTags(comment.tags) : ''}`
+  return (
+    render(comment.shortText) +
+    (comment.text ? '\n\n' + render(comment.text) : '') +
+    (comment.tags ? '\n\n' + formatCommentTags(comment.tags) : '')
+  )
+}
+
+function li(content, level) {
+  return ' '.repeat(level * 2) + '- ' + content
+}
+
+function h(content, level) {
+  return '#'.repeat(level) + ' ' + content
 }
 
 function formatCommentTags(tags) {
   const example = tags
     .filter((t) => t.tag === 'example')
-    .map((t) => t.text.trimEnd())
+    .map((t) => t.text.trim())
     .join('')
   const see = tags
     .filter((t) => t.tag === 'see')
     .map((t) => createLink(t.text.trim()))
     .join(', ')
 
-  return `\n\n**Example:**${example}${see ? `\n\n**See also:** ${see}` : ''}`
+  return (
+    '<details><summary>Example</summary>\n\n' +
+    example +
+    '\n</details>' +
+    (see ? '\n\n**See also:** ' + see : '')
+  )
 }
