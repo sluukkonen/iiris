@@ -555,6 +555,57 @@ export function forEachWithIndex<T>(
 export function from<T>(iterable: Iterable<T>): T[]
 
 /**
+ * Return the element at `index` from `array` or `undefined`.
+ *
+ * @category Basic array operations
+ * @example
+ *
+ * ```typescript
+ * A.get(0, [1, 2, 3])
+ * // => 1
+ *
+ * A.get(0, [])
+ * // => undefined
+ * ```
+ *
+ * @see getOr
+ */
+export function get(index: number): <T>(array: readonly T[]) => T | undefined
+export function get<T>(index: number, array: readonly T[]): T | undefined
+
+/**
+ * Like {@link get}, but if the resolved value is `undefined`, `defaultValue` is
+ * returned instead.
+ *
+ * @category Basic array operations
+ * @example
+ *
+ * ```typescript
+ * A.getOr(999, 0, [1, 2, 3])
+ * // => 1
+ *
+ * A.getOr(999, 0, [])
+ * // => 999
+ *
+ * A.getOr(999, 0, [undefined])
+ * // => 999
+ * ```
+ *
+ * @see get
+ */
+export function getOr<T>(
+  defaultValue: T
+): {
+  (index: number): (array: readonly T[]) => T
+  (index: number, array: readonly T[]): T
+}
+export function getOr<T>(
+  defaultValue: T,
+  index: number
+): (array: readonly T[]) => T
+export function getOr<T>(defaultValue: T, index: number, array: readonly T[]): T
+
+/**
  * Partition the `array` into an object of arrays according to `keyFn`.
  *
  * @category Grouping arrays by key
@@ -1073,57 +1124,6 @@ export function modify<T>(
   fn: (value: T) => T,
   array: readonly T[]
 ): T[]
-
-/**
- * Return the element at `index` from `array` or `undefined`.
- *
- * @category Basic array operations
- * @example
- *
- * ```typescript
- * A.at(0, [1, 2, 3])
- * // => 1
- *
- * A.at(0, [])
- * // => undefined
- * ```
- *
- * @see atOr
- */
-export function at(index: number): <T>(array: readonly T[]) => T | undefined
-export function at<T>(index: number, array: readonly T[]): T | undefined
-
-/**
- * Like {@link at}, but if the resolved value is `undefined`, `defaultValue` is
- * returned instead.
- *
- * @category Basic array operations
- * @example
- *
- * ```typescript
- * A.atOr(999, 0, [1, 2, 3])
- * // => 1
- *
- * A.atOr(999, 0, [])
- * // => 999
- *
- * A.atOr(999, 0, [undefined])
- * // => 999
- * ```
- *
- * @see at
- */
-export function atOr<T>(
-  defaultValue: T
-): {
-  (index: number): (array: readonly T[]) => T
-  (index: number, array: readonly T[]): T
-}
-export function atOr<T>(
-  defaultValue: T,
-  index: number
-): (array: readonly T[]) => T
-export function atOr<T>(defaultValue: T, index: number, array: readonly T[]): T
 
 /**
  * Check if none of the elements in the `array` satisfy the `predicate`.

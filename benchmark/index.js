@@ -4,10 +4,9 @@ const Benchmark = require('benchmark')
 
 const _ = require('lodash')
 const R = require('ramda')
-const I = require('../dist/core')
+const I = require('../dist/index')
 const A = require('../dist/array')
 const O = require('../dist/object')
-const Fn = require('../dist/function')
 const Str = require('../dist/string')
 const S = require('../dist/set')
 
@@ -43,7 +42,7 @@ const benchmarks = [
   {
     name: 'unary',
     benchmarks: () => {
-      const iirisUnary = Fn.unary((a, b) => b)
+      const iirisUnary = I.unary((a, b) => b)
       const lodashUnary = _.unary((a, b) => b)
       const ramdaUnary = R.unary((a, b) => b)
       const nativeUnary = ((fn) => (x) => fn(x))((a, b) => b)
@@ -59,7 +58,7 @@ const benchmarks = [
   {
     name: 'curry.partial',
     benchmarks: () => {
-      const iirisAdd = Fn.curry3((a, b, c) => a + b + c)
+      const iirisAdd = I.curry3((a, b, c) => a + b + c)
       const lodashAdd = _.curry((a, b, c) => a + b + c)
       const ramdaAdd = R.curry((a, b, c) => a + b + c)
       const nativeAdd = (a) => (b) => (c) => a + b + c
@@ -75,7 +74,7 @@ const benchmarks = [
   {
     name: 'curry.full',
     benchmarks: () => {
-      const iirisAdd = Fn.curry3((a, b, c) => a + b + c)
+      const iirisAdd = I.curry3((a, b, c) => a + b + c)
       const lodashAdd = _.curry((a, b, c) => a + b + c)
       const ramdaAdd = R.curry((a, b, c) => a + b + c)
       const nativeAdd = (a, b, c) => a + b + c
@@ -91,7 +90,7 @@ const benchmarks = [
   {
     name: 'curry.last',
     benchmarks: () => {
-      const iirisAdd = Fn.curry3((a, b, c) => a + b + c)(1, 2)
+      const iirisAdd = I.curry3((a, b, c) => a + b + c)(1, 2)
       const lodashAdd = _.curry((a, b, c) => a + b + c)(1, 2)
       const ramdaAdd = R.curry((a, b, c) => a + b + c)(1, 2)
       const nativeAdd = ((a, b) => (c) => a + b + c)(1, 2)
@@ -109,7 +108,7 @@ const benchmarks = [
     benchmarks: () => {
       const inc = (x) => x + 1
       return {
-        iiris: () => Fn.pipe(1, inc, inc, inc, inc),
+        iiris: () => I.pipe(1, inc, inc, inc, inc),
         lodash: () => _.flow([inc, inc, inc, inc])(1),
         ramda: () => R.pipe(inc, inc, inc, inc)(1),
         native: () => inc(inc(inc(inc(1)))),
@@ -120,7 +119,7 @@ const benchmarks = [
     name: 'compose.specialized',
     benchmarks: () => {
       const inc = (x) => x + 1
-      const iirisComposed = Fn.compose(inc, inc, inc)
+      const iirisComposed = I.compose(inc, inc, inc)
       const ramdaComposed = R.compose(inc, inc, inc)
       const nativeComposed = (...args) => inc(inc(inc(...args)))
 
@@ -135,7 +134,7 @@ const benchmarks = [
     name: 'compose.generic',
     benchmarks: () => {
       const inc = (x) => x + 1
-      const iirisComposed = Fn.compose(inc, inc, inc, inc)
+      const iirisComposed = I.compose(inc, inc, inc, inc)
       const ramdaComposed = R.compose(inc, inc, inc, inc)
       const nativeComposed = (...args) => inc(inc(inc(inc(...args))))
 
@@ -491,9 +490,9 @@ const benchmarks = [
     benchmarks: (array) => {
       const shuffled = _.shuffle(array)
       const iirisComparators = [
-        Fn.ascend((obj) => obj.kConstant),
-        Fn.descend((obj) => obj.kConstant),
-        Fn.ascend((obj) => obj.k1),
+        I.ascend((obj) => obj.kConstant),
+        I.descend((obj) => obj.kConstant),
+        I.ascend((obj) => obj.k1),
       ]
       const lodashIteratees = [
         (obj) => obj.kConstant,
@@ -567,18 +566,18 @@ const benchmarks = [
     }),
   },
   {
-    name: 'at',
+    name: 'array.get',
     benchmarks: () => ({
-      iiris: () => A.at(0, num100),
+      iiris: () => A.get(0, num100),
       ramda: () => R.nth(0, num100),
       lodash: () => _.nth(num100, 0),
       native: () => num100?.[0],
     }),
   },
   {
-    name: 'at.curried',
+    name: 'array.get.curried',
     benchmarks: () => {
-      const iirisHead = A.at(0)
+      const iirisHead = A.get(0)
       const ramdaHead = R.nth(0)
       const nativeHead = (array) => array?.[0]
 
@@ -590,7 +589,7 @@ const benchmarks = [
     },
   },
   {
-    name: 'getOr',
+    name: 'object.getOr',
     benchmarks: () => ({
       iiris: () => O.getOr(0, 'kDoesNotExist', obj),
       ramda: () => R.propOr(0, 'KDoesNotExist', obj),
@@ -599,9 +598,9 @@ const benchmarks = [
     }),
   },
   {
-    name: 'atOr',
+    name: 'array.getOr',
     benchmarks: () => ({
-      iiris: () => A.atOr(0, 150, num100),
+      iiris: () => A.getOr(0, 150, num100),
       ramda: () => R.propOr(0, 150, num100),
       native: () => num100?.[150] ?? 0,
     }),
