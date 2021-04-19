@@ -41,7 +41,11 @@ export function entries<T extends object>(
  * @example
  *
  * ```typescript
- * O.fromEntries([['a', 1], ['b', 2], ['c', 3]])
+ * O.fromEntries([
+ *   ['a', 1],
+ *   ['b', 2],
+ *   ['c', 3],
+ * ])
  * // => { a: 1, b: 2, c: 3 }
  * ```
  *
@@ -58,7 +62,13 @@ export function fromEntries<K extends string, V>(
  * @example
  *
  * ```typescript
- * O.fromMap(new Map([['a', 1], ['b', 2], ['c', 3]]))
+ * O.fromMap(
+ *   new Map([
+ *     ['a', 1],
+ *     ['b', 2],
+ *     ['c', 3],
+ *   ])
+ * )
  * // => { a: 1, b: 2, c: 3 }
  * ```
  */

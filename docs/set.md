@@ -28,9 +28,11 @@ import * as S from 'iiris/array'
 
 #### add
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(value: T) => (set: Set<T>) => Set<T>
 ```
+<!-- prettier-ignore-end -->
 
 Return a copy of `set` with `value`.
 
@@ -42,6 +44,7 @@ Return a copy of `set` with `value`.
 S.add(4, S.from([1, 2, 3]))
 // => Set(4) { 1, 2, 3, 4 }
 ```
+
 </details>
 
 **See also:** [add](#add), [has](#has)
@@ -50,9 +53,11 @@ S.add(4, S.from([1, 2, 3]))
 
 #### remove
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(value: T) => (set: Set<T>) => Set<T>
 ```
+<!-- prettier-ignore-end -->
 
 Return a copy of `set` without `value`.
 
@@ -64,6 +69,7 @@ Return a copy of `set` without `value`.
 S.remove(1, S.from([1, 2, 3]))
 // => Set(2) { 2, 3 }
 ```
+
 </details>
 
 **See also:** [add](#add), [has](#has)
@@ -74,9 +80,11 @@ S.remove(1, S.from([1, 2, 3]))
 
 #### empty
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>() => Set<T>
 ```
+<!-- prettier-ignore-end -->
 
 Create an empty set.
 
@@ -86,6 +94,7 @@ Create an empty set.
 S.empty()
 // => Set(0) {}
 ```
+
 </details>
 
 **See also:** [from](#from), [singleton](#singleton)
@@ -94,9 +103,11 @@ S.empty()
 
 #### from
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(iterable: Iterable<T>) => Set<T>
 ```
+<!-- prettier-ignore-end -->
 
 Convert an `iterable` into a set.
 
@@ -106,6 +117,7 @@ Convert an `iterable` into a set.
 S.from([1, 2, 3])
 // => Set(3) { 1, 2, 3 }
 ```
+
 </details>
 
 **See also:** [empty](#empty), [singleton](#singleton)
@@ -114,9 +126,11 @@ S.from([1, 2, 3])
 
 #### singleton
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(value: T) => Set<T>
 ```
+<!-- prettier-ignore-end -->
 
 Create a singleton set containing `value`.
 
@@ -126,6 +140,7 @@ Create a singleton set containing `value`.
 S.singleton(1)
 // => Set(1) { 1 }
 ```
+
 </details>
 
 **See also:** [empty](#empty), [from](#from)
@@ -136,9 +151,11 @@ S.singleton(1)
 
 #### has
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(value: T) => (set: Set<T>) => boolean
 ```
+<!-- prettier-ignore-end -->
 
 Check if `set` contains `value`.
 
@@ -148,15 +165,18 @@ Check if `set` contains `value`.
 S.has(1, S.from([1, 2, 3]))
 // => true
 ```
+
 </details>
 
 ---
 
 #### isEmpty
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(set: Set<T>) => boolean
 ```
+<!-- prettier-ignore-end -->
 
 Check if the `set` is empty.
 
@@ -166,6 +186,7 @@ Check if the `set` is empty.
 S.isEmpty(S.empty())
 // => true
 ```
+
 </details>
 
 ---
@@ -174,12 +195,14 @@ S.isEmpty(S.empty())
 
 #### difference
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(first: Set<T>) => (second: Set<T>) => Set<T>
 ```
+<!-- prettier-ignore-end -->
 
 Calculate the
-[https://en.wikipedia.org/wiki/Complement_(set_theory)#Relative_complement difference](#httpsen.wikipedia.org/wiki/complement_(set_theory)#relative_complement-difference)
+[difference](<https://en.wikipedia.org/wiki/Complement_(set_theory)#Relative_complement>)
 between two sets.
 
 <details><summary>Example</summary>
@@ -188,6 +211,7 @@ between two sets.
 S.difference(S.from([1, 2, 3]), S.from([2, 3, 4]))
 // => Set(4) { 1 }
 ```
+
 </details>
 
 **See also:** [intersection](#intersection), [union](#union)
@@ -196,12 +220,14 @@ S.difference(S.from([1, 2, 3]), S.from([2, 3, 4]))
 
 #### intersection
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(first: Set<T>) => (second: Set<T>) => Set<T>
 ```
+<!-- prettier-ignore-end -->
 
 Calculate the
-[https://en.wikipedia.org/wiki/Intersection_(set_theory) intersection](#httpsen.wikipedia.org/wiki/intersection_(set_theory)-intersection)
+[intersection](<https://en.wikipedia.org/wiki/Intersection_(set_theory)>)
 between two sets.
 
 <details><summary>Example</summary>
@@ -210,6 +236,7 @@ between two sets.
 S.intersection(S.from([1, 2, 3]), S.from([2, 3, 4]))
 // => Set(4) { 2, 3 }
 ```
+
 </details>
 
 **See also:** [intersection](#intersection), [union](#union)
@@ -218,11 +245,13 @@ S.intersection(S.from([1, 2, 3]), S.from([2, 3, 4]))
 
 #### union
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(first: Set<T>) => (second: Set<T>) => Set<T>
 ```
+<!-- prettier-ignore-end -->
 
-Calculate the [https://en.wikipedia.org/wiki/Union_(set_theory) union](#httpsen.wikipedia.org/wiki/union_(set_theory)-union)
+Calculate the [union](<https://en.wikipedia.org/wiki/Union_(set_theory)>)
 between two sets.
 
 <details><summary>Example</summary>
@@ -231,6 +260,7 @@ between two sets.
 S.union(S.from([1, 2, 3]), S.from([2, 3, 4]))
 // => Set(4) { 1, 2, 3, 4 }
 ```
+
 </details>
 
 **See also:** [difference](#difference), [intersection](#intersection)

@@ -31,9 +31,11 @@ import * as O from 'iiris/object'
 
 #### entries
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T extends object>(object: T) => Array<[keyof T & string, T[keyof T & string]]>
 ```
+<!-- prettier-ignore-end -->
 
 Return an array of the own enumerable property key-value pairs of `object`
 
@@ -43,6 +45,7 @@ Return an array of the own enumerable property key-value pairs of `object`
 O.entries({ a: 1, b: 2, c: 3 })
 // => [['a', 1], ['b', 2], ['c', 3]]
 ```
+
 </details>
 
 **See also:** [fromEntries](#fromentries), [keys](#keys), [values](#values)
@@ -51,18 +54,25 @@ O.entries({ a: 1, b: 2, c: 3 })
 
 #### fromEntries
 
+<!-- prettier-ignore-start -->
 ```typescript
 <K extends string, V>(entries: Array<[K, V]>) => Record<K, V>
 ```
+<!-- prettier-ignore-end -->
 
 Create an object from an array of `[key, value]` pairs.
 
 <details><summary>Example</summary>
 
 ```typescript
-O.fromEntries([['a', 1], ['b', 2], ['c', 3]])
+O.fromEntries([
+  ['a', 1],
+  ['b', 2],
+  ['c', 3],
+])
 // => { a: 1, b: 2, c: 3 }
 ```
+
 </details>
 
 **See also:** [entries](#entries)
@@ -71,27 +81,38 @@ O.fromEntries([['a', 1], ['b', 2], ['c', 3]])
 
 #### fromMap
 
+<!-- prettier-ignore-start -->
 ```typescript
 <K extends string, V>(map: Map<K, V>) => Record<K, V>
 ```
+<!-- prettier-ignore-end -->
 
 Convert a `map` with string keys to an object.
 
 <details><summary>Example</summary>
 
 ```typescript
-O.fromMap(new Map([['a', 1], ['b', 2], ['c', 3]]))
+O.fromMap(
+  new Map([
+    ['a', 1],
+    ['b', 2],
+    ['c', 3],
+  ])
+)
 // => { a: 1, b: 2, c: 3 }
 ```
+
 </details>
 
 ---
 
 #### get
 
+<!-- prettier-ignore-start -->
 ```typescript
 <K extends string>(key: K) => <T extends HasKey<K>>(object: T) => T[K]
 ```
+<!-- prettier-ignore-end -->
 
 Retrieves the property `key` from `object` or `undefined`.
 
@@ -104,6 +125,7 @@ O.get('a', { a: 1, b: 2, c: 3 })
 O.get('a', {})
 // => undefined
 ```
+
 </details>
 
 **See also:** [getOr](#getor)
@@ -112,9 +134,11 @@ O.get('a', {})
 
 #### getOr
 
+<!-- prettier-ignore-start -->
 ```typescript
 <V>(defaultValue: V) => <K extends string>(key: K) => <T extends HasKey<K, V>>(object: T) => V | Defined<T[K]>
 ```
+<!-- prettier-ignore-end -->
 
 Like [get](#get), but if the resolved value is `undefined`, `defaultValue`
 is returned instead.
@@ -131,6 +155,7 @@ O.getOr(999, 'a', {})
 O.getOr(999, 'a', { a: undefined })
 // => 999
 ```
+
 </details>
 
 **See also:** [get](#get)
@@ -139,9 +164,11 @@ O.getOr(999, 'a', { a: undefined })
 
 #### has
 
+<!-- prettier-ignore-start -->
 ```typescript
 <K extends string>(key: K) => <T extends HasKey<K>>(object: T) => boolean
 ```
+<!-- prettier-ignore-end -->
 
 Check if `key` is an own property of `object`.
 
@@ -154,15 +181,18 @@ O.has('a', { a: 1 })
 O.has('toString', { a: 1 })
 // => false
 ```
+
 </details>
 
 ---
 
 #### keys
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T extends object>(object: T) => Array<keyof T & string>
 ```
+<!-- prettier-ignore-end -->
 
 Return an array of the own enumerable property keys of `object`.
 
@@ -172,6 +202,7 @@ Return an array of the own enumerable property keys of `object`.
 O.keys({ a: 1, b: 2, c: 3 })
 // => ['a', 'b', 'c']
 ```
+
 </details>
 
 **See also:** [entries](#entries), [values](#values)
@@ -180,9 +211,11 @@ O.keys({ a: 1, b: 2, c: 3 })
 
 #### mapKeys
 
+<!-- prettier-ignore-start -->
 ```typescript
 <K1 extends string, K2 extends string>(fn: (value: K1) => K2) => <V>(object: Record<K1, V>) => Record<K2, V>
 ```
+<!-- prettier-ignore-end -->
 
 Return an object containing the results of applying `fn` to each key of
 the original `object`.
@@ -195,15 +228,18 @@ If multiple keys map to the same new key, the latest value is selected.
 O.mapKeys((k) => k.toUpperCase(), { a: 1, b: 2, c: 3 })
 // => { A: 1, B: 2, C: 3 }
 ```
+
 </details>
 
 ---
 
 #### mapValues
 
+<!-- prettier-ignore-start -->
 ```typescript
 <V1, V2>(fn: (value: V1) => V2) => <K extends string>(object: Record<K, V1>) => Record<K, V2>
 ```
+<!-- prettier-ignore-end -->
 
 Return an object containing the results of applying `fn` to each value of
 the original `object`.
@@ -214,15 +250,18 @@ the original `object`.
 O.mapValues((n) => n + 1, { a: 1, b: 2, c: 3 })
 // => { a: 2, b: 3, c: 4 }
 ```
+
 </details>
 
 ---
 
 #### merge
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T extends object>(first: T) => <U extends object>(second: U) => T & U
 ```
+<!-- prettier-ignore-end -->
 
 Copy the own enumerable properties of two objects, preferring the values from
 `second` in case of duplicate keys.
@@ -233,15 +272,18 @@ Copy the own enumerable properties of two objects, preferring the values from
 O.merge({ a: 1, b: 1 }, { b: 2, c: 2 })
 // => { a: 1, b: 2, c: 2 }
 ```
+
 </details>
 
 ---
 
 #### modify
 
+<!-- prettier-ignore-start -->
 ```typescript
 <K extends string>(key: K) => <V>(fn: (value: V) => V) => <T extends HasKey<K, V>>(object: T) => T
 ```
+<!-- prettier-ignore-end -->
 
 Return a copy of `object` where the property `key` has replaced by applying
 `fn` to its current value.
@@ -262,6 +304,7 @@ O.modifyProp('a', () => undefined, { a: 1, b: 2, c: 3 })
 O.modifyProp('d', () => 4, { a: 1, b: 2, c: 3 })
 // => { a: 1, b: 2, c: 3, d: 4 }
 ```
+
 </details>
 
 **See also:** [set](#set), [remove](#remove)
@@ -270,9 +313,11 @@ O.modifyProp('d', () => 4, { a: 1, b: 2, c: 3 })
 
 #### omit
 
+<!-- prettier-ignore-start -->
 ```typescript
 <K extends string>(keys: K[]) => <T extends HasKey<K>>(object: T) => Omit<T, Extract<keyof T, K>>
 ```
+<!-- prettier-ignore-end -->
 
 Return a copy of `object` without the specified `keys`.
 
@@ -282,6 +327,7 @@ Return a copy of `object` without the specified `keys`.
 O.omit(['a', 'b'], { a: 1, b: 2, c: 3 })
 // => { c: 3 }
 ```
+
 </details>
 
 **See also:** [pick](#pick)
@@ -290,9 +336,11 @@ O.omit(['a', 'b'], { a: 1, b: 2, c: 3 })
 
 #### pick
 
+<!-- prettier-ignore-start -->
 ```typescript
 <K extends string>(keys: K[]) => <T extends HasKey<K>>(object: T) => Pick<T, Extract<keyof T, K>>
 ```
+<!-- prettier-ignore-end -->
 
 Return a copy of `object` with only the specified `keys`.
 
@@ -302,6 +350,7 @@ Return a copy of `object` with only the specified `keys`.
 O.pick(['a', 'b'], { a: 1, b: 2, c: 3 })
 // => { a: 1, b: 2 }
 ```
+
 </details>
 
 **See also:** [omit](#omit)
@@ -310,9 +359,11 @@ O.pick(['a', 'b'], { a: 1, b: 2, c: 3 })
 
 #### remove
 
+<!-- prettier-ignore-start -->
 ```typescript
 <K extends string>(key: K) => <T extends HasKey<K>>(object: T) => Omit<T, K>
 ```
+<!-- prettier-ignore-end -->
 
 Return a copy of `object` without the property `key`.
 
@@ -325,15 +376,18 @@ Return a copy of `object` without the property `key`.
 O.remove('a', { a: 1, b: 2, c: 3 })
 // => { b: 2, c: 3 }
 ```
+
 </details>
 
 ---
 
 #### set
 
+<!-- prettier-ignore-start -->
 ```typescript
 <K extends string>(key: K) => <V>(value: V) => <T extends HasKey<K, V>>(object: T) => T
 ```
+<!-- prettier-ignore-end -->
 
 Return a copy of `object` with property `key` set to `value`.
 
@@ -348,6 +402,7 @@ O.setProp('a', 999, { a: 1, b: 2, c: 3 })
 O.setProp('a', undefined, { a: 1, b: 2, c: 3 })
 // => { b: 2, c: 3 }
 ```
+
 </details>
 
 **See also:** [modify](#modify), [remove](#remove)
@@ -356,9 +411,11 @@ O.setProp('a', undefined, { a: 1, b: 2, c: 3 })
 
 #### values
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T extends object>(object: T) => Array<T[keyof T & string]>
 ```
+<!-- prettier-ignore-end -->
 
 Return an array of the own enumerable property values of `object`
 
@@ -368,6 +425,7 @@ Return an array of the own enumerable property values of `object`
 O.keys({ a: 1, b: 2, c: 3 })
 // => [1, 2, 3]
 ```
+
 </details>
 
 **See also:** [keys](#keys), [entries](#entries)

@@ -23,9 +23,11 @@ import * as S from 'iiris/string'
 
 #### capitalize
 
+<!-- prettier-ignore-start -->
 ```typescript
 (string: string) => string
 ```
+<!-- prettier-ignore-end -->
 
 Convert the first code point of `string` to uppercase and the rest to
 lowercase.
@@ -36,6 +38,7 @@ lowercase.
 S.capitalize('aBc')
 // => 'Abc'
 ```
+
 </details>
 
 **See also:** [toLowerCase](#tolowercase), [toUpperCase](#touppercase)
@@ -44,9 +47,11 @@ S.capitalize('aBc')
 
 #### split
 
+<!-- prettier-ignore-start -->
 ```typescript
 (separator: RegExp | string) => (string: string) => string
 ```
+<!-- prettier-ignore-end -->
 
 Split the `string` into an array of substrings between each `separator`.
 
@@ -56,6 +61,7 @@ Split the `string` into an array of substrings between each `separator`.
 S.split(', ', 'a, b, c')
 // => ['a', 'b', 'c']
 ```
+
 </details>
 
 **See also:** [join](#join)
@@ -64,9 +70,11 @@ S.split(', ', 'a, b, c')
 
 #### test
 
+<!-- prettier-ignore-start -->
 ```typescript
 (regexp: RegExp) => (string: string) => boolean
 ```
+<!-- prettier-ignore-end -->
 
 Check if `string` matches the `regexp`.
 
@@ -76,15 +84,18 @@ Check if `string` matches the `regexp`.
 S.test(/abc/, 'abc')
 // => true
 ```
+
 </details>
 
 ---
 
 #### toLowerCase
 
+<!-- prettier-ignore-start -->
 ```typescript
 (string: string) => string
 ```
+<!-- prettier-ignore-end -->
 
 Convert `string` to lowercase.
 
@@ -94,6 +105,7 @@ Convert `string` to lowercase.
 S.toLowerCase('ABC')
 // => 'abc'
 ```
+
 </details>
 
 **See also:** [toUpperCase](#touppercase), [capitalize](#capitalize)
@@ -102,9 +114,11 @@ S.toLowerCase('ABC')
 
 #### toUpperCase
 
+<!-- prettier-ignore-start -->
 ```typescript
 (string: string) => string
 ```
+<!-- prettier-ignore-end -->
 
 Convert `string` to uppercase.
 
@@ -114,6 +128,7 @@ Convert `string` to uppercase.
 S.toUpperCase('abc')
 // => 'ABC'
 ```
+
 </details>
 
 **See also:** [toLowerCase](#tolowercase), [capitalize](#capitalize)
@@ -122,9 +137,11 @@ S.toUpperCase('abc')
 
 #### trim
 
+<!-- prettier-ignore-start -->
 ```typescript
 (string: string) => string
 ```
+<!-- prettier-ignore-end -->
 
 Remove whitespace from both ends of a `string`.
 
@@ -134,6 +151,7 @@ Remove whitespace from both ends of a `string`.
 S.trim('  abc  ')
 // => 'abc'
 ```
+
 </details>
 
 **See also:** [trimStart](#trimstart), [trimEnd](#trimend)
@@ -142,9 +160,11 @@ S.trim('  abc  ')
 
 #### trimEnd
 
+<!-- prettier-ignore-start -->
 ```typescript
 (string: string) => string
 ```
+<!-- prettier-ignore-end -->
 
 Remove whitespace from the end of a `string`.
 
@@ -154,6 +174,7 @@ Remove whitespace from the end of a `string`.
 S.trimEnd('  abc  ')
 // => '  abc'
 ```
+
 </details>
 
 **See also:** [trimStart](#trimstart), [trim](#trim)
@@ -162,9 +183,11 @@ S.trimEnd('  abc  ')
 
 #### trimStart
 
+<!-- prettier-ignore-start -->
 ```typescript
 (string: string) => string
 ```
+<!-- prettier-ignore-end -->
 
 Remove whitespace from the beginning of a `string`.
 
@@ -174,6 +197,7 @@ Remove whitespace from the beginning of a `string`.
 S.trimStart('  abc  ')
 // => 'abc  '
 ```
+
 </details>
 
 **See also:** [trimEnd](#trimend), [trim](#trim)

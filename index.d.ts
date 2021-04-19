@@ -336,13 +336,13 @@ export function constant<T>(value: T): () => T
  * @example
  *
  * ```typescript
- *  const add = I.curry2((a, b) => a + b)
+ * const add = I.curry2((a, b) => a + b)
  *
- *  add(1)(2)
- *  // => 3
+ * add(1)(2)
+ * // => 3
  *
- *  add(1, 2)
- *  // => 3
+ * add(1, 2)
+ * // => 3
  * ```
  *
  * @see curry3
@@ -359,13 +359,13 @@ export function curry2<T extends Tuple2, R>(
  * @example
  *
  * ```typescript
- *  const add = I.curry3((a, b, c) => a + b + c)
+ * const add = I.curry3((a, b, c) => a + b + c)
  *
- *  add(1)(2)(3)
- *  // => 6
+ * add(1)(2)(3)
+ * // => 6
  *
- *  add(1, 2, 3)
- *  // => 6
+ * add(1, 2, 3)
+ * // => 6
  * ```
  *
  * @see curry2
@@ -382,13 +382,13 @@ export function curry3<T extends Tuple3, R>(
  * @example
  *
  * ```typescript
- *  const add = I.curry4((a, b, c, d) => a + b + c + d)
+ * const add = I.curry4((a, b, c, d) => a + b + c + d)
  *
- *  add(1)(2)(3)(4)
- *  // => 10
+ * add(1)(2)(3)(4)
+ * // => 10
  *
- *  add(1, 2, 3, 4)
- *  // => 10
+ * add(1, 2, 3, 4)
+ * // => 10
  * ```
  *
  * @see curry2
@@ -1136,7 +1136,8 @@ export function tap<T>(fn: (value: T) => void): (value: T) => T
  * @example
  *
  * ```typescript
- * ['1', '2', '3'].map(I.unary(parseInt))
+ * const array = [1, 2, 3]
+ * array.map(I.unary(parseInt))
  * // => [1, 2, 3]
  * ```
  *
