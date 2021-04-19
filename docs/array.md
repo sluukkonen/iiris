@@ -351,11 +351,8 @@ A.length([])
 ```
 
 Returns a copy of `array` where the element at `index` has been replaced by
-applying `fn` to its current value.
-
-- If `index` is not within `array` bounds, the `array` is returned
-  unchanged.
-- Removes the element if `fn` returns `undefined`.
+applying `fn` to its current value. If `index` is not within `array` bounds,
+the `array` is returned unchanged.
 
 <details><summary>Example</summary>
 
@@ -404,10 +401,8 @@ A.prepend(0, [1, 2, 3])
 (index: number) => <T>(array: T[]) => T[]
 ```
 
-Return a copy of `array` without the element at `index`.
-
-- If `index` is not within the `array` bounds, the `array` is returned
-  unchanged.
+Return a copy of `array` without the element at `index`. If `index` is not
+within the `array` bounds, the `array` is returned unchanged.
 
 <details><summary>Example</summary>
 
@@ -430,15 +425,12 @@ A.remove(999, [1, 2, 3])
 #### set
 
 ```typescript
-(index: number) => <T>(value: undefined | T) => (array: T[]) => T[]
+(index: number) => <T>(value: T) => (array: T[]) => T[]
 ```
 
 Returns a copy of `array` where the element at `index` has been replaced with
-`value`.
-
-- If `index` is not within the `array` bounds, the `array` is returned
-  unchanged.
-- Removes the element if `value` is `undefined`.
+`value`. If `index` is not within the `array` bounds, the `array` is returned
+unchanged.
 
 <details><summary>Example</summary>
 
@@ -451,9 +443,6 @@ A.set(-1, 999, [1, 2, 3])
 
 A.set(999, 999, [1, 2, 3])
 // => [1, 2, 3]
-
-A.set(0, undefined, [1, 2, 3])
-// => [2, 3]
 ```
 </details>
 
