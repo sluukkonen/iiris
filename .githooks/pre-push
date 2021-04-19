@@ -1,3 +1,3 @@
 #!/bin/sh
 
-echo "test lint tsd" | xargs -n1 -P0 yarn
+./node_modules/.bin/concurrently "yarn test" "yarn lint" "yarn tsd"
