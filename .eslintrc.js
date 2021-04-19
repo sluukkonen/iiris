@@ -2,15 +2,13 @@
 module.exports = {
   parserOptions: { ecmaVersion: 2020, sourceType: 'module' },
   env: { jest: true, node: true, es6: true },
-  plugins: ['prettier', 'jest'],
+  plugins: ['jest'],
   extends: [
     'eslint:recommended',
     'plugin:jest/recommended',
     'plugin:import/errors',
     'plugin:import/warnings',
-    'plugin:prettier/recommended',
   ],
-  ignorePatterns: ['node_modules', 'dist'],
   rules: {
     'import/extensions': ['error', 'always'],
     'import/no-commonjs': 'error',

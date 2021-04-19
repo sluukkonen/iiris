@@ -94,9 +94,11 @@ import * as A from 'iiris/array'
 
 #### append
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(value: T) => (array: T[]) => T[]
 ```
+<!-- prettier-ignore-end -->
 
 Append a new element to the end of an array.
 
@@ -106,6 +108,7 @@ Append a new element to the end of an array.
 A.append(4, [1, 2, 3])
 // => [1, 2, 3, 4]
 ```
+
 </details>
 
 **See also:** [prepend](#prepend), [concat](#concat)
@@ -114,9 +117,11 @@ A.append(4, [1, 2, 3])
 
 #### concat
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(array: T[]) => (other: T[]) => T[]
 ```
+<!-- prettier-ignore-end -->
 
 Concatenate two arrays together.
 
@@ -126,6 +131,7 @@ Concatenate two arrays together.
 A.concat([1, 2, 3], [4, 5, 6])
 // => [1, 2, 3, 4, 5, 6]
 ```
+
 </details>
 
 **See also:** [append](#append), [prepend](#prepend)
@@ -134,9 +140,11 @@ A.concat([1, 2, 3], [4, 5, 6])
 
 #### forEach
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(fn: (value: T) => void) => (array: T[]) => T[]
 ```
+<!-- prettier-ignore-end -->
 
 Apply `fn` to each element of the `array` and return the `array`.
 
@@ -149,6 +157,7 @@ i
 !
 // => ['h', 'i', '!']
 ```
+
 </details>
 
 **See also:** [forEachWithIndex](#foreachwithindex)
@@ -157,9 +166,11 @@ i
 
 #### forEachWithIndex
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(fn: (index: number, value: T) => void) => (array: T[]) => T[]
 ```
+<!-- prettier-ignore-end -->
 
 Like [forEach](#foreach), but `fn` also receives the element index as the first
 argument.
@@ -173,6 +184,7 @@ A.forEachWithIndex(console.log, ['h', 'i', '!'])
 2 !
 // => ['h', 'i', '!']
 ```
+
 </details>
 
 **See also:** [forEach](#foreach)
@@ -181,9 +193,11 @@ A.forEachWithIndex(console.log, ['h', 'i', '!'])
 
 #### get
 
+<!-- prettier-ignore-start -->
 ```typescript
 (index: number) => <T>(array: T[]) => T | undefined
 ```
+<!-- prettier-ignore-end -->
 
 Return the element at `index` from `array` or `undefined`.
 
@@ -196,6 +210,7 @@ A.get(0, [1, 2, 3])
 A.get(0, [])
 // => undefined
 ```
+
 </details>
 
 **See also:** [getOr](#getor)
@@ -204,9 +219,11 @@ A.get(0, [])
 
 #### getOr
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(defaultValue: T) => (index: number) => (array: T[]) => T
 ```
+<!-- prettier-ignore-end -->
 
 Like [get](#get), but if `index` is not within the array bounds,
 `defaultValue` is returned instead.
@@ -223,6 +240,7 @@ A.getOr(999, 0, [])
 A.getOr(999, 0, [undefined])
 // => 999
 ```
+
 </details>
 
 **See also:** [get](#get)
@@ -231,9 +249,11 @@ A.getOr(999, 0, [undefined])
 
 #### head
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(array: T[]) => T | undefined
 ```
+<!-- prettier-ignore-end -->
 
 Return the first element of the `array` or `undefined`.
 
@@ -246,6 +266,7 @@ A.head([1, 2, 3])
 A.head([])
 // => undefined
 ```
+
 </details>
 
 **See also:** [tail](#tail), [init](#init), [last](#last)
@@ -254,9 +275,11 @@ A.head([])
 
 #### init
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(array: T[]) => T[]
 ```
+<!-- prettier-ignore-end -->
 
 Return all elements of the `array` except the last.
 
@@ -269,6 +292,7 @@ A.init([1, 2, 3])
 A.init([])
 // => []
 ```
+
 </details>
 
 **See also:** [last](#last), [head](#head), [tail](#tail)
@@ -277,9 +301,11 @@ A.init([])
 
 #### isEmpty
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(array: T[]) => boolean
 ```
+<!-- prettier-ignore-end -->
 
 Check if `array` is empty.
 
@@ -292,6 +318,7 @@ A.isEmpty([1, 2, 3])
 A.isEmpty([])
 // => true
 ```
+
 </details>
 
 **See also:** [length](#length)
@@ -300,9 +327,11 @@ A.isEmpty([])
 
 #### last
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(array: T[]) => T | undefined
 ```
+<!-- prettier-ignore-end -->
 
 Return the last element of the `array` or `undefined`.
 
@@ -315,6 +344,7 @@ A.last([1, 2, 3])
 A.last([])
 // => undefined
 ```
+
 </details>
 
 **See also:** [init](#init), [head](#head), [tail](#tail)
@@ -323,9 +353,11 @@ A.last([])
 
 #### length
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(array: T[]) => number
 ```
+<!-- prettier-ignore-end -->
 
 Return the length of an `array`.
 
@@ -338,6 +370,7 @@ A.length([1, 2, 3])
 A.length([])
 // => 0
 ```
+
 </details>
 
 **See also:** [isEmpty](#isempty)
@@ -346,9 +379,11 @@ A.length([])
 
 #### modify
 
+<!-- prettier-ignore-start -->
 ```typescript
 (index: number) => <T>(fn: (value: T) => T) => (array: T[]) => T[]
 ```
+<!-- prettier-ignore-end -->
 
 Returns a copy of `array` where the element at `index` has been replaced by
 applying `fn` to its current value. If `index` is not within `array` bounds,
@@ -369,6 +404,7 @@ A.modify(0, () => undefined, [1, 2, 3])
 A.modify(999, (n) => n + 1, [1, 2, 3])
 // => [1, 2, 3]
 ```
+
 </details>
 
 **See also:** [set](#set), [remove](#remove)
@@ -377,9 +413,11 @@ A.modify(999, (n) => n + 1, [1, 2, 3])
 
 #### prepend
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(value: T) => (array: T[]) => T[]
 ```
+<!-- prettier-ignore-end -->
 
 Prepend a new element to the beginning of an array.
 
@@ -389,6 +427,7 @@ Prepend a new element to the beginning of an array.
 A.prepend(0, [1, 2, 3])
 // => [0, 1, 2, 3]
 ```
+
 </details>
 
 **See also:** [append](#append), [concat](#concat)
@@ -397,9 +436,11 @@ A.prepend(0, [1, 2, 3])
 
 #### remove
 
+<!-- prettier-ignore-start -->
 ```typescript
 (index: number) => <T>(array: T[]) => T[]
 ```
+<!-- prettier-ignore-end -->
 
 Return a copy of `array` without the element at `index`. If `index` is not
 within the `array` bounds, the `array` is returned unchanged.
@@ -416,6 +457,7 @@ A.remove(-1, [1, 2, 3])
 A.remove(999, [1, 2, 3])
 // => [1, 2, 3]
 ```
+
 </details>
 
 **See also:** [modify](#modify), [set](#set)
@@ -424,9 +466,11 @@ A.remove(999, [1, 2, 3])
 
 #### set
 
+<!-- prettier-ignore-start -->
 ```typescript
 (index: number) => <T>(value: T) => (array: T[]) => T[]
 ```
+<!-- prettier-ignore-end -->
 
 Returns a copy of `array` where the element at `index` has been replaced with
 `value`. If `index` is not within the `array` bounds, the `array` is returned
@@ -444,6 +488,7 @@ A.set(-1, 999, [1, 2, 3])
 A.set(999, 999, [1, 2, 3])
 // => [1, 2, 3]
 ```
+
 </details>
 
 **See also:** [modify](#modify), [remove](#remove)
@@ -452,9 +497,11 @@ A.set(999, 999, [1, 2, 3])
 
 #### tail
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(array: T[]) => T[]
 ```
+<!-- prettier-ignore-end -->
 
 Return all elements of the `array` except the first.
 
@@ -467,6 +514,7 @@ A.tail([1, 2, 3])
 A.tail([])
 // => []
 ```
+
 </details>
 
 **See also:** [head](#head), [init](#init), [last](#last)
@@ -477,9 +525,11 @@ A.tail([])
 
 #### empty
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>() => T[]
 ```
+<!-- prettier-ignore-end -->
 
 Create an empty array.
 
@@ -489,6 +539,7 @@ Create an empty array.
 A.empty()
 // => []
 ```
+
 </details>
 
 **See also:** [from](#from), [singleton](#singleton)
@@ -497,9 +548,11 @@ A.empty()
 
 #### from
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(iterable: Iterable<T>) => T[]
 ```
+<!-- prettier-ignore-end -->
 
 Convert an `iterable` into an array.
 
@@ -511,6 +564,7 @@ Convert an `iterable` into an array.
 A.from(new Set([1, 2, 3))
 // => [1, 2, 3]
 ```
+
 </details>
 
 **See also:** [empty](#empty), [singleton](#singleton)
@@ -519,9 +573,11 @@ A.from(new Set([1, 2, 3))
 
 #### range
 
+<!-- prettier-ignore-start -->
 ```typescript
 (start: number) => (end: number) => number[]
 ```
+<!-- prettier-ignore-end -->
 
 Create an array of numbers between `start` (inclusive) and `end`
 (exclusive).
@@ -535,6 +591,7 @@ A.range(0, 10)
 A.range(0, 0)
 // => []
 ```
+
 </details>
 
 **See also:** [times](#times), [repeat](#repeat)
@@ -543,9 +600,11 @@ A.range(0, 0)
 
 #### repeat
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(value: T) => (n: number) => T[]
 ```
+<!-- prettier-ignore-end -->
 
 Repeat the given `value` `n` times.
 
@@ -555,6 +614,7 @@ Repeat the given `value` `n` times.
 A.repeat('a', 5)
 // => ['a', 'a', 'a', 'a', 'a']
 ```
+
 </details>
 
 **See also:** [range](#range), [times](#times)
@@ -563,9 +623,11 @@ A.repeat('a', 5)
 
 #### singleton
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(values: T) => [T]
 ```
+<!-- prettier-ignore-end -->
 
 Create a singleton array containing `value`
 
@@ -578,6 +640,7 @@ A.of(1)
 A.of(1, 2, 3)
 // => [1, 2, 3]
 ```
+
 </details>
 
 **See also:** [from](#from), [empty](#empty)
@@ -586,9 +649,11 @@ A.of(1, 2, 3)
 
 #### times
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(fn: (index: number) => T) => (n: number) => T[]
 ```
+<!-- prettier-ignore-end -->
 
 Create an array of length `n` by applying `fn` to the index of each element.
 
@@ -598,6 +663,7 @@ Create an array of length `n` by applying `fn` to the index of each element.
 A.times((n) => n * 10, 3)
 // => [0, 10, 20]
 ```
+
 </details>
 
 **See also:** [range](#range), [repeat](#repeat)
@@ -608,9 +674,11 @@ A.times((n) => n * 10, 3)
 
 #### countBy
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T, K extends string>(keyFn: (value: T) => K) => (array: T[]) => Record<K, number>
 ```
+<!-- prettier-ignore-end -->
 
 Apply `keyFn` to each element in the `array` and return an object of counts
 by key.
@@ -618,15 +686,12 @@ by key.
 <details><summary>Example</summary>
 
 ```typescript
-const users = [
-  { name: 'Alice' },
-  { name: 'Bob' },
-  { name: 'Alice' }
-]
+const users = [{ name: 'Alice' }, { name: 'Bob' }, { name: 'Alice' }]
 
 A.countBy((u) => u.name, users)
 // => { Alice: 2, Bob: 1 }
 ```
+
 </details>
 
 **See also:** [groupBy](#groupby)
@@ -635,24 +700,23 @@ A.countBy((u) => u.name, users)
 
 #### groupBy
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T, K extends string>(keyFn: (value: T) => K) => (array: T[]) => Record<K, T[]>
 ```
+<!-- prettier-ignore-end -->
 
 Partition the `array` into an object of arrays according to `keyFn`.
 
 <details><summary>Example</summary>
 
 ```typescript
-const users = [
-  { name: 'Alice' },
-  { name: 'Bob' },
-  { name: 'Alice' },
-]
+const users = [{ name: 'Alice' }, { name: 'Bob' }, { name: 'Alice' }]
 
 A.groupBy((u) => u.name, users)
 // => { Alice: [{ name: 'Alice' }, { name: 'Alice' }], Bob: [{ name: 'Bob' }] }
 ```
+
 </details>
 
 **See also:** [indexBy](#indexby), [countBy](#countby), [groupMap](#groupmap), [groupMapReduce](#groupmapreduce)
@@ -661,9 +725,11 @@ A.groupBy((u) => u.name, users)
 
 #### groupMap
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T, U>(mapFn: (value: T) => U) => <K extends string>(keyFn: (value: T) => K) => (array: T[]) => Record<K, U[]>
 ```
+<!-- prettier-ignore-end -->
 
 Like [groupBy](#groupby), but also apply `mapFn` to each element before adding
 it to the corresponding array.
@@ -674,11 +740,16 @@ it to the corresponding array.
 const users = [
   { name: 'Alice', age: 10 },
   { name: 'Bob', age: 20 },
-  { name: 'Alice', age: 30 }
+  { name: 'Alice', age: 30 },
 ]
-const agesByName = A.groupMap((u) => u.age, (u) => u.name, users)
+const agesByName = A.groupMap(
+  (u) => u.age,
+  (u) => u.name,
+  users
+)
 // => { Alice: [10, 30], Bob: [20] }
 ```
+
 </details>
 
 **See also:** [groupBy](#groupby), [groupMapReduce](#groupmapreduce)
@@ -687,9 +758,11 @@ const agesByName = A.groupMap((u) => u.age, (u) => u.name, users)
 
 #### groupMapReduce
 
+<!-- prettier-ignore-start -->
 ```typescript
 <U>(reducer: (accumulator: U, value: U) => U) => <T>(mapFn: (value: T) => U) => <K extends string>(keyFn: (value: T) => K) => (array: T[]) => Record<K, U>
 ```
+<!-- prettier-ignore-end -->
 
 Like [groupMap](#groupmap), but instead of returning an object of arrays, combine
 elements mapping to the same key with `reducer`.
@@ -700,7 +773,7 @@ elements mapping to the same key with `reducer`.
 const users = [
   { name: 'Alice', age: 10 },
   { name: 'Bob', age: 20 },
-  { name: 'Alice', age: 30 }
+  { name: 'Alice', age: 30 },
 ]
 const sumOfAgesByName = A.groupMapReduce(
   (sum, n) => sum + n,
@@ -709,6 +782,7 @@ const sumOfAgesByName = A.groupMapReduce(
   users
 ) // => { Alice: 40, Bob: 20 }
 ```
+
 </details>
 
 **See also:** [groupBy](#groupby), [groupMap](#groupmap)
@@ -717,9 +791,11 @@ const sumOfAgesByName = A.groupMapReduce(
 
 #### indexBy
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T, K extends string>(keyFn: (value: T) => K) => (array: T[]) => Record<K, T>
 ```
+<!-- prettier-ignore-end -->
 
 Apply `keyFn` to each element in the `array` and return an object of
 elements indexed by each key.
@@ -732,11 +808,12 @@ If multiple elements map to the same key, the last one is selected.
 const users = [
   { id: 1, name: 'Alice' },
   { id: 2, name: 'Bob' },
-  { id: 1, name: 'Carol' }
+  { id: 1, name: 'Carol' },
 ]
 A.indexBy((u) => u.id, users)
 // => { '1': { id: 1, name: 'Carol' }, '2': { id: 2, name: 'Bob' } }
 ```
+
 </details>
 
 **See also:** [groupBy](#groupby)
@@ -747,9 +824,11 @@ A.indexBy((u) => u.id, users)
 
 #### minimum
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T extends Ordered>(array: T[]) => T | undefined
 ```
+<!-- prettier-ignore-end -->
 
 Return the smallest element of `array` or `undefined`.
 
@@ -762,6 +841,7 @@ A.minimum([1, 2, 3])
 A.minimum([])
 // => undefined
 ```
+
 </details>
 
 **See also:** [maximum](#maximum), [minimumBy](#minimumby)
@@ -770,9 +850,11 @@ A.minimum([])
 
 #### minimumBy
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T, U extends Ordered>(fn: (value: T) => U) => (array: T[]) => T | undefined
 ```
+<!-- prettier-ignore-end -->
 
 Like [minimum](#minimum), but `fn` is applied to each value before determining
 their ordering.
@@ -789,6 +871,7 @@ const users = [
 A.minimumBy((u) => u.age, users)
 // => { name: 'Alice', age: 10 }
 ```
+
 </details>
 
 **See also:** [minimum](#minimum), [maximumBy](#maximumby)
@@ -797,9 +880,11 @@ A.minimumBy((u) => u.age, users)
 
 #### reduce
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T, R>(reducer: (accumulator: R, value: T) => R) => (initial: R) => (array: T[]) => R
 ```
+<!-- prettier-ignore-end -->
 
 Left-associative fold.
 
@@ -815,6 +900,7 @@ If the array is empty, `initial` is returned.
 A.reduce((sum, n) => sum + n, 1, [2, 3, 4]) // equal to ((1 + 2) + 3) + 4
 // => 10
 ```
+
 </details>
 
 **See also:** [reduceRight](#reduceright)
@@ -823,9 +909,11 @@ A.reduce((sum, n) => sum + n, 1, [2, 3, 4]) // equal to ((1 + 2) + 3) + 4
 
 #### reduceRight
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T, R>(reducer: (value: T, accumulator: R) => R) => (initial: R) => (array: T[]) => R
 ```
+<!-- prettier-ignore-end -->
 
 Right-associative fold.
 
@@ -841,6 +929,7 @@ If the array is empty, `initial` is returned.
 A.reduceRight((n, sum) => n + sum, 4, [1, 2, 3]) // equal to 1 + (2 + (3 + 4))
 // => 10
 ```
+
 </details>
 
 **See also:** [reduce](#reduce)
@@ -849,9 +938,11 @@ A.reduceRight((n, sum) => n + sum, 4, [1, 2, 3]) // equal to 1 + (2 + (3 + 4))
 
 #### sum
 
+<!-- prettier-ignore-start -->
 ```typescript
 (numbers: number[]) => number
 ```
+<!-- prettier-ignore-end -->
 
 Sum an `array` of numbers together. Returns `0` if the array is empty.
 
@@ -871,6 +962,7 @@ A.sum(numbers)
 numbers.reduce((sum, n) => sum + n, 0)
 // => 0.9999999999999999
 ```
+
 </details>
 
 **See also:** [sumBy](#sumby)
@@ -879,9 +971,11 @@ numbers.reduce((sum, n) => sum + n, 0)
 
 #### sumBy
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(fn: (value: T) => number) => (array: T[]) => number
 ```
+<!-- prettier-ignore-end -->
 
 Like [sum](#sum), but each element of the `array` is converted to a number
 by applying `fn`.
@@ -889,9 +983,13 @@ by applying `fn`.
 <details><summary>Example</summary>
 
 ```typescript
-A.sumBy((u) => u.age, [{ name: 'Alice', age: 10 }, { name: 'Bob', age: 20 }])
+A.sumBy((u) => u.age, [
+  { name: 'Alice', age: 10 },
+  { name: 'Bob', age: 20 },
+])
 // => 30
 ```
+
 </details>
 
 **See also:** [sum](#sum)
@@ -902,9 +1000,11 @@ A.sumBy((u) => u.age, [{ name: 'Alice', age: 10 }, { name: 'Bob', age: 20 }])
 
 #### includes
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(value: T) => (array: T[]) => boolean
 ```
+<!-- prettier-ignore-end -->
 
 Check if the `array` includes the specified `value`, using [equals](#equals) for
 determining equality.
@@ -918,15 +1018,18 @@ A.includes(1, [1, 2, 3])
 A.includes(0, [1, 2, 3])
 // => false
 ```
+
 </details>
 
 ---
 
 #### indexOf
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(value: T) => (array: T[]) => number
 ```
+<!-- prettier-ignore-end -->
 
 Return the index of the first element equaling `value`, using [equals](#equals)
 for determining equality. Returns `-1` if no match can be found.
@@ -940,6 +1043,7 @@ A.indexOf('b', ['a', 'b', 'c', 'a', 'b', 'c'])
 A.indexOf('x', ['a', 'b', 'c', 'a', 'b', 'c'])
 // => -1
 ```
+
 </details>
 
 **See also:** [lastIndexOf](#lastindexof), [includes](#includes)
@@ -948,9 +1052,11 @@ A.indexOf('x', ['a', 'b', 'c', 'a', 'b', 'c'])
 
 #### lastIndexOf
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(value: T) => (array: T[]) => number
 ```
+<!-- prettier-ignore-end -->
 
 Return the index of the last element equaling `value`, using [equals](#equals)
 for determining equality. Returns `-1` if no match can be found.
@@ -964,6 +1070,7 @@ A.lastIndexOf('b', ['a', 'b', 'c', 'a', 'b', 'c'])
 A.lastIndexOf('x', ['a', 'b', 'c', 'a', 'b', 'c'])
 // => -1
 ```
+
 </details>
 
 **See also:** [indexOf](#indexof), [includes](#includes)
@@ -974,9 +1081,11 @@ A.lastIndexOf('x', ['a', 'b', 'c', 'a', 'b', 'c'])
 
 #### count
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(predicate: (value: T) => boolean) => (array: T[]) => number
 ```
+<!-- prettier-ignore-end -->
 
 Count the number of elements in the `array` the satisfy the `predicate`.
 
@@ -986,6 +1095,7 @@ Count the number of elements in the `array` the satisfy the `predicate`.
 A.count((n) => n > 1, [1, 2, 3])
 // => 2
 ```
+
 </details>
 
 **See also:** [filter](#filter)
@@ -994,9 +1104,11 @@ A.count((n) => n > 1, [1, 2, 3])
 
 #### every
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(predicate: (value: T) => boolean) => (array: T[]) => boolean
 ```
+<!-- prettier-ignore-end -->
 
 Check if every element in the `array` satisfies the `predicate`.
 
@@ -1009,6 +1121,7 @@ A.every((n) => n < 10, [1, 2, 3])
 A.every((n) => n < 3, [1, 2, 3])
 // => false
 ```
+
 </details>
 
 **See also:** [none](#none), [some](#some)
@@ -1017,10 +1130,12 @@ A.every((n) => n < 3, [1, 2, 3])
 
 #### filter
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(predicate: (value: T) => boolean) => (array: T[]) => T[]
 <T, U>(guard: (value: T) => value is U) => (array: T[]) => U[]
 ```
+<!-- prettier-ignore-end -->
 
 Return the elements of the `array` that satisfy the `predicate`.
 
@@ -1030,6 +1145,7 @@ Return the elements of the `array` that satisfy the `predicate`.
 A.filter((n) => n > 1, [1, 2, 3])
 // => [2, 3]
 ```
+
 </details>
 
 **See also:** [filterWithIndex](#filterwithindex), [count](#count), [partition](#partition)
@@ -1038,9 +1154,11 @@ A.filter((n) => n > 1, [1, 2, 3])
 
 #### filterWithIndex
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(predicate: (index: number, value: T) => boolean) => (array: T[]) => T[]
 ```
+<!-- prettier-ignore-end -->
 
 Like [filter](#filter), but `predicate` also receives the element index as the
 first argument.
@@ -1051,6 +1169,7 @@ first argument.
 A.filterWithIndex((i, n) => i + n === 3, [1, 2, 3])
 // => [2]
 ```
+
 </details>
 
 **See also:** [filter](#filter)
@@ -1059,10 +1178,12 @@ A.filterWithIndex((i, n) => i + n === 3, [1, 2, 3])
 
 #### find
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(predicate: (value: T) => boolean) => (array: T[]) => T | undefined
 <T, U>(guard: (value: T) => value is U) => (array: T[]) => U | undefined
 ```
+<!-- prettier-ignore-end -->
 
 Find the first element in the `array` that satisfies the `predicate`.
 
@@ -1077,6 +1198,7 @@ A.find((c) => c !== 'a', ['a', 'b', 'c'])
 A.find((c) => c === 'x', ['a', 'b', 'c'])
 // => undefined
 ```
+
 </details>
 
 **See also:** [findLast](#findlast), [findIndex](#findindex)
@@ -1085,9 +1207,11 @@ A.find((c) => c === 'x', ['a', 'b', 'c'])
 
 #### findIndex
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(predicate: (value: T) => boolean) => (array: T[]) => number
 ```
+<!-- prettier-ignore-end -->
 
 Find the index of the first element in the `array` that satisfies the
 `predicate`.
@@ -1103,6 +1227,7 @@ A.findIndex((c) => c !== 'a', ['a', 'b', 'c'])
 A.findIndex((c) => c === 'x', ['a', 'b', 'c'])
 // => -1
 ```
+
 </details>
 
 **See also:** [findLastIndex](#findlastindex), [find](#find)
@@ -1111,10 +1236,12 @@ A.findIndex((c) => c === 'x', ['a', 'b', 'c'])
 
 #### findLast
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(predicate: (value: T) => boolean) => (array: T[]) => T | undefined
 <T, U>(guard: (value: T) => value is U) => (array: T[]) => U | undefined
 ```
+<!-- prettier-ignore-end -->
 
 Find the last element in the `array` that satisfies the `predicate`.
 
@@ -1129,6 +1256,7 @@ A.findLast((c) => c !== 'a', ['a', 'b', 'c'])
 A.findLast((c) => c === 'x', ['a', 'b', 'c'])
 // => undefined
 ```
+
 </details>
 
 **See also:** [find](#find), [findLastIndex](#findlastindex)
@@ -1137,9 +1265,11 @@ A.findLast((c) => c === 'x', ['a', 'b', 'c'])
 
 #### findLastIndex
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(predicate: (value: T) => boolean) => (array: T[]) => number
 ```
+<!-- prettier-ignore-end -->
 
 Find the index of the last element in the `array` that satisfies the
 `predicate`.
@@ -1155,6 +1285,7 @@ A.findLastIndex((c) => c !== 'a', ['a', 'b', 'c'])
 A.findLastIndex((c) => c === 'x', ['a', 'b', 'c'])
 // => -1
 ```
+
 </details>
 
 **See also:** [findIndex](#findindex), [findLast](#findlast)
@@ -1163,9 +1294,11 @@ A.findLastIndex((c) => c === 'x', ['a', 'b', 'c'])
 
 #### none
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(predicate: (value: T) => boolean) => (array: T[]) => boolean
 ```
+<!-- prettier-ignore-end -->
 
 Check if none of the elements in the `array` satisfy the `predicate`.
 
@@ -1178,6 +1311,7 @@ A.none((n) => n > 5, [1, 2, 3])
 A.none((n) => n > 5, [1, 2, 3])
 // => false
 ```
+
 </details>
 
 **See also:** [every](#every), [some](#some)
@@ -1186,10 +1320,12 @@ A.none((n) => n > 5, [1, 2, 3])
 
 #### partition
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(predicate: (value: T) => boolean) => (array: T[]) => [T[], T[]]
 <T, U>(guard: (value: T) => value is U) => (array: T[]) => [U[], Array<Exclude<T, U>>]
 ```
+<!-- prettier-ignore-end -->
 
 Partition the `array` into two arrays, the first containing the elements
 that satisfy the `predicate` and the second containing the elements that do
@@ -1201,6 +1337,7 @@ not.
 const [evens, odds] = A.partition((n) => n % 2 === 0, [1, 2, 3])
 // => [[2], [1, 3]]
 ```
+
 </details>
 
 **See also:** [filter](#filter)
@@ -1209,9 +1346,11 @@ const [evens, odds] = A.partition((n) => n % 2 === 0, [1, 2, 3])
 
 #### some
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(predicate: (value: T) => boolean) => (array: T[]) => boolean
 ```
+<!-- prettier-ignore-end -->
 
 Check if some elements in the `array` satisfies the `predicate`.
 
@@ -1224,6 +1363,7 @@ A.some((n) => n > 2, [1, 2, 3])
 A.some((n) => n > 5, [1, 2, 3])
 // false
 ```
+
 </details>
 
 **See also:** [every](#every), [none](#none)
@@ -1234,9 +1374,11 @@ A.some((n) => n > 5, [1, 2, 3])
 
 #### drop
 
+<!-- prettier-ignore-start -->
 ```typescript
 (n: number) => <T>(array: T[]) => T[]
 ```
+<!-- prettier-ignore-end -->
 
 Drop the first `n` elements of an `array`.
 
@@ -1249,6 +1391,7 @@ A.drop(1, [1, 2, 3])
 A.drop(2, [1, 2, 3])
 // => [3]
 ```
+
 </details>
 
 **See also:** [dropLast](#droplast), [take](#take)
@@ -1257,9 +1400,11 @@ A.drop(2, [1, 2, 3])
 
 #### dropLast
 
+<!-- prettier-ignore-start -->
 ```typescript
 (n: number) => <T>(array: T[]) => T[]
 ```
+<!-- prettier-ignore-end -->
 
 Drop the last `n` elements of an `array`.
 
@@ -1272,6 +1417,7 @@ A.dropLast(1, [1, 2, 3])
 A.dropLast(2, [1, 2, 3])
 // => [1]
 ```
+
 </details>
 
 **See also:** [drop](#drop), [takeLast](#takelast)
@@ -1280,9 +1426,11 @@ A.dropLast(2, [1, 2, 3])
 
 #### dropLastWhile
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(predicate: (value: T) => boolean) => (array: T[]) => T[]
 ```
+<!-- prettier-ignore-end -->
 
 Drop elements from the end of an `array` while `predicate` is satisfied.
 
@@ -1292,6 +1440,7 @@ Drop elements from the end of an `array` while `predicate` is satisfied.
 A.dropLastWhile((n) => n > 1, [1, 2, 3])
 // => [1]
 ```
+
 </details>
 
 **See also:** [dropWhile](#dropwhile), [takeLastWhile](#takelastwhile)
@@ -1300,9 +1449,11 @@ A.dropLastWhile((n) => n > 1, [1, 2, 3])
 
 #### dropWhile
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(predicate: (value: T) => boolean) => (array: T[]) => T[]
 ```
+<!-- prettier-ignore-end -->
 
 Drop elements from the beginning of an `array` while `predicate` is
 satisfied.
@@ -1313,6 +1464,7 @@ satisfied.
 A.dropWhile((n) => n === 1, [1, 2, 3])
 // => [2, 3]
 ```
+
 </details>
 
 **See also:** [dropLastWhile](#droplastwhile), [takeWhile](#takewhile)
@@ -1321,9 +1473,11 @@ A.dropWhile((n) => n === 1, [1, 2, 3])
 
 #### slice
 
+<!-- prettier-ignore-start -->
 ```typescript
 (start: number) => (end: number) => <T>(array: T[]) => T[]
 ```
+<!-- prettier-ignore-end -->
 
 Create a copy of `array` containing the elements from `start` (inclusive)
 to `end` (exclusive).
@@ -1337,15 +1491,18 @@ A.slice(0, 2, [1, 2, 3])
 A.slice(1, 2, [1, 2, 3])
 // => [2]
 ```
+
 </details>
 
 ---
 
 #### take
 
+<!-- prettier-ignore-start -->
 ```typescript
 (n: number) => <T>(array: T[]) => T[]
 ```
+<!-- prettier-ignore-end -->
 
 Take the first `n` elements of an `array`.
 
@@ -1355,6 +1512,7 @@ Take the first `n` elements of an `array`.
 A.take(2, [1, 2, 3])
 // => [1, 2]
 ```
+
 </details>
 
 **See also:** [drop](#drop), [takeLast](#takelast)
@@ -1363,9 +1521,11 @@ A.take(2, [1, 2, 3])
 
 #### takeLast
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(n: number) => (array: T[]) => T[]
 ```
+<!-- prettier-ignore-end -->
 
 Take the last `n` elements of an `array`.
 
@@ -1375,6 +1535,7 @@ Take the last `n` elements of an `array`.
 A.takeLast(2, [1, 2, 3])
 // => [2, 3]
 ```
+
 </details>
 
 **See also:** [dropLast](#droplast), [take](#take)
@@ -1383,9 +1544,11 @@ A.takeLast(2, [1, 2, 3])
 
 #### takeLastWhile
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(predicate: (value: T) => boolean) => (array: T[]) => T[]
 ```
+<!-- prettier-ignore-end -->
 
 Take elements from the end of an `array` while `predicate` is satisfied.
 
@@ -1395,6 +1558,7 @@ Take elements from the end of an `array` while `predicate` is satisfied.
 A.takeLastWhile((n) => n >= 2, [1, 2, 3])
 // => [2, 3]
 ```
+
 </details>
 
 **See also:** [dropLastWhile](#droplastwhile), [takeWhile](#takewhile)
@@ -1403,9 +1567,11 @@ A.takeLastWhile((n) => n >= 2, [1, 2, 3])
 
 #### takeWhile
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(predicate: (value: T) => boolean) => (array: T[]) => T[]
 ```
+<!-- prettier-ignore-end -->
 
 Take elements from the beginning of an `array` while `predicate` is
 satisfied.
@@ -1416,6 +1582,7 @@ satisfied.
 A.takeWhile((n) => n <= 2, [1, 2, 3])
 // => [1, 2]
 ```
+
 </details>
 
 **See also:** [dropWhile](#dropwhile), [takeLastWhile](#takelastwhile)
@@ -1426,9 +1593,11 @@ A.takeWhile((n) => n <= 2, [1, 2, 3])
 
 #### sort
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(comparator: (first: T, second: T) => number) => (array: T[]) => T[]
 ```
+<!-- prettier-ignore-end -->
 
 Sort an `array` according to the comparator function.
 
@@ -1438,6 +1607,7 @@ Sort an `array` according to the comparator function.
 A.sort((a, b) => a - b, [3, 2, 1])
 // => [1, 2, 3]
 ```
+
 </details>
 
 **See also:** [sortBy](#sortby), [sortWith](#sortwith), [ascend](#ascend), [descend](#descend)
@@ -1446,9 +1616,11 @@ A.sort((a, b) => a - b, [3, 2, 1])
 
 #### sortBy
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T, U extends Ordered>(fn: (value: T) => U) => (array: T[]) => T[]
 ```
+<!-- prettier-ignore-end -->
 
 Sort an `array` into ascending order by mapping each element of the array
 with `fn`.
@@ -1458,7 +1630,7 @@ with `fn`.
 ```typescript
 const users = [
   { name: 'Bob', age: 10 },
-  { name: 'Alice', age: 20 }
+  { name: 'Alice', age: 20 },
 ]
 
 A.sortBy((u) => u.name, users)
@@ -1467,6 +1639,7 @@ A.sortBy((u) => u.name, users)
 A.sortBy((u) => u.age, users)
 // => [{ name: 'Bob', age: 10 }, { name: 'Alice', age: 20 }]
 ```
+
 </details>
 
 **See also:** [sort](#sort), [sortWith](#sortwith)
@@ -1475,9 +1648,11 @@ A.sortBy((u) => u.age, users)
 
 #### sortWith
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(comparators: Array<(first: T, second: T) => number>) => (array: T[]) => T[]
 ```
+<!-- prettier-ignore-end -->
 
 Sort an `array` according to an array of comparator functions.
 
@@ -1495,6 +1670,7 @@ const users = [
 A.sortWith([F.descend((u) => u.age), F.ascend((u) => u.name)], users)
 // => [{ name: 'Alice', age: 20 }, { name: 'Bob', age: 20 }, { name: 'Alice', age: 10 }]
 ```
+
 </details>
 
 **See also:** [sort](#sort), [sortBy](#sortby), [ascend](#ascend), [descend](#descend)
@@ -1505,9 +1681,11 @@ A.sortWith([F.descend((u) => u.age), F.ascend((u) => u.name)], users)
 
 #### flatMap
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T, U>(fn: (value: T) => U[]) => (array: T[]) => U[]
 ```
+<!-- prettier-ignore-end -->
 
 Return an array containing the results of applying `fn` to each element in
 the original `array` and then flattening the result by one level.
@@ -1518,6 +1696,7 @@ the original `array` and then flattening the result by one level.
 A.flatMap((n) => [n, n], [1, 2, 3])
 // => [1, 1, 2, 2, 3, 3]
 ```
+
 </details>
 
 **See also:** [map](#map), [flatten](#flatten)
@@ -1526,9 +1705,11 @@ A.flatMap((n) => [n, n], [1, 2, 3])
 
 #### flatten
 
+<!-- prettier-ignore-start -->
 ```typescript
 <D extends number>(depth: D) => <T extends unknown[]>(array: T) => Array<FlatArray<T, D>>
 ```
+<!-- prettier-ignore-end -->
 
 Flatten a nested `array` by `n` levels.
 
@@ -1541,6 +1722,7 @@ A.flatten(1, [1, [2, [3]]])
 A.flatten(2, [1, [2, [3]]])
 // => [1, 2, 3]
 ```
+
 </details>
 
 **See also:** [flatMap](#flatmap)
@@ -1549,9 +1731,11 @@ A.flatten(2, [1, [2, [3]]])
 
 #### intersperse
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(separator: T) => (array: T[]) => T[]
 ```
+<!-- prettier-ignore-end -->
 
 Return a copy of `array` with `separator` inserted between each element.
 
@@ -1564,6 +1748,7 @@ A.intersperse(',', ['a', 'b', 'c'])
 A.intersperse(',', [])
 // => []
 ```
+
 </details>
 
 **See also:** [join](#join)
@@ -1572,9 +1757,11 @@ A.intersperse(',', [])
 
 #### join
 
+<!-- prettier-ignore-start -->
 ```typescript
 (separator: string) => <T>(array: T[]) => string
 ```
+<!-- prettier-ignore-end -->
 
 Convert the `array` to a string, inserting the `separator` between each
 element.
@@ -1585,6 +1772,7 @@ element.
 A.join(', ', [1, 2, 3])
 // => '1, 2, 3'
 ```
+
 </details>
 
 **See also:** [split](#split), [intersperse](#intersperse)
@@ -1593,9 +1781,11 @@ A.join(', ', [1, 2, 3])
 
 #### map
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T, U>(fn: (value: T) => U) => (array: T[]) => U[]
 ```
+<!-- prettier-ignore-end -->
 
 Return an array containing the results of applying `fn` to each element in
 the original `array`.
@@ -1606,6 +1796,7 @@ the original `array`.
 A.map((n) => n + 1, [1, 2, 3])
 // => [2, 3, 4]
 ```
+
 </details>
 
 **See also:** [mapWithIndex](#mapwithindex), [mapMaybe](#mapmaybe), [flatMap](#flatmap)
@@ -1614,9 +1805,11 @@ A.map((n) => n + 1, [1, 2, 3])
 
 #### mapMaybe
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T, U>(fn: (value: T) => U | undefined) => (array: T[]) => U[]
 ```
+<!-- prettier-ignore-end -->
 
 Return an array containing the results of applying `fn` to each element in
 the original `array`, discarding any `undefined` values.
@@ -1627,12 +1820,13 @@ the original `array`, discarding any `undefined` values.
 const users = [
   { name: 'Alice', age: 10 },
   { name: 'Bob', age: undefined },
-  { name: 'Carol', age: 20 }
+  { name: 'Carol', age: 20 },
 ]
 
 A.mapMaybe((u) => u.age, users)
 // => [10, 20]
 ```
+
 </details>
 
 **See also:** [map](#map)
@@ -1641,9 +1835,11 @@ A.mapMaybe((u) => u.age, users)
 
 #### mapWithIndex
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T, U>(fn: (index: number, value: T) => U) => (array: T[]) => U[]
 ```
+<!-- prettier-ignore-end -->
 
 Like [map](#map), but `fn` also receives the element index as the first
 argument.
@@ -1654,6 +1850,7 @@ argument.
 A.mapWithIndex((i, c) => `${i}-${c}`, ['a', 'b', 'c'])
 // => ['0-a', '1-b', '2-c']
 ```
+
 </details>
 
 **See also:** [map](#map)
@@ -1662,9 +1859,11 @@ A.mapWithIndex((i, c) => `${i}-${c}`, ['a', 'b', 'c'])
 
 #### reverse
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(array: T[]) => T[]
 ```
+<!-- prettier-ignore-end -->
 
 Reverse an `array`.
 
@@ -1674,6 +1873,7 @@ Reverse an `array`.
 A.reverse([1, 2, 3])
 // => [3, 2, 1]
 ```
+
 </details>
 
 ---
@@ -1682,9 +1882,11 @@ A.reverse([1, 2, 3])
 
 #### zip
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T>(first: T[]) => <U>(second: U[]) => Array<[T, U]>
 ```
+<!-- prettier-ignore-end -->
 
 Combine the corresponding elements of two arrays into an array of pairs.
 
@@ -1697,6 +1899,7 @@ ignored.
 A.zip(['a', 'b', 'c'], [1, 2, 3])
 // => [['a', 1], ['b', 2], ['c', 3]]
 ```
+
 </details>
 
 **See also:** [zipWith](#zipwith), [zipObject](#zipobject)
@@ -1705,9 +1908,11 @@ A.zip(['a', 'b', 'c'], [1, 2, 3])
 
 #### zipObject
 
+<!-- prettier-ignore-start -->
 ```typescript
 <K extends string>(keys: K[]) => <T>(values: T[]) => Record<K, T>
 ```
+<!-- prettier-ignore-end -->
 
 Combine an array of `keys` and `values` into an object.
 
@@ -1720,6 +1925,7 @@ ignored.
 A.zipObject(['a', 'b', 'c'], [1, 2, 3])
 // => { a: 1, b: 2, c: 3 }
 ```
+
 </details>
 
 **See also:** [zip](#zip), [fromEntries](#fromentries)
@@ -1728,9 +1934,11 @@ A.zipObject(['a', 'b', 'c'], [1, 2, 3])
 
 #### zipWith
 
+<!-- prettier-ignore-start -->
 ```typescript
 <T, U, R>(fn: (value: T, other: U) => R) => (first: T[]) => (second: U[]) => R[]
 ```
+<!-- prettier-ignore-end -->
 
 Like [zip](#zip), but the elements are combined with `fn` instead of
 constructing a pair.
@@ -1741,6 +1949,7 @@ constructing a pair.
 A.zipWith((a, b) => a + b, [1, 2, 3], [4, 5, 6])
 // => [5, 7, 9]
 ```
+
 </details>
 
 **See also:** [zip](#zip)

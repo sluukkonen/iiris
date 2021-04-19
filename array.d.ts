@@ -74,11 +74,7 @@ export function count<T>(
  * @example
  *
  * ```typescript
- * const users = [
- *   { name: 'Alice' },
- *   { name: 'Bob' },
- *   { name: 'Alice' }
- * ]
+ * const users = [{ name: 'Alice' }, { name: 'Bob' }, { name: 'Alice' }]
  *
  * A.countBy((u) => u.name, users)
  * // => { Alice: 2, Bob: 1 }
@@ -612,11 +608,7 @@ export function getOr<T>(defaultValue: T, index: number, array: readonly T[]): T
  * @example
  *
  * ```typescript
- * const users = [
- *   { name: 'Alice' },
- *   { name: 'Bob' },
- *   { name: 'Alice' },
- * ]
+ * const users = [{ name: 'Alice' }, { name: 'Bob' }, { name: 'Alice' }]
 
  * A.groupBy((u) => u.name, users)
  * // => { Alice: [{ name: 'Alice' }, { name: 'Alice' }], Bob: [{ name: 'Bob' }] }
@@ -646,9 +638,13 @@ export function groupBy<T, K extends string>(
  * const users = [
  *   { name: 'Alice', age: 10 },
  *   { name: 'Bob', age: 20 },
- *   { name: 'Alice', age: 30 }
+ *   { name: 'Alice', age: 30 },
  * ]
- * const agesByName = A.groupMap((u) => u.age, (u) => u.name, users)
+ * const agesByName = A.groupMap(
+ *   (u) => u.age,
+ *   (u) => u.name,
+ *   users
+ * )
  * // => { Alice: [10, 30], Bob: [20] }
  * ```
  *
@@ -687,7 +683,7 @@ export function groupMap<T, U, K extends string>(
  * const users = [
  *   { name: 'Alice', age: 10 },
  *   { name: 'Bob', age: 20 },
- *   { name: 'Alice', age: 30 }
+ *   { name: 'Alice', age: 30 },
  * ]
  * const sumOfAgesByName = A.groupMapReduce(
  *   (sum, n) => sum + n,
@@ -793,7 +789,7 @@ export function includes<T>(value: T, array: readonly T[]): boolean
  * const users = [
  *   { id: 1, name: 'Alice' },
  *   { id: 2, name: 'Bob' },
- *   { id: 1, name: 'Carol' }
+ *   { id: 1, name: 'Carol' },
  * ]
  * A.indexBy((u) => u.id, users)
  * // => { '1': { id: 1, name: 'Carol' }, '2': { id: 2, name: 'Bob' } }
@@ -1016,7 +1012,7 @@ export function mapWithIndex<T, U>(
  * const users = [
  *   { name: 'Alice', age: 10 },
  *   { name: 'Bob', age: undefined },
- *   { name: 'Carol', age: 20 }
+ *   { name: 'Carol', age: 20 },
  * ]
  *
  * A.mapMaybe((u) => u.age, users)
@@ -1489,7 +1485,7 @@ export function sort<T>(
  * ```typescript
  * const users = [
  *   { name: 'Bob', age: 10 },
- *   { name: 'Alice', age: 20 }
+ *   { name: 'Alice', age: 20 },
  * ]
  *
  * A.sortBy((u) => u.name, users)
@@ -1575,7 +1571,10 @@ export function sum(numbers: readonly number[]): number
  * @example
  *
  * ```typescript
- * A.sumBy((u) => u.age, [{ name: 'Alice', age: 10 }, { name: 'Bob', age: 20 }])
+ * A.sumBy((u) => u.age, [
+ *   { name: 'Alice', age: 10 },
+ *   { name: 'Bob', age: 20 },
+ * ])
  * // => 30
  * ```
  *

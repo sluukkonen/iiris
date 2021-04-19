@@ -51,9 +51,9 @@ function formatModule(module) {
         const comment = signatures[0] && signatures[0].comment
         return (
           h(c.name, 4) +
-          '\n\n```typescript\n' +
+          '\n\n<!-- prettier-ignore-start -->\n```typescript\n' +
           signatures.map(formatCallSignature).join('\n') +
-          '\n```\n\n' +
+          '\n```\n<!-- prettier-ignore-end -->\n\n' +
           (comment ? formatComment(comment) : '') +
           '\n\n---'
         )
@@ -69,16 +69,20 @@ function formatModule(module) {
     (module.comment ? formatComment(module.comment) + '\n\n' : '') +
     formatTableOfContents(module) +
     '\n\n' +
-    categories.join('\n\n')
+    categories.join('\n\n') +
+    '\n'
   )
 }
 
-function createLink(linkText) {
-  let anchor = linkText
-    .toLowerCase()
-    .replace(/\s+/g, '-')
-    .replace(/[^-\w]+/, '')
-  return `[${linkText}](#${anchor})`
+function createLink(linkText, url) {
+  let target =
+    url ||
+    '#' +
+      linkText
+        .toLowerCase()
+        .replace(/\s+/g, '-')
+        .replace(/[^-\w]+/, '')
+  return `[${linkText}](${target})`
 }
 
 function formatCallSignature(signature) {
@@ -166,8 +170,8 @@ function formatComment(comment) {
   const render = (text) =>
     text
       .trim()
-      .replace(/{@link ([^}]*)}/g, (_, target) =>
-        target[0] === target[0].toLowerCase() ? createLink(target) : target
+      .replace(/{@link (\S+)\s*(\S+)?}/g, (_, target, text) =>
+        text ? createLink(text.trim(), '<' + target + '>') : createLink(target)
       )
 
   return (
@@ -198,7 +202,7 @@ function formatCommentTags(tags) {
   return (
     '<details><summary>Example</summary>\n\n' +
     example +
-    '\n</details>' +
+    '\n\n</details>' +
     (see ? '\n\n**See also:** ' + see : '')
   )
 }

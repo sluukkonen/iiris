@@ -33,9 +33,11 @@ import * as M from 'iiris/map'
 
 #### empty
 
+<!-- prettier-ignore-start -->
 ```typescript
 <K, V>() => Map<K, V>
 ```
+<!-- prettier-ignore-end -->
 
 Create an empty map.
 
@@ -45,6 +47,7 @@ Create an empty map.
 M.empty()
 // => Map(0) {}
 ```
+
 </details>
 
 **See also:** [singleton](#singleton)
@@ -53,9 +56,11 @@ M.empty()
 
 #### entries
 
+<!-- prettier-ignore-start -->
 ```typescript
 <K, V>(map: Map<K, V>) => IterableIterator<[K, V]>
 ```
+<!-- prettier-ignore-end -->
 
 Return a new iterator containing the key-value pairs of the map in insertion order.
 
@@ -65,15 +70,18 @@ Return a new iterator containing the key-value pairs of the map in insertion ord
 M.entries()
 // => [Map Entries] { [ 'a', 1 ] }
 ```
+
 </details>
 
 ---
 
 #### forEach
 
+<!-- prettier-ignore-start -->
 ```typescript
 <K, V>(fn: (key: K, value: V) => void) => (map: Map<K, V>) => Map<K, V>
 ```
+<!-- prettier-ignore-end -->
 
 Apply a `fn` to each `key`-`value` pair of the `map`.
 
@@ -84,24 +92,32 @@ M.forEach((k, v) => {
   conso
 }, map)
 ```
+
 </details>
 
 ---
 
 #### fromEntries
 
+<!-- prettier-ignore-start -->
 ```typescript
 <K, V>(entries: Iterable<[K, V]>) => Map<K, V>
 ```
+<!-- prettier-ignore-end -->
 
 Create a map from an array of `[key, value]` pairs.
 
 <details><summary>Example</summary>
 
 ```typescript
-M.fromEntries([['a', 1], ['b', 2], ['c', 3]])
+M.fromEntries([
+  ['a', 1],
+  ['b', 2],
+  ['c', 3],
+])
 // => Map(3) { 'a' => 1, 'b' => 2, 'c' => 3 }
 ```
+
 </details>
 
 **See also:** [entries](#entries)
@@ -110,9 +126,11 @@ M.fromEntries([['a', 1], ['b', 2], ['c', 3]])
 
 #### fromObject
 
+<!-- prettier-ignore-start -->
 ```typescript
 <K extends string, V>(object: Record<K, V>) => Map<K, V>
 ```
+<!-- prettier-ignore-end -->
 
 Convert an `object` to a map.
 
@@ -122,15 +140,18 @@ Convert an `object` to a map.
 M.fromObject({ a: 1, b: 2, c: 3 })
 // => Map(3) { 'a' => 1, 'b' => 2, 'c' => 3 }
 ```
+
 </details>
 
 ---
 
 #### get
 
+<!-- prettier-ignore-start -->
 ```typescript
 <K>(key: K) => <V>(map: Map<K, V>) => V | undefined
 ```
+<!-- prettier-ignore-end -->
 
 Retrieve the specified value from the `map`.
 
@@ -143,6 +164,7 @@ M.get('a', M.singleton('a', 1))
 M.get('b', M.singleton('a', 1))
 // => undefined
 ```
+
 </details>
 
 **See also:** [getOr](#getor)
@@ -151,9 +173,11 @@ M.get('b', M.singleton('a', 1))
 
 #### getOr
 
+<!-- prettier-ignore-start -->
 ```typescript
 <V>(defaultValue: V) => <K>(key: K) => (map: Map<K, V>) => V
 ```
+<!-- prettier-ignore-end -->
 
 Retrieve the specified value or `defaultValue` from the `map`.
 
@@ -166,15 +190,18 @@ M.getOr(999, 'a', M.singleton('a', 1))
 M.getOr(999, 'b', M.singleton('a', 1))
 // => 999
 ```
+
 </details>
 
 ---
 
 #### has
 
+<!-- prettier-ignore-start -->
 ```typescript
 <K>(key: K) => <V>(map: Map<K, V>) => boolean
 ```
+<!-- prettier-ignore-end -->
 
 Check if `map` contains the specified `key`.
 
@@ -184,15 +211,18 @@ Check if `map` contains the specified `key`.
 M.has('a', M.singleton('a', 1))
 // => true
 ```
+
 </details>
 
 ---
 
 #### isEmpty
 
+<!-- prettier-ignore-start -->
 ```typescript
 <K, V>(map: Map<K, V>) => boolean
 ```
+<!-- prettier-ignore-end -->
 
 Check if the `map` is empty.
 
@@ -202,15 +232,18 @@ Check if the `map` is empty.
 M.isEmpty(M.empty())
 // => true
 ```
+
 </details>
 
 ---
 
 #### keys
 
+<!-- prettier-ignore-start -->
 ```typescript
 <K, V>(map: Map<K, V>) => IterableIterator<K>
 ```
+<!-- prettier-ignore-end -->
 
 Return a new iterator containing the keys of the `map` in insertion order.
 
@@ -220,15 +253,18 @@ Return a new iterator containing the keys of the `map` in insertion order.
 M.keys(M.singleton('a', 1))
 // => [Map Iterator] { 'a' }
 ```
+
 </details>
 
 ---
 
 #### map
 
+<!-- prettier-ignore-start -->
 ```typescript
 <V1, V2>(fn: (value: V1) => V2) => <K>(map: Map<K, V1>) => Map<K, V2>
 ```
+<!-- prettier-ignore-end -->
 
 Return a map containing the results of applying `fn` to each `value` of
 the original `map`.
@@ -239,6 +275,7 @@ the original `map`.
 M.map((n) => n + 1, M.fromObject({ a: 1, b: 2, c: 3 }))
 // => Map(3) { 'a' => 2, 'b' => 3, 'c' => 4 }
 ```
+
 </details>
 
 **See also:** [mapKeys](#mapkeys)
@@ -247,9 +284,11 @@ M.map((n) => n + 1, M.fromObject({ a: 1, b: 2, c: 3 }))
 
 #### mapKeys
 
+<!-- prettier-ignore-start -->
 ```typescript
 <K1, K2>(fn: (key: K1) => K2) => <V>(map: Map<K1, V>) => Map<K1, V>
 ```
+<!-- prettier-ignore-end -->
 
 Return a map containing the results of applying `fn` to each `key` of
 the original `map`.
@@ -260,6 +299,7 @@ the original `map`.
 M.mapKeys((k) => k.toUpperCase(), M.fromObject({ a: 1, b: 2, c: 3 }))
 // => Map(3) { 'A' => 1, 'B' => 2, 'C' => 3 }
 ```
+
 </details>
 
 **See also:** [mapKeys](#mapkeys)
@@ -268,9 +308,11 @@ M.mapKeys((k) => k.toUpperCase(), M.fromObject({ a: 1, b: 2, c: 3 }))
 
 #### modify
 
+<!-- prettier-ignore-start -->
 ```typescript
 <K>(key: K) => <V>(fn: (value: V) => V) => (map: Map<K, V>) => Map<K, V>
 ```
+<!-- prettier-ignore-end -->
 
 Return a copy of `map` where `key` has been replaced by applying `fn` to its
 current value.
@@ -283,6 +325,7 @@ current value.
 M.modify('a', (n) => n + 1, M.singleton('a', 1))
 // => Map(1) { 'a' => 2 }
 ```
+
 </details>
 
 **See also:** [modify](#modify), [remove](#remove)
@@ -291,9 +334,11 @@ M.modify('a', (n) => n + 1, M.singleton('a', 1))
 
 #### remove
 
+<!-- prettier-ignore-start -->
 ```typescript
 <K>(key: K) => <V>(map: Map<K, V>) => Map<K, V>
 ```
+<!-- prettier-ignore-end -->
 
 Return a copy of `map` without the specified `key`.
 
@@ -303,6 +348,7 @@ Return a copy of `map` without the specified `key`.
 M.remove('a', M.singleton('a', 1))
 // => Map(2) { 'a' => 1, 'b' => 2 }
 ```
+
 </details>
 
 **See also:** [modify](#modify), [remove](#remove)
@@ -311,9 +357,11 @@ M.remove('a', M.singleton('a', 1))
 
 #### set
 
+<!-- prettier-ignore-start -->
 ```typescript
 <K>(key: K) => <V>(value: V) => (map: Map<K, V>) => Map<K, V>
 ```
+<!-- prettier-ignore-end -->
 
 Return a copy of `map` with `key` set to `value`.
 
@@ -323,6 +371,7 @@ Return a copy of `map` with `key` set to `value`.
 M.set('b', 2, M.singleton('a', 1))
 // => Map(2) { 'a' => 1, 'b' => 2 }
 ```
+
 </details>
 
 **See also:** [modify](#modify), [remove](#remove)
@@ -331,9 +380,11 @@ M.set('b', 2, M.singleton('a', 1))
 
 #### singleton
 
+<!-- prettier-ignore-start -->
 ```typescript
 <K>(key: K) => <V>(value: V) => Map<K, V>
 ```
+<!-- prettier-ignore-end -->
 
 Create a map with a single element.
 
@@ -343,6 +394,7 @@ Create a map with a single element.
 M.singleton('a', 1)
 // => Map(1) { 'a' => 1 }
 ```
+
 </details>
 
 **See also:** [singleton](#singleton)
@@ -351,9 +403,11 @@ M.singleton('a', 1)
 
 #### size
 
+<!-- prettier-ignore-start -->
 ```typescript
 <K, V>(map: Map<K, V>) => number
 ```
+<!-- prettier-ignore-end -->
 
 Return the number of entries in the `map`.
 
@@ -363,15 +417,18 @@ Return the number of entries in the `map`.
 M.size(M.singleton('a', 1)
 // => 1
 ```
+
 </details>
 
 ---
 
 #### values
 
+<!-- prettier-ignore-start -->
 ```typescript
 <K, V>(map: Map<K, V>) => IterableIterator<V>
 ```
+<!-- prettier-ignore-end -->
 
 Return a new iterator containing the values of the `map` in insertion order.
 
@@ -381,6 +438,7 @@ Return a new iterator containing the values of the `map` in insertion order.
 M.values(M.singleton('a', 1))
 // => [Map Iterator] { 1 }
 ```
+
 </details>
 
 ---

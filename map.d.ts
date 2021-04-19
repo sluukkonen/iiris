@@ -64,7 +64,11 @@ export function forEach<K, V>(
  * @example
  *
  * ```typescript
- * M.fromEntries([['a', 1], ['b', 2], ['c', 3]])
+ * M.fromEntries([
+ *   ['a', 1],
+ *   ['b', 2],
+ *   ['c', 3],
+ * ])
  * // => Map(3) { 'a' => 1, 'b' => 2, 'c' => 3 }
  * ```
  *
