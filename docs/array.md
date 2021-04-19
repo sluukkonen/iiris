@@ -208,8 +208,8 @@ A.get(0, [])
 <T>(defaultValue: T) => (index: number) => (array: T[]) => T
 ```
 
-Like [get](#get), but if the resolved value is `undefined`, `defaultValue` is
-returned instead.
+Like [get](#get), but if `index` is not within the array bounds,
+`defaultValue` is returned instead.
 
 <details><summary>Example</summary>
 

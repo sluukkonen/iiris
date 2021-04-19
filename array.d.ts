@@ -574,8 +574,8 @@ export function get(index: number): <T>(array: readonly T[]) => T | undefined
 export function get<T>(index: number, array: readonly T[]): T | undefined
 
 /**
- * Like {@link get}, but if the resolved value is `undefined`, `defaultValue` is
- * returned instead.
+ * Like {@link get}, but if `index` is not within the array bounds,
+ * `defaultValue` is returned instead.
  *
  * @category Basic array operations
  * @example
