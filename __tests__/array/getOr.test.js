@@ -22,8 +22,8 @@ it('retrieves the nth element or the default value from an array', () => {
   expect(getOr(0, 3)(arr)).toBe(0)
 })
 
-it('returns the default value if the element is undefined', () => {
-  expect(getOr(0, 0, [undefined])).toBe(0)
+it('returns undefined if the element is undefined', () => {
+  expect(getOr(0, 0, [undefined])).toBe(undefined)
 })
 
 it('throws an error if the element is nil', () => {
