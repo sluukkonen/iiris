@@ -11,11 +11,11 @@ import * as A from 'iiris/array'
 
 - [Basic array operations](#basic-array-operations)
   - [append](#append)
-  - [at](#at)
-  - [atOr](#ator)
   - [concat](#concat)
   - [forEach](#foreach)
   - [forEachWithIndex](#foreachwithindex)
+  - [get](#get)
+  - [getOr](#getor)
   - [head](#head)
   - [init](#init)
   - [isEmpty](#isempty)
@@ -112,56 +112,6 @@ A.append(4, [1, 2, 3])
 
 ---
 
-#### at
-
-```typescript
-(index: number) => <T>(array: T[]) => T | undefined
-```
-
-Return the element at `index` from `array` or `undefined`.
-
-<details><summary>Example</summary>
-
-```typescript
-A.at(0, [1, 2, 3])
-// => 1
-
-A.at(0, [])
-// => undefined
-```
-</details>
-
-**See also:** [atOr](#ator)
-
----
-
-#### atOr
-
-```typescript
-<T>(defaultValue: T) => (index: number) => (array: T[]) => T
-```
-
-Like [at](#at), but if the resolved value is `undefined`, `defaultValue` is
-returned instead.
-
-<details><summary>Example</summary>
-
-```typescript
-A.atOr(999, 0, [1, 2, 3])
-// => 1
-
-A.atOr(999, 0, [])
-// => 999
-
-A.atOr(999, 0, [undefined])
-// => 999
-```
-</details>
-
-**See also:** [at](#at)
-
----
-
 #### concat
 
 ```typescript
@@ -226,6 +176,56 @@ A.forEachWithIndex(console.log, ['h', 'i', '!'])
 </details>
 
 **See also:** [forEach](#foreach)
+
+---
+
+#### get
+
+```typescript
+(index: number) => <T>(array: T[]) => T | undefined
+```
+
+Return the element at `index` from `array` or `undefined`.
+
+<details><summary>Example</summary>
+
+```typescript
+A.get(0, [1, 2, 3])
+// => 1
+
+A.get(0, [])
+// => undefined
+```
+</details>
+
+**See also:** [getOr](#getor)
+
+---
+
+#### getOr
+
+```typescript
+<T>(defaultValue: T) => (index: number) => (array: T[]) => T
+```
+
+Like [get](#get), but if the resolved value is `undefined`, `defaultValue` is
+returned instead.
+
+<details><summary>Example</summary>
+
+```typescript
+A.getOr(999, 0, [1, 2, 3])
+// => 1
+
+A.getOr(999, 0, [])
+// => 999
+
+A.getOr(999, 0, [undefined])
+// => 999
+```
+</details>
+
+**See also:** [get](#get)
 
 ---
 
