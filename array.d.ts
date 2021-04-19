@@ -1110,15 +1110,15 @@ export function modify(
   index: number
 ): {
   <T>(fn: (value: T) => T): (array: readonly T[]) => T[]
-  <V extends T, T>(fn: (value: T) => V, array: readonly T[]): T[]
+  <T>(fn: (value: T) => T, array: readonly T[]): T[]
 }
 export function modify<T>(
   index: number,
   fn: (value: T) => T
 ): (array: readonly T[]) => T[]
-export function modify<V extends T, T>(
+export function modify<T>(
   index: number,
-  fn: (value: T) => V,
+  fn: (value: T) => T,
   array: readonly T[]
 ): T[]
 
@@ -1379,14 +1379,10 @@ export function set(
   index: number
 ): {
   <T>(value: T): (array: readonly T[]) => T[]
-  <V extends T, T>(value: V, array: readonly T[]): T[]
+  <T>(value: T, array: readonly T[]): T[]
 }
 export function set<T>(index: number, value: T): (array: readonly T[]) => T[]
-export function set<V extends T, T>(
-  index: number,
-  value: V,
-  array: readonly T[]
-): T[]
+export function set<T>(index: number, value: T, array: readonly T[]): T[]
 
 /**
  * Create a singleton array containing `value`
