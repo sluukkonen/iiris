@@ -1083,11 +1083,8 @@ export function minimumBy<T, U extends Ordered>(
 
 /**
  * Returns a copy of `array` where the element at `index` has been replaced by
- * applying `fn` to its current value.
- *
- * - If `index` is not within `array` bounds, the `array` is returned
- *   unchanged.
- * - Removes the element if `fn` returns `undefined`.
+ * applying `fn` to its current value. If `index` is not within `array` bounds,
+ * the `array` is returned unchanged.
  *
  * @category Basic array operations
  * @example
@@ -1113,15 +1110,15 @@ export function modify(
   index: number
 ): {
   <T>(fn: (value: T) => T): (array: readonly T[]) => T[]
-  <T>(fn: (value: T) => T, array: readonly T[]): T[]
+  <V extends T, T>(fn: (value: T) => V, array: readonly T[]): T[]
 }
 export function modify<T>(
   index: number,
   fn: (value: T) => T
 ): (array: readonly T[]) => T[]
-export function modify<T>(
+export function modify<V extends T, T>(
   index: number,
-  fn: (value: T) => T,
+  fn: (value: T) => V,
   array: readonly T[]
 ): T[]
 
@@ -1303,10 +1300,8 @@ export function reduceRight<T, R>(
 ): R
 
 /**
- * Return a copy of `array` without the element at `index`.
- *
- * - If `index` is not within the `array` bounds, the `array` is returned
- *   unchanged.
+ * Return a copy of `array` without the element at `index`. If `index` is not
+ * within the `array` bounds, the `array` is returned unchanged.
  *
  * @category Basic array operations
  * @example
@@ -1360,11 +1355,8 @@ export function reverse<T>(array: readonly T[]): T[]
 
 /**
  * Returns a copy of `array` where the element at `index` has been replaced with
- * `value`.
- *
- * - If `index` is not within the `array` bounds, the `array` is returned
- *   unchanged.
- * - Removes the element if `value` is `undefined`.
+ * `value`. If `index` is not within the `array` bounds, the `array` is returned
+ * unchanged.
  *
  * @category Basic array operations
  * @example
@@ -1378,9 +1370,6 @@ export function reverse<T>(array: readonly T[]): T[]
  *
  * A.set(999, 999, [1, 2, 3])
  * // => [1, 2, 3]
- *
- * A.set(0, undefined, [1, 2, 3])
- * // => [2, 3]
  * ```
  *
  * @see modify
@@ -1389,16 +1378,13 @@ export function reverse<T>(array: readonly T[]): T[]
 export function set(
   index: number
 ): {
-  <T>(value: T | undefined): (array: readonly T[]) => T[]
-  <T>(value: T | undefined, array: readonly T[]): T[]
+  <T>(value: T): (array: readonly T[]) => T[]
+  <V extends T, T>(value: V, array: readonly T[]): T[]
 }
-export function set<T>(
+export function set<T>(index: number, value: T): (array: readonly T[]) => T[]
+export function set<V extends T, T>(
   index: number,
-  value: T | undefined
-): (array: readonly T[]) => T[]
-export function set<T>(
-  index: number,
-  value: T | undefined,
+  value: V,
   array: readonly T[]
 ): T[]
 
