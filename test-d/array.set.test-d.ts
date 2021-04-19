@@ -8,15 +8,15 @@ expectType<User[]>(A.set(0)(user, users))
 expectType<User[]>(A.set(0)(user)(users))
 
 // Undefined new value
-expectError(A.set(0, undefined, users))
+expectType<Array<User | undefined>>(A.set(0, undefined, users))
 expectError(A.set(0, undefined)(users))
-expectError(A.set(0)(undefined, users))
+expectType<Array<User | undefined>>(A.set(0)(undefined, users))
 expectError(A.set(0)(undefined)(users))
 
 // Optional new value
-expectError(A.set(0, undefined, users))
+expectType<Array<User | undefined>>(A.set(0, maybeUser, users))
 expectType<Array<User | undefined>>(A.set(0, maybeUser)(users))
-expectError(A.set(0)(maybeUser, users))
+expectType<Array<User | undefined>>(A.set(0)(maybeUser, users))
 expectType<Array<User | undefined>>(A.set(0)(maybeUser)(users))
 
 // Wrong type
