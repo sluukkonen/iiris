@@ -2,8 +2,8 @@
 
 The `iiris` module contains the core functionality of Iiris. It contains
 various utility functions that work with a wide variety of data types, while
-more specialized functions are stored in separate modules. It is designed
-to be imported with a wildcard, e.g.
+more specialized functions are stored in separate modules. It is designed to
+be imported with a wildcard, e.g.
 
 ```typescript
 import * as I from 'iiris'
@@ -373,8 +373,8 @@ I.not(false)
 Pipe an `initial` value through one or more functions in left-to-right order,
 allowing the programmer to chain operations in a readable manner.
 
-`I.pipe(initial, f1, f2, ...fn)` can be thought as syntax sugar
-for `fn(...(f2(f1(initial))))`
+`I.pipe(initial, f1, f2, ...fn)` can be thought as syntax sugar for
+`fn(...(f2(f1(initial))))`
 
 **Note:** This function is not curried.
 
@@ -403,8 +403,7 @@ I.pipe(
 ```
 <!-- prettier-ignore-end -->
 
-Create a function that applies `fn` to its argument and returns the
-argument.
+Create a function that applies `fn` to its argument and returns the argument.
 
 Useful for executing a side-effect within a pipeline.
 
@@ -460,8 +459,7 @@ array.map(I.unary(parseInt))
 ```
 <!-- prettier-ignore-end -->
 
-Apply `fn` to `maybeValue` if it is not `undefined`, return `defaultValue`
-otherwise.
+Apply `fn` to `maybeValue` if it is not `undefined`, return `defaultValue` otherwise.
 
 <details><summary>Example</summary>
 
@@ -692,8 +690,7 @@ I.maximum([])
 ```
 <!-- prettier-ignore-end -->
 
-Like [maximum](#maximum), but apply `fn` to each value before determining
-their ordering.
+Like [maximum](#maximum), but apply `fn` to each value before determining their ordering.
 
 <details><summary>Example</summary>
 
@@ -753,11 +750,13 @@ I.clamp([0, 10], -5)
 
 Check if two values are deeply equal.
 
-- Primitive values are compared with [SameValueZero](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness#same-value-zero_equality).
+- Primitive values are compared with
+  [SameValueZero](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness#same-value-zero_equality).
 - Only the own enumerable keys of objects are considered.
 - The order of object keys does not matter.
 - Built-in objects (e.g. Arrays, Maps & Sets) are not checked for extra keys.
-- Sets and Map keys are compared with [SameValueZero](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness#same-value-zero_equality).
+- Sets and Map keys are compared with
+  [SameValueZero](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness#same-value-zero_equality).
 - Error objects are equal if their `name` and `message` properties are equal.
 - Functions are compared with `===`.
 - Supports cyclic references.
@@ -927,8 +926,7 @@ I.max('a', 'b')
 ```
 <!-- prettier-ignore-end -->
 
-Like [max](#max), but apply `fn` to both values before determining their
-ordering.
+Like [max](#max), but apply `fn` to both values before determining their ordering.
 
 <details><summary>Example</summary>
 
@@ -977,8 +975,7 @@ I.min('a', 'b')
 ```
 <!-- prettier-ignore-end -->
 
-Like [min](#min), but apply `fn` to both values before determining their
-ordering.
+Like [min](#min), but apply `fn` to both values before determining their ordering.
 
 <details><summary>Example</summary>
 
@@ -1058,7 +1055,7 @@ I.sort(I.descend(I.prop('name')), [{ name: 'Alice' }, { name: 'Bob' }])
 <!-- prettier-ignore-end -->
 
 Check if the `value` is an
-[`Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
+[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
 
 ---
 
@@ -1071,7 +1068,7 @@ Check if the `value` is an
 <!-- prettier-ignore-end -->
 
 Check if the `value` is a
-[`BigInt`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt).
+[BigInt](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt).
 
 ---
 
@@ -1084,7 +1081,7 @@ Check if the `value` is a
 <!-- prettier-ignore-end -->
 
 Check if the `value` is a
-[`boolean`](https://developer.mozilla.org/en-US/docs/Glossary/boolean).
+{@linkhttps://developer.mozilla.org/en-US/docs/Glossary/boolean boolean}.
 
 ---
 
@@ -1097,7 +1094,7 @@ Check if the `value` is a
 <!-- prettier-ignore-end -->
 
 Check if the `value` is a
-[`Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date).
+[Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date).
 
 ---
 
@@ -1110,7 +1107,7 @@ Check if the `value` is a
 <!-- prettier-ignore-end -->
 
 Check if the `value` is not
-[`undefined`](https://developer.mozilla.org/en-US/docs/Glossary/undefined).
+{@linkhttps://developer.mozilla.org/en-US/docs/Glossary/undefined undefined}.
 
 ---
 
@@ -1123,7 +1120,7 @@ Check if the `value` is not
 <!-- prettier-ignore-end -->
 
 Check if the `value` is an
-[`Error`](https://developer.mozilla.org/en-us/docs/Web/JavaScript/Reference/Global_Objects/Error).
+[Error](https://developer.mozilla.org/en-us/docs/Web/JavaScript/Reference/Global_Objects/Error).
 
 ---
 
@@ -1149,7 +1146,7 @@ Check if the `value` is a
 <!-- prettier-ignore-end -->
 
 Check if the `value` is a
-[`Map`](https://developer.mozilla.org/en-us/docs/Web/JavaScript/Reference/Global_Objects/Map).
+[Map](https://developer.mozilla.org/en-us/docs/Web/JavaScript/Reference/Global_Objects/Map).
 
 ---
 
@@ -1162,8 +1159,8 @@ Check if the `value` is a
 <!-- prettier-ignore-end -->
 
 Check if the `value` is
-[`null`](https://developer.mozilla.org/en-US/docs/Glossary/null) or
-[`undefined`](https://developer.mozilla.org/en-US/docs/Glossary/undefined).
+[null](https://developer.mozilla.org/en-US/docs/Glossary/null) or
+[undefined](https://developer.mozilla.org/en-US/docs/Glossary/undefined).
 
 ---
 
@@ -1176,7 +1173,7 @@ Check if the `value` is
 <!-- prettier-ignore-end -->
 
 Check if the `value` is
-[`null`](https://developer.mozilla.org/en-US/docs/Glossary/null).
+[null](https://developer.mozilla.org/en-US/docs/Glossary/null).
 
 ---
 
@@ -1189,7 +1186,7 @@ Check if the `value` is
 <!-- prettier-ignore-end -->
 
 Check if the `value` is a
-[`number`](https://developer.mozilla.org/en-US/docs/Glossary/number).
+[number](https://developer.mozilla.org/en-US/docs/Glossary/number).
 
 ---
 
@@ -1217,7 +1214,7 @@ Note that functions and arrays are also objects.
 <!-- prettier-ignore-end -->
 
 Check if the `value` is a
-[`RegExp`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp).
+[RegExp](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp).
 
 ---
 
@@ -1230,7 +1227,7 @@ Check if the `value` is a
 <!-- prettier-ignore-end -->
 
 Check if the `value` is a
-[`Set`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set).
+[Set](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set).
 
 ---
 
@@ -1243,7 +1240,7 @@ Check if the `value` is a
 <!-- prettier-ignore-end -->
 
 Check if the `value` is a
-[`string`](https://developer.mozilla.org/en-us/docs/Web/JavaScript/Reference/Global_Objects/String).
+[string](https://developer.mozilla.org/en-us/docs/Web/JavaScript/Reference/Global_Objects/String).
 
 ---
 
@@ -1256,7 +1253,7 @@ Check if the `value` is a
 <!-- prettier-ignore-end -->
 
 Check if the `value` is a
-[`Symbol`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol).
+[Symbol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol).
 
 ---
 
@@ -1269,6 +1266,6 @@ Check if the `value` is a
 <!-- prettier-ignore-end -->
 
 Check if the `value` is
-[`undefined`](https://developer.mozilla.org/en-US/docs/Glossary/undefined).
+[undefined](https://developer.mozilla.org/en-US/docs/Glossary/undefined).
 
 ---

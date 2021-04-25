@@ -75,9 +75,11 @@ function formatModule(module) {
 }
 
 function createLink(linkText, url) {
-  let target =
-    url ||
-    '#' +
+  let target = url
+    ? url.includes(')')
+      ? '<' + url + '>'
+      : url
+    : '#' +
       linkText
         .toLowerCase()
         .replace(/\s+/g, '-')
@@ -171,7 +173,7 @@ function formatComment(comment) {
     text
       .trim()
       .replace(/{@link (\S+)\s*(\S+)?}/g, (_, target, text) =>
-        text ? createLink(text.trim(), '<' + target + '>') : createLink(target)
+        text ? createLink(text.trim(), target) : createLink(target)
       )
 
   return (

@@ -1,7 +1,7 @@
 # Module `iiris/map`
 
-The `iiris/map` module includes functions for working with Maps.
-It is designed to be imported with a wildcard, e.g.
+The `iiris/map` module includes functions for working with Maps. It is
+designed to be imported with a wildcard, e.g.
 
 ```typescript
 import * as M from 'iiris/map'
@@ -266,8 +266,8 @@ M.keys(M.singleton('a', 1))
 ```
 <!-- prettier-ignore-end -->
 
-Return a map containing the results of applying `fn` to each `value` of
-the original `map`.
+Return a map containing the results of applying `fn` to each `value` of the
+original `map`.
 
 <details><summary>Example</summary>
 
@@ -290,8 +290,8 @@ M.map((n) => n + 1, M.fromObject({ a: 1, b: 2, c: 3 }))
 ```
 <!-- prettier-ignore-end -->
 
-Return a map containing the results of applying `fn` to each `key` of
-the original `map`.
+Return a map containing the results of applying `fn` to each `key` of the
+original `map`.
 
 <details><summary>Example</summary>
 

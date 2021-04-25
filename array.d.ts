@@ -1,6 +1,6 @@
 /**
- * The `iiris/array` module includes functions for working with Arrays.
- * It is designed to be imported with a wildcard, e.g.
+ * The `iiris/array` module includes functions for working with Arrays. It is
+ * designed to be imported with a wildcard, e.g.
  *
  * ```typescript
  * import * as A from 'iiris/array'
@@ -67,8 +67,7 @@ export function count<T>(
 ): number
 
 /**
- * Apply `keyFn` to each element in the `array` and return an object of counts
- * by key.
+ * Apply `keyFn` to each element in the `array` and return an object of counts by key.
  *
  * @category Grouping arrays by key
  * @example
@@ -153,8 +152,7 @@ export function dropLastWhile<T>(
 ): T[]
 
 /**
- * Drop elements from the beginning of an `array` while `predicate` is
- * satisfied.
+ * Drop elements from the beginning of an `array` while `predicate` is satisfied.
  *
  * @category Slicing arrays
  * @example
@@ -185,6 +183,7 @@ export function dropWhile<T>(
  * A.empty()
  * // => []
  * ```
+ *
  * @see from
  * @see singleton
  */
@@ -269,8 +268,7 @@ export function find<T>(
 ): T | undefined
 
 /**
- * Find the index of the first element in the `array` that satisfies the
- * `predicate`.
+ * Find the index of the first element in the `array` that satisfies the `predicate`.
  *
  * Returns `-1` if none of the elements satisfy the predicate.
  *
@@ -350,8 +348,7 @@ export function findLast<T>(
 ): T | undefined
 
 /**
- * Find the index of the last element in the `array` that satisfies the
- * `predicate`.
+ * Find the index of the last element in the `array` that satisfies the `predicate`.
  *
  * Returns `-1` if none of the elements match.
  *
@@ -508,8 +505,7 @@ export function forEach<T>(fn: (value: T) => void): (array: readonly T[]) => T[]
 export function forEach<T>(fn: (value: T) => void, array: readonly T[]): T[]
 
 /**
- * Like {@link forEach}, but `fn` also receives the element index as the first
- * argument.
+ * Like {@link forEach}, but `fn` also receives the element index as the first argument.
  *
  * @category Basic array operations
  * @example
@@ -609,7 +605,7 @@ export function getOr<T>(defaultValue: T, index: number, array: readonly T[]): T
  *
  * ```typescript
  * const users = [{ name: 'Alice' }, { name: 'Bob' }, { name: 'Alice' }]
-
+ *
  * A.groupBy((u) => u.name, users)
  * // => { Alice: [{ name: 'Alice' }, { name: 'Alice' }], Bob: [{ name: 'Bob' }] }
  * ```
@@ -628,8 +624,8 @@ export function groupBy<T, K extends string>(
 ): Record<K, T[]>
 
 /**
- * Like {@link groupBy}, but also apply `mapFn` to each element before adding
- * it to the corresponding array.
+ * Like {@link groupBy}, but also apply `mapFn` to each element before adding it
+ * to the corresponding array.
  *
  * @category Grouping arrays by key
  * @example
@@ -777,8 +773,8 @@ export function includes<T>(value: T): (array: readonly T[]) => boolean
 export function includes<T>(value: T, array: readonly T[]): boolean
 
 /**
- * Apply `keyFn` to each element in the `array` and return an object of
- * elements indexed by each key.
+ * Apply `keyFn` to each element in the `array` and return an object of elements
+ * indexed by each key.
  *
  * If multiple elements map to the same key, the last one is selected.
  *
@@ -884,8 +880,7 @@ export function intersperse<T>(separator: T, array: readonly T[]): T[]
 export function isEmpty<T>(array: readonly T[]): boolean
 
 /**
- * Convert the `array` to a string, inserting the `separator` between each
- * element.
+ * Convert the `array` to a string, inserting the `separator` between each element.
  *
  * @category Transforming arrays
  * @example
@@ -980,8 +975,7 @@ export function map<T, U>(fn: (value: T) => U): (array: readonly T[]) => U[]
 export function map<T, U>(fn: (value: T) => U, array: readonly T[]): U[]
 
 /**
- * Like {@link map}, but `fn` also receives the element index as the first
- * argument.
+ * Like {@link map}, but `fn` also receives the element index as the first argument.
  *
  * @category Transforming arrays
  * @example
@@ -1144,8 +1138,8 @@ export function none<T>(
 ): boolean
 
 /**
- * Partition the `array` into two arrays, the first containing the elements
- * that satisfy the `guard` and the second containing the elements that do not.
+ * Partition the `array` into two arrays, the first containing the elements that
+ * satisfy the `guard` and the second containing the elements that do not.
  *
  * @category Searching arrays with a predicate
  * @example
@@ -1165,9 +1159,8 @@ export function partition<T, U extends T>(
   array: readonly T[]
 ): [U[], Exclude<T, U>[]]
 /**
- * Partition the `array` into two arrays, the first containing the elements
- * that satisfy the `predicate` and the second containing the elements that do
- * not.
+ * Partition the `array` into two arrays, the first containing the elements that
+ * satisfy the `predicate` and the second containing the elements that do not.
  *
  * @category Searching arrays with a predicate
  * @example
@@ -1205,8 +1198,7 @@ export function prepend<T>(value: T): (array: readonly T[]) => T[]
 export function prepend<T>(value: T, array: readonly T[]): T[]
 
 /**
- * Create an array of numbers between `start` (inclusive) and `end`
- * (exclusive).
+ * Create an array of numbers between `start` (inclusive) and `end` (exclusive).
  *
  * @category Building arrays
  * @example
@@ -1400,8 +1392,8 @@ export function set<T>(index: number, value: T, array: readonly T[]): T[]
 export function singleton<T>(values: T): [T]
 
 /**
- * Create a copy of `array` containing the elements from `start` (inclusive)
- * to `end` (exclusive).
+ * Create a copy of `array` containing the elements from `start` (inclusive) to
+ * `end` (exclusive).
  *
  * @category Slicing arrays
  * @example
@@ -1476,8 +1468,7 @@ export function sort<T>(
 ): T[]
 
 /**
- * Sort an `array` into ascending order by mapping each element of the array
- * with `fn`.
+ * Sort an `array` into ascending order by mapping each element of the array with `fn`.
  *
  * @category Sorting arrays
  * @example
@@ -1541,9 +1532,9 @@ export function sortWith<T>(
 /**
  * Sum an `array` of numbers together. Returns `0` if the array is empty.
  *
- * Uses the [Kahan summation
- * algorithm](https://en.wikipedia.org/wiki/Kahan_summation_algorithm) for
- * minimizing numerical error.
+ * Uses the
+ * {@link https://en.wikipedia.org/wiki/Kahan_summation_algorithm Kahan summation algorithm}
+ * for minimizing numerical error.
  *
  * @category Reducing arrays
  * @example
@@ -1564,8 +1555,8 @@ export function sortWith<T>(
 export function sum(numbers: readonly number[]): number
 
 /**
- * Like {@link sum}, but each element of the `array` is converted to a number
- * by applying `fn`.
+ * Like {@link sum}, but each element of the `array` is converted to a number by
+ * applying `fn`.
  *
  * @category Reducing arrays
  * @example
@@ -1662,8 +1653,7 @@ export function takeLastWhile<T>(
 ): T[]
 
 /**
- * Take elements from the beginning of an `array` while `predicate` is
- * satisfied.
+ * Take elements from the beginning of an `array` while `predicate` is satisfied.
  *
  * @category Slicing arrays
  * @example
@@ -1704,8 +1694,7 @@ export function times<T>(fn: (index: number) => T, n: number): T[]
 /**
  * Combine the corresponding elements of two arrays into an array of pairs.
  *
- * If one of the arrays is longer than the other, the extra elements are
- * ignored.
+ * If one of the arrays is longer than the other, the extra elements are ignored.
  *
  * @category Zipping arrays
  * @example
@@ -1726,8 +1715,7 @@ export function zip<T, U>(first: readonly T[], second: readonly U[]): [T, U][]
 /**
  * Combine an array of `keys` and `values` into an object.
  *
- * If one of the arrays is longer than the other, its extra elements are
- * ignored.
+ * If one of the arrays is longer than the other, its extra elements are ignored.
  *
  * @category Zipping arrays
  * @example

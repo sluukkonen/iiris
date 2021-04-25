@@ -1,6 +1,6 @@
 /**
- * The `iiris/map` module includes functions for working with Maps.
- * It is designed to be imported with a wildcard, e.g.
+ * The `iiris/map` module includes functions for working with Maps. It is
+ * designed to be imported with a wildcard, e.g.
  *
  * ```typescript
  * import * as M from 'iiris/map'
@@ -172,8 +172,8 @@ export function isEmpty<K, V>(map: Map<K, V>): boolean
 export function keys<K, V>(map: Map<K, V>): IterableIterator<K>
 
 /**
- * Return a map containing the results of applying `fn` to each `key` of
- * the original `map`.
+ * Return a map containing the results of applying `fn` to each `key` of the
+ * original `map`.
  *
  * @category Map
  * @example
@@ -194,8 +194,8 @@ export function mapKeys<K1, K2, V>(
 ): Map<K1, V>
 
 /**
- * Return a map containing the results of applying `fn` to each `value` of
- * the original `map`.
+ * Return a map containing the results of applying `fn` to each `value` of the
+ * original `map`.
  *
  * @category Map
  * @example

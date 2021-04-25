@@ -1,6 +1,6 @@
 /**
- * The `iiris/set` module includes functions for working with Objects.
- * It is designed to be imported with a wildcard, e.g.
+ * The `iiris/set` module includes functions for working with Objects. It is
+ * designed to be imported with a wildcard, e.g.
  *
  * ```typescript
  * import * as O from 'iiris/object'
@@ -113,8 +113,8 @@ export function has<K extends keyof T & string, T extends object>(
 export function keys<T extends object>(object: T): Array<keyof T & string>
 
 /**
- * Return an object containing the results of applying `fn` to each key of
- * the original `object`.
+ * Return an object containing the results of applying `fn` to each key of the
+ * original `object`.
  *
  * If multiple keys map to the same new key, the latest value is selected.
  *
@@ -135,8 +135,8 @@ export function mapKeys<K1 extends string, K2 extends string, V>(
 ): Record<K2, V>
 
 /**
- * Return an object containing the results of applying `fn` to each value of
- * the original `object`.
+ * Return an object containing the results of applying `fn` to each value of the
+ * original `object`.
  *
  * @category Object
  * @example
@@ -178,8 +178,7 @@ export function merge<T extends object, U extends object>(
  * Return a copy of `object` where the property `key` has replaced by applying
  * `fn` to its current value.
  *
- * - If `key` is not an own property of `object`, the `object` is returned
- *   unchanged.
+ * - If `key` is not an own property of `object`, the `object` is returned unchanged.
  * - If `fn` returns `undefined`, the property is removed.
  *
  * @category Object
@@ -261,8 +260,8 @@ export function get<K extends keyof T & string, T extends object>(
 ): T[K]
 
 /**
- * Like {@link get}, but if the resolved value is `undefined`, `defaultValue`
- * is returned instead.
+ * Like {@link get}, but if the resolved value is `undefined`, `defaultValue` is
+ * returned instead.
  *
  * @category Object
  * @example
@@ -303,8 +302,7 @@ export function getOr<V extends T[K], K extends keyof T & string, T>(
 /**
  * Return a copy of `object` without the property `key`.
  *
- * - If `key` is not an own property of `object`, the `object` is returned
- *   unchanged.
+ * - If `key` is not an own property of `object`, the `object` is returned unchanged.
  *
  * @category Object
  * @example
@@ -383,9 +381,10 @@ export function set<K extends keyof T & string, T extends object>(
  *
  * @category Object
  * @example
- * ```
- * O.keys({ a: 1, b: 2, c: 3 })
- * // => [1, 2, 3]
+ *
+ * ```typescript
+ * > O.values({ a: 1, b: 2, c: 3 })
+ * [1, 2, 3]
  * ```
  *
  * @see keys
