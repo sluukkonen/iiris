@@ -1,7 +1,7 @@
 # Module `iiris/string`
 
-The `iiris/string` module includes functions for working with Strings.
-It is designed to be imported with a wildcard, e.g.
+The `iiris/string` module includes functions for working with Strings. It is
+designed to be imported with a wildcard, e.g.
 
 ```typescript
 import * as S from 'iiris/string'
@@ -29,8 +29,7 @@ import * as S from 'iiris/string'
 ```
 <!-- prettier-ignore-end -->
 
-Convert the first code point of `string` to uppercase and the rest to
-lowercase.
+Convert the first code point of `string` to uppercase and the rest to lowercase.
 
 <details><summary>Example</summary>
 

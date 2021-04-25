@@ -1,7 +1,7 @@
 # Module `iiris/object`
 
-The `iiris/set` module includes functions for working with Objects.
-It is designed to be imported with a wildcard, e.g.
+The `iiris/set` module includes functions for working with Objects. It is
+designed to be imported with a wildcard, e.g.
 
 ```typescript
 import * as O from 'iiris/object'
@@ -140,8 +140,8 @@ O.get('a', {})
 ```
 <!-- prettier-ignore-end -->
 
-Like [get](#get), but if the resolved value is `undefined`, `defaultValue`
-is returned instead.
+Like [get](#get), but if the resolved value is `undefined`, `defaultValue` is
+returned instead.
 
 <details><summary>Example</summary>
 
@@ -217,8 +217,8 @@ O.keys({ a: 1, b: 2, c: 3 })
 ```
 <!-- prettier-ignore-end -->
 
-Return an object containing the results of applying `fn` to each key of
-the original `object`.
+Return an object containing the results of applying `fn` to each key of the
+original `object`.
 
 If multiple keys map to the same new key, the latest value is selected.
 
@@ -241,8 +241,8 @@ O.mapKeys((k) => k.toUpperCase(), { a: 1, b: 2, c: 3 })
 ```
 <!-- prettier-ignore-end -->
 
-Return an object containing the results of applying `fn` to each value of
-the original `object`.
+Return an object containing the results of applying `fn` to each value of the
+original `object`.
 
 <details><summary>Example</summary>
 
@@ -288,8 +288,7 @@ O.merge({ a: 1, b: 1 }, { b: 2, c: 2 })
 Return a copy of `object` where the property `key` has replaced by applying
 `fn` to its current value.
 
-- If `key` is not an own property of `object`, the `object` is returned
-  unchanged.
+- If `key` is not an own property of `object`, the `object` is returned unchanged.
 - If `fn` returns `undefined`, the property is removed.
 
 <details><summary>Example</summary>
@@ -367,8 +366,7 @@ O.pick(['a', 'b'], { a: 1, b: 2, c: 3 })
 
 Return a copy of `object` without the property `key`.
 
-- If `key` is not an own property of `object`, the `object` is returned
-  unchanged.
+- If `key` is not an own property of `object`, the `object` is returned unchanged.
 
 <details><summary>Example</summary>
 
@@ -421,9 +419,9 @@ Return an array of the own enumerable property values of `object`
 
 <details><summary>Example</summary>
 
-```
-O.keys({ a: 1, b: 2, c: 3 })
-// => [1, 2, 3]
+```typescript
+> O.values({ a: 1, b: 2, c: 3 })
+[1, 2, 3]
 ```
 
 </details>

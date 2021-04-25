@@ -1,7 +1,7 @@
 # Module `iiris/array`
 
-The `iiris/array` module includes functions for working with Arrays.
-It is designed to be imported with a wildcard, e.g.
+The `iiris/array` module includes functions for working with Arrays. It is
+designed to be imported with a wildcard, e.g.
 
 ```typescript
 import * as A from 'iiris/array'
@@ -172,8 +172,7 @@ i
 ```
 <!-- prettier-ignore-end -->
 
-Like [forEach](#foreach), but `fn` also receives the element index as the first
-argument.
+Like [forEach](#foreach), but `fn` also receives the element index as the first argument.
 
 <details><summary>Example</summary>
 
@@ -579,8 +578,7 @@ A.from(new Set([1, 2, 3))
 ```
 <!-- prettier-ignore-end -->
 
-Create an array of numbers between `start` (inclusive) and `end`
-(exclusive).
+Create an array of numbers between `start` (inclusive) and `end` (exclusive).
 
 <details><summary>Example</summary>
 
@@ -680,8 +678,7 @@ A.times((n) => n * 10, 3)
 ```
 <!-- prettier-ignore-end -->
 
-Apply `keyFn` to each element in the `array` and return an object of counts
-by key.
+Apply `keyFn` to each element in the `array` and return an object of counts by key.
 
 <details><summary>Example</summary>
 
@@ -731,8 +728,8 @@ A.groupBy((u) => u.name, users)
 ```
 <!-- prettier-ignore-end -->
 
-Like [groupBy](#groupby), but also apply `mapFn` to each element before adding
-it to the corresponding array.
+Like [groupBy](#groupby), but also apply `mapFn` to each element before adding it
+to the corresponding array.
 
 <details><summary>Example</summary>
 
@@ -797,8 +794,8 @@ const sumOfAgesByName = A.groupMapReduce(
 ```
 <!-- prettier-ignore-end -->
 
-Apply `keyFn` to each element in the `array` and return an object of
-elements indexed by each key.
+Apply `keyFn` to each element in the `array` and return an object of elements
+indexed by each key.
 
 If multiple elements map to the same key, the last one is selected.
 
@@ -946,9 +943,9 @@ A.reduceRight((n, sum) => n + sum, 4, [1, 2, 3]) // equal to 1 + (2 + (3 + 4))
 
 Sum an `array` of numbers together. Returns `0` if the array is empty.
 
-Uses the [Kahan summation
-algorithm](https://en.wikipedia.org/wiki/Kahan_summation_algorithm) for
-minimizing numerical error.
+Uses the
+{@link https://en.wikipedia.org/wiki/Kahan_summation_algorithm Kahan summation algorithm}
+for minimizing numerical error.
 
 <details><summary>Example</summary>
 
@@ -977,8 +974,8 @@ numbers.reduce((sum, n) => sum + n, 0)
 ```
 <!-- prettier-ignore-end -->
 
-Like [sum](#sum), but each element of the `array` is converted to a number
-by applying `fn`.
+Like [sum](#sum), but each element of the `array` is converted to a number by
+applying `fn`.
 
 <details><summary>Example</summary>
 
@@ -1213,8 +1210,7 @@ A.find((c) => c === 'x', ['a', 'b', 'c'])
 ```
 <!-- prettier-ignore-end -->
 
-Find the index of the first element in the `array` that satisfies the
-`predicate`.
+Find the index of the first element in the `array` that satisfies the `predicate`.
 
 Returns `-1` if none of the elements satisfy the predicate.
 
@@ -1271,8 +1267,7 @@ A.findLast((c) => c === 'x', ['a', 'b', 'c'])
 ```
 <!-- prettier-ignore-end -->
 
-Find the index of the last element in the `array` that satisfies the
-`predicate`.
+Find the index of the last element in the `array` that satisfies the `predicate`.
 
 Returns `-1` if none of the elements match.
 
@@ -1327,9 +1322,8 @@ A.none((n) => n > 5, [1, 2, 3])
 ```
 <!-- prettier-ignore-end -->
 
-Partition the `array` into two arrays, the first containing the elements
-that satisfy the `predicate` and the second containing the elements that do
-not.
+Partition the `array` into two arrays, the first containing the elements that
+satisfy the `predicate` and the second containing the elements that do not.
 
 <details><summary>Example</summary>
 
@@ -1455,8 +1449,7 @@ A.dropLastWhile((n) => n > 1, [1, 2, 3])
 ```
 <!-- prettier-ignore-end -->
 
-Drop elements from the beginning of an `array` while `predicate` is
-satisfied.
+Drop elements from the beginning of an `array` while `predicate` is satisfied.
 
 <details><summary>Example</summary>
 
@@ -1479,8 +1472,8 @@ A.dropWhile((n) => n === 1, [1, 2, 3])
 ```
 <!-- prettier-ignore-end -->
 
-Create a copy of `array` containing the elements from `start` (inclusive)
-to `end` (exclusive).
+Create a copy of `array` containing the elements from `start` (inclusive) to
+`end` (exclusive).
 
 <details><summary>Example</summary>
 
@@ -1573,8 +1566,7 @@ A.takeLastWhile((n) => n >= 2, [1, 2, 3])
 ```
 <!-- prettier-ignore-end -->
 
-Take elements from the beginning of an `array` while `predicate` is
-satisfied.
+Take elements from the beginning of an `array` while `predicate` is satisfied.
 
 <details><summary>Example</summary>
 
@@ -1622,8 +1614,7 @@ A.sort((a, b) => a - b, [3, 2, 1])
 ```
 <!-- prettier-ignore-end -->
 
-Sort an `array` into ascending order by mapping each element of the array
-with `fn`.
+Sort an `array` into ascending order by mapping each element of the array with `fn`.
 
 <details><summary>Example</summary>
 
@@ -1763,8 +1754,7 @@ A.intersperse(',', [])
 ```
 <!-- prettier-ignore-end -->
 
-Convert the `array` to a string, inserting the `separator` between each
-element.
+Convert the `array` to a string, inserting the `separator` between each element.
 
 <details><summary>Example</summary>
 
@@ -1841,8 +1831,7 @@ A.mapMaybe((u) => u.age, users)
 ```
 <!-- prettier-ignore-end -->
 
-Like [map](#map), but `fn` also receives the element index as the first
-argument.
+Like [map](#map), but `fn` also receives the element index as the first argument.
 
 <details><summary>Example</summary>
 
@@ -1890,8 +1879,7 @@ A.reverse([1, 2, 3])
 
 Combine the corresponding elements of two arrays into an array of pairs.
 
-If one of the arrays is longer than the other, the extra elements are
-ignored.
+If one of the arrays is longer than the other, the extra elements are ignored.
 
 <details><summary>Example</summary>
 
@@ -1916,8 +1904,7 @@ A.zip(['a', 'b', 'c'], [1, 2, 3])
 
 Combine an array of `keys` and `values` into an object.
 
-If one of the arrays is longer than the other, its extra elements are
-ignored.
+If one of the arrays is longer than the other, its extra elements are ignored.
 
 <details><summary>Example</summary>
 

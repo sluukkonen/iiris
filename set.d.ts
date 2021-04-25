@@ -1,6 +1,6 @@
 /**
- * The `iiris/set` module includes functions for working with Sets.
- * It is designed to be imported with a wildcard, e.g.
+ * The `iiris/set` module includes functions for working with Sets. It is
+ * designed to be imported with a wildcard, e.g.
  *
  * ```typescript
  * import * as S from 'iiris/array'
@@ -82,14 +82,12 @@ export function from<T>(iterable: Iterable<T>): Set<T>
 /**
  * Check if `set` contains `value`.
  *
- * @category
  * @example
  *
  * ```typescript
  * S.has(1, S.from([1, 2, 3]))
  * // => true
  * ```
- *
  */
 export function has<T>(value: T): (set: Set<T>) => boolean
 export function has<T>(value: T, set: Set<T>): boolean

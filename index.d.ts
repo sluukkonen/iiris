@@ -1,8 +1,8 @@
 /**
  * The `iiris` module contains the core functionality of Iiris. It contains
  * various utility functions that work with a wide variety of data types, while
- * more specialized functions are stored in separate modules. It is designed
- * to be imported with a wildcard, e.g.
+ * more specialized functions are stored in separate modules. It is designed to
+ * be imported with a wildcard, e.g.
  *
  * ```typescript
  * import * as I from 'iiris'
@@ -209,7 +209,6 @@ export function clamp<T extends Ordered>(
  * notZero(1)
  * // => true
  * ```
- *
  */
 export function complement<T extends VariadicFunction0<boolean>>(fn: T): T
 
@@ -452,11 +451,13 @@ export function divideBy(divisor: number, dividend: number): number
 /**
  * Check if two values are deeply equal.
  *
- * - Primitive values are compared with [SameValueZero](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness#same-value-zero_equality).
+ * - Primitive values are compared with
+ *   {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness#same-value-zero_equality SameValueZero}.
  * - Only the own enumerable keys of objects are considered.
  * - The order of object keys does not matter.
  * - Built-in objects (e.g. Arrays, Maps & Sets) are not checked for extra keys.
- * - Sets and Map keys are compared with [SameValueZero](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness#same-value-zero_equality).
+ * - Sets and Map keys are compared with
+ *   {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness#same-value-zero_equality SameValueZero}.
  * - Error objects are equal if their `name` and `message` properties are equal.
  * - Functions are compared with `===`.
  * - Supports cyclic references.
@@ -547,6 +548,7 @@ export function gt<T extends Ordered>(first: T, second: T): boolean
  *
  * @category Relation
  * @example
+ *
  * ```typescript
  * I.filter(I.gte(2), [1, 2, 3])
  * // => [2, 3]
@@ -583,7 +585,7 @@ export function inc(n: number): number
 
 /**
  * Check if the `value` is an
- * [`Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
+ * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array Array}.
  *
  * @category Type tests
  */
@@ -593,7 +595,7 @@ export function isArray<T>(
 
 /**
  * Check if the `value` is a
- * [`BigInt`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt).
+ * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt BigInt}.
  *
  * @category Type tests
  */
@@ -601,7 +603,7 @@ export function isBigInt<T>(value: T | bigint): value is bigint
 
 /**
  * Check if the `value` is a
- * [`boolean`](https://developer.mozilla.org/en-US/docs/Glossary/boolean).
+ * {@linkhttps://developer.mozilla.org/en-US/docs/Glossary/boolean boolean}.
  *
  * @category Type tests
  */
@@ -609,7 +611,7 @@ export function isBoolean<T>(value: T | boolean): value is boolean
 
 /**
  * Check if the `value` is a
- * [`Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date).
+ * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date Date}.
  *
  * @category Type tests
  */
@@ -617,7 +619,7 @@ export function isDate<T>(value: T | Date): value is Date
 
 /**
  * Check if the `value` is not
- * [`undefined`](https://developer.mozilla.org/en-US/docs/Glossary/undefined).
+ * {@linkhttps://developer.mozilla.org/en-US/docs/Glossary/undefined undefined}.
  *
  * @category Type tests
  */
@@ -625,7 +627,7 @@ export function isDefined<T>(value: T | undefined): value is T
 
 /**
  * Check if the `value` is an
- * [`Error`](https://developer.mozilla.org/en-us/docs/Web/JavaScript/Reference/Global_Objects/Error).
+ * {@link https://developer.mozilla.org/en-us/docs/Web/JavaScript/Reference/Global_Objects/Error Error}.
  *
  * @category Type tests
  */
@@ -633,7 +635,7 @@ export function isError<T>(value: T | Error): value is Error
 
 /**
  * Check if the `value` is a
- * [function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions).
+ * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions function}.
  *
  * @category Type tests
  */
@@ -641,8 +643,8 @@ export function isFunction<T>(value: T | Function): value is Function // eslint-
 
 /**
  * Check if the `value` is
- * [`null`](https://developer.mozilla.org/en-US/docs/Glossary/null) or
- * [`undefined`](https://developer.mozilla.org/en-US/docs/Glossary/undefined).
+ * {@link https://developer.mozilla.org/en-US/docs/Glossary/null null} or
+ * {@link https://developer.mozilla.org/en-US/docs/Glossary/undefined undefined}.
  *
  * @category Type tests
  */
@@ -650,7 +652,7 @@ export function isNil<T>(value: T | null | undefined): value is null | undefined
 
 /**
  * Check if the `value` is
- * [`null`](https://developer.mozilla.org/en-US/docs/Glossary/null).
+ * {@link https://developer.mozilla.org/en-US/docs/Glossary/null null}.
  *
  * @category Type tests
  */
@@ -658,7 +660,7 @@ export function isNull<T>(value: T | null): value is null
 
 /**
  * Check if the `value` is a
- * [`number`](https://developer.mozilla.org/en-US/docs/Glossary/number).
+ * {@link https://developer.mozilla.org/en-US/docs/Glossary/number number}.
  *
  * @category Type tests
  */
@@ -666,7 +668,7 @@ export function isNumber<T>(value: T | number): value is number
 
 /**
  * Check if the `value` is a
- * [`Map`](https://developer.mozilla.org/en-us/docs/Web/JavaScript/Reference/Global_Objects/Map).
+ * {@link https://developer.mozilla.org/en-us/docs/Web/JavaScript/Reference/Global_Objects/Map Map}.
  *
  * @category Type tests
  */
@@ -676,7 +678,7 @@ export function isMap<T>(
 
 /**
  * Check if the `value` is an
- * [object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#objects).
+ * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#objects object}.
  *
  * Note that functions and arrays are also objects.
  *
@@ -686,7 +688,7 @@ export function isObject<T>(value: T | object): value is object
 
 /**
  * Check if the `value` is a
- * [`RegExp`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp).
+ * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp RegExp}.
  *
  * @category Type tests
  */
@@ -694,7 +696,7 @@ export function isRegExp<T>(value: T | RegExp): value is RegExp
 
 /**
  * Check if the `value` is a
- * [`Set`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set).
+ * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set Set}.
  *
  * @category Type tests
  */
@@ -702,7 +704,7 @@ export function isSet<T>(value: T | Set<unknown>): value is Set<unknown>
 
 /**
  * Check if the `value` is a
- * [`string`](https://developer.mozilla.org/en-us/docs/Web/JavaScript/Reference/Global_Objects/String).
+ * {@link https://developer.mozilla.org/en-us/docs/Web/JavaScript/Reference/Global_Objects/String string}.
  *
  * @category Type tests
  */
@@ -710,7 +712,7 @@ export function isString<T>(value: T | string): value is string
 
 /**
  * Check if the `value` is a
- * [`Symbol`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol).
+ * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol Symbol}.
  *
  * @category Type tests
  */
@@ -718,7 +720,7 @@ export function isSymbol<T>(value: T | symbol): value is symbol
 
 /**
  * Check if the `value` is
- * [`undefined`](https://developer.mozilla.org/en-US/docs/Glossary/undefined).
+ * {@link https://developer.mozilla.org/en-US/docs/Glossary/undefined undefined}.
  *
  * @category Type tests
  */
@@ -757,8 +759,7 @@ export function lte<T extends Ordered>(first: T): (second: Widen<T>) => boolean
 export function lte<T extends Ordered>(first: T, second: T): boolean
 
 /**
- * Apply `fn` to `maybeValue` if it is not `undefined`, return `defaultValue`
- * otherwise.
+ * Apply `fn` to `maybeValue` if it is not `undefined`, return `defaultValue` otherwise.
  *
  * @category Logic
  * @example
@@ -810,8 +811,7 @@ export function max<T extends Ordered>(first: T): (second: Widen<T>) => Widen<T>
 export function max<T extends Ordered>(first: T, second: T): Widen<T>
 
 /**
- * Like {@link max}, but apply `fn` to both values before determining their
- * ordering.
+ * Like {@link max}, but apply `fn` to both values before determining their ordering.
  *
  * @category Relation
  * @example
@@ -860,8 +860,7 @@ export function maxBy<T, U extends Ordered>(
 export function maximum<T extends Ordered>(array: readonly T[]): T | undefined
 
 /**
- * Like {@link maximum}, but apply `fn` to each value before determining
- * their ordering.
+ * Like {@link maximum}, but apply `fn` to each value before determining their ordering.
  *
  * @category Reducing arrays
  * @example
@@ -909,8 +908,7 @@ export function min<T extends Ordered>(first: T): (second: Widen<T>) => Widen<T>
 export function min<T extends Ordered>(first: T, second: T): T
 
 /**
- * Like {@link min}, but apply `fn` to both values before determining their
- * ordering.
+ * Like {@link min}, but apply `fn` to both values before determining their ordering.
  *
  * @category Relation
  * @example
@@ -994,7 +992,6 @@ export function noop(): undefined
  * ```
  *
  * @see complement
- *
  */
 export function not(bool: boolean): boolean
 
@@ -1002,8 +999,8 @@ export function not(bool: boolean): boolean
  * Pipe an `initial` value through one or more functions in left-to-right order,
  * allowing the programmer to chain operations in a readable manner.
  *
- * `I.pipe(initial, f1, f2, ...fn)` can be thought as syntax sugar
- * for `fn(...(f2(f1(initial))))`
+ * `I.pipe(initial, f1, f2, ...fn)` can be thought as syntax sugar for
+ * `fn(...(f2(f1(initial))))`
  *
  * **Note:** This function is not curried.
  *
@@ -1107,8 +1104,7 @@ export function subtractBy(subtrahend: number): (minuend: number) => number
 export function subtractBy(subtrahend: number, minuend: number): number
 
 /**
- * Create a function that applies `fn` to its argument and returns the
- * argument.
+ * Create a function that applies `fn` to its argument and returns the argument.
  *
  * Useful for executing a side-effect within a pipeline.
  *
