@@ -7,7 +7,7 @@ const R = require('ramda')
 const I = require('../dist/index.js')
 const A = require('../dist/array.js')
 const O = require('../dist/object.js')
-const Str = require('../dist/string.js')
+const T = require('../dist/text.js')
 const S = require('../dist/set.js')
 
 const util = require('util')
@@ -739,7 +739,7 @@ const benchmarks = [
         return first.toUpperCase() + rest.join('')
       }
       return {
-        iiris: () => Str.capitalize(str),
+        iiris: () => T.capitalize(str),
         lodash: () => _.capitalize(str),
         native: () => nativeCapitalize(str),
       }

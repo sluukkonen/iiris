@@ -13,7 +13,7 @@ const entryPoints = [
   './src/map.js',
   './src/object.js',
   './src/set.js',
-  './src/string.js',
+  './src/text.js',
 ].map((i) => path.resolve(__dirname, i))
 
 const plugins = [

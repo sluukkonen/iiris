@@ -1,7 +1,7 @@
 import { expectError, expectType } from 'tsd'
 import * as I from '..'
 import * as O from '../object'
-import * as S from '../string'
+import * as T from '../text'
 import { User, user } from './index.test-d'
 
 const toUpper = (s: string) => s.toUpperCase()
@@ -56,7 +56,7 @@ expectError(O.modify('age')(() => 'too old', user))
 expectError(O.modify('age')(() => 'too old')(user))
 
 // Wrong type of function
-expectError(O.modify('age', S.toUpperCase, user))
-expectError(O.modify('age', S.toUpperCase)(user))
-expectError(O.modify('age')(S.toUpperCase)(user))
-expectError(O.modify('age')(S.toUpperCase)(user))
+expectError(O.modify('age', T.toUpperCase, user))
+expectError(O.modify('age', T.toUpperCase)(user))
+expectError(O.modify('age')(T.toUpperCase)(user))
+expectError(O.modify('age')(T.toUpperCase)(user))

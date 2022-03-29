@@ -32,7 +32,7 @@ If you've tried Iiris and something doesn't seem to be working as expected, [let
   - [Module `iiris/object`](docs/object.md)
   - [Module `iiris/set`](docs/set.md)
   - [Module `iiris/map`](docs/map.md)
-  - [Module `iiris/string`](docs/string.md)
+  - [Module `iiris/text`](docs/text.md)
 
 ## Installation
 

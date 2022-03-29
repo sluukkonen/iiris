@@ -1,9 +1,9 @@
 /**
- * The `iiris/string` module includes functions for working with Strings. It is
+ * The `iiris/text` module includes functions for working with text. It is
  * designed to be imported with a wildcard, e.g.
  *
  * ```typescript
- * import * as S from 'iiris/string'
+ * import * as T from 'iiris/text'
  * ```
  *
  * @module
@@ -16,7 +16,7 @@
  * @example
  *
  * ```typescript
- * S.capitalize('aBc')
+ * T.capitalize('aBc')
  * // => 'Abc'
  * ```
  *
@@ -32,7 +32,7 @@ export function capitalize(string: string): string
  * @example
  *
  * ```typescript
- * S.split(', ', 'a, b, c')
+ * T.split(', ', 'a, b, c')
  * // => ['a', 'b', 'c']
  * ```
  *
@@ -48,7 +48,7 @@ export function split(separator: RegExp | string, string: string): string
  * @example
  *
  * ```typescript
- * S.test(/abc/, 'abc')
+ * T.test(/abc/, 'abc')
  * // => true
  * ```
  */
@@ -62,7 +62,7 @@ export function test(regexp: RegExp, string: string): boolean
  * @example
  *
  * ```typescript
- * S.toLowerCase('ABC')
+ * T.toLowerCase('ABC')
  * // => 'abc'
  * ```
  *
@@ -78,7 +78,7 @@ export function toLowerCase(string: string): string
  * @example
  *
  * ```typescript
- * S.toUpperCase('abc')
+ * T.toUpperCase('abc')
  * // => 'ABC'
  * ```
  *
@@ -94,7 +94,7 @@ export function toUpperCase(string: string): string
  * @example
  *
  * ```typescript
- * S.trim('  abc  ')
+ * T.trim('  abc  ')
  * // => 'abc'
  * ```
  *
@@ -110,7 +110,7 @@ export function trim(string: string): string
  * @example
  *
  * ```typescript
- * S.trimEnd('  abc  ')
+ * T.trimEnd('  abc  ')
  * // => '  abc'
  * ```
  *
@@ -126,7 +126,7 @@ export function trimEnd(string: string): string
  * @example
  *
  * ```typescript
- * S.trimStart('  abc  ')
+ * T.trimStart('  abc  ')
  * // => 'abc  '
  * ```
  *

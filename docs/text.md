@@ -1,10 +1,10 @@
-# Module `iiris/string`
+# Module `iiris/text`
 
-The `iiris/string` module includes functions for working with Strings. It is
+The `iiris/text` module includes functions for working with text. It is
 designed to be imported with a wildcard, e.g.
 
 ```typescript
-import * as S from 'iiris/string'
+import * as T from 'iiris/text'
 ```
 
 ## Table of contents
@@ -34,7 +34,7 @@ Convert the first code point of `string` to uppercase and the rest to lowercase.
 ##### Example
 
 ```typescript
-S.capitalize('aBc')
+T.capitalize('aBc')
 // => 'Abc'
 ```
 
@@ -55,7 +55,7 @@ Split the `string` into an array of substrings between each `separator`.
 ##### Example
 
 ```typescript
-S.split(', ', 'a, b, c')
+T.split(', ', 'a, b, c')
 // => ['a', 'b', 'c']
 ```
 
@@ -76,7 +76,7 @@ Check if `string` matches the `regexp`.
 ##### Example
 
 ```typescript
-S.test(/abc/, 'abc')
+T.test(/abc/, 'abc')
 // => true
 ```
 
@@ -95,7 +95,7 @@ Convert `string` to lowercase.
 ##### Example
 
 ```typescript
-S.toLowerCase('ABC')
+T.toLowerCase('ABC')
 // => 'abc'
 ```
 
@@ -116,7 +116,7 @@ Convert `string` to uppercase.
 ##### Example
 
 ```typescript
-S.toUpperCase('abc')
+T.toUpperCase('abc')
 // => 'ABC'
 ```
 
@@ -137,7 +137,7 @@ Remove whitespace from both ends of a `string`.
 ##### Example
 
 ```typescript
-S.trim('  abc  ')
+T.trim('  abc  ')
 // => 'abc'
 ```
 
@@ -158,7 +158,7 @@ Remove whitespace from the end of a `string`.
 ##### Example
 
 ```typescript
-S.trimEnd('  abc  ')
+T.trimEnd('  abc  ')
 // => '  abc'
 ```
 
@@ -179,7 +179,7 @@ Remove whitespace from the beginning of a `string`.
 ##### Example
 
 ```typescript
-S.trimStart('  abc  ')
+T.trimStart('  abc  ')
 // => 'abc  '
 ```
 
