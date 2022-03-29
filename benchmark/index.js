@@ -800,6 +800,7 @@ const suites = benchmarks
         benchmarks.forEach(({ name, fn }) => {
           // As a side-effect, write the result of each run into a variable, so v8
           // doesn't optimize the benchmark into the ether.
+          // eslint-disable-next-line no-unused-vars
           let blackhole
           suite.add(padName(name), () => {
             // eslint-disable-next-line no-unused-vars
