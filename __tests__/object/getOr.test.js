@@ -20,6 +20,6 @@ it('returns the default value if the value is undefined', () => {
 
 it('throws an error if object is nil', () => {
   expect(() => getOr(0, 'a', null)).toThrowError(
-    new TypeError(`Cannot read property 'a' of null`)
+    new TypeError(`Cannot read properties of null (reading 'a')`)
   )
 })

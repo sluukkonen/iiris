@@ -28,6 +28,6 @@ it('returns undefined if the element is undefined', () => {
 
 it('throws an error if the element is nil', () => {
   expect(() => getOr(0, 0, null)).toThrowError(
-    new TypeError(`Cannot read property 'length' of null`)
+    new TypeError("Cannot read properties of null (reading 'length')")
   )
 })
