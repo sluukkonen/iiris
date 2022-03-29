@@ -39,14 +39,12 @@ import * as O from 'iiris/object'
 
 Return an array of the own enumerable property key-value pairs of `object`
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 O.entries({ a: 1, b: 2, c: 3 })
 // => [['a', 1], ['b', 2], ['c', 3]]
 ```
-
-</details>
 
 **See also:** [fromEntries](#fromentries), [keys](#keys), [values](#values)
 
@@ -62,7 +60,7 @@ O.entries({ a: 1, b: 2, c: 3 })
 
 Create an object from an array of `[key, value]` pairs.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 O.fromEntries([
@@ -72,8 +70,6 @@ O.fromEntries([
 ])
 // => { a: 1, b: 2, c: 3 }
 ```
-
-</details>
 
 **See also:** [entries](#entries)
 
@@ -89,7 +85,7 @@ O.fromEntries([
 
 Convert a `map` with string keys to an object.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 O.fromMap(
@@ -101,8 +97,6 @@ O.fromMap(
 )
 // => { a: 1, b: 2, c: 3 }
 ```
-
-</details>
 
 ---
 
@@ -116,7 +110,7 @@ O.fromMap(
 
 Retrieves the property `key` from `object` or `undefined`.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 O.get('a', { a: 1, b: 2, c: 3 })
@@ -125,8 +119,6 @@ O.get('a', { a: 1, b: 2, c: 3 })
 O.get('a', {})
 // => undefined
 ```
-
-</details>
 
 **See also:** [getOr](#getor)
 
@@ -143,7 +135,7 @@ O.get('a', {})
 Like [get](#get), but if the resolved value is `undefined`, `defaultValue` is
 returned instead.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 O.getOr(999, 'a', { a: 1, b: 2, c: 3 })
@@ -155,8 +147,6 @@ O.getOr(999, 'a', {})
 O.getOr(999, 'a', { a: undefined })
 // => 999
 ```
-
-</details>
 
 **See also:** [get](#get)
 
@@ -172,7 +162,7 @@ O.getOr(999, 'a', { a: undefined })
 
 Check if `key` is an own property of `object`.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 O.has('a', { a: 1 })
@@ -181,8 +171,6 @@ O.has('a', { a: 1 })
 O.has('toString', { a: 1 })
 // => false
 ```
-
-</details>
 
 ---
 
@@ -196,14 +184,12 @@ O.has('toString', { a: 1 })
 
 Return an array of the own enumerable property keys of `object`.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 O.keys({ a: 1, b: 2, c: 3 })
 // => ['a', 'b', 'c']
 ```
-
-</details>
 
 **See also:** [entries](#entries), [values](#values)
 
@@ -222,14 +208,12 @@ original `object`.
 
 If multiple keys map to the same new key, the latest value is selected.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 O.mapKeys((k) => k.toUpperCase(), { a: 1, b: 2, c: 3 })
 // => { A: 1, B: 2, C: 3 }
 ```
-
-</details>
 
 ---
 
@@ -244,14 +228,12 @@ O.mapKeys((k) => k.toUpperCase(), { a: 1, b: 2, c: 3 })
 Return an object containing the results of applying `fn` to each value of the
 original `object`.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 O.mapValues((n) => n + 1, { a: 1, b: 2, c: 3 })
 // => { a: 2, b: 3, c: 4 }
 ```
-
-</details>
 
 ---
 
@@ -266,14 +248,12 @@ O.mapValues((n) => n + 1, { a: 1, b: 2, c: 3 })
 Copy the own enumerable properties of two objects, preferring the values from
 `second` in case of duplicate keys.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 O.merge({ a: 1, b: 1 }, { b: 2, c: 2 })
 // => { a: 1, b: 2, c: 2 }
 ```
-
-</details>
 
 ---
 
@@ -291,7 +271,7 @@ Return a copy of `object` where the property `key` has replaced by applying
 - If `key` is not an own property of `object`, the `object` is returned unchanged.
 - If `fn` returns `undefined`, the property is removed.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 O.modifyProp('a', (n) => n + 1, { a: 1, b: 2, c: 3 })
@@ -303,8 +283,6 @@ O.modifyProp('a', () => undefined, { a: 1, b: 2, c: 3 })
 O.modifyProp('d', () => 4, { a: 1, b: 2, c: 3 })
 // => { a: 1, b: 2, c: 3, d: 4 }
 ```
-
-</details>
 
 **See also:** [set](#set), [remove](#remove)
 
@@ -320,14 +298,12 @@ O.modifyProp('d', () => 4, { a: 1, b: 2, c: 3 })
 
 Return a copy of `object` without the specified `keys`.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 O.omit(['a', 'b'], { a: 1, b: 2, c: 3 })
 // => { c: 3 }
 ```
-
-</details>
 
 **See also:** [pick](#pick)
 
@@ -343,14 +319,12 @@ O.omit(['a', 'b'], { a: 1, b: 2, c: 3 })
 
 Return a copy of `object` with only the specified `keys`.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 O.pick(['a', 'b'], { a: 1, b: 2, c: 3 })
 // => { a: 1, b: 2 }
 ```
-
-</details>
 
 **See also:** [omit](#omit)
 
@@ -368,14 +342,12 @@ Return a copy of `object` without the property `key`.
 
 - If `key` is not an own property of `object`, the `object` is returned unchanged.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 O.remove('a', { a: 1, b: 2, c: 3 })
 // => { b: 2, c: 3 }
 ```
-
-</details>
 
 ---
 
@@ -391,7 +363,7 @@ Return a copy of `object` with property `key` set to `value`.
 
 - If `value` is `undefined`, the property is removed.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 O.setProp('a', 999, { a: 1, b: 2, c: 3 })
@@ -400,8 +372,6 @@ O.setProp('a', 999, { a: 1, b: 2, c: 3 })
 O.setProp('a', undefined, { a: 1, b: 2, c: 3 })
 // => { b: 2, c: 3 }
 ```
-
-</details>
 
 **See also:** [modify](#modify), [remove](#remove)
 
@@ -417,14 +387,12 @@ O.setProp('a', undefined, { a: 1, b: 2, c: 3 })
 
 Return an array of the own enumerable property values of `object`
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 > O.values({ a: 1, b: 2, c: 3 })
 [1, 2, 3]
 ```
-
-</details>
 
 **See also:** [keys](#keys), [entries](#entries)
 

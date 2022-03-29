@@ -38,14 +38,12 @@ Return a copy of `set` with `value`.
 
 - If `set` already contains `value`, it is returned unchanged.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 S.add(4, S.from([1, 2, 3]))
 // => Set(4) { 1, 2, 3, 4 }
 ```
-
-</details>
 
 **See also:** [add](#add), [has](#has)
 
@@ -63,14 +61,12 @@ Return a copy of `set` without `value`.
 
 - If `set` doesn't contain `value`, it is returned unchanged.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 S.remove(1, S.from([1, 2, 3]))
 // => Set(2) { 2, 3 }
 ```
-
-</details>
 
 **See also:** [add](#add), [has](#has)
 
@@ -88,14 +84,12 @@ S.remove(1, S.from([1, 2, 3]))
 
 Create an empty set.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 S.empty()
 // => Set(0) {}
 ```
-
-</details>
 
 **See also:** [from](#from), [singleton](#singleton)
 
@@ -111,14 +105,12 @@ S.empty()
 
 Convert an `iterable` into a set.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 S.from([1, 2, 3])
 // => Set(3) { 1, 2, 3 }
 ```
-
-</details>
 
 **See also:** [empty](#empty), [singleton](#singleton)
 
@@ -134,14 +126,12 @@ S.from([1, 2, 3])
 
 Create a singleton set containing `value`.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 S.singleton(1)
 // => Set(1) { 1 }
 ```
-
-</details>
 
 **See also:** [empty](#empty), [from](#from)
 
@@ -159,14 +149,12 @@ S.singleton(1)
 
 Check if `set` contains `value`.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 S.has(1, S.from([1, 2, 3]))
 // => true
 ```
-
-</details>
 
 ---
 
@@ -180,14 +168,12 @@ S.has(1, S.from([1, 2, 3]))
 
 Check if the `set` is empty.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 S.isEmpty(S.empty())
 // => true
 ```
-
-</details>
 
 ---
 
@@ -205,14 +191,12 @@ Calculate the
 [difference](<https://en.wikipedia.org/wiki/Complement_(set_theory)#Relative_complement>)
 between two sets.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 S.difference(S.from([1, 2, 3]), S.from([2, 3, 4]))
 // => Set(4) { 1 }
 ```
-
-</details>
 
 **See also:** [intersection](#intersection), [union](#union)
 
@@ -230,14 +214,12 @@ Calculate the
 [intersection](<https://en.wikipedia.org/wiki/Intersection_(set_theory)>)
 between two sets.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 S.intersection(S.from([1, 2, 3]), S.from([2, 3, 4]))
 // => Set(4) { 2, 3 }
 ```
-
-</details>
 
 **See also:** [intersection](#intersection), [union](#union)
 
@@ -254,14 +236,12 @@ S.intersection(S.from([1, 2, 3]), S.from([2, 3, 4]))
 Calculate the [union](<https://en.wikipedia.org/wiki/Union_(set_theory)>)
 between two sets.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 S.union(S.from([1, 2, 3]), S.from([2, 3, 4]))
 // => Set(4) { 1, 2, 3, 4 }
 ```
-
-</details>
 
 **See also:** [difference](#difference), [intersection](#intersection)
 

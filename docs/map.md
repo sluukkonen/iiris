@@ -41,14 +41,12 @@ import * as M from 'iiris/map'
 
 Create an empty map.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 M.empty()
 // => Map(0) {}
 ```
-
-</details>
 
 **See also:** [singleton](#singleton)
 
@@ -64,14 +62,12 @@ M.empty()
 
 Return a new iterator containing the key-value pairs of the map in insertion order.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 M.entries()
 // => [Map Entries] { [ 'a', 1 ] }
 ```
-
-</details>
 
 ---
 
@@ -85,15 +81,13 @@ M.entries()
 
 Apply a `fn` to each `key`-`value` pair of the `map`.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 M.forEach((k, v) => {
   conso
 }, map)
 ```
-
-</details>
 
 ---
 
@@ -107,7 +101,7 @@ M.forEach((k, v) => {
 
 Create a map from an array of `[key, value]` pairs.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 M.fromEntries([
@@ -117,8 +111,6 @@ M.fromEntries([
 ])
 // => Map(3) { 'a' => 1, 'b' => 2, 'c' => 3 }
 ```
-
-</details>
 
 **See also:** [entries](#entries)
 
@@ -134,14 +126,12 @@ M.fromEntries([
 
 Convert an `object` to a map.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 M.fromObject({ a: 1, b: 2, c: 3 })
 // => Map(3) { 'a' => 1, 'b' => 2, 'c' => 3 }
 ```
-
-</details>
 
 ---
 
@@ -155,7 +145,7 @@ M.fromObject({ a: 1, b: 2, c: 3 })
 
 Retrieve the specified value from the `map`.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 M.get('a', M.singleton('a', 1))
@@ -164,8 +154,6 @@ M.get('a', M.singleton('a', 1))
 M.get('b', M.singleton('a', 1))
 // => undefined
 ```
-
-</details>
 
 **See also:** [getOr](#getor)
 
@@ -181,7 +169,7 @@ M.get('b', M.singleton('a', 1))
 
 Retrieve the specified value or `defaultValue` from the `map`.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 M.getOr(999, 'a', M.singleton('a', 1))
@@ -190,8 +178,6 @@ M.getOr(999, 'a', M.singleton('a', 1))
 M.getOr(999, 'b', M.singleton('a', 1))
 // => 999
 ```
-
-</details>
 
 ---
 
@@ -205,14 +191,12 @@ M.getOr(999, 'b', M.singleton('a', 1))
 
 Check if `map` contains the specified `key`.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 M.has('a', M.singleton('a', 1))
 // => true
 ```
-
-</details>
 
 ---
 
@@ -226,14 +210,12 @@ M.has('a', M.singleton('a', 1))
 
 Check if the `map` is empty.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 M.isEmpty(M.empty())
 // => true
 ```
-
-</details>
 
 ---
 
@@ -247,14 +229,12 @@ M.isEmpty(M.empty())
 
 Return a new iterator containing the keys of the `map` in insertion order.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 M.keys(M.singleton('a', 1))
 // => [Map Iterator] { 'a' }
 ```
-
-</details>
 
 ---
 
@@ -269,14 +249,12 @@ M.keys(M.singleton('a', 1))
 Return a map containing the results of applying `fn` to each `value` of the
 original `map`.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 M.map((n) => n + 1, M.fromObject({ a: 1, b: 2, c: 3 }))
 // => Map(3) { 'a' => 2, 'b' => 3, 'c' => 4 }
 ```
-
-</details>
 
 **See also:** [mapKeys](#mapkeys)
 
@@ -293,14 +271,12 @@ M.map((n) => n + 1, M.fromObject({ a: 1, b: 2, c: 3 }))
 Return a map containing the results of applying `fn` to each `key` of the
 original `map`.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 M.mapKeys((k) => k.toUpperCase(), M.fromObject({ a: 1, b: 2, c: 3 }))
 // => Map(3) { 'A' => 1, 'B' => 2, 'C' => 3 }
 ```
-
-</details>
 
 **See also:** [mapKeys](#mapkeys)
 
@@ -319,14 +295,12 @@ current value.
 
 - If the `map` doesn't contain `key`, it is returned unchanged.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 M.modify('a', (n) => n + 1, M.singleton('a', 1))
 // => Map(1) { 'a' => 2 }
 ```
-
-</details>
 
 **See also:** [modify](#modify), [remove](#remove)
 
@@ -342,14 +316,12 @@ M.modify('a', (n) => n + 1, M.singleton('a', 1))
 
 Return a copy of `map` without the specified `key`.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 M.remove('a', M.singleton('a', 1))
 // => Map(2) { 'a' => 1, 'b' => 2 }
 ```
-
-</details>
 
 **See also:** [modify](#modify), [remove](#remove)
 
@@ -365,14 +337,12 @@ M.remove('a', M.singleton('a', 1))
 
 Return a copy of `map` with `key` set to `value`.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 M.set('b', 2, M.singleton('a', 1))
 // => Map(2) { 'a' => 1, 'b' => 2 }
 ```
-
-</details>
 
 **See also:** [modify](#modify), [remove](#remove)
 
@@ -388,14 +358,12 @@ M.set('b', 2, M.singleton('a', 1))
 
 Create a map with a single element.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 M.singleton('a', 1)
 // => Map(1) { 'a' => 1 }
 ```
-
-</details>
 
 **See also:** [singleton](#singleton)
 
@@ -411,14 +379,12 @@ M.singleton('a', 1)
 
 Return the number of entries in the `map`.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 M.size(M.singleton('a', 1)
 // => 1
 ```
-
-</details>
 
 ---
 
@@ -432,13 +398,11 @@ M.size(M.singleton('a', 1)
 
 Return a new iterator containing the values of the `map` in insertion order.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 M.values(M.singleton('a', 1))
 // => [Map Iterator] { 1 }
 ```
-
-</details>
 
 ---

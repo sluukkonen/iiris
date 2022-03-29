@@ -88,7 +88,7 @@ Create a version of `fn` that accepts two arguments.
 
 **Note:** The returned function is not curried.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 const fn = (...args) => args
@@ -100,8 +100,6 @@ fn(1, 2, 3)
 wrapped(1, 2, 3)
 // => [1, 2]
 ```
-
-</details>
 
 **See also:** [unary](#unary)
 
@@ -117,7 +115,7 @@ wrapped(1, 2, 3)
 
 Create a version of a predicate `fn` that flips the returned boolean value.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 const isZero = (v) => v === 0
@@ -129,8 +127,6 @@ notZero(0)
 notZero(1)
 // => true
 ```
-
-</details>
 
 ---
 
@@ -148,7 +144,7 @@ Right-to-left function composition.
 
 **Note:** This function is not curried.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 const composed = I.compose(I.add(10), I.multiply(2))
@@ -156,8 +152,6 @@ const composed = I.compose(I.add(10), I.multiply(2))
 composed(2)
 // => 14
 ```
-
-</details>
 
 ---
 
@@ -171,14 +165,12 @@ composed(2)
 
 Create a function that always returns `value`.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 I.map(I.constant(1), [1, 2, 3])
 // => [1, 1, 1]
 ```
-
-</details>
 
 ---
 
@@ -192,7 +184,7 @@ I.map(I.constant(1), [1, 2, 3])
 
 Create a curried version of a `fn` taking two arguments.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 const add = I.curry2((a, b) => a + b)
@@ -203,8 +195,6 @@ add(1)(2)
 add(1, 2)
 // => 3
 ```
-
-</details>
 
 **See also:** [curry3](#curry3), [curry4](#curry4)
 
@@ -220,7 +210,7 @@ add(1, 2)
 
 Create a curried version of a `fn` taking three arguments.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 const add = I.curry3((a, b, c) => a + b + c)
@@ -231,8 +221,6 @@ add(1)(2)(3)
 add(1, 2, 3)
 // => 6
 ```
-
-</details>
 
 **See also:** [curry2](#curry2), [curry4](#curry4)
 
@@ -248,7 +236,7 @@ add(1, 2, 3)
 
 Create a curried version of a `fn` taking four arguments.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 const add = I.curry4((a, b, c, d) => a + b + c + d)
@@ -259,8 +247,6 @@ add(1)(2)(3)(4)
 add(1, 2, 3, 4)
 // => 10
 ```
-
-</details>
 
 **See also:** [curry2](#curry2), [curry3](#curry3)
 
@@ -278,7 +264,7 @@ Flip the arguments of a binary function.
 
 **Note:** The returned function is not curried.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 const fn = (...args) => args
@@ -287,8 +273,6 @@ const flipped = I.flip(fn)
 flipped(1, 2)
 // => [2, 1]
 ```
-
-</details>
 
 ---
 
@@ -302,14 +286,12 @@ flipped(1, 2)
 
 Identity function. Returns the first argument.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 I.identity(5)
 // => 5
 ```
-
-</details>
 
 ---
 
@@ -323,14 +305,12 @@ I.identity(5)
 
 Do nothing an return `undefined`.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 I.map(I.noop, [1, 2, 3])
 // => [undefined, undefined, undefined]
 ```
-
-</details>
 
 ---
 
@@ -344,7 +324,7 @@ I.map(I.noop, [1, 2, 3])
 
 Logical not. Flip the value of a boolean argument
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 I.not(true)
@@ -353,8 +333,6 @@ I.not(true)
 I.not(false)
 // => true
 ```
-
-</details>
 
 **See also:** [complement](#complement)
 
@@ -378,7 +356,7 @@ allowing the programmer to chain operations in a readable manner.
 
 **Note:** This function is not curried.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 I.pipe(
@@ -388,8 +366,6 @@ I.pipe(
 )
 // => 12
 ```
-
-</details>
 
 **See also:** [compose](#compose)
 
@@ -407,7 +383,7 @@ Create a function that applies `fn` to its argument and returns the argument.
 
 Useful for executing a side-effect within a pipeline.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 I.pipe(
@@ -421,8 +397,6 @@ I.pipe(
 // => 10
 ```
 
-</details>
-
 ---
 
 #### unary
@@ -435,15 +409,13 @@ I.pipe(
 
 Create a version of `fn` that accepts a single argument.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 const array = [1, 2, 3]
 array.map(I.unary(parseInt))
 // => [1, 2, 3]
 ```
-
-</details>
 
 **See also:** [binary](#binary)
 
@@ -461,7 +433,7 @@ array.map(I.unary(parseInt))
 
 Apply `fn` to `maybeValue` if it is not `undefined`, return `defaultValue` otherwise.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 I.maybe('', (s) => s.toUpperCase(), 'hi')
@@ -470,8 +442,6 @@ I.maybe('', (s) => s.toUpperCase(), 'hi')
 I.maybe('', (s) => s.toUpperCase(), undefined)
 // => ''
 ```
-
-</details>
 
 **See also:** [valueOr](#valueor)
 
@@ -487,7 +457,7 @@ I.maybe('', (s) => s.toUpperCase(), undefined)
 
 Return `maybeValue` if it is not `undefined`, `defaultValue` otherwise.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 I.valueOr(999, 0)
@@ -496,8 +466,6 @@ I.valueOr(999, 0)
 I.valueOr(999, undefined)
 // => 999
 ```
-
-</details>
 
 **See also:** [maybe](#maybe)
 
@@ -515,14 +483,12 @@ I.valueOr(999, undefined)
 
 Add two numbers together.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 I.map(I.add(1), [1, 2, 3])
 // => [2, 3, 4]
 ```
-
-</details>
 
 ---
 
@@ -536,14 +502,12 @@ I.map(I.add(1), [1, 2, 3])
 
 Decrement a number by 1.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 I.map(I.dec, [1, 2, 3])
 // => [0, 1, 2]
 ```
-
-</details>
 
 **See also:** [inc](#inc)
 
@@ -559,14 +523,12 @@ I.map(I.dec, [1, 2, 3])
 
 Divide `dividend` by the `divisor`.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 I.map(I.divideBy(2), [1, 2, 3])
 // => [0.5, 1, 1.5]
 ```
-
-</details>
 
 ---
 
@@ -580,14 +542,12 @@ I.map(I.divideBy(2), [1, 2, 3])
 
 Increment a number by 1.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 I.map(I.inc, [1, 2, 3])
 // => [2, 3, 4]
 ```
-
-</details>
 
 ---
 
@@ -601,14 +561,12 @@ I.map(I.inc, [1, 2, 3])
 
 Multiply two numbers together.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 I.map(I.multiply(2), [1, 2, 3])
 // => [2, 4, 6]
 ```
-
-</details>
 
 ---
 
@@ -622,14 +580,12 @@ I.map(I.multiply(2), [1, 2, 3])
 
 Return `n` with its sign reversed.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 I.map(I.negate, [1, 2, 3])
 // => [-1, -2, -3]
 ```
-
-</details>
 
 ---
 
@@ -643,14 +599,12 @@ I.map(I.negate, [1, 2, 3])
 
 Subtract the `subtrahend` from the `minuend`.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 I.map(I.subtractBy(1), [1, 2, 3])
 // => [0, 1, 2]
 ```
-
-</details>
 
 ---
 
@@ -666,7 +620,7 @@ I.map(I.subtractBy(1), [1, 2, 3])
 
 Return the largest element of an `array` or `undefined`.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 I.maximum([1, 2, 3])
@@ -675,8 +629,6 @@ I.maximum([1, 2, 3])
 I.maximum([])
 // => undefined
 ```
-
-</details>
 
 **See also:** [minimum](#minimum), [maximumBy](#maximumby)
 
@@ -692,7 +644,7 @@ I.maximum([])
 
 Like [maximum](#maximum), but apply `fn` to each value before determining their ordering.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 const users = [
@@ -704,8 +656,6 @@ const users = [
 I.maximumBy((u) => u.age, users)
 // => { name: 'Carol', age: 30 }
 ```
-
-</details>
 
 **See also:** [maximum](#maximum), [minimumBy](#minimumby)
 
@@ -723,7 +673,7 @@ I.maximumBy((u) => u.age, users)
 
 Clamp a number within the closed interval `[lower, upper]`.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 I.clamp([0, 10], 5)
@@ -735,8 +685,6 @@ I.clamp([0, 10], 15)
 I.clamp([0, 10], -5)
 // => 0
 ```
-
-</details>
 
 ---
 
@@ -762,7 +710,7 @@ Check if two values are deeply equal.
 - Supports cyclic references.
 - Does not support WeakMaps, WeakSets or typed arrays.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 I.equals([1, 2, 3], [1, 2, 3])
@@ -771,8 +719,6 @@ I.equals([1, 2, 3], [1, 2, 3])
 I.equals([1, 2, 3], [4, 5, 6])
 // => false
 ```
-
-</details>
 
 ---
 
@@ -787,14 +733,12 @@ I.equals([1, 2, 3], [4, 5, 6])
 Like [equals](#equals), but the function `fn` is applied to both values before
 determining equality.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 I.equalsBy(Math.floor, 1, 1.5)
 // => true
 ```
-
-</details>
 
 **See also:** [equals](#equals)
 
@@ -812,14 +756,12 @@ Check if the `second` argument is greater than the `first`.
 
 Designed to be used as a curried predicate.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 I.filter(I.gt(2), [1, 2, 3])
 // => [3]
 ```
-
-</details>
 
 ---
 
@@ -835,14 +777,12 @@ Check if the `second` argument is greater than or equal to the `first`.
 
 Designed to be used as a curried predicate.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 I.filter(I.gte(2), [1, 2, 3])
 // => [2, 3]
 ```
-
-</details>
 
 ---
 
@@ -858,14 +798,12 @@ Check if the `second` argument is less than the `first`.
 
 Designed to be used as a curried predicate.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 I.filter(I.lt(2), [1, 2, 3])
 // => [1]
 ```
-
-</details>
 
 ---
 
@@ -881,14 +819,12 @@ Check if the `second` argument is less than or equal to the `first`.
 
 Designed to be used as a curried predicate.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 I.filter(I.lte(2), [1, 2, 3])
 // => [1, 2]
 ```
-
-</details>
 
 ---
 
@@ -902,7 +838,7 @@ I.filter(I.lte(2), [1, 2, 3])
 
 Return the larger of two values.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 I.max(1, 2)
@@ -911,8 +847,6 @@ I.max(1, 2)
 I.max('a', 'b')
 // => 'b'
 ```
-
-</details>
 
 **See also:** [min](#min), [maxBy](#maxby)
 
@@ -928,14 +862,12 @@ I.max('a', 'b')
 
 Like [max](#max), but apply `fn` to both values before determining their ordering.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 I.maxBy(Math.abs, 1, -2)
 // => -2
 ```
-
-</details>
 
 **See also:** [max](#max), [minBy](#minby)
 
@@ -951,7 +883,7 @@ I.maxBy(Math.abs, 1, -2)
 
 Return the smaller of two values.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 I.min(1, 2)
@@ -960,8 +892,6 @@ I.min(1, 2)
 I.min('a', 'b')
 // => 'a'
 ```
-
-</details>
 
 **See also:** [max](#max), [minBy](#minby)
 
@@ -977,14 +907,12 @@ I.min('a', 'b')
 
 Like [min](#min), but apply `fn` to both values before determining their ordering.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 I.minBy(Math.abs, -1, 2)
 // => -1
 ```
-
-</details>
 
 **See also:** [min](#min), [maxBy](#maxby)
 
@@ -1005,14 +933,12 @@ ascending comparator function.
 
 **Note:** The returned function is not curried.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 I.sort(I.ascend(I.prop('age')), [{ name: 'Bob' }, { name: 'Alice' }])
 // => [{ name: 'Alice' }, { name: 'Bob' }]
 ```
-
-</details>
 
 **See also:** [descend](#descend), [sort](#sort), [sortWith](#sortwith)
 
@@ -1031,14 +957,12 @@ descending comparator function.
 
 **Note:** The returned function is not curried.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 I.sort(I.descend(I.prop('name')), [{ name: 'Alice' }, { name: 'Bob' }])
 // => [{ name: 'Bob' }, { name: 'Alice' }]
 ```
-
-</details>
 
 **See also:** [ascend](#ascend), [sort](#sort), [sortWith](#sortwith)
 

@@ -202,9 +202,6 @@ function formatCommentTags(tags) {
     .join(', ')
 
   return (
-    '<details><summary>Example</summary>\n\n' +
-    example +
-    '\n\n</details>' +
-    (see ? '\n\n**See also:** ' + see : '')
+    h('Example', 5) + '\n\n' + example + (see ? '\n\n**See also:** ' + see : '')
   )
 }
