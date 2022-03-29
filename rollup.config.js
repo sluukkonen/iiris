@@ -1,3 +1,4 @@
+import { babel } from '@rollup/plugin-babel'
 import virtual from '@rollup/plugin-virtual'
 import replace from '@rollup/plugin-replace'
 import path from 'path'
@@ -23,6 +24,7 @@ const plugins = [
       return obj
     }, {})
   ),
+  babel({ babelHelpers: 'bundled' }),
 ]
 
 function createEntryPoint(file) {
