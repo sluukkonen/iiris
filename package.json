@@ -41,9 +41,9 @@
       "import": "./dist/set.mjs",
       "require": "./dist/set.js"
     },
-    "./string": {
-      "import": "./dist/string.mjs",
-      "require": "./dist/string.js"
+    "./text": {
+      "import": "./dist/text.mjs",
+      "require": "./dist/text.js"
     }
   },
   "types": "index.d.ts",
@@ -87,7 +87,7 @@
     "docs": "typedoc --json .reflection.json *.d.ts && node generate-docs.js",
     "lint": "concurrently 'eslint .' 'prettier --check .'",
     "prepare": "yarn build && git config core.hooksPath .githooks",
-    "repl": "yarn build && node -i -e 'I = require(`iiris`); A = require(`iiris/array`); O = require(`iiris/object`); S = require(`iiris/set`); M = require(`iiris/map`)'",
+    "repl": "yarn build && node -i -e 'I = require(`iiris`); A = require(`iiris/array`); O = require(`iiris/object`); S = require(`iiris/set`); M = require(`iiris/map`); T = require(`iiris/text`)'",
     "test": "jest --coverage",
     "tsd": "tsd"
   }

@@ -1,4 +1,4 @@
-import { split } from '../../src/string/split.js'
+import { split } from '../../src/text/split.js'
 
 it('splits a string between each separator', () => {
   expect(split(', ', '')).toEqual([''])
