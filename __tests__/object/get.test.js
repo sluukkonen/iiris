@@ -20,6 +20,6 @@ it('works for primitive objects as well', () => {
 
 it('throws an error if target is nil', () => {
   expect(() => get('a', null)).toThrowError(
-    new TypeError(`Cannot read property 'a' of null`)
+    new TypeError(`Cannot read properties of null (reading 'a')`)
   )
 })

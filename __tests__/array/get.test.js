@@ -24,6 +24,6 @@ it('retrieves the nth element from an array', () => {
 
 it('throws an error if array is nil', () => {
   expect(() => get(0, null)).toThrowError(
-    new TypeError(`Cannot read property 'length' of null`)
+    new TypeError("Cannot read properties of null (reading 'length')")
   )
 })
