@@ -55,6 +55,7 @@
   "devDependencies": {
     "@babel/core": "7.17.8",
     "@babel/preset-env": "7.16.11",
+    "@rollup/plugin-babel": "5.3.1",
     "@rollup/plugin-replace": "2.4.2",
     "@rollup/plugin-virtual": "^2.0.3",
     "@types/benchmark": "2.1.1",
@@ -62,6 +63,7 @@
     "@typescript-eslint/eslint-plugin": "4.33.0",
     "@typescript-eslint/parser": "4.33.0",
     "babel-jest": "26.6.3",
+    "babel-plugin-annotate-pure-calls": "0.4.0",
     "concurrently": "7.0.0",
     "eslint": "7.24.0",
     "eslint-plugin-import": "2.25.4",
