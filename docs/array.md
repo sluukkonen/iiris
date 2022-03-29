@@ -102,14 +102,12 @@ import * as A from 'iiris/array'
 
 Append a new element to the end of an array.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.append(4, [1, 2, 3])
 // => [1, 2, 3, 4]
 ```
-
-</details>
 
 **See also:** [prepend](#prepend), [concat](#concat)
 
@@ -125,14 +123,12 @@ A.append(4, [1, 2, 3])
 
 Concatenate two arrays together.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.concat([1, 2, 3], [4, 5, 6])
 // => [1, 2, 3, 4, 5, 6]
 ```
-
-</details>
 
 **See also:** [append](#append), [prepend](#prepend)
 
@@ -148,7 +144,7 @@ A.concat([1, 2, 3], [4, 5, 6])
 
 Apply `fn` to each element of the `array` and return the `array`.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.forEach(console.log, ['h', 'i', '!'])
@@ -157,8 +153,6 @@ i
 !
 // => ['h', 'i', '!']
 ```
-
-</details>
 
 **See also:** [forEachWithIndex](#foreachwithindex)
 
@@ -174,7 +168,7 @@ i
 
 Like [forEach](#foreach), but `fn` also receives the element index as the first argument.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.forEachWithIndex(console.log, ['h', 'i', '!'])
@@ -183,8 +177,6 @@ A.forEachWithIndex(console.log, ['h', 'i', '!'])
 2 !
 // => ['h', 'i', '!']
 ```
-
-</details>
 
 **See also:** [forEach](#foreach)
 
@@ -200,7 +192,7 @@ A.forEachWithIndex(console.log, ['h', 'i', '!'])
 
 Return the element at `index` from `array` or `undefined`.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.get(0, [1, 2, 3])
@@ -209,8 +201,6 @@ A.get(0, [1, 2, 3])
 A.get(0, [])
 // => undefined
 ```
-
-</details>
 
 **See also:** [getOr](#getor)
 
@@ -227,7 +217,7 @@ A.get(0, [])
 Like [get](#get), but if `index` is not within the array bounds,
 `defaultValue` is returned instead.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.getOr(999, 0, [1, 2, 3])
@@ -239,8 +229,6 @@ A.getOr(999, 0, [])
 A.getOr(999, 0, [undefined])
 // => 999
 ```
-
-</details>
 
 **See also:** [get](#get)
 
@@ -256,7 +244,7 @@ A.getOr(999, 0, [undefined])
 
 Return the first element of the `array` or `undefined`.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.head([1, 2, 3])
@@ -265,8 +253,6 @@ A.head([1, 2, 3])
 A.head([])
 // => undefined
 ```
-
-</details>
 
 **See also:** [tail](#tail), [init](#init), [last](#last)
 
@@ -282,7 +268,7 @@ A.head([])
 
 Return all elements of the `array` except the last.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.init([1, 2, 3])
@@ -291,8 +277,6 @@ A.init([1, 2, 3])
 A.init([])
 // => []
 ```
-
-</details>
 
 **See also:** [last](#last), [head](#head), [tail](#tail)
 
@@ -308,7 +292,7 @@ A.init([])
 
 Check if `array` is empty.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.isEmpty([1, 2, 3])
@@ -317,8 +301,6 @@ A.isEmpty([1, 2, 3])
 A.isEmpty([])
 // => true
 ```
-
-</details>
 
 **See also:** [length](#length)
 
@@ -334,7 +316,7 @@ A.isEmpty([])
 
 Return the last element of the `array` or `undefined`.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.last([1, 2, 3])
@@ -343,8 +325,6 @@ A.last([1, 2, 3])
 A.last([])
 // => undefined
 ```
-
-</details>
 
 **See also:** [init](#init), [head](#head), [tail](#tail)
 
@@ -360,7 +340,7 @@ A.last([])
 
 Return the length of an `array`.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.length([1, 2, 3])
@@ -369,8 +349,6 @@ A.length([1, 2, 3])
 A.length([])
 // => 0
 ```
-
-</details>
 
 **See also:** [isEmpty](#isempty)
 
@@ -388,7 +366,7 @@ Returns a copy of `array` where the element at `index` has been replaced by
 applying `fn` to its current value. If `index` is not within `array` bounds,
 the `array` is returned unchanged.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.modify(0, (n) => n + 1, [1, 2, 3])
@@ -404,8 +382,6 @@ A.modify(999, (n) => n + 1, [1, 2, 3])
 // => [1, 2, 3]
 ```
 
-</details>
-
 **See also:** [set](#set), [remove](#remove)
 
 ---
@@ -420,14 +396,12 @@ A.modify(999, (n) => n + 1, [1, 2, 3])
 
 Prepend a new element to the beginning of an array.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.prepend(0, [1, 2, 3])
 // => [0, 1, 2, 3]
 ```
-
-</details>
 
 **See also:** [append](#append), [concat](#concat)
 
@@ -444,7 +418,7 @@ A.prepend(0, [1, 2, 3])
 Return a copy of `array` without the element at `index`. If `index` is not
 within the `array` bounds, the `array` is returned unchanged.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.remove(0, [1, 2, 3])
@@ -456,8 +430,6 @@ A.remove(-1, [1, 2, 3])
 A.remove(999, [1, 2, 3])
 // => [1, 2, 3]
 ```
-
-</details>
 
 **See also:** [modify](#modify), [set](#set)
 
@@ -475,7 +447,7 @@ Returns a copy of `array` where the element at `index` has been replaced with
 `value`. If `index` is not within the `array` bounds, the `array` is returned
 unchanged.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.set(0, 999, [1, 2, 3])
@@ -487,8 +459,6 @@ A.set(-1, 999, [1, 2, 3])
 A.set(999, 999, [1, 2, 3])
 // => [1, 2, 3]
 ```
-
-</details>
 
 **See also:** [modify](#modify), [remove](#remove)
 
@@ -504,7 +474,7 @@ A.set(999, 999, [1, 2, 3])
 
 Return all elements of the `array` except the first.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.tail([1, 2, 3])
@@ -513,8 +483,6 @@ A.tail([1, 2, 3])
 A.tail([])
 // => []
 ```
-
-</details>
 
 **See also:** [head](#head), [init](#init), [last](#last)
 
@@ -532,14 +500,12 @@ A.tail([])
 
 Create an empty array.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.empty()
 // => []
 ```
-
-</details>
 
 **See also:** [from](#from), [singleton](#singleton)
 
@@ -557,14 +523,12 @@ Convert an `iterable` into an array.
 
 `A.from` is like `Array.from` but without support for mapping the values.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.from(new Set([1, 2, 3))
 // => [1, 2, 3]
 ```
-
-</details>
 
 **See also:** [empty](#empty), [singleton](#singleton)
 
@@ -580,7 +544,7 @@ A.from(new Set([1, 2, 3))
 
 Create an array of numbers between `start` (inclusive) and `end` (exclusive).
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.range(0, 10)
@@ -589,8 +553,6 @@ A.range(0, 10)
 A.range(0, 0)
 // => []
 ```
-
-</details>
 
 **See also:** [times](#times), [repeat](#repeat)
 
@@ -606,14 +568,12 @@ A.range(0, 0)
 
 Repeat the given `value` `n` times.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.repeat('a', 5)
 // => ['a', 'a', 'a', 'a', 'a']
 ```
-
-</details>
 
 **See also:** [range](#range), [times](#times)
 
@@ -629,7 +589,7 @@ A.repeat('a', 5)
 
 Create a singleton array containing `value`
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.of(1)
@@ -638,8 +598,6 @@ A.of(1)
 A.of(1, 2, 3)
 // => [1, 2, 3]
 ```
-
-</details>
 
 **See also:** [from](#from), [empty](#empty)
 
@@ -655,14 +613,12 @@ A.of(1, 2, 3)
 
 Create an array of length `n` by applying `fn` to the index of each element.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.times((n) => n * 10, 3)
 // => [0, 10, 20]
 ```
-
-</details>
 
 **See also:** [range](#range), [repeat](#repeat)
 
@@ -680,7 +636,7 @@ A.times((n) => n * 10, 3)
 
 Apply `keyFn` to each element in the `array` and return an object of counts by key.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 const users = [{ name: 'Alice' }, { name: 'Bob' }, { name: 'Alice' }]
@@ -688,8 +644,6 @@ const users = [{ name: 'Alice' }, { name: 'Bob' }, { name: 'Alice' }]
 A.countBy((u) => u.name, users)
 // => { Alice: 2, Bob: 1 }
 ```
-
-</details>
 
 **See also:** [groupBy](#groupby)
 
@@ -705,7 +659,7 @@ A.countBy((u) => u.name, users)
 
 Partition the `array` into an object of arrays according to `keyFn`.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 const users = [{ name: 'Alice' }, { name: 'Bob' }, { name: 'Alice' }]
@@ -713,8 +667,6 @@ const users = [{ name: 'Alice' }, { name: 'Bob' }, { name: 'Alice' }]
 A.groupBy((u) => u.name, users)
 // => { Alice: [{ name: 'Alice' }, { name: 'Alice' }], Bob: [{ name: 'Bob' }] }
 ```
-
-</details>
 
 **See also:** [indexBy](#indexby), [countBy](#countby), [groupMap](#groupmap), [groupMapReduce](#groupmapreduce)
 
@@ -731,7 +683,7 @@ A.groupBy((u) => u.name, users)
 Like [groupBy](#groupby), but also apply `mapFn` to each element before adding it
 to the corresponding array.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 const users = [
@@ -746,8 +698,6 @@ const agesByName = A.groupMap(
 )
 // => { Alice: [10, 30], Bob: [20] }
 ```
-
-</details>
 
 **See also:** [groupBy](#groupby), [groupMapReduce](#groupmapreduce)
 
@@ -764,7 +714,7 @@ const agesByName = A.groupMap(
 Like [groupMap](#groupmap), but instead of returning an object of arrays, combine
 elements mapping to the same key with `reducer`.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 const users = [
@@ -779,8 +729,6 @@ const sumOfAgesByName = A.groupMapReduce(
   users
 ) // => { Alice: 40, Bob: 20 }
 ```
-
-</details>
 
 **See also:** [groupBy](#groupby), [groupMap](#groupmap)
 
@@ -799,7 +747,7 @@ indexed by each key.
 
 If multiple elements map to the same key, the last one is selected.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 const users = [
@@ -810,8 +758,6 @@ const users = [
 A.indexBy((u) => u.id, users)
 // => { '1': { id: 1, name: 'Carol' }, '2': { id: 2, name: 'Bob' } }
 ```
-
-</details>
 
 **See also:** [groupBy](#groupby)
 
@@ -829,7 +775,7 @@ A.indexBy((u) => u.id, users)
 
 Return the smallest element of `array` or `undefined`.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.minimum([1, 2, 3])
@@ -838,8 +784,6 @@ A.minimum([1, 2, 3])
 A.minimum([])
 // => undefined
 ```
-
-</details>
 
 **See also:** [maximum](#maximum), [minimumBy](#minimumby)
 
@@ -856,7 +800,7 @@ A.minimum([])
 Like [minimum](#minimum), but `fn` is applied to each value before determining
 their ordering.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 const users = [
@@ -868,8 +812,6 @@ const users = [
 A.minimumBy((u) => u.age, users)
 // => { name: 'Alice', age: 10 }
 ```
-
-</details>
 
 **See also:** [minimum](#minimum), [maximumBy](#maximumby)
 
@@ -891,14 +833,12 @@ with the accumulated value so far and the current element. The first call to
 
 If the array is empty, `initial` is returned.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.reduce((sum, n) => sum + n, 1, [2, 3, 4]) // equal to ((1 + 2) + 3) + 4
 // => 10
 ```
-
-</details>
 
 **See also:** [reduceRight](#reduceright)
 
@@ -920,14 +860,12 @@ with the current element and the accumulated value so far. The first call to
 
 If the array is empty, `initial` is returned.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.reduceRight((n, sum) => n + sum, 4, [1, 2, 3]) // equal to 1 + (2 + (3 + 4))
 // => 10
 ```
-
-</details>
 
 **See also:** [reduce](#reduce)
 
@@ -947,7 +885,7 @@ Uses the
 {@link https://en.wikipedia.org/wiki/Kahan_summation_algorithm Kahan summation algorithm}
 for minimizing numerical error.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 const numbers = A.repeat(0.1, 10)
@@ -959,8 +897,6 @@ A.sum(numbers)
 numbers.reduce((sum, n) => sum + n, 0)
 // => 0.9999999999999999
 ```
-
-</details>
 
 **See also:** [sumBy](#sumby)
 
@@ -977,7 +913,7 @@ numbers.reduce((sum, n) => sum + n, 0)
 Like [sum](#sum), but each element of the `array` is converted to a number by
 applying `fn`.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.sumBy((u) => u.age, [
@@ -986,8 +922,6 @@ A.sumBy((u) => u.age, [
 ])
 // => 30
 ```
-
-</details>
 
 **See also:** [sum](#sum)
 
@@ -1006,7 +940,7 @@ A.sumBy((u) => u.age, [
 Check if the `array` includes the specified `value`, using [equals](#equals) for
 determining equality.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.includes(1, [1, 2, 3])
@@ -1015,8 +949,6 @@ A.includes(1, [1, 2, 3])
 A.includes(0, [1, 2, 3])
 // => false
 ```
-
-</details>
 
 ---
 
@@ -1031,7 +963,7 @@ A.includes(0, [1, 2, 3])
 Return the index of the first element equaling `value`, using [equals](#equals)
 for determining equality. Returns `-1` if no match can be found.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.indexOf('b', ['a', 'b', 'c', 'a', 'b', 'c'])
@@ -1040,8 +972,6 @@ A.indexOf('b', ['a', 'b', 'c', 'a', 'b', 'c'])
 A.indexOf('x', ['a', 'b', 'c', 'a', 'b', 'c'])
 // => -1
 ```
-
-</details>
 
 **See also:** [lastIndexOf](#lastindexof), [includes](#includes)
 
@@ -1058,7 +988,7 @@ A.indexOf('x', ['a', 'b', 'c', 'a', 'b', 'c'])
 Return the index of the last element equaling `value`, using [equals](#equals)
 for determining equality. Returns `-1` if no match can be found.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.lastIndexOf('b', ['a', 'b', 'c', 'a', 'b', 'c'])
@@ -1067,8 +997,6 @@ A.lastIndexOf('b', ['a', 'b', 'c', 'a', 'b', 'c'])
 A.lastIndexOf('x', ['a', 'b', 'c', 'a', 'b', 'c'])
 // => -1
 ```
-
-</details>
 
 **See also:** [indexOf](#indexof), [includes](#includes)
 
@@ -1086,14 +1014,12 @@ A.lastIndexOf('x', ['a', 'b', 'c', 'a', 'b', 'c'])
 
 Count the number of elements in the `array` the satisfy the `predicate`.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.count((n) => n > 1, [1, 2, 3])
 // => 2
 ```
-
-</details>
 
 **See also:** [filter](#filter)
 
@@ -1109,7 +1035,7 @@ A.count((n) => n > 1, [1, 2, 3])
 
 Check if every element in the `array` satisfies the `predicate`.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.every((n) => n < 10, [1, 2, 3])
@@ -1118,8 +1044,6 @@ A.every((n) => n < 10, [1, 2, 3])
 A.every((n) => n < 3, [1, 2, 3])
 // => false
 ```
-
-</details>
 
 **See also:** [none](#none), [some](#some)
 
@@ -1136,14 +1060,12 @@ A.every((n) => n < 3, [1, 2, 3])
 
 Return the elements of the `array` that satisfy the `predicate`.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.filter((n) => n > 1, [1, 2, 3])
 // => [2, 3]
 ```
-
-</details>
 
 **See also:** [filterWithIndex](#filterwithindex), [count](#count), [partition](#partition)
 
@@ -1160,14 +1082,12 @@ A.filter((n) => n > 1, [1, 2, 3])
 Like [filter](#filter), but `predicate` also receives the element index as the
 first argument.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.filterWithIndex((i, n) => i + n === 3, [1, 2, 3])
 // => [2]
 ```
-
-</details>
 
 **See also:** [filter](#filter)
 
@@ -1186,7 +1106,7 @@ Find the first element in the `array` that satisfies the `predicate`.
 
 Returns `undefined` if none of the elements match.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.find((c) => c !== 'a', ['a', 'b', 'c'])
@@ -1195,8 +1115,6 @@ A.find((c) => c !== 'a', ['a', 'b', 'c'])
 A.find((c) => c === 'x', ['a', 'b', 'c'])
 // => undefined
 ```
-
-</details>
 
 **See also:** [findLast](#findlast), [findIndex](#findindex)
 
@@ -1214,7 +1132,7 @@ Find the index of the first element in the `array` that satisfies the `predicate
 
 Returns `-1` if none of the elements satisfy the predicate.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.findIndex((c) => c !== 'a', ['a', 'b', 'c'])
@@ -1223,8 +1141,6 @@ A.findIndex((c) => c !== 'a', ['a', 'b', 'c'])
 A.findIndex((c) => c === 'x', ['a', 'b', 'c'])
 // => -1
 ```
-
-</details>
 
 **See also:** [findLastIndex](#findlastindex), [find](#find)
 
@@ -1243,7 +1159,7 @@ Find the last element in the `array` that satisfies the `predicate`.
 
 Returns `undefined` if none of the elements match.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.findLast((c) => c !== 'a', ['a', 'b', 'c'])
@@ -1252,8 +1168,6 @@ A.findLast((c) => c !== 'a', ['a', 'b', 'c'])
 A.findLast((c) => c === 'x', ['a', 'b', 'c'])
 // => undefined
 ```
-
-</details>
 
 **See also:** [find](#find), [findLastIndex](#findlastindex)
 
@@ -1271,7 +1185,7 @@ Find the index of the last element in the `array` that satisfies the `predicate`
 
 Returns `-1` if none of the elements match.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.findLastIndex((c) => c !== 'a', ['a', 'b', 'c'])
@@ -1280,8 +1194,6 @@ A.findLastIndex((c) => c !== 'a', ['a', 'b', 'c'])
 A.findLastIndex((c) => c === 'x', ['a', 'b', 'c'])
 // => -1
 ```
-
-</details>
 
 **See also:** [findIndex](#findindex), [findLast](#findlast)
 
@@ -1297,7 +1209,7 @@ A.findLastIndex((c) => c === 'x', ['a', 'b', 'c'])
 
 Check if none of the elements in the `array` satisfy the `predicate`.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.none((n) => n > 5, [1, 2, 3])
@@ -1306,8 +1218,6 @@ A.none((n) => n > 5, [1, 2, 3])
 A.none((n) => n > 5, [1, 2, 3])
 // => false
 ```
-
-</details>
 
 **See also:** [every](#every), [some](#some)
 
@@ -1325,14 +1235,12 @@ A.none((n) => n > 5, [1, 2, 3])
 Partition the `array` into two arrays, the first containing the elements that
 satisfy the `predicate` and the second containing the elements that do not.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 const [evens, odds] = A.partition((n) => n % 2 === 0, [1, 2, 3])
 // => [[2], [1, 3]]
 ```
-
-</details>
 
 **See also:** [filter](#filter)
 
@@ -1348,7 +1256,7 @@ const [evens, odds] = A.partition((n) => n % 2 === 0, [1, 2, 3])
 
 Check if some elements in the `array` satisfies the `predicate`.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.some((n) => n > 2, [1, 2, 3])
@@ -1357,8 +1265,6 @@ A.some((n) => n > 2, [1, 2, 3])
 A.some((n) => n > 5, [1, 2, 3])
 // false
 ```
-
-</details>
 
 **See also:** [every](#every), [none](#none)
 
@@ -1376,7 +1282,7 @@ A.some((n) => n > 5, [1, 2, 3])
 
 Drop the first `n` elements of an `array`.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.drop(1, [1, 2, 3])
@@ -1385,8 +1291,6 @@ A.drop(1, [1, 2, 3])
 A.drop(2, [1, 2, 3])
 // => [3]
 ```
-
-</details>
 
 **See also:** [dropLast](#droplast), [take](#take)
 
@@ -1402,7 +1306,7 @@ A.drop(2, [1, 2, 3])
 
 Drop the last `n` elements of an `array`.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.dropLast(1, [1, 2, 3])
@@ -1411,8 +1315,6 @@ A.dropLast(1, [1, 2, 3])
 A.dropLast(2, [1, 2, 3])
 // => [1]
 ```
-
-</details>
 
 **See also:** [drop](#drop), [takeLast](#takelast)
 
@@ -1428,14 +1330,12 @@ A.dropLast(2, [1, 2, 3])
 
 Drop elements from the end of an `array` while `predicate` is satisfied.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.dropLastWhile((n) => n > 1, [1, 2, 3])
 // => [1]
 ```
-
-</details>
 
 **See also:** [dropWhile](#dropwhile), [takeLastWhile](#takelastwhile)
 
@@ -1451,14 +1351,12 @@ A.dropLastWhile((n) => n > 1, [1, 2, 3])
 
 Drop elements from the beginning of an `array` while `predicate` is satisfied.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.dropWhile((n) => n === 1, [1, 2, 3])
 // => [2, 3]
 ```
-
-</details>
 
 **See also:** [dropLastWhile](#droplastwhile), [takeWhile](#takewhile)
 
@@ -1475,7 +1373,7 @@ A.dropWhile((n) => n === 1, [1, 2, 3])
 Create a copy of `array` containing the elements from `start` (inclusive) to
 `end` (exclusive).
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.slice(0, 2, [1, 2, 3])
@@ -1484,8 +1382,6 @@ A.slice(0, 2, [1, 2, 3])
 A.slice(1, 2, [1, 2, 3])
 // => [2]
 ```
-
-</details>
 
 ---
 
@@ -1499,14 +1395,12 @@ A.slice(1, 2, [1, 2, 3])
 
 Take the first `n` elements of an `array`.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.take(2, [1, 2, 3])
 // => [1, 2]
 ```
-
-</details>
 
 **See also:** [drop](#drop), [takeLast](#takelast)
 
@@ -1522,14 +1416,12 @@ A.take(2, [1, 2, 3])
 
 Take the last `n` elements of an `array`.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.takeLast(2, [1, 2, 3])
 // => [2, 3]
 ```
-
-</details>
 
 **See also:** [dropLast](#droplast), [take](#take)
 
@@ -1545,14 +1437,12 @@ A.takeLast(2, [1, 2, 3])
 
 Take elements from the end of an `array` while `predicate` is satisfied.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.takeLastWhile((n) => n >= 2, [1, 2, 3])
 // => [2, 3]
 ```
-
-</details>
 
 **See also:** [dropLastWhile](#droplastwhile), [takeWhile](#takewhile)
 
@@ -1568,14 +1458,12 @@ A.takeLastWhile((n) => n >= 2, [1, 2, 3])
 
 Take elements from the beginning of an `array` while `predicate` is satisfied.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.takeWhile((n) => n <= 2, [1, 2, 3])
 // => [1, 2]
 ```
-
-</details>
 
 **See also:** [dropWhile](#dropwhile), [takeLastWhile](#takelastwhile)
 
@@ -1593,14 +1481,12 @@ A.takeWhile((n) => n <= 2, [1, 2, 3])
 
 Sort an `array` according to the comparator function.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.sort((a, b) => a - b, [3, 2, 1])
 // => [1, 2, 3]
 ```
-
-</details>
 
 **See also:** [sortBy](#sortby), [sortWith](#sortwith), [ascend](#ascend), [descend](#descend)
 
@@ -1616,7 +1502,7 @@ A.sort((a, b) => a - b, [3, 2, 1])
 
 Sort an `array` into ascending order by mapping each element of the array with `fn`.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 const users = [
@@ -1630,8 +1516,6 @@ A.sortBy((u) => u.name, users)
 A.sortBy((u) => u.age, users)
 // => [{ name: 'Bob', age: 10 }, { name: 'Alice', age: 20 }]
 ```
-
-</details>
 
 **See also:** [sort](#sort), [sortWith](#sortwith)
 
@@ -1649,7 +1533,7 @@ Sort an `array` according to an array of comparator functions.
 
 The comparators are tried in order until an ordering has been found.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 const users = [
@@ -1661,8 +1545,6 @@ const users = [
 A.sortWith([F.descend((u) => u.age), F.ascend((u) => u.name)], users)
 // => [{ name: 'Alice', age: 20 }, { name: 'Bob', age: 20 }, { name: 'Alice', age: 10 }]
 ```
-
-</details>
 
 **See also:** [sort](#sort), [sortBy](#sortby), [ascend](#ascend), [descend](#descend)
 
@@ -1681,14 +1563,12 @@ A.sortWith([F.descend((u) => u.age), F.ascend((u) => u.name)], users)
 Return an array containing the results of applying `fn` to each element in
 the original `array` and then flattening the result by one level.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.flatMap((n) => [n, n], [1, 2, 3])
 // => [1, 1, 2, 2, 3, 3]
 ```
-
-</details>
 
 **See also:** [map](#map), [flatten](#flatten)
 
@@ -1704,7 +1584,7 @@ A.flatMap((n) => [n, n], [1, 2, 3])
 
 Flatten a nested `array` by `n` levels.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.flatten(1, [1, [2, [3]]])
@@ -1713,8 +1593,6 @@ A.flatten(1, [1, [2, [3]]])
 A.flatten(2, [1, [2, [3]]])
 // => [1, 2, 3]
 ```
-
-</details>
 
 **See also:** [flatMap](#flatmap)
 
@@ -1730,7 +1608,7 @@ A.flatten(2, [1, [2, [3]]])
 
 Return a copy of `array` with `separator` inserted between each element.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.intersperse(',', ['a', 'b', 'c'])
@@ -1739,8 +1617,6 @@ A.intersperse(',', ['a', 'b', 'c'])
 A.intersperse(',', [])
 // => []
 ```
-
-</details>
 
 **See also:** [join](#join)
 
@@ -1756,14 +1632,12 @@ A.intersperse(',', [])
 
 Convert the `array` to a string, inserting the `separator` between each element.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.join(', ', [1, 2, 3])
 // => '1, 2, 3'
 ```
-
-</details>
 
 **See also:** [split](#split), [intersperse](#intersperse)
 
@@ -1780,14 +1654,12 @@ A.join(', ', [1, 2, 3])
 Return an array containing the results of applying `fn` to each element in
 the original `array`.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.map((n) => n + 1, [1, 2, 3])
 // => [2, 3, 4]
 ```
-
-</details>
 
 **See also:** [mapWithIndex](#mapwithindex), [mapMaybe](#mapmaybe), [flatMap](#flatmap)
 
@@ -1804,7 +1676,7 @@ A.map((n) => n + 1, [1, 2, 3])
 Return an array containing the results of applying `fn` to each element in
 the original `array`, discarding any `undefined` values.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 const users = [
@@ -1816,8 +1688,6 @@ const users = [
 A.mapMaybe((u) => u.age, users)
 // => [10, 20]
 ```
-
-</details>
 
 **See also:** [map](#map)
 
@@ -1833,14 +1703,12 @@ A.mapMaybe((u) => u.age, users)
 
 Like [map](#map), but `fn` also receives the element index as the first argument.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.mapWithIndex((i, c) => `${i}-${c}`, ['a', 'b', 'c'])
 // => ['0-a', '1-b', '2-c']
 ```
-
-</details>
 
 **See also:** [map](#map)
 
@@ -1856,14 +1724,12 @@ A.mapWithIndex((i, c) => `${i}-${c}`, ['a', 'b', 'c'])
 
 Reverse an `array`.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.reverse([1, 2, 3])
 // => [3, 2, 1]
 ```
-
-</details>
 
 ---
 
@@ -1881,14 +1747,12 @@ Combine the corresponding elements of two arrays into an array of pairs.
 
 If one of the arrays is longer than the other, the extra elements are ignored.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.zip(['a', 'b', 'c'], [1, 2, 3])
 // => [['a', 1], ['b', 2], ['c', 3]]
 ```
-
-</details>
 
 **See also:** [zipWith](#zipwith), [zipObject](#zipobject)
 
@@ -1906,14 +1770,12 @@ Combine an array of `keys` and `values` into an object.
 
 If one of the arrays is longer than the other, its extra elements are ignored.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.zipObject(['a', 'b', 'c'], [1, 2, 3])
 // => { a: 1, b: 2, c: 3 }
 ```
-
-</details>
 
 **See also:** [zip](#zip), [fromEntries](#fromentries)
 
@@ -1930,14 +1792,12 @@ A.zipObject(['a', 'b', 'c'], [1, 2, 3])
 Like [zip](#zip), but the elements are combined with `fn` instead of
 constructing a pair.
 
-<details><summary>Example</summary>
+##### Example
 
 ```typescript
 A.zipWith((a, b) => a + b, [1, 2, 3], [4, 5, 6])
 // => [5, 7, 9]
 ```
-
-</details>
 
 **See also:** [zip](#zip)
 
