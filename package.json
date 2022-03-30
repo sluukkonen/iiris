@@ -71,7 +71,7 @@
     "glob": "7.2.0",
     "jest": "27.5.1",
     "prettier": "2.2.1",
-    "prettier-plugin-jsdoc": "0.3.33",
+    "prettier-plugin-jsdoc": "0.3.34",
     "rollup": "2.70.1",
     "rollup-plugin-terser": "7.0.2",
     "terser": "5.12.1",
