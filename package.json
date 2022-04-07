@@ -76,7 +76,7 @@
     "rollup-plugin-terser": "7.0.2",
     "terser": "5.12.1",
     "tsd": "0.20.0",
-    "typedoc": "0.22.13",
+    "typedoc": "0.22.14",
     "typescript": "4.6.3",
     "yargs": "17.4.0",
     "yarn": "1.22.18"
