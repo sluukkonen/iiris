@@ -59,7 +59,7 @@
     "@rollup/plugin-replace": "4.0.0",
     "@rollup/plugin-virtual": "2.1.0",
     "@types/benchmark": "2.1.1",
-    "@types/jest": "27.5.0",
+    "@types/jest": "27.5.1",
     "@typescript-eslint/eslint-plugin": "5.23.0",
     "@typescript-eslint/parser": "5.23.0",
     "babel-jest": "27.5.1",
