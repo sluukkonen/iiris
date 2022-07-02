@@ -65,7 +65,7 @@
     "babel-jest": "27.5.1",
     "babel-plugin-annotate-pure-calls": "0.4.0",
     "concurrently": "7.2.2",
-    "eslint": "8.18.0",
+    "eslint": "8.19.0",
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-jest": "26.5.3",
     "glob": "7.2.3",
