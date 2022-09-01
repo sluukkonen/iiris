@@ -128,7 +128,7 @@ O.get('a', {})
 
 <!-- prettier-ignore-start -->
 ```typescript
-<V>(defaultValue: V) => <K extends string>(key: K) => <T extends HasKey<K, V>>(object: T) => V | Defined<T[K]>
+<V>(defaultValue: V) => <K extends string>(key: K) => <T extends HasKey<K, V>>(object: T) => Defined<T[K]> | V
 ```
 <!-- prettier-ignore-end -->
 

@@ -146,7 +146,7 @@ function formatType(type) {
     case 'typeOperator':
       return formatTypeOperator(type)
     case 'union':
-      return type.types.map(formatType).join(' | ')
+      return type.types.map(formatType).sort().join(' | ')
     default:
       throw new Error(`Unknown type: ${type.type}`)
   }

@@ -427,7 +427,7 @@ array.map(I.unary(parseInt))
 
 <!-- prettier-ignore-start -->
 ```typescript
-<R>(defaultValue: R) => <T>(fn: (value: T) => R) => (maybeValue: undefined | T) => R
+<R>(defaultValue: R) => <T>(fn: (value: T) => R) => (maybeValue: T | undefined) => R
 ```
 <!-- prettier-ignore-end -->
 
@@ -1005,7 +1005,7 @@ Check if the `value` is a
 <!-- prettier-ignore-end -->
 
 Check if the `value` is a
-{@linkhttps://developer.mozilla.org/en-US/docs/Glossary/boolean boolean}.
+[boolean](https://developer.mozilla.org/en-US/docs/Glossary/boolean).
 
 ---
 
@@ -1013,7 +1013,7 @@ Check if the `value` is a
 
 <!-- prettier-ignore-start -->
 ```typescript
-<T>(value: T | Date) => value is Date
+<T>(value: Date | T) => value is Date
 ```
 <!-- prettier-ignore-end -->
 
@@ -1031,7 +1031,7 @@ Check if the `value` is a
 <!-- prettier-ignore-end -->
 
 Check if the `value` is not
-{@linkhttps://developer.mozilla.org/en-US/docs/Glossary/undefined undefined}.
+[undefined](https://developer.mozilla.org/en-US/docs/Glossary/undefined).
 
 ---
 
@@ -1039,7 +1039,7 @@ Check if the `value` is not
 
 <!-- prettier-ignore-start -->
 ```typescript
-<T>(value: T | Error) => value is Error
+<T>(value: Error | T) => value is Error
 ```
 <!-- prettier-ignore-end -->
 
@@ -1052,7 +1052,7 @@ Check if the `value` is an
 
 <!-- prettier-ignore-start -->
 ```typescript
-<T>(value: T | Function) => value is Function
+<T>(value: Function | T) => value is Function
 ```
 <!-- prettier-ignore-end -->
 
@@ -1065,7 +1065,7 @@ Check if the `value` is a
 
 <!-- prettier-ignore-start -->
 ```typescript
-<T>(value: T | Map<unknown, unknown>) => value is Map<unknown, unknown>
+<T>(value: Map<unknown, unknown> | T) => value is Map<unknown, unknown>
 ```
 <!-- prettier-ignore-end -->
 
@@ -1078,7 +1078,7 @@ Check if the `value` is a
 
 <!-- prettier-ignore-start -->
 ```typescript
-<T>(value: T | null | undefined) => value is undefined | null
+<T>(value: T | null | undefined) => value is null | undefined
 ```
 <!-- prettier-ignore-end -->
 
@@ -1133,7 +1133,7 @@ Note that functions and arrays are also objects.
 
 <!-- prettier-ignore-start -->
 ```typescript
-<T>(value: T | RegExp) => value is RegExp
+<T>(value: RegExp | T) => value is RegExp
 ```
 <!-- prettier-ignore-end -->
 
@@ -1146,7 +1146,7 @@ Check if the `value` is a
 
 <!-- prettier-ignore-start -->
 ```typescript
-<T>(value: T | Set<unknown>) => value is Set<unknown>
+<T>(value: Set<unknown> | T) => value is Set<unknown>
 ```
 <!-- prettier-ignore-end -->
 

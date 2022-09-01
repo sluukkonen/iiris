@@ -603,7 +603,7 @@ export function isBigInt<T>(value: T | bigint): value is bigint
 
 /**
  * Check if the `value` is a
- * {@linkhttps://developer.mozilla.org/en-US/docs/Glossary/boolean boolean}.
+ * {@link https://developer.mozilla.org/en-US/docs/Glossary/boolean boolean}.
  *
  * @category Type tests
  */
@@ -619,7 +619,7 @@ export function isDate<T>(value: T | Date): value is Date
 
 /**
  * Check if the `value` is not
- * {@linkhttps://developer.mozilla.org/en-US/docs/Glossary/undefined undefined}.
+ * {@link https://developer.mozilla.org/en-US/docs/Glossary/undefined undefined}.
  *
  * @category Type tests
  */
