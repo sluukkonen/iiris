@@ -53,8 +53,8 @@
   "private": false,
   "sideEffects": false,
   "devDependencies": {
-    "@babel/core": "7.21.0",
-    "@babel/preset-env": "7.20.2",
+    "@babel/core": "7.21.4",
+    "@babel/preset-env": "7.21.4",
     "@rollup/plugin-babel": "5.3.1",
     "@rollup/plugin-replace": "4.0.0",
     "@rollup/plugin-virtual": "2.1.0",
