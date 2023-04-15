@@ -8,7 +8,7 @@
   "license": "MIT",
   "private": true,
   "devDependencies": {
-    "@types/lodash": "4.14.191",
+    "@types/lodash": "4.14.194",
     "@types/ramda": "0.28.23",
     "benchmark": "2.1.4",
     "lodash": "4.17.21",
