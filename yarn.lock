@@ -1674,10 +1674,10 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
-"@types/benchmark@2.1.3":
-  version "2.1.3"
-  resolved "https://registry.yarnpkg.com/@types/benchmark/-/benchmark-2.1.3.tgz#7f62084640c509d5619ad33f4d4a29be044ecbe2"
-  integrity sha512-psuUawgwIy/hSjO4AUDiPBJhJx72e3cBL+YzmVK/5ofRJC02R0NmvrSenGRuSmJc++0j95y2T01xKKNz50FGZw==
+"@types/benchmark@2.1.5":
+  version "2.1.5"
+  resolved "https://registry.yarnpkg.com/@types/benchmark/-/benchmark-2.1.5.tgz#940c1850c18fdfdaee3fd6ed29cd92ae0d445b45"
+  integrity sha512-cKio2eFB3v7qmKcvIHLUMw/dIx/8bhWPuzpzRT4unCPRTD8VdA9Zb0afxpcxOqR4PixRS7yT42FqGS8BYL8g1w==
 
 "@types/color-name@^1.1.1":
   version "1.1.1"
