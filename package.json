@@ -55,7 +55,7 @@
   "devDependencies": {
     "@babel/core": "7.25.2",
     "@babel/preset-env": "7.25.4",
-    "@rollup/plugin-babel": "5.3.1",
+    "@rollup/plugin-babel": "6.0.4",
     "@rollup/plugin-replace": "4.0.0",
     "@rollup/plugin-virtual": "2.1.0",
     "@types/benchmark": "2.1.5",
