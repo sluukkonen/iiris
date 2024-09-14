@@ -56,7 +56,7 @@
     "@babel/core": "7.25.2",
     "@babel/preset-env": "7.25.4",
     "@rollup/plugin-babel": "5.3.1",
-    "@rollup/plugin-replace": "4.0.0",
+    "@rollup/plugin-replace": "5.0.7",
     "@rollup/plugin-virtual": "2.1.0",
     "@types/benchmark": "2.1.5",
     "@types/jest": "27.5.2",
