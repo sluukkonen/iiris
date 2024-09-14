@@ -9,10 +9,10 @@
   "private": true,
   "devDependencies": {
     "@types/lodash": "4.17.7",
-    "@types/ramda": "0.29.6",
+    "@types/ramda": "0.30.2",
     "benchmark": "2.1.4",
     "lodash": "4.17.21",
     "microtime": "3.1.1",
-    "ramda": "0.29.1"
+    "ramda": "0.30.1"
   }
 }
